@@ -13,8 +13,8 @@ jobs:
       with:
         flutter-version: '1.9.1+hotfix.6'
     - name: Install dependencies
-    - run: flutter pub get
+      run: flutter pub get
     - name: Run tests
-    - run: flutter test
+      run: flutter test
     - name: Build apk
-    - run: flutter build apk
+      run: flutter build apk
