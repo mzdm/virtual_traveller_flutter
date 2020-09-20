@@ -9,9 +9,10 @@ jobs:
     - uses: actions/setup-java@v1
       with:
         java-version: '12.x'
-    - uses: subosito/flutter-action@v1
+    - name: Flutter action
+      uses: subosito/flutter-action@v1
       with:
-        flutter-version: '1.9.1+hotfix.6'
+        flutter-version: '1.20.4'
     - name: Install dependencies
       run: flutter pub get
     - name: Run tests
