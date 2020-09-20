@@ -5,6 +5,7 @@
 ```
 
 # Virtual Traveller
+![Build](https://github.com/mzdm/virtual_traveller_flutter/workflows/Tests,%20Build%20apk/badge.svg)
 
 Search for flights and deep dive into large offers of travelling destinations. Discover recommended and popular places. Use virtual mode to simulate travelling there immediately and discover interesting information about the destination.
 
@@ -87,7 +88,7 @@ Using the bloc library allows us to separate our application into three layers:
   - [ ] Web
 
 ### Other:
-- [ ] CI / Github Actions
+- [x] CI / Github Actions
 - [ ] Test coverage milestones
   - [ ] 60%
   - [ ] 80%
