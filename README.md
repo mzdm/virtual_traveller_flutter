@@ -5,7 +5,7 @@
 ```
 
 # Virtual Traveller
-![Build](https://github.com/mzdm/virtual_traveller_flutter/workflows/Tests,%20Build%20apk/badge.svg)
+![Build](https://github.com/mzdm/virtual_traveller_flutter/workflows/build/badge.svg) [![codecov](https://codecov.io/gh/mzdm/virtual_traveller_flutter/branch/master/graph/badge.svg)](https://codecov.io/gh/mzdm/virtual_traveller_flutter)
 
 Search for flights and deep dive into large offers of travelling destinations. Discover recommended and popular places. Use virtual mode to simulate travelling there immediately and discover interesting information about the destination.
 
