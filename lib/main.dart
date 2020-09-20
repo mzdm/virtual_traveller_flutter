@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       home: Container(
-        color: Colors.grey,
+        color: Colors.red,
       ),
     );
   }

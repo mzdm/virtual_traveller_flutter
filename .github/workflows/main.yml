@@ -1,0 +1,20 @@
+on: [push, pull_request]
+name: Tests, Build apk
+jobs:
+  build:
+    name: Run tests & build APK
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '12.x'
+    - uses: subosito/flutter-action@v1
+      with:
+        flutter-version: '1.9.1+hotfix.6'
+    - name: Install dependencies
+    - run: flutter pub get
+    - name: Run tests
+    - run: flutter test
+    - name: Build apk
+    - run: flutter build apk
