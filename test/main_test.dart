@@ -11,7 +11,7 @@ void main() {
     await tester.pumpWidget(
       MyApp(),
     );
-    expect(find.text('Flutter Demo'), findsOneWidget);
+    expect(find.text('Fred'), findsOneWidget);
     expect(find.byType(Container), findsOneWidget);
   });
 }
