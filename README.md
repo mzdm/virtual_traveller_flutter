@@ -5,7 +5,7 @@
 ```
 
 # Virtual Traveller
-![Build](https://github.com/mzdm/virtual_traveller_flutter/workflows/build/badge.svg) [![codecov](https://codecov.io/gh/mzdm/virtual_traveller_flutter/branch/master/graph/badge.svg)](https://codecov.io/gh/mzdm/virtual_traveller_flutter)
+![Build](https://img.shields.io/badge/Framework-Flutter-blue.svg)&nbsp;&nbsp;&nbsp;&nbsp;![Build](https://github.com/mzdm/virtual_traveller_flutter/workflows/build/badge.svg) [![codecov](https://codecov.io/gh/mzdm/virtual_traveller_flutter/branch/master/graph/badge.svg)](https://codecov.io/gh/mzdm/virtual_traveller_flutter)
 
 Search for flights and deep dive into large offers of travelling destinations. Discover recommended and popular places. Use virtual mode to simulate travelling there immediately and discover interesting information about the destination.
 
@@ -20,7 +20,7 @@ Search for flights and deep dive into large offers of travelling destinations. D
 ## Idea
 I wanted to make a flight searching app with interesting suggestions, fully from the scratch. However, due to the current situation with the pandemic, many countries are restricted for particular citizens and travelling there isn't possible. This app has virtual travelling mode, which simulates the travelling here, displays interesting information about the desired location, including picture, points of interests and etc. There's a possibility to save the locations, so you can check them out later!
 
-Powered by the [Tequila API by kiwi.com](https://partners.kiwi.com/our-solutions/tequila/), which fits best for this use.
+Powered by the [-](), which fits best for this use.
 
 ## State management 
 There's no unique rule on what to choose because it always depends on many criterias. When it came to deciding on which state management approach to use in my case, I was deciding between Provider and bloc library. Bloc library is already dependant on Provider package so it is fairly similar in terms of a dependancy injection (DI) (a single instance of a Cubit or Bloc can be provided to all of the widgets within a subtree). [Read more here about bloc library](https://bloclibrary.dev/#/) and [Provider](https://pub.dev/packages/provider).
@@ -30,7 +30,7 @@ The reasons why I decided to use the bloc library in my case were following:
 - big-sized app 
 - easy and reliable tests via bloc_test library, which is based on Mockito
 
-# App Architecture
+## App Architecture
 Using the bloc library allows us to separate our application into three layers:
 
 - Presentation
@@ -90,9 +90,9 @@ Using the bloc library allows us to separate our application into three layers:
 ### Other:
 - [x] CI / Github Actions
 - [ ] Test coverage milestones
+  - [ ] 40%
   - [ ] 60%
   - [ ] 80%
-  - [ ] 100%
 
 ## Powered by these libraries:
 - [flutter_bloc](https://pub.dev/packages/flutter_bloc)
