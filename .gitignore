@@ -39,4 +39,8 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+
+# Other
 /coverage/
+*.freezed.dart
+*.g.dart
