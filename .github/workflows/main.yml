@@ -13,7 +13,6 @@ jobs:
       uses: subosito/flutter-action@v1
       with:
         channel: 'beta'
-    - run: flutter channel master & flutter upgrade
     - name: Install dependencies
       run: flutter pub get
     - name: Code generation for immutable classes
