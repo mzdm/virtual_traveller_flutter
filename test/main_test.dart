@@ -6,12 +6,4 @@ void main() {
   test('a passing test', () {
     expect(true, true);
   });
-
-  testWidgets('widgets', (tester) async {
-    await tester.pumpWidget(
-      MyApp(),
-    );
-    expect(find.text('name'), findsOneWidget);
-    expect(find.byType(Container), findsOneWidget);
-  });
 }
