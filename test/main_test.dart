@@ -12,5 +12,6 @@ void main() {
       MyApp(),
     );
     expect(find.text('Flutter Demo'), findsOneWidget);
+    expect(find.byType(Container), findsOneWidget);
   });
 }
