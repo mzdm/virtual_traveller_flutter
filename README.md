@@ -34,7 +34,7 @@ I wanted to make a flight searching app with interesting suggestions, fully from
 Powered by the [Amadeus for Developers API](https://developers.amadeus.com/), which fits best for this use and offers also free monthly quota for testing! Amadeus Travel APIs connect you to the richest information in the travel industry.
 
 ## Visualizing the flow of the app
-\-
+![visualizing the flow of the app](https://github.com/mzdm/virtual_traveller_flutter/blob/master/github_images/visualmap.png)
 
 ## App Architecture
 Using the bloc library allows us to separate our application into three layers:
