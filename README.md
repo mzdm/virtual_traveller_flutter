@@ -5,14 +5,24 @@
 ```
 
 # Virtual Traveller
-![Build](https://img.shields.io/badge/Framework-Flutter-blue.svg)&nbsp;&nbsp;&nbsp;&nbsp;![Build](https://github.com/mzdm/virtual_traveller_flutter/workflows/build/badge.svg) [![codecov](https://codecov.io/gh/mzdm/virtual_traveller_flutter/branch/master/graph/badge.svg)](https://codecov.io/gh/mzdm/virtual_traveller_flutter)
+![Build](https://img.shields.io/badge/Framework-Flutter-blue.svg)&nbsp;&nbsp;&nbsp;&nbsp;![Build](https://github.com/mzdm/virtual_traveller_flutter/workflows/build/badge.svg) [![codecov](https://codecov.io/gh/mzdm/virtual_traveller_flutter/graph/badge.svg)](https://codecov.io/gh/mzdm/virtual_traveller_flutter)
 
 Search for flights and deep dive into large offers of travelling destinations. Discover recommended and popular places. Hop on on the virtual mode to simulate travelling immediately to your desired destination and learn more about it, including interesting information and points of interests! 🚀
 
-## Contents
-\-
+## Index
+- [Previews](https://github.com/mzdm/virtual_traveller_flutter#previews)
+- [How to run](https://github.com/mzdm/virtual_traveller_flutter#how-to-run)
+- [Idea](https://github.com/mzdm/virtual_traveller_flutter#idea)
+- [Visualizing the flow of the app](https://github.com/mzdm/virtual_traveller_flutter#visualizing-the-flow-of-the-app)
+- [State management](https://github.com/mzdm/virtual_traveller_flutter#state-management)
+- [App Architecture](https://github.com/mzdm/virtual_traveller_flutter#app-architecture)
+- [TO:DO list](https://github.com/mzdm/virtual_traveller_flutter#todo-list)
+- [Powered by libraries](https://github.com/mzdm/virtual_traveller_flutter#powered-by-these-libraries)
+- [UI inspirations](https://github.com/mzdm/virtual_traveller_flutter#ui-inspirations)
+- [Related recommended resources](https://github.com/mzdm/virtual_traveller_flutter#related-recommended-resources)
+- [Contribution](https://github.com/mzdm/virtual_traveller_flutter#contribution)
 
-## Preview
+## Previews
 \-
 
 ## Running the app
@@ -26,14 +36,6 @@ Powered by the [Amadeus for Developers](https://developers.amadeus.com/), which 
 ## Visualizing the flow of the app
 \-
 
-## State management 
-There's no unique rule on what to choose because it always depends on many criteria. When it came to deciding on which state management approach to use in my case, I was deciding between Provider and bloc library. Bloc library is already dependant on Provider package so it is fairly similar in terms of a dependency injection (DI) (a single instance of a Cubit or Bloc can be provided to all of the widgets within a subtree). [Read more here about bloc library](https://bloclibrary.dev/#/) and [Provider](https://pub.dev/packages/provider).
-
-The reasons why I decided to use the bloc library in my case were following:
-- use of the reactive streams, which goes well together with BLoC pattern
-- easy and reliable tests via bloc_test library, which is based on Mockito
-- it isn't only a state management library, but it also helps implement the BLoC (Business Logic Component) design pattern
-
 ## App Architecture
 Using the bloc library allows us to separate our application into three layers:
 
@@ -43,10 +45,22 @@ Using the bloc library allows us to separate our application into three layers:
   - Repository
   - Data Provider
   - Models
-  
-![bloc](https://bloclibrary.dev/assets/bloc_architecture_full.png)
-![cubit](https://bloclibrary.dev/assets/cubit_architecture_full.png)
 
+<p align="center">
+<img height="170" width="auto" src="https://bloclibrary.dev/assets/bloc_architecture_full.png" />
+</p>
+
+<p align="center">
+<img height="170" width="auto" src="https://bloclibrary.dev/assets/cubit_architecture_full.png" />
+</p>
+
+## State management 
+There's no unique rule on what to choose because it always depends on many criteria. When it came to deciding on which state management approach to use in my case, I was deciding between Provider and bloc library. Bloc library is already dependant on Provider package so it is fairly similar in terms of a dependency injection (DI) (a single instance of a Cubit or Bloc can be provided to all of the widgets within a subtree). [Read more here about bloc library](https://bloclibrary.dev/#/) and [Provider](https://pub.dev/packages/provider).
+
+The reasons why I decided to use the bloc library in my case were following:
+- use of the reactive streams, which goes well together with BLoC pattern
+- easy and reliable tests via bloc_test library, which is based on Mockito
+- it isn't only a state management library, but it also helps implement the BLoC (Business Logic Component) design pattern
 
 ## TO:DO list
 ### Basics:
