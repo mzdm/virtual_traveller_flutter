@@ -25,7 +25,7 @@ Search for flights and deep dive into large offers of travelling destinations. D
 ## Previews
 \-
 
-## Running the app
+## How to run
 \-
 
 ## Idea
