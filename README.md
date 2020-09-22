@@ -5,7 +5,7 @@
 ```
 
 # Virtual Traveller
-![Build](https://img.shields.io/badge/Framework-Flutter-blue.svg)&nbsp;&nbsp;&nbsp;&nbsp;![Build](https://github.com/mzdm/virtual_traveller_flutter/workflows/build/badge.svg) [![codecov](https://codecov.io/gh/mzdm/virtual_traveller_flutter/graph/badge.svg)](https://codecov.io/gh/mzdm/virtual_traveller_flutter)
+![Build](https://img.shields.io/badge/Framework-Flutter-blue.svg)&nbsp;&nbsp;&nbsp;&nbsp;![Build](https://github.com/mzdm/virtual_traveller_flutter/workflows/build/badge.svg) [![codecov](https://codecov.io/gh/mzdm/virtual_traveller_flutter/branch/master/graph/badge.svg)](https://codecov.io/gh/mzdm/virtual_traveller_flutter)
 
 Search for flights and deep dive into large offers of travelling destinations. Discover recommended and popular places. Hop on on the virtual mode to simulate travelling immediately to your desired destination and learn more about it, including interesting information and points of interests! 🚀
 
@@ -31,7 +31,7 @@ Search for flights and deep dive into large offers of travelling destinations. D
 ## Idea
 I wanted to make a flight searching app with interesting suggestions, fully from the scratch. However, due to the current situation with the pandemic, many countries are restricted for some citizens so travelling there isn't possible. This app has virtual travelling mode, which simulates the travelling here, displays interesting information about the desired location, including picture, points of interests and etc. There's a possibility to save the locations, so you can check them out later!
 
-Powered by the [Amadeus for Developers](https://developers.amadeus.com/), which fits best for this use and offers a very good free monthly quota for testing!
+Powered by the [Amadeus for Developers API](https://developers.amadeus.com/), which fits best for this use and offers also free monthly quota for testing! Amadeus Travel APIs connect you to the richest information in the travel industry.
 
 ## Visualizing the flow of the app
 \-
@@ -145,6 +145,6 @@ The reasons why I decided to use the bloc library in my case were following:
 - [Freezed ❄ – Data Class & Union in One Dart Package - by Reso Coder](https://resocoder.com/2020/02/11/freezed-data-class-union-in-one-dart-package/#t-1600693077177)
 
 ## Contribution
-The app is still in the development process and isn't sustainable for contributions yet.
+The app is still in the development process and isn't suitable for contributions yet.
 
 ~~If you wish to contribute, file an issue with an appropriate tag or propose a PR. If it is a breaking change, please create an issue first.~~
