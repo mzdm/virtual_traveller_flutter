@@ -2,35 +2,7 @@ import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:http/http.dart' as http;
 
-abstract class AmadeusBaseDataProvider {
-  // Flights related
-  Future<String> getRawNearestAirport(Location location);
-
-  Future<String> getRawFlightOffersSearch();
-
-  Future<String> getRawFlightCheapestDateSearch();
-
-  Future<String> getRawFlightOffersPrice();
-
-  Future<String> getRawAirportCitySearch();
-
-  Future<String> getRawAirlineCodeLookup();
-
-  // Home Page & Destinations related
-  Future<String> getRawFlightInspirationSearch();
-
-  Future<String> getRawFlightMostBooked();
-
-  Future<String> getRawFlightMostTravelled();
-
-  Future<String> getRawTravelRecommendation();
-
-  Future<String> getRawHotelSearch();
-
-  Future<String> getRawPointsOfInterest();
-
-  Future<String> getRawSafePlace();
-}
+import 'base_data.dart';
 
 /// This does the network calls.
 class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
@@ -40,7 +12,8 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
 
   String _accessToken;
 
-  Future<String> getRawDataFromResponse(
+
+  Future<String> getRawDataFromEndpoint(
     String endpointPath,
     Map<String, dynamic> queryParams,
   ) async {
@@ -122,7 +95,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'subType': null,
     };
 
-    return await getRawDataFromResponse(endpointPath, queryParams);
+    return await getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/air/api-doc/airline-code-lookup/api-reference
@@ -133,7 +106,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'airlineCodes': 'SWA',
     };
 
-    return await getRawDataFromResponse(endpointPath, queryParams);
+    return await getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-inspiration-search/api-reference
