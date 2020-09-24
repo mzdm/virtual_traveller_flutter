@@ -16,7 +16,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   ///
   /// Check whether [_accessToken] is still valid otherwise
   /// generate a new one.
-  Future<String> getRawDataFromEndpoint(
+  Future<String> _getRawDataFromEndpoint(
     String endpointPath,
     Map<String, dynamic> queryParams,
   ) async {
@@ -83,7 +83,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'page[limit]': 3,
     };
 
-    return await getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-offers-search/api-reference
@@ -108,7 +108,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'adults': 'value',
     }..removeWhere((key, value) => key == null || value == null);
 
-    return await getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-cheapest-date-search/api-reference
@@ -120,7 +120,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'param1': 'value',
     };
 
-    return await getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-offers-price/api-reference
@@ -132,7 +132,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'param1': 'value',
     };
 
-    return await getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/air/api-doc/airport-and-city-search/api-reference
@@ -144,7 +144,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'param1': 'value',
     };
 
-    return await getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/air/api-doc/airline-code-lookup/api-reference
@@ -156,7 +156,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'airlineCodes': 'SWA',
     };
 
-    return await getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-inspiration-search/api-reference
@@ -168,7 +168,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'param1': 'value',
     };
 
-    return await getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-most-booked-destinations/api-reference
@@ -180,7 +180,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'param1': 'value',
     };
 
-    return await getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-most-traveled-destinations/api-reference
@@ -192,7 +192,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'param1': 'value',
     };
 
-    return await getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/trip/api-doc/travel-recommendations/api-reference
@@ -204,7 +204,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'param1': 'value',
     };
 
-    return await getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search/api-reference
@@ -216,7 +216,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'param1': 'value',
     };
 
-    return await getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/destination-content/api-doc/points-of-interest/api-reference
@@ -228,7 +228,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'param1': 'value',
     };
 
-    return await getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/destination-content/api-doc/safe-place-api/api-reference
@@ -240,6 +240,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'param1': 'value',
     };
 
-    return await getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 }
