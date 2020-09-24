@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/api_service.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/data.dart';
 
+import 'data/data_providers/remote/amadeus_api/base_data.dart';
+
 void main() {
   runApp(MyApp());
 }
