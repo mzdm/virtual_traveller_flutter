@@ -10,8 +10,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
 
   final ApiService _apiService;
 
-  String _accessToken;
-
   /// Fetches the given network call with query parameters.
   ///
   /// Check whether [_accessToken] is still valid otherwise
@@ -24,12 +22,12 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       final response = await http.get(
         _apiService.getUri(endpointPath, queryParams).toString(),
         headers: {
-          'Authorization': 'Bearer $_accessToken',
+          'Authorization': 'Bearer ${_apiService.accessToken}',
         },
       );
 
       print(
-        'Request ${_apiService.getUri(endpointPath, queryParams).toString()} with token: $_accessToken\n'
+        'Request ${_apiService.getUri(endpointPath, queryParams).toString()} with token: ${_apiService.accessToken}\n'
         'Response: ${response.statusCode}: ${response.reasonPhrase}',
       );
 
@@ -41,27 +39,9 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     };
 
     try {
-      return _checkTokenValidation(onChecked: func);
+      return _apiService.checkTokenValidation(onChecked: func);
     } catch (e) {
       print(e);
-      rethrow;
-    }
-  }
-
-  /// Checks if the [_accessToken] is not null and is still valid.
-  ///
-  /// If:
-  ///   - statusCode = 401 = UNAUTHORIZED = Access Token has expired -> generate a new one
-  Future<T> _checkTokenValidation<T>({Future<T> Function() onChecked}) async {
-    try {
-      _accessToken ??= await _apiService.getAccessToken();
-      return await onChecked();
-    } on http.Response catch (response) {
-      if (response.statusCode == 401) {
-        print('token expired, requesting a new one');
-        _accessToken = await _apiService.getAccessToken();
-        return await onChecked();
-      }
       rethrow;
     }
   }

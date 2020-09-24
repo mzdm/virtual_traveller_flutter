@@ -8,12 +8,15 @@ class ApiService {
   static const _apiKey = Secrets.amadeusApiKey;
   static const _secretKey = Secrets.amadeusSecretKey;
 
-
   static const _baseUrl = DebugOptions.productionMode
       ? 'api.amadeus.com'
       : 'test.api.amadeus.com';
 
   static const _authUrl = 'https://test.api.amadeus.com/v1/security/oauth2/token';
+
+  String _accessToken;
+
+  String get accessToken => _accessToken;
 
   // https://developers.amadeus.com/self-service/apis-docs/guides/authorization-262
   Future<String> getAccessToken() async {
@@ -42,6 +45,24 @@ class ApiService {
       'body: ${response.body}',
     );
     throw response;
+  }
+
+  /// Checks if the [_accessToken] is not null and is still valid.
+  ///
+  /// If:
+  ///   - statusCode = 401 = UNAUTHORIZED = Access Token has expired -> generate a new one
+  Future<T> checkTokenValidation<T>({Future<T> Function() onChecked}) async {
+    try {
+      _accessToken ??= await getAccessToken();
+      return await onChecked();
+    } on http.Response catch (response) {
+      if (response.statusCode == 401) {
+        print('token expired, requesting a new one');
+        _accessToken = await getAccessToken();
+        return await onChecked();
+      }
+      rethrow;
+    }
   }
 
   Uri getUri(String endpointPath, [Map<String, dynamic> queryParams]) {
