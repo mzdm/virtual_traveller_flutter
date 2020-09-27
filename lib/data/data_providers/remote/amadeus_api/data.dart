@@ -113,7 +113,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   @override
   Future<String> getRawFlightCheapestDateSearch() async {
     // TODO
-    final endpointPath = 'v1/path';
+    final endpointPath = 'v1/shopping/flight-dates';
     final queryParams = {
       '__': '__',
     }..removeWhere((_, value) => value == null);
@@ -155,7 +155,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   @override
   Future<String> getRawAirportCitySearch() async {
     // TODO
-    final endpointPath = 'v1/path';
+    final endpointPath = 'v1/reference-data/locations';
     final queryParams = {
       '__': '__',
     }..removeWhere((_, value) => value == null);
@@ -194,7 +194,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   @override
   Future<String> getRawFlightInspirationSearch() async {
     // TODO
-    final endpointPath = 'v1/path';
+    final endpointPath = 'v1/shopping/flight-destinations';
     final queryParams = {
       '__': '__',
     }..removeWhere((_, value) => value == null);
@@ -214,7 +214,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   @override
   Future<String> getRawFlightMostBooked() async {
     // TODO
-    final endpointPath = 'v1/path';
+    final endpointPath = 'v1/travel/analytics/air-traffic/booked';
     final queryParams = {
       '__': '__',
     }..removeWhere((_, value) => value == null);
@@ -234,7 +234,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   @override
   Future<String> getRawFlightMostTravelled() async {
     // TODO
-    final endpointPath = 'v1/path';
+    final endpointPath = 'v1/travel/analytics/air-traffic/traveled';
     final queryParams = {
       '__': '__',
     }..removeWhere((_, value) => value == null);
@@ -254,7 +254,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   @override
   Future<String> getRawTravelRecommendation() async {
     // TODO
-    final endpointPath = 'v1/path';
+    final endpointPath = 'v1/reference-data/recommended-locations';
     final queryParams = {
       '__': '__',
     }..removeWhere((_, value) => value == null);
@@ -278,7 +278,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   @override
   Future<String> getRawHotelSearch() async {
     // TODO
-    final endpointPath = 'v1/path';
+    final endpointPath = 'v2/shopping/hotel-offers';
     final queryParams = {
       '__': '__',
     }..removeWhere((_, value) => value == null);
@@ -297,7 +297,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   @override
   Future<String> getRawPointsOfInterest() async {
     // TODO
-    final endpointPath = 'v1/path';
+    final endpointPath = 'v1/reference-data/locations/pois';
     final queryParams = {
       '__': '__',
     }..removeWhere((_, value) => value == null);
@@ -318,7 +318,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   @override
   Future<String> getRawSafePlace() async {
     // TODO
-    final endpointPath = 'v1/path';
+    final endpointPath = 'v1/safety/safety-rated-locations';
     final queryParams = {
       '__': '__',
     }..removeWhere((_, value) => value == null);
