@@ -121,29 +121,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // https://developers.amadeus.com/self-service/category/air/api-doc/flight-offers-price/api-reference
-  /// *"What's the final price for this flight?"*
-  ///
-  /// The price and availability of airfare fluctuate constantly, so it's necessary to
-  /// confirm the real-time price before proceeding to book. The Flight Offers Price API
-  /// confirms the availability and final price (including taxes and fees) of
-  /// flights returned by the Flight Offers Search API. The API also provides pricing for
-  /// ancillary products like additional bags or extra-legroom seats and the details on
-  /// the payment information required to complete the booking. This API forms the second step in
-  /// the [flight booking flow](https://developers.amadeus.com/get-started/create-a-flight-booking-engine-651).
-  /// It is used to confirm the price of flights returned by [Flight Offers Search](https://developers.amadeus.com/self-service/category/air/api-doc/flight-offers-price)
-  /// before booking with [Flight Create Orders](https://developers.amadeus.com/self-service/category/air/api-doc/flight-create-orders).
-  @override
-  Future<String> getRawFlightOffersPrice() async {
-    // TODO // maybe remove
-    final endpointPath = 'v1/path';
-    final queryParams = {
-      '__': '__',
-    }..removeWhere((_, value) => value == null);
-
-    return await _getRawDataFromEndpoint(endpointPath, queryParams);
-  }
-
   // https://developers.amadeus.com/self-service/category/air/api-doc/airport-and-city-search/api-reference
   /// *"Which cities and airports begin with Lon..?"*
   ///

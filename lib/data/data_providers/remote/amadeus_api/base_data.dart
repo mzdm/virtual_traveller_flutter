@@ -8,8 +8,6 @@ abstract class AmadeusBaseDataProvider {
 
   Future<String> getRawFlightCheapestDateSearch();
 
-  Future<String> getRawFlightOffersPrice();
-
   Future<String> getRawAirportCitySearch();
 
   Future<String> getRawAirlineCodeLookup();
