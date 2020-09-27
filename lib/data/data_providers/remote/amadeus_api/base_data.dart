@@ -23,7 +23,7 @@ abstract class AmadeusBaseDataProvider {
 
   Future<String> getRawHotelSearch();
 
-  Future<String> getRawPointsOfInterest();
+  Future<String> getRawPointsOfInterest(Location location);
 
-  Future<String> getRawSafePlace();
+  Future<String> getRawSafePlace(Location location);
 }

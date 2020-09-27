@@ -98,7 +98,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'nonStop': false, // if set to true, the search will find only flights going from the origin to the destination with no stop in between
       'currencyCode': 'EUR', // the preferred currency for the flight offers, currency is specified in the ISO 4217 format, e.g. EUR for Euro
       'maxPrice': 500, // maximum price per traveler, by default, no limit is applied, if specified, the value should be a positive number with no decimals
-      'max': 100, // maximum number of flight offers to return, if specified, the value should be greater than or equal to 1
+      'max': 100, // maximum number of flight offers to return, if specified, the value should be greater than or equal to 1 (default 250)
     };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
@@ -150,10 +150,13 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// including various airline codes in the same request.
   @override
   Future<String> getRawAirlineCodeLookup() async {
-    // TODO
     final endpointPath = 'v1/reference-data/airlines';
     final queryParams = {
-      'airlineCodes': 'SWA',
+      // Code of the airline following IATA standard (IATA table codes: http://www.iata.org/publications/Pages/code-search.aspx)
+      // or ICAO standard (ICAO airlines table codes: https://en.wikipedia.org/wiki/List_of_airline_codes).
+
+      // Several airlines can be selected at once by sending a list separated by a coma (i.e. AF, SWA).
+      'airlineCodes': 'BA',
     };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
@@ -274,10 +277,13 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// tags and score for each one. The scores are powered by the [AVUXI TopPlace](https://www.avuxi.com/)
   /// algorithm which analyzes millions of online reviews, photos and comments to determine popularity.
   @override
-  Future<String> getRawPointsOfInterest() async {
+  Future<String> getRawPointsOfInterest(Location location) async {
     // TODO
     final endpointPath = 'v1/reference-data/locations/pois';
     final queryParams = {
+      'latitude': location.lat, // ---REQUIRED---
+      'longitude': location.long, // ---REQUIRED---
+      '__': '__',
       '__': '__',
     };
 
@@ -295,11 +301,12 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// algorithm which analyzes crime, health and economic data, official travel alerts,
   /// local reporting and a variety of other sources.
   @override
-  Future<String> getRawSafePlace() async {
-    // TODO
+  Future<String> getRawSafePlace(Location location) async {
     final endpointPath = 'v1/safety/safety-rated-locations';
     final queryParams = {
-      '__': '__',
+      'latitude': location.lat, // ---REQUIRED---
+      'longitude': location.long, // ---REQUIRED---
+      'page[limit]': 1, // maximum items in one page (enough is to see safety only of the city and not also of the each district)
     };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
