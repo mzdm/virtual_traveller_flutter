@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/api_service.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/data.dart';
+import 'package:virtual_traveller_flutter/data/models/location.dart';
 
 import 'data/data_providers/remote/amadeus_api/base_data.dart';
 
@@ -39,7 +40,8 @@ class _MyAppState extends State<MyApp> {
                   child: Text('TEST'),
                   color: Colors.white,
                   onPressed: () async {
-                    final rawData = await _dataProvider.getRawAirlineCodeLookup();
+                    // final rawData = await _dataProvider.getRawAirlineCodeLookup();
+                    final rawData = await _dataProvider.getRawSafePlace(Location(lat: 51.509865, long: -0.118092));
                     print('btn clicked ...\n$rawData');
                   },
                 ),

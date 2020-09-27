@@ -65,7 +65,7 @@ class ApiService {
     }
   }
 
-  Uri getUri(String endpointPath, [Map<String, dynamic> queryParams]) {
+  Uri getUri(String endpointPath, [Map<String, String> queryParams]) {
     return Uri(
       scheme: 'https',
       host: _baseUrl,

@@ -19,7 +19,13 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     Map<String, dynamic> queryParams,
   ) async {
     final Function func = () async {
-      queryParams.removeWhere((_, value) => value == null);
+      final valueSafeMap = <String, String>{};
+      queryParams.forEach((key, value) {
+        if (value != null) {
+          valueSafeMap[key] = value.toString();
+        }
+      });
+      queryParams = valueSafeMap;
 
       final response = await http.get(
         _apiService.getUri(endpointPath, queryParams).toString(),
