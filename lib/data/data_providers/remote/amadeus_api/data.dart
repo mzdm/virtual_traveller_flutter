@@ -59,8 +59,8 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   Future<String> getRawNearestAirport(Location location) async {
     final endpointPath = 'v1/reference-data/locations/airports';
     final queryParams = {
-      'latitude': location.lat, // ---required---
-      'longitude': location.long, // ---required---
+      'latitude': location.lat, // ---REQUIRED---
+      'longitude': location.long, // ---REQUIRED---
       'page[limit]': 3 // maximum items in one page
     };
 
@@ -85,11 +85,11 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   Future<String> getRawFlightOffersSearch() async {
     final endpointPath = 'v2/shopping/flight-offers';
     final queryParams = {
-      'originLocationCode': 'SYD', // ---required---; IATA code
-      'destinationLocationCode': 'BKK', // ---required---; IATA code
-      'departureDate': '2017-12-25', // ---required---; ISO 8601 YYYY-MM-DD format, e.g. 2017-12-25
+      'originLocationCode': 'SYD', // ---REQUIRED---, IATA code
+      'destinationLocationCode': 'BKK', // ---REQUIRED---, IATA code
+      'adults': 1, // ---REQUIRED---, the number of adult travelers (age 12 or older on date of departure)
+      'departureDate': '2017-12-25', // ---REQUIRED---, ISO 8601 YYYY-MM-DD format, e.g. 2017-12-25
       'returnDate': '2018-02-28', // format same as departureDate, if null then it is one-way, otherwise round-trip
-      'adults': 1, // ---required---, the number of adult travelers (age 12 or older on date of departure)
       'children': 0, // the number of child travelers (older than age 2 and younger than age 12 on date of departure)
       'infants': 0, // the number of infant travelers (whose age is less or equal to 2 on date of departure), infants travel on the lap of an adult traveler, and thus the number of infants must not exceed the number of adults
       'travelClass': 'ECONOMY', // ECONOMY, PREMIUM_ECONOMY, BUSINESS, FIRST; if no travel class is specified, the search considers any travel class
