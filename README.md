@@ -131,6 +131,7 @@ The reasons why I decided to use the bloc library in my case were following:
     - [flutter_blurhash](https://pub.dev/packages/flutter_blurhash)
     - [intro_slider](https://pub.dev/packages/intro_slider)
     - [responsive_builder](https://pub.dev/packages/responsive_builder)
+    - [auto_size_text](https://pub.dev/packages/auto_size_text)
     - [animations](https://pub.dev/packages/animations)
 
 ## UI inspirations
