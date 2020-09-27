@@ -19,6 +19,8 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     Map<String, dynamic> queryParams,
   ) async {
     final Function func = () async {
+      queryParams.removeWhere((_, value) => value == null);
+
       final response = await http.get(
         _apiService.getUri(endpointPath, queryParams).toString(),
         headers: {
@@ -97,7 +99,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'currencyCode': 'EUR', // the preferred currency for the flight offers, currency is specified in the ISO 4217 format, e.g. EUR for Euro
       'maxPrice': 500, // maximum price per traveler, by default, no limit is applied, if specified, the value should be a positive number with no decimals
       'max': 100, // maximum number of flight offers to return, if specified, the value should be greater than or equal to 1
-    }..removeWhere((_, value) => value == null);
+    };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
@@ -116,7 +118,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     final endpointPath = 'v1/shopping/flight-dates';
     final queryParams = {
       '__': '__',
-    }..removeWhere((_, value) => value == null);
+    };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
@@ -135,7 +137,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     final endpointPath = 'v1/reference-data/locations';
     final queryParams = {
       '__': '__',
-    }..removeWhere((_, value) => value == null);
+    };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
@@ -152,7 +154,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     final endpointPath = 'v1/reference-data/airlines';
     final queryParams = {
       'airlineCodes': 'SWA',
-    }..removeWhere((_, value) => value == null);
+    };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
@@ -174,7 +176,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     final endpointPath = 'v1/shopping/flight-destinations';
     final queryParams = {
       '__': '__',
-    }..removeWhere((_, value) => value == null);
+    };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
@@ -194,7 +196,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     final endpointPath = 'v1/travel/analytics/air-traffic/booked';
     final queryParams = {
       '__': '__',
-    }..removeWhere((_, value) => value == null);
+    };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
@@ -214,7 +216,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     final endpointPath = 'v1/travel/analytics/air-traffic/traveled';
     final queryParams = {
       '__': '__',
-    }..removeWhere((_, value) => value == null);
+    };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
@@ -234,7 +236,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     final endpointPath = 'v1/reference-data/recommended-locations';
     final queryParams = {
       '__': '__',
-    }..removeWhere((_, value) => value == null);
+    };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
@@ -258,7 +260,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     final endpointPath = 'v2/shopping/hotel-offers';
     final queryParams = {
       '__': '__',
-    }..removeWhere((_, value) => value == null);
+    };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
@@ -277,7 +279,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     final endpointPath = 'v1/reference-data/locations/pois';
     final queryParams = {
       '__': '__',
-    }..removeWhere((_, value) => value == null);
+    };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
@@ -298,7 +300,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     final endpointPath = 'v1/safety/safety-rated-locations';
     final queryParams = {
       '__': '__',
-    }..removeWhere((_, value) => value == null);
+    };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
