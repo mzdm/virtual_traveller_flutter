@@ -40,6 +40,9 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
+# Contains API keys
+lib/data/data_providers/remote/secrets_hidden.dart
+
 # Other
 /coverage/
 *.freezed.dart
