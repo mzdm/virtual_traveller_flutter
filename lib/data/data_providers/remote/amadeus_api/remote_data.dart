@@ -173,28 +173,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // https://developers.amadeus.com/self-service/category/air/api-doc/flight-inspiration-search/api-reference
-  /// *"What are the cheapest places to fly from Boston?*
-  ///
-  /// Help travelers discover their next destination by finding the cheapest
-  /// flight destinations from a specific city. The Flight Inspiration Search API provides
-  /// a list of destinations from a given city that is ordered by price and
-  /// can be filtered by departure date or maximum price. The API provides
-  /// a link to [Flight Offers Search](https://developers.amadeus.com/self-service/category/air/api-doc/flight-offers-search)
-  /// to search for flights once a destination is chosen and a link to
-  /// [Flight Cheapest Date Search](https://developers.amadeus.com/self-service/category/air/api-doc/flight-cheapest-date-search)
-  /// to check the cheapest dates to fly.
-  @override
-  Future<String> getRawFlightInspirationSearch() async {
-    // TODO
-    final endpointPath = 'v1/shopping/flight-destinations';
-    final queryParams = {
-      '__': '__',
-    };
-
-    return await _getRawDataFromEndpoint(endpointPath, queryParams);
-  }
-
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-most-booked-destinations/api-reference
   /// *"Which destinations are most frequently booked by travelers in New Delhi?"*
   ///

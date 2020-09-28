@@ -13,8 +13,6 @@ abstract class AmadeusBaseDataProvider {
   Future<String> getRawAirlineCodeLookup();
 
   // Home Page & Destinations related
-  Future<String> getRawFlightInspirationSearch();
-
   Future<String> getRawFlightMostBooked();
 
   Future<String> getRawFlightMostTravelled();
