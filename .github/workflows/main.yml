@@ -24,4 +24,4 @@ jobs:
       with:
         file: coverage/lcov.info
     - name: Build apk
-      run: flutter build apk
+      run: flutter build apk --split-per-abi
