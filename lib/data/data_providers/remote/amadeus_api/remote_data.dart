@@ -120,10 +120,14 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// to complete the flight search using the chosen dates.
   @override
   Future<String> getRawFlightCheapestDateSearch() async {
-    // TODO
     final endpointPath = 'v1/shopping/flight-dates';
     final queryParams = {
-      '__': '__',
+      'origin': 'SYD', // ---REQUIRED---, IATA code of the city from which the flight will depart, e.g. MAD for Madrid http://www.iata.org/publications/Pages/code-search.aspx
+      'destination': 'MUC', // ---REQUIRED---, IATA code of the city to which the flight is going
+      'departureDate': '2019-09-15', // the date, or range of dates, on which the flight will depart from the origin. Dates are specified in the ISO 8601 YYYY-MM-DD format, e.g. 2017-12-25. Ranges are specified with a comma and are inclusive
+      'oneWay': true, // if this parameter is set to true, only one-way flights are considered. If this parameter is not set or set to false, only round-trip flights are considered. Default: false
+      'nonStop': false, // if set to true, the search will find only flights going from the origin to the destination with no stop in between
+      'maxPrice': 500, // defines the price limit for each offer returned. The value should be a positive number, without decimals
     };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
@@ -139,10 +143,11 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// coordinates of each airport.
   @override
   Future<String> getRawAirportCitySearch() async {
-    // TODO
     final endpointPath = 'v1/reference-data/locations';
     final queryParams = {
-      '__': '__',
+      'subType': ['AIRPORT', 'CITY'], // --REQUIRED--, array[string], sub type of the location (AIRPORT and/or CITY). Available values : AIRPORT, CITY
+      'keyword': 'MUC', // --REQUIRED--, keyword that should represent the start of a word in a city or airport name or code
+      'page[limit]': 10, // maximum items in one page, default value: 10
     };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
@@ -201,10 +206,12 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// percentage of total passenger departures).
   @override
   Future<String> getRawFlightMostBooked() async {
-    // TODO
     final endpointPath = 'v1/travel/analytics/air-traffic/booked';
     final queryParams = {
-      '__': '__',
+      'originCityCode': 'MAD', // ---REQUIRED--- Code for the origin city following IATA standard (IATA table codes). - e.g. BOS for Boston. http://www.iata.org/publications/Pages/code-search.aspx
+      'period': '2019-09', // Period when consumers are traveling. It can be a month only. ISO format must be used - e.g. 2015-05. Period ranges are not supported. Only periods from 2011-01 up to previous month are valid. Future dates are not supported.
+      'max': 15, // Maximum number of destinations in the response. Default value is 10 and maximum value is 50.
+      'page[limit]': 15, // maximum items in one page, default value : 10
     };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
@@ -221,10 +228,12 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// (number of passengers traveling to the destination as a percentage of total passenger departures).
   @override
   Future<String> getRawFlightMostTravelled() async {
-    // TODO
     final endpointPath = 'v1/travel/analytics/air-traffic/traveled';
     final queryParams = {
-      '__': '__',
+      'originCityCode': 'MAD', // ---REQUIRED--- Code for the origin city following IATA standard (IATA table codes). - e.g. BOS for Boston http://www.iata.org/publications/Pages/code-search.aspx
+      'period': '2019-09', // ---REQUIRED--- Period when consumers are traveling. It can be a month only. ISO 8601 format must be used - e.g. 2015-05. Period ranges are not supported. Only periods from 2011-01 up to previous month are valid. Future dates are not supported. https://en.wikipedia.org/wiki/ISO_8601
+      'max': 15, // maximum number of destinations in the response. Default value is 10 and maximum value is 50.
+      'page[limit]': 15, // maximum items in one page, default is 10
     };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
@@ -239,12 +248,18 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// trained on Amadeus historical flight search data to determine which destinations are
   /// also popular among travelers with similar profiles, and provides a list of
   /// recommended destinations with name, IATA code, coordinates and similarity score.
+  ///
+  /// Use case in this app:
+  ///   - store locally city codes which user has searched for and use them
+  ///    for recommendations
+  ///   - if it is first time user, display random
   @override
   Future<String> getRawTravelRecommendation() async {
-    // TODO
     final endpointPath = 'v1/reference-data/recommended-locations';
     final queryParams = {
-      '__': '__',
+      'cityCodes': 'PAR', // ---REQUIRED--- City used by the algorithm to recommend new destination. Several cities can be specified using comma. City codes follow IATA standard http://www.iata.org/publications/Pages/code-search.aspx
+      'travelerCountryCode': 'FR', // Origin country of the traveler following IATA standard. Default value : FR
+      'destinationCountryCodes': null, // List of country the traveler want to visit, separated with comma. Country codes follow IATA standard.
     };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
@@ -265,10 +280,23 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// to build a complete [hotel booking engine](https://developers.amadeus.com/blog/build-hotel-booking-engine-amadeus-api).
   @override
   Future<String> getRawHotelSearch() async {
-    // TODO
     final endpointPath = 'v2/shopping/hotel-offers';
     final queryParams = {
-      '__': '__',
+      'cityCode': 'PAR', // ---REQUIRED--- Destination City Code (or Airport Code). In case of city code, the search will be done around the city center. Available codes can be found in IATA table codes (3 chars IATA Code). http://www.iata.org/publications/Pages/code-search.aspx
+      'ratings': [5, 4, 3], // array[integer], hotel stars, up to 4 values can be requested at the same time in a comma separated list
+      'page[limit]': 20,
+
+      // requested language of descriptive texts:
+      // examples: FR , fr , fr-FR
+      // if a language is not available the text will be returned in english
+      // ISO language code (https://www.iso.org/iso-639-language-codes.html)
+      'lang': 'en-US',
+
+      // hotel descriptive content to include in the response:
+      //  - NONE: geocoordinates, hotel distance
+      //  - LIGHT: NONE view + city name, phone number, fax, address, postal code, country code, state code, ratings, 1 image
+      //  - FULL: LIGHT view + hotel description, amenities and facilities
+      'view': 'FULL',
     };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
@@ -284,13 +312,13 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// algorithm which analyzes millions of online reviews, photos and comments to determine popularity.
   @override
   Future<String> getRawPointsOfInterest(Location location) async {
-    // TODO
     final endpointPath = 'v1/reference-data/locations/pois';
     final queryParams = {
       'latitude': location.lat, // ---REQUIRED---
       'longitude': location.long, // ---REQUIRED---
-      '__': '__',
-      '__': '__',
+      'categories': 'SIGHTS', // array[string], category of the location. Available values (multiple can be used): SIGHTS, NIGHTLIFE, RESTAURANT, SHOPPING
+      'radius': 10, // radius of the search in kilometer, can be from 0 to 20, default value is 1 km
+      'page[limit]': 1, // maximum items in one page (enough is to see safety only of the city and not also of the each district)
     };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
