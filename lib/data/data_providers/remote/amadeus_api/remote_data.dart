@@ -227,6 +227,9 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// also popular among travelers with similar profiles, and provides a list of
   /// recommended destinations with name, IATA code, coordinates and similarity score.
   ///
+  /// The API recommends destinations for travelers in the following countries of departure:
+  ///   - France, UK, Germany, Italy, Spain, Netherlands, USA, Argentina, Mexico and South Africa
+  ///
   /// Use case in this app:
   ///   - store locally city codes which user has searched for and use them
   ///    for recommendations
@@ -288,6 +291,8 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// name, coordinates, category (sights, beach/park, historical, nightlife, restaurant or shopping),
   /// tags and score for each one. The scores are powered by the [AVUXI TopPlace](https://www.avuxi.com/)
   /// algorithm which analyzes millions of online reviews, photos and comments to determine popularity.
+  ///
+  /// Scores indicate positive traveler sentiments and may not reflect the most visited attractions.
   @override
   Future<String> getRawPointsOfInterest(Location location) async {
     final endpointPath = 'v1/reference-data/locations/pois';
