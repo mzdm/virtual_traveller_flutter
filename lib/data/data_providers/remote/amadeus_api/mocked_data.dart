@@ -1,5 +1,7 @@
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/base_data.dart';
 
+/// Use for tests & when playing with things so API quota is saved.
+/// TODO: Reduce repetitive lines
 class AmadeusMockedDataProvider implements AmadeusBaseDataProvider {
   Future<T> simulateRemoteDataDelay<T>(T data) {
     return Future.delayed(Duration(milliseconds: 1500), () => data);
