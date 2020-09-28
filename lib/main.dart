@@ -1,56 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/api_service.dart';
-import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/mocked_data.dart';
-import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/remote_data.dart';
-import 'package:virtual_traveller_flutter/data/models/location.dart';
+import 'package:virtual_traveller_flutter/ui/pages/flights_page.dart';
 
-import 'data/data_providers/remote/amadeus_api/base_data.dart';
+import 'ui/pages/home_page/home_page.dart';
 
-void main() {
-  runApp(MyApp());
+void main() => runApp(MainApp());
+
+class MainApp extends StatefulWidget {
+  @override
+  _MainAppState createState() => _MainAppState();
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
+class _MainAppState extends State<MainApp> {
+  int _currActiveTabIndex = 0;
 
-class _MyAppState extends State<MyApp> {
-  AmadeusBaseDataProvider _dataProvider;
-
-  @override
-  void initState() {
-    super.initState();
-    // _dataProvider = AmadeusRemoteDataProvider(ApiService());
-    _dataProvider = AmadeusMockedDataProvider();
-  }
+  final _bottomNavPages = <Widget>[
+    HomePage(),
+    FlightPage(),
+    HomePage(),
+    HomePage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'MaterialApp',
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Container(
-          color: Colors.red,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('name'),
-                SizedBox(height: 50),
-                MaterialButton(
-                  child: Text('TEST'),
-                  color: Colors.white,
-                  onPressed: () async {
-                    // final rawData = await _dataProvider.getRawAirlineCodeLookup();
-                    // final rawData = await _dataProvider.getRawSafePlace(Location(lat: 51.509865, long: -0.118092));
-                    final rawData = await _dataProvider.getRawNearestAirport(null);
-                    print('btn clicked ...\n$rawData');
-                  },
-                ),
-              ],
+        body: _bottomNavPages[_currActiveTabIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _currActiveTabIndex ?? 0,
+          items: [
+            BottomNavigationBarItem(
+              title: Text('Home'),
+              icon: Icon(Icons.home),
             ),
-          ),
+            BottomNavigationBarItem(
+              title: Text('Flights'),
+              icon: Icon(Icons.flight),
+            ),
+            BottomNavigationBarItem(
+              title: Text('Favorites'),
+              icon: Icon(Icons.favorite),
+            ),
+            BottomNavigationBarItem(
+              title: Text('Settings'),
+              icon: Icon(Icons.settings),
+            ),
+          ],
+          onTap: (index) => setState(() => _currActiveTabIndex = index),
         ),
       ),
     );
