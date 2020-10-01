@@ -145,6 +145,7 @@ The reasons why I decided to use the bloc library in my case were following:
 - [Great YouTube channel about the BLoC Architecture](https://www.youtube.com/channel/UC5PYcSe3to4mtm3SPCUmjvw)
 - [bloc library docs](https://bloclibrary.dev/#/)
 - [Freezed ❄ – Data Class & Union in One Dart Package - by Reso Coder](https://resocoder.com/2020/02/11/freezed-data-class-union-in-one-dart-package/#t-1600693077177)
+- [Flutter Internationalization User Guide](http://flutter.dev/go/i18n-user-guide)
 
 ## Contribution
 The app is still in the development process and isn't suitable for contributions yet.
