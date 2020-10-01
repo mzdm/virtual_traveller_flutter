@@ -9,7 +9,7 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.light,
-      statusBarColor: ThemeUtils.primaryDefaultColorBlue,
+      statusBarColor: ColorUtils.primaryDefaultColorBlue,
     ),
   );
 
