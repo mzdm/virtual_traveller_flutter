@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:virtual_traveller_flutter/ui/pages/flights_page.dart';
+import 'package:virtual_traveller_flutter/utils/theme_utils.dart';
 
 import 'ui/pages/home_page/home_page.dart';
 
-void main() => runApp(MainApp());
+void main() {
+  runApp(MainApp());
+}
 
 class MainApp extends StatefulWidget {
   @override
@@ -24,6 +28,7 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeUtils.defaultDarkBlueTheme,
       home: Scaffold(
         body: _bottomNavPages[_currActiveTabIndex],
         bottomNavigationBar: BottomNavigationBar(
