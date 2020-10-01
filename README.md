@@ -135,8 +135,9 @@ The reasons why I decided to use the bloc library in my case were following:
     - [animations](https://pub.dev/packages/animations)
 
 ## UI inspirations
-- <https://material.io/design/material-studies/crane.html>
-- []()
+- [Material Design - Crane Travel App](https://material.io/design/material-studies/crane.html)
+- [Search Flights - Mobile Booking App UI Design by Nitish Khagwal](https://dribbble.com/shots/10749939-Search-Flights-Mobile-Booking-App-UI-Design)
+- [Flight Tickets Deal Tracker App | Day 340/365 - Project365 by Kishore](https://dribbble.com/shots/5662956-Flight-Tickets-Deal-Tracker-App-Day-340-365-Project365)
 
 ## Related recommended resources
 - [Amadeus for Developers API Overview](https://github.com/amadeus4dev/hackathon-starter/blob/master/cheatsheets/amadeus4dev.pdf)
