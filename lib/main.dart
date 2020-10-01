@@ -6,6 +6,13 @@ import 'package:virtual_traveller_flutter/utils/theme_utils.dart';
 import 'ui/pages/home_page/home_page.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.light,
+      statusBarColor: ThemeUtils.primaryDefaultColorBlue,
+    ),
+  );
+
   runApp(MainApp());
 }
 
@@ -44,7 +51,7 @@ class _MainAppState extends State<MainApp> {
               icon: Icon(Icons.flight),
             ),
             BottomNavigationBarItem(
-              title: Text('Favorites'),
+              title: Text('Watchlist'),
               icon: Icon(Icons.favorite),
             ),
             BottomNavigationBarItem(
