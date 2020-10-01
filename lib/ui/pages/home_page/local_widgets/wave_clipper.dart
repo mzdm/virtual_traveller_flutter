@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 /// Clip widget in wave shape shape
 class WaveClipper extends CustomClipper<Path> {
   @override
-  Path getClip(Size screenSize) {
-    final size = Size(screenSize.width, screenSize.height * .45);
-
+  Path getClip(Size size) {
     final firstEndPoint = Offset(size.width * .5, size.height - 20);
     final firstControlPoint = Offset(size.width * .25, size.height - 45);
     final secondEndPoint = Offset(size.width, size.height - 50);
@@ -33,5 +31,5 @@ class WaveClipper extends CustomClipper<Path> {
   }
 
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }
