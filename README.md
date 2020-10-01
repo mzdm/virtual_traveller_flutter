@@ -106,6 +106,7 @@ The reasons why I decided to use the bloc library in my case were following:
   - [ ] Web
 
 ### Other:
+- [ ] ~~Null safety~~ (not possible yet)
 - [x] CI / Github Actions
 - [ ] Test coverage milestones
   - [ ] 40%
