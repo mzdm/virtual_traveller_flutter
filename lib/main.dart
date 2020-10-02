@@ -26,12 +26,7 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   int _currActiveTabIndex = 0;
 
-  final _bottomNavPages = <Widget>[
-    HomePage(),
-    FlightPage(),
-    WatchlistPage(),
-    SettingsPage(),
-  ];
+  final PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +34,16 @@ class _MainAppState extends State<MainApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeUtils.defaultDarkBlueTheme,
       home: Scaffold(
-        body: _bottomNavPages[_currActiveTabIndex],
+        body: PageView(
+          controller: _pageController,
+          onPageChanged: (index) => setState(() => _currActiveTabIndex = index),
+          children: <Widget>[
+            HomePage(),
+            FlightPage(),
+            WatchlistPage(),
+            SettingsPage(),
+          ],
+        ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: _currActiveTabIndex ?? 0,
@@ -61,7 +65,12 @@ class _MainAppState extends State<MainApp> {
               icon: Icon(Icons.settings),
             ),
           ],
-          onTap: (index) => setState(() => _currActiveTabIndex = index),
+          onTap: (index) {
+            setState(() {
+              _currActiveTabIndex = index;
+              _pageController.jumpToPage(index);
+            });
+          },
         ),
       ),
     );
