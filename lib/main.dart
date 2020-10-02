@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:virtual_traveller_flutter/ui/pages/settings_page/settings_page.dart';
-import 'package:virtual_traveller_flutter/ui/pages/watchlist_page/watchlist_page.dart';
 import 'package:virtual_traveller_flutter/utils/theme_utils.dart';
 
-import 'ui/pages/flights_page/flights_page.dart';
-import 'ui/pages/home_page/home_page.dart';
+import 'presentation/pages/flights_page/flights_page.dart';
+import 'presentation/pages/home_page/home_page.dart';
+import 'presentation/pages/settings_page/settings_page.dart';
+import 'presentation/pages/watchlist_page/watchlist_page.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(

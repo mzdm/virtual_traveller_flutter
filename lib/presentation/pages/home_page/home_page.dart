@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:virtual_traveller_flutter/ui/pages/home_page/local_widgets/wave_clipper.dart';
 
 import 'local_widgets/rounded_card.dart';
+import 'local_widgets/wave_clipper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
