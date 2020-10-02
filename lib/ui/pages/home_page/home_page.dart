@@ -72,6 +72,7 @@ class HomePage extends StatelessWidget {
       ),
       SizedBox(height: 35.0),
       SizedBox(
+        height: 45.0,
         width: MediaQuery.of(context).size.width * .85,
         child: TextField(
           decoration: InputDecoration(
@@ -85,6 +86,7 @@ class HomePage extends StatelessWidget {
             suffixIcon: Icon(Icons.search, color: Colors.grey, size: 16.0),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25.0),
+              borderSide: BorderSide.none,
             ),
           ),
         ),
