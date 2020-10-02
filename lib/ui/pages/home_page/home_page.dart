@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * .5,
+                height: MediaQuery.of(context).size.height * .4,
                 child: ClipPath(
                   clipper: WaveClipper(),
                   child: Container(
@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
                     child: Column(
                       children: [
                         waveDepartureContent(),
-                        SizedBox(height: 70.0),
+                        SizedBox(height: 35.0),
                         ...waveFlightContent(context),
                       ],
                     ),
@@ -70,7 +70,7 @@ class HomePage extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      SizedBox(height: 55.0),
+      SizedBox(height: 35.0),
       SizedBox(
         width: MediaQuery.of(context).size.width * .85,
         child: TextField(
