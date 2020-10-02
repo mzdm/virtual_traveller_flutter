@@ -7,7 +7,10 @@ class FlightPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(runtimeType.toString()),
       ),
-      body: Container(),
+      body: Column(
+        children: [
+        ],
+      ),
     );
   }
 }
