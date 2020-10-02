@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:virtual_traveller_flutter/ui/pages/flights_page.dart';
+import 'package:virtual_traveller_flutter/ui/pages/settings_page/settings_page.dart';
+import 'package:virtual_traveller_flutter/ui/pages/watchlist_page/watchlist_page.dart';
 import 'package:virtual_traveller_flutter/utils/theme_utils.dart';
 
+import 'ui/pages/flights_page/flights_page.dart';
 import 'ui/pages/home_page/home_page.dart';
 
 void main() {
@@ -27,8 +29,8 @@ class _MainAppState extends State<MainApp> {
   final _bottomNavPages = <Widget>[
     HomePage(),
     FlightPage(),
-    HomePage(),
-    HomePage(),
+    WatchlistPage(),
+    SettingsPage(),
   ];
 
   @override
