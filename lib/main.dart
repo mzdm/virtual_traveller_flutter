@@ -26,7 +26,19 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   int _currActiveTabIndex = 0;
 
-  final PageController _pageController = PageController();
+  PageController _pageController;
+
+  @override
+  void initState() {
+    _pageController = PageController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +48,11 @@ class _MainAppState extends State<MainApp> {
       home: Scaffold(
         body: PageView(
           controller: _pageController,
-          onPageChanged: (index) => setState(() => _currActiveTabIndex = index),
+          physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
-            HomePage(),
+            HomePage(
+              onSettingsTap: () => _onTapChangeBottomNavBarItem(3, isAnim: true),
+            ),
             FlightPage(),
             WatchlistPage(),
             SettingsPage(),
@@ -46,7 +60,7 @@ class _MainAppState extends State<MainApp> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          currentIndex: _currActiveTabIndex ?? 0,
+          currentIndex: _currActiveTabIndex,
           items: [
             BottomNavigationBarItem(
               title: Text('Home'),
@@ -65,14 +79,21 @@ class _MainAppState extends State<MainApp> {
               icon: Icon(Icons.settings),
             ),
           ],
-          onTap: (index) {
-            setState(() {
-              _currActiveTabIndex = index;
-              _pageController.jumpToPage(index);
-            });
-          },
+          onTap: (index) => _onTapChangeBottomNavBarItem(index),
         ),
       ),
     );
+  }
+
+  void _onTapChangeBottomNavBarItem(int index, {bool isAnim = false}) {
+    setState(() {
+      _currActiveTabIndex = index;
+
+      _pageController.animateToPage(
+        index,
+        duration: Duration(milliseconds: isAnim ? 500 : 250),
+        curve: Curves.easeIn,
+      );
+    });
   }
 }

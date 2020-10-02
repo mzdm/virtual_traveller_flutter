@@ -3,7 +3,35 @@ import 'package:virtual_traveller_flutter/ui/pages/home_page/local_widgets/wave_
 
 import 'local_widgets/rounded_card.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  const HomePage({
+    Key key,
+    @required this.onSettingsTap,
+  }) : super(key: key);
+
+  final VoidCallback onSettingsTap;
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  TextEditingController textEditingController;
+
+  String _labelTextFieldText = 'New York (JFK)';
+
+  @override
+  void initState() {
+    textEditingController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,15 +41,15 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * .4,
+                height: MediaQuery.of(context).size.height * .45,
                 child: ClipPath(
                   clipper: WaveClipper(),
                   child: Container(
                     color: Theme.of(context).primaryColor,
                     child: Column(
                       children: [
-                        waveDepartureContent(),
-                        SizedBox(height: 35.0),
+                        waveDepartureContent(context),
+                        SizedBox(height: 55.0),
                         ...waveFlightContent(context),
                       ],
                     ),
@@ -36,12 +64,13 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget waveDepartureContent() {
+  Widget waveDepartureContent(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: ListTile(
         title: Row(
           children: <Widget>[
+            SizedBox(width: 8.0),
             Icon(Icons.place, color: Colors.white, size: 16.0),
             SizedBox(width: 12.0),
             Text(
@@ -52,9 +81,7 @@ class HomePage extends StatelessWidget {
         ),
         trailing: IconButton(
           icon: Icon(Icons.settings, color: Colors.white, size: 16.0),
-          onPressed: () {
-            print('clicked');
-          },
+          onPressed: widget.onSettingsTap,
         ),
       ),
     );
@@ -69,20 +96,25 @@ class HomePage extends StatelessWidget {
           fontSize: 23.0,
           fontWeight: FontWeight.bold,
         ),
+        textAlign: TextAlign.center,
       ),
       SizedBox(height: 35.0),
       SizedBox(
         height: 45.0,
         width: MediaQuery.of(context).size.width * .85,
         child: TextField(
+          // TODO: fix visibility
+          onTap: () => setState(() => _labelTextFieldText = 'Quick one-way search'),
+          controller: textEditingController,
+          showCursor: true,
           decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(15.0),
             filled: true,
             fillColor: Colors.white,
-            contentPadding: EdgeInsets.all(15.0),
+            labelText: _labelTextFieldText,
+            labelStyle: TextStyle(),
             hintText: 'New York (JFK)',
-            hintStyle: TextStyle(
-              fontSize: 15.0,
-            ),
+            hintStyle: TextStyle(fontSize: 15.0),
             suffixIcon: Icon(Icons.search, color: Colors.grey, size: 16.0),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25.0),
