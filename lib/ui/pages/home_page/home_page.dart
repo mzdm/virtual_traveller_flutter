@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                     color: Theme.of(context).primaryColor,
                     child: Column(
                       children: [
-                        waveDepartureContent(context),
+                        waveDepartureContent(),
                         SizedBox(height: 55.0),
                         ...waveFlightContent(context),
                       ],
@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget waveDepartureContent(BuildContext context) {
+  Widget waveDepartureContent() {
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: ListTile(
