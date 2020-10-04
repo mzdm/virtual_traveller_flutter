@@ -15,6 +15,13 @@ class SettingsPage extends StatelessWidget {
             title: 'Common',
             tiles: [
               SettingsTile(
+                leading: Icon(Icons.place),
+                title: 'Default departure location',
+                subtitle: 'Boston (BOS)',
+                // TODO
+                onTap: () {},
+              ),
+              SettingsTile(
                 leading: Icon(Icons.language),
                 title: 'Language',
                 subtitle: 'English',
