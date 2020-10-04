@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
       child: ListTile(
         title: Row(
           children: <Widget>[
-            SizedBox(width: 8.0),
+            SizedBox(width: 12.0),
             Icon(Icons.place, color: Colors.white, size: 16.0),
             SizedBox(width: 12.0),
             Text(
