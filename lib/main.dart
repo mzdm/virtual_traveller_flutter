@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:virtual_traveller_flutter/utils/theme_utils.dart';
 
-import 'presentation/pages/flights_page/flights_page.dart';
+import 'presentation/pages/flights_page/search_flights_page.dart';
 import 'presentation/pages/home_page/home_page.dart';
 import 'presentation/pages/settings_page/settings_page.dart';
 import 'presentation/pages/watchlist_page/watchlist_page.dart';
@@ -53,7 +53,7 @@ class _MainAppState extends State<MainApp> {
             HomePage(
               onSettingsTap: () => _onTapChangeBottomNavBarItem(3, isAnim: true),
             ),
-            FlightPage(),
+            SearchFlightsPage(),
             WatchlistPage(),
             SettingsPage(),
           ],
