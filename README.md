@@ -23,8 +23,9 @@ Search for flights and deep dive into large offers of travelling destinations. D
 - [Contribution](https://github.com/mzdm/virtual_traveller_flutter#contribution)
 
 ## Previews
-<p align="left">
+<p align="center">
 <img height="650" width="auto" src="github_images/app_preview1.jpg" />
+<img height="650" width="auto" src="github_images/app_preview2.png" />
 </p>
 
 ## How to run
