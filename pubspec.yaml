@@ -32,6 +32,7 @@ dependencies:
   auto_size_text: ^2.1.0 # https://pub.dev/packages/auto_size_text
 #  syncfusion_flutter_datepicker: ^18.2.57-beta # https://pub.dev/packages/syncfusion_flutter_datepicker
   animations: ^1.1.2 # https://pub.dev/packages/animations
+  settings_ui: ^0.4.0 # https://pub.dev/packages/settings_ui
 
 
 # flutter pub run build_runner build --delete-conflicting-outputs
