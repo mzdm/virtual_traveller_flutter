@@ -48,15 +48,15 @@ class _HomePageState extends State<HomePage> {
                     color: Theme.of(context).primaryColor,
                     child: Column(
                       children: [
-                        waveDepartureContent(),
+                        buildWaveDepartureContent(),
                         SizedBox(height: 55.0),
-                        ...waveFlightContent(context),
+                        ...buildWaveFlightContent(context),
                       ],
                     ),
                   ),
                 ),
               ),
-              bottomContent(),
+              buildBottomContent(),
             ],
           ),
         ),
@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget waveDepartureContent() {
+  Widget buildWaveDepartureContent() {
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: ListTile(
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  List<Widget> waveFlightContent(BuildContext context) {
+  List<Widget> buildWaveFlightContent(BuildContext context) {
     return <Widget>[
       Text(
         'I would like to visit ...',
@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> {
     ];
   }
 
-  Widget bottomContent() {
+  Widget buildBottomContent() {
     final sampleData = <String>[
       'London',
       'Prague',
