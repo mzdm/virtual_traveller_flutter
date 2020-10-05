@@ -116,7 +116,6 @@ class _HomePageState extends State<HomePage> {
         height: 45.0,
         width: MediaQuery.of(context).size.width * .85,
         child: TextField(
-          // TODO: fix visibility
           onTap: () => setState(() => _labelTextFieldText = 'Quick one-way search'),
           controller: textEditingController,
           showCursor: true,
