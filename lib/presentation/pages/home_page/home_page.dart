@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController textEditingController;
 
-  String _labelTextFieldText = 'New York (JFK)';
+  String _labelTextFieldText = '';
 
   @override
   void initState() {
@@ -99,6 +99,19 @@ class _HomePageState extends State<HomePage> {
         textAlign: TextAlign.center,
       ),
       SizedBox(height: 35.0),
+      Padding(
+        padding: EdgeInsets.only(
+          left: MediaQuery.of(context).size.width * 0.10,
+          bottom: 5.0,
+        ),
+        child: Align(
+          child: Text(
+            _labelTextFieldText,
+            style: TextStyle(color: Colors.white60, fontSize: 12.0),
+          ),
+          alignment: AlignmentDirectional.centerStart,
+        ),
+      ),
       SizedBox(
         height: 45.0,
         width: MediaQuery.of(context).size.width * .85,
@@ -111,8 +124,6 @@ class _HomePageState extends State<HomePage> {
             contentPadding: EdgeInsets.all(15.0),
             filled: true,
             fillColor: Colors.white,
-            labelText: _labelTextFieldText,
-            labelStyle: TextStyle(),
             hintText: 'New York (JFK)',
             hintStyle: TextStyle(fontSize: 15.0),
             suffixIcon: Icon(Icons.search, color: Colors.grey, size: 16.0),
