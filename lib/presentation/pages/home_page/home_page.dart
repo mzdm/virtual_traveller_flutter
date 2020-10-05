@@ -105,11 +105,11 @@ class _HomePageState extends State<HomePage> {
           bottom: 5.0,
         ),
         child: Align(
+          alignment: AlignmentDirectional.centerStart,
           child: Text(
             _labelTextFieldText,
             style: TextStyle(color: Colors.white60, fontSize: 12.0),
           ),
-          alignment: AlignmentDirectional.centerStart,
         ),
       ),
       SizedBox(
