@@ -24,14 +24,14 @@ Search for flights and deep dive into large offers of travelling destinations. D
 
 ## Previews
 <p align="left">
-<img height="650" width="auto" src="github_images/app_preview_home1.jpg" />
+<img height="450" width="auto" src="github_images/app_preview_home1.jpg" />
 </p>
 <p align="left">
-<img height="650" width="auto" src="github_images/app_preview_watchlist1.png" />
-<img height="650" width="auto" src="github_images/app_preview_watchlist2.png" />
+<img height="450" width="auto" src="github_images/app_preview_watchlist1.png" />
+<img height="450" width="auto" src="github_images/app_preview_watchlist2.png" />
 </p>
 <p align="left">
-<img height="650" width="auto" src="github_images/app_preview_settings1.png" />
+<img height="450" width="auto" src="github_images/app_preview_settings1.jpg" />
 </p>
 
 ## How to run
