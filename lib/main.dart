@@ -5,10 +5,10 @@ import 'package:virtual_traveller_flutter/blocs/bloc_observer.dart';
 import 'package:virtual_traveller_flutter/utils/theme_utils.dart';
 
 import 'blocs/home/bottom_nav_bar/bottom_nav_bar_cubit.dart';
-import 'presentation/pages/flights_page/search_flights_page.dart';
-import 'presentation/pages/home_page/home_page.dart';
-import 'presentation/pages/settings_page/settings_page.dart';
-import 'presentation/pages/watchlist_page/watchlist_page.dart';
+import 'presentation/pages/flights/search_flights_page.dart';
+import 'presentation/pages/home/home_page.dart';
+import 'presentation/pages/settings/settings_page.dart';
+import 'presentation/pages/watchlist/watchlist_page.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();

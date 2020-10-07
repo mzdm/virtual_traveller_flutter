@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:virtual_traveller_flutter/presentation/pages/watchlist_page/local_widgets/favorite_list_tile.dart';
+
+import 'local_widgets/favorite_list_tile.dart';
 
 class WatchlistPage extends StatelessWidget {
   static const favorites = <String>[
