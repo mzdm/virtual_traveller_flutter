@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:virtual_traveller_flutter/blocs/bloc_observer.dart';
-import 'package:virtual_traveller_flutter/blocs/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import 'package:virtual_traveller_flutter/utils/theme_utils.dart';
 
+import 'blocs/home/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import 'presentation/pages/flights_page/search_flights_page.dart';
 import 'presentation/pages/home_page/home_page.dart';
 import 'presentation/pages/settings_page/settings_page.dart';
