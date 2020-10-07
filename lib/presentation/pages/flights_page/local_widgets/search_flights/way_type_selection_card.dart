@@ -19,8 +19,8 @@ class WayTypeSelectionCard extends StatelessWidget {
     return SizedBox(
       height: double.infinity,
       child: Card(
-        elevation: 0.85,
-        margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+        elevation: 0.45,
+        margin: EdgeInsets.all(0.0),
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.elliptical(10.0, 10.0)),

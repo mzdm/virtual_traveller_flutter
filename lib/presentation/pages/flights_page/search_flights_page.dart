@@ -97,7 +97,7 @@ class _SearchFlightsPageState extends State<SearchFlightsPage> {
       height: 50.0,
       child: Card(
         color: Colors.white,
-        elevation: 14.0,
+        elevation: 7.0,
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.elliptical(10.0, 20.0)),
