@@ -83,19 +83,19 @@ class _MainAppState extends State<MainApp> {
               type: BottomNavigationBarType.fixed,
               items: [
                 BottomNavigationBarItem(
-                  title: Text('Home'),
+                  label: 'Home',
                   icon: Icon(Icons.home),
                 ),
                 BottomNavigationBarItem(
-                  title: Text('Flights'),
+                  label: 'Flights',
                   icon: Icon(Icons.flight),
                 ),
                 BottomNavigationBarItem(
-                  title: Text('Watchlist'),
+                  label: 'Watchlist',
                   icon: Icon(Icons.favorite),
                 ),
                 BottomNavigationBarItem(
-                  title: Text('Settings'),
+                  label: 'Settings',
                   icon: Icon(Icons.settings),
                 ),
               ],
