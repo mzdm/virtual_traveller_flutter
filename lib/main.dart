@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:virtual_traveller_flutter/blocs/bloc_observer.dart';
+import 'package:virtual_traveller_flutter/blocs/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import 'package:virtual_traveller_flutter/utils/theme_utils.dart';
 
 import 'presentation/pages/flights_page/search_flights_page.dart';
@@ -19,7 +20,12 @@ void main() {
     ),
   );
 
-  runApp(MainApp());
+  runApp(
+    BlocProvider<BottomNavBarCubit>(
+      create: (_) => BottomNavBarCubit(),
+      child: MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatefulWidget {
@@ -28,8 +34,6 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  int _currActiveTabIndex = 0;
-
   PageController _pageController;
 
   @override
@@ -49,55 +53,56 @@ class _MainAppState extends State<MainApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeUtils.defaultDarkBlueTheme,
-      home: Scaffold(
-        body: PageView(
-          controller: _pageController,
-          physics: NeverScrollableScrollPhysics(),
-          children: <Widget>[
-            HomePage(
-              onSettingsTap: () => _onTapChangeBottomNavBarItem(3, isAnim: true),
+      home: BlocBuilder<BottomNavBarCubit, int>(
+        builder: (context, state) {
+          return Scaffold(
+            body: PageView(
+              controller: _pageController,
+              physics: NeverScrollableScrollPhysics(),
+              children: <Widget>[
+                HomePage(
+                  onSettingsTap: () {
+                    context.bloc<BottomNavBarCubit>().changeNavBarItem(3);
+                    context.bloc<BottomNavBarCubit>().pageTransitionEffect(
+                          _pageController,
+                          isFromSettingsIcon: true,
+                        );
+                  },
+                ),
+                SearchFlightsPage(),
+                WatchlistPage(),
+                SettingsPage(),
+              ],
             ),
-            SearchFlightsPage(),
-            WatchlistPage(),
-            SettingsPage(),
-          ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _currActiveTabIndex,
-          items: [
-            BottomNavigationBarItem(
-              title: Text('Home'),
-              icon: Icon(Icons.home),
+            bottomNavigationBar: BottomNavigationBar(
+              onTap: (index) {
+                context.bloc<BottomNavBarCubit>().changeNavBarItem(index);
+                context.bloc<BottomNavBarCubit>().pageTransitionEffect(_pageController);
+              },
+              currentIndex: context.bloc<BottomNavBarCubit>().state,
+              type: BottomNavigationBarType.fixed,
+              items: [
+                BottomNavigationBarItem(
+                  title: Text('Home'),
+                  icon: Icon(Icons.home),
+                ),
+                BottomNavigationBarItem(
+                  title: Text('Flights'),
+                  icon: Icon(Icons.flight),
+                ),
+                BottomNavigationBarItem(
+                  title: Text('Watchlist'),
+                  icon: Icon(Icons.favorite),
+                ),
+                BottomNavigationBarItem(
+                  title: Text('Settings'),
+                  icon: Icon(Icons.settings),
+                ),
+              ],
             ),
-            BottomNavigationBarItem(
-              title: Text('Flights'),
-              icon: Icon(Icons.flight),
-            ),
-            BottomNavigationBarItem(
-              title: Text('Watchlist'),
-              icon: Icon(Icons.favorite),
-            ),
-            BottomNavigationBarItem(
-              title: Text('Settings'),
-              icon: Icon(Icons.settings),
-            ),
-          ],
-          onTap: (index) => _onTapChangeBottomNavBarItem(index),
-        ),
+          );
+        },
       ),
     );
-  }
-
-  void _onTapChangeBottomNavBarItem(int index, {bool isAnim = false}) {
-    setState(() {
-      _currActiveTabIndex = index;
-
-      _pageController.animateToPage(
-        index,
-        duration: Duration(milliseconds: isAnim ? 500 : 250),
-        curve: Curves.easeIn,
-      );
-    });
   }
 }
