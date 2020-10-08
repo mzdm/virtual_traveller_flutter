@@ -16,19 +16,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController textEditingController;
+  TextEditingController _textEditingController;
 
   String _labelTextFieldText = '';
 
   @override
   void initState() {
-    textEditingController = TextEditingController();
+    _textEditingController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    textEditingController.dispose();
+    _textEditingController.dispose();
     super.dispose();
   }
 
@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
         width: MediaQuery.of(context).size.width * .85,
         child: TextField(
           onTap: () => setState(() => _labelTextFieldText = 'Quick one-way search'),
-          controller: textEditingController,
+          controller: _textEditingController,
           showCursor: true,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.all(15.0),
