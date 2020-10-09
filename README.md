@@ -24,7 +24,7 @@ Search for flights and deep dive into large offers of travelling destinations. D
 
 ## Previews
 <p align="left">
-<img height="450" width="auto" src="github_images/app_preview_home1.jpg" />
+<img height="450" width="auto" src="github_images/app_preview_home1.png" />
 </p>
 <p align="left">
 <img height="450" width="auto" src="github_images/app_preview_flights1.jpg" />
@@ -116,6 +116,7 @@ The reasons why I decided to use the bloc library in my case were following:
   - [x] Android
   - [x] iOS
   - [ ] Web
+  - [ ] Desktop (Windows)
 
 ### Other:
 - [ ] ~~Null safety~~ (not possible yet)
