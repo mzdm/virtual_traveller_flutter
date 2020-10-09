@@ -29,6 +29,7 @@
 .packages
 .pub-cache/
 .pub/
+.gradle/
 /build/
 
 # Web related
