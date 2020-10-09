@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
         child: Align(
           alignment: AlignmentDirectional.centerStart,
           child: BlocBuilder<FlightDestinationSearchSwitcherCubit, int>(
-            builder: (context, state) {
+            builder: (_, state) {
               return Text(
                 (_labelTextFieldText == '')
                     ? ''
@@ -126,41 +126,45 @@ class _HomePageState extends State<HomePage> {
       SizedBox(
         height: 45.0,
         width: MediaQuery.of(context).size.width * .85,
-        child: TextField(
-          onTap: () => setState(() => _labelTextFieldText = 'Quick one-way search'),
-          controller: _textEditingController,
-          showCursor: true,
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(15.0),
-            filled: true,
-            fillColor: Colors.grey[200],
-            hintText: 'New York',
-            hintStyle: TextStyle(fontSize: 15.0),
-            suffixIcon: SizedBox(
-              width: 50.0,
-              child: RaisedButton(
-                padding: EdgeInsets.all(0.0),
-                onPressed: () {
-                  FocusManager.instance.primaryFocus.unfocus();
-                },
-                child: Icon(
-                  Icons.search,
-                  size: 16.0,
-                  color: Colors.grey,
+        child: BlocBuilder<FlightDestinationSearchSwitcherCubit, int>(
+          builder: (_, state) {
+            return TextField(
+              onTap: () => setState(() => _labelTextFieldText = 'Quick one-way search') ,
+              controller: _textEditingController,
+              showCursor: true,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(15.0),
+                filled: true,
+                fillColor: Colors.grey[200],
+                hintText: 'New York${state == 0 ? ' (JFK)' : ''}',
+                hintStyle: TextStyle(fontSize: 15.0),
+                suffixIcon: SizedBox(
+                  width: 50.0,
+                  child: RaisedButton(
+                    padding: EdgeInsets.all(0.0),
+                    onPressed: () {
+                      FocusManager.instance.primaryFocus.unfocus();
+                    },
+                    child: Icon(
+                      Icons.search,
+                      size: 16.0,
+                      color: Colors.grey,
+                    ),
+                    color: Colors.white,
+                    elevation: 7.0,
+                    highlightElevation: 0.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                  ),
                 ),
-                color: Colors.white,
-                elevation: 7.0,
-                highlightElevation: 0.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50.0),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: BorderSide.none,
                 ),
               ),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25.0),
-              borderSide: BorderSide.none,
-            ),
-          ),
+            );
+          },
         ),
       ),
       SizedBox(height: 15.0),
