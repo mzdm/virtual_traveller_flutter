@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:virtual_traveller_flutter/blocs/home/flight_destination_search_switcher/flight_destination_search_switcher_cubit.dart';
-import 'package:virtual_traveller_flutter/presentation/pages/home/local_widgets/flight_destination_search_switcher.dart';
+import 'package:virtual_traveller_flutter/blocs/home/flight_destination_search_switcher_cubit.dart';
 
+import 'local_widgets/flight_destination_search_switcher.dart';
 import 'local_widgets/rounded_card.dart';
 import 'local_widgets/wave_clipper.dart';
 

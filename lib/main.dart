@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:virtual_traveller_flutter/blocs/bloc_observer.dart';
-import 'package:virtual_traveller_flutter/blocs/home/flight_destination_search_switcher/flight_destination_search_switcher_cubit.dart';
-import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/api_service.dart';
-import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/mocked_data.dart';
-import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/remote_data.dart';
-import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
-import 'package:virtual_traveller_flutter/utils/debug_options.dart';
-import 'package:virtual_traveller_flutter/utils/theme_utils.dart';
 
-import 'blocs/home/bottom_nav_bar/bottom_nav_bar_cubit.dart';
+import 'blocs/bloc_observer.dart';
+import 'blocs/home/bottom_nav_bar_cubit.dart';
+import 'blocs/home/flight_destination_search_switcher_cubit.dart';
+import 'data/data_providers/remote/amadeus_api/api_service.dart';
+import 'data/data_providers/remote/amadeus_api/mocked_data.dart';
+import 'data/data_providers/remote/amadeus_api/remote_data.dart';
+import 'data/repositories/amadeus_repository.dart';
 import 'presentation/pages/flights/search_flights_page.dart';
 import 'presentation/pages/home/home_page.dart';
 import 'presentation/pages/settings/settings_page.dart';
 import 'presentation/pages/watchlist/watchlist_page.dart';
+import 'utils/debug_options.dart';
+import 'utils/theme_utils.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();
