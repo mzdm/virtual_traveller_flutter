@@ -169,7 +169,6 @@ class _HomePageState extends State<HomePage> {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // TODO: bloc state handler
               FlightDestinationSearchSwitcher(
                 icon: Icons.flight_outlined,
                 label: 'Flights',
