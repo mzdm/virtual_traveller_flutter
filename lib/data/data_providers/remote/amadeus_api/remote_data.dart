@@ -11,6 +11,7 @@ import 'base_data.dart';
 /// *Flights related*:
 /// - [getRawNearestAirport]
 /// - [getRawFlightOffersSearch]
+/// - [getRawFlightCheapestDateSearch]
 /// - [getRawAirportCitySearch]
 /// - [getRawAirlineCodeLookup]
 ///
@@ -21,7 +22,6 @@ import 'base_data.dart';
 /// - [getRawHotelSearch]
 /// - [getRawPointsOfInterest]
 /// - [getRawSafePlace]
-/// - [getRawFlightCheapestDateSearch]
 class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   AmadeusRemoteDataProvider(this._apiService);
 
