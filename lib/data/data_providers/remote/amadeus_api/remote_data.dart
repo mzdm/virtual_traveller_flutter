@@ -5,6 +5,23 @@ import 'package:http/http.dart' as http;
 import 'base_data.dart';
 
 /// This does the network calls.
+///
+/// **Quick links**
+///
+/// *Flights related*:
+/// - [getRawNearestAirport]
+/// - [getRawFlightOffersSearch]
+/// - [getRawAirportCitySearch]
+/// - [getRawAirlineCodeLookup]
+///
+/// *Home Page & Destinations related*:
+/// - [getRawFlightMostBooked]
+/// - [getRawFlightMostTravelled]
+/// - [getRawTravelRecommendation]
+/// - [getRawHotelSearch]
+/// - [getRawPointsOfInterest]
+/// - [getRawSafePlace]
+/// - [getRawFlightCheapestDateSearch]
 class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   AmadeusRemoteDataProvider(this._apiService);
 
