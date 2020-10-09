@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:virtual_traveller_flutter/blocs/home/flight_destination_search_switcher/flight_destination_search_switcher_cubit.dart';
 import 'package:virtual_traveller_flutter/presentation/pages/home/local_widgets/flight_destination_search_switcher.dart';
 
 import 'local_widgets/rounded_card.dart';
@@ -107,9 +109,17 @@ class _HomePageState extends State<HomePage> {
         ),
         child: Align(
           alignment: AlignmentDirectional.centerStart,
-          child: Text(
-            _labelTextFieldText,
-            style: TextStyle(color: Colors.white60, fontSize: 12.0),
+          child: BlocBuilder<FlightDestinationSearchSwitcherCubit, int>(
+            builder: (context, state) {
+              return Text(
+                (_labelTextFieldText == '')
+                    ? ''
+                    : state == 0
+                        ? 'Quick one-way search'
+                        : 'Quick destination preview',
+                style: TextStyle(color: Colors.white60, fontSize: 12.0),
+              );
+            },
           ),
         ),
       ),
@@ -154,23 +164,32 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       SizedBox(height: 15.0),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // TODO: bloc state handler
-          FlightDestinationSearchSwitcher(
-            icon: Icons.flight_outlined,
-            label: 'Flights',
-            isPressed: true,
-            onPressed: () {},
-          ),
-          SizedBox(width: 15.0),
-          FlightDestinationSearchSwitcher(
-            icon: Icons.beach_access,
-            label: 'Destinations',
-            onPressed: () {},
-          ),
-        ],
+      BlocBuilder<FlightDestinationSearchSwitcherCubit, int>(
+        builder: (context, state) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // TODO: bloc state handler
+              FlightDestinationSearchSwitcher(
+                icon: Icons.flight_outlined,
+                label: 'Flights',
+                isPressed: state == 0,
+                onPressed: () {
+                  context.bloc<FlightDestinationSearchSwitcherCubit>().switchType(state);
+                },
+              ),
+              SizedBox(width: 15.0),
+              FlightDestinationSearchSwitcher(
+                icon: Icons.beach_access,
+                label: 'Destinations',
+                isPressed: state == 1,
+                onPressed: () {
+                  context.bloc<FlightDestinationSearchSwitcherCubit>().switchType(state);
+                },
+              ),
+            ],
+          );
+        },
       ),
     ];
   }
