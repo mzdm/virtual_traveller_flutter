@@ -17,7 +17,7 @@ Search for flights and deep dive into large offers of travelling destinations. D
 - [State management](https://github.com/mzdm/virtual_traveller_flutter#state-management)
 - [App Architecture](https://github.com/mzdm/virtual_traveller_flutter#app-architecture)
 - [TO:DO list](https://github.com/mzdm/virtual_traveller_flutter#todo-list)
-- [Powered by libraries](https://github.com/mzdm/virtual_traveller_flutter#powered-by-these-libraries)
+- [Dependencies](https://github.com/mzdm/virtual_traveller_flutter#dependencies)
 - [UI inspirations](https://github.com/mzdm/virtual_traveller_flutter#ui-inspirations)
 - [Related recommended resources](https://github.com/mzdm/virtual_traveller_flutter#related-recommended-resources)
 - [Contribution](https://github.com/mzdm/virtual_traveller_flutter#contribution)
@@ -125,7 +125,7 @@ The reasons why I decided to use the bloc library in my case were following:
   - [ ] 60%
   - [ ] 80%
 
-## Powered by these libraries
+## Dependencies:
 - #### Common packages:
     - [flutter_bloc](https://pub.dev/packages/flutter_bloc)
     - [rx_dart](https://pub.dev/packages/rxdart)
