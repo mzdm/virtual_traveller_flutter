@@ -172,6 +172,7 @@ class _SearchFlightsPageState extends State<SearchFlightsPage> {
         ),
         color: Theme.of(context).primaryColor,
         elevation: 0.0,
+        highlightElevation: 0.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.lerp(
             BorderRadius.circular(15.0),
