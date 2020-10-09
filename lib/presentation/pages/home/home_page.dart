@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:virtual_traveller_flutter/presentation/pages/home/local_widgets/flight_destination_search_switcher.dart';
 
 import 'local_widgets/rounded_card.dart';
 import 'local_widgets/wave_clipper.dart';
@@ -41,16 +42,16 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * .45,
+                height: MediaQuery.of(context).size.height * .5,
                 child: ClipPath(
                   clipper: WaveClipper(),
                   child: Container(
                     color: Theme.of(context).primaryColor,
                     child: Column(
                       children: [
-                        buildWaveDepartureContent(),
-                        SizedBox(height: 55.0),
-                        ...buildWaveFlightContent(context),
+                        buildWaveDepartureSettingsContent(),
+                        SizedBox(height: 40.0),
+                        ...buildWaveSearchContent(context),
                       ],
                     ),
                   ),
@@ -64,7 +65,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget buildWaveDepartureContent() {
+  Widget buildWaveDepartureSettingsContent() {
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: ListTile(
@@ -87,10 +88,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  List<Widget> buildWaveFlightContent(BuildContext context) {
+  List<Widget> buildWaveSearchContent(BuildContext context) {
     return <Widget>[
       Text(
-        'I would like to visit ...',
+        'I would like to go ...',
         style: TextStyle(
           color: Colors.white,
           fontSize: 23.0,
@@ -122,16 +123,54 @@ class _HomePageState extends State<HomePage> {
           decoration: InputDecoration(
             contentPadding: EdgeInsets.all(15.0),
             filled: true,
-            fillColor: Colors.white,
-            hintText: 'New York (JFK)',
+            fillColor: Colors.grey[200],
+            hintText: 'New York',
             hintStyle: TextStyle(fontSize: 15.0),
-            suffixIcon: Icon(Icons.search, color: Colors.grey, size: 16.0),
+            suffixIcon: SizedBox(
+              width: 50.0,
+              child: RaisedButton(
+                padding: EdgeInsets.all(0.0),
+                onPressed: () {
+                  FocusManager.instance.primaryFocus.unfocus();
+                },
+                child: Icon(
+                  Icons.search,
+                  size: 16.0,
+                  color: Colors.grey,
+                ),
+                color: Colors.white,
+                elevation: 7.0,
+                highlightElevation: 0.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50.0),
+                ),
+              ),
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25.0),
               borderSide: BorderSide.none,
             ),
           ),
         ),
+      ),
+      SizedBox(height: 15.0),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // TODO: bloc state handler
+          FlightDestinationSearchSwitcher(
+            icon: Icons.flight_outlined,
+            label: 'Flights',
+            isPressed: true,
+            onPressed: () {},
+          ),
+          SizedBox(width: 15.0),
+          FlightDestinationSearchSwitcher(
+            icon: Icons.beach_access,
+            label: 'Destinations',
+            onPressed: () {},
+          ),
+        ],
       ),
     ];
   }
@@ -177,6 +216,9 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
+
+          // TODO: Recommended flights
+          /*
           SizedBox(height: 35.0),
           Align(
             alignment: AlignmentDirectional.bottomStart,
@@ -189,6 +231,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          */
         ],
       ),
     );
