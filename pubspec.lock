@@ -141,6 +141,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  clean_settings:
+    dependency: "direct main"
+    description:
+      name: clean_settings
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.4"
   cli_util:
     dependency: transitive
     description:
@@ -501,13 +508,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.24.1"
-  settings_ui:
-    dependency: "direct main"
-    description:
-      name: settings_ui
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.0"
   shelf:
     dependency: transitive
     description:

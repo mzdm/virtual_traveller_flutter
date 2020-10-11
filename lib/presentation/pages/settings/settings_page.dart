@@ -1,7 +1,6 @@
+import 'package:clean_settings/clean_settings.dart';
 import 'package:flutter/material.dart';
-import 'package:settings_ui/settings_ui.dart';
 
-// TODO: splash effect not showing up
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -9,73 +8,65 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Settings'),
       ),
-      body: SettingsList(
+      body: SettingContainer(
         sections: [
-          SettingsSection(
+          SettingSection(
             title: 'Common',
-            tiles: [
-              SettingsTile(
-                leading: Icon(Icons.place),
+            items: [
+              SettingItem(
                 title: 'Default departure location',
-                subtitle: 'Boston (BOS)',
+                displayValue: 'Boston (BOS)',
                 // TODO
                 onTap: () {},
               ),
-              SettingsTile(
-                leading: Icon(Icons.language),
+              SettingItem(
                 title: 'Language',
-                subtitle: 'English',
+                displayValue: 'English',
                 // TODO
                 onTap: () {},
               ),
-              SettingsTile(
-                leading: Icon(Icons.monetization_on),
+              SettingItem(
                 title: 'Currency',
-                subtitle: 'USD',
+                displayValue: 'USD',
                 // TODO
                 onTap: () {},
               ),
-              SettingsTile(
-                leading: Icon(Icons.thermostat_outlined),
+              SettingItem(
                 title: 'Temperature',
-                subtitle: 'Celsius',
+                displayValue: 'Celsius',
                 // TODO
                 onTap: () {},
               ),
             ],
           ),
-          SettingsSection(
+          SettingSection(
             title: 'Interface',
-            tiles: [
-              SettingsTile(
-                leading: Icon(Icons.brightness_6),
+            items: [
+              SettingItem(
                 title: 'Theme',
-                subtitle: 'Dark blue',
+                displayValue: 'Dark blue',
                 // TODO
                 onTap: () {},
               ),
-              SettingsTile.switchTile(
-                leading: Icon(Icons.flight_takeoff),
+              SettingCheckboxItem(
                 title: 'Virtual mode',
-                subtitle: 'Show immediate travel button',
-                switchValue: true,
+                description: 'Show immediate travel button',
+                value: true,
                 // TODO
-                onToggle: (bool value) {},
+                onChanged: (newValue) {},
               ),
             ],
           ),
-          SettingsSection(
+          SettingSection(
             title: 'Misc',
-            tiles: [
-              SettingsTile(
-                leading: Icon(Icons.delete),
-                title: 'Remove locally saved data',
-                subtitle: 'Search history, set default settings ...',
+            items: [
+              SettingItem(
+                title: 'Remove local data',
+                displayValue: 'Search history, set default settings ...',
                 // TODO
                 onTap: () {},
               ),
-              SettingsTile(
-                leading: Icon(Icons.privacy_tip),
+              SettingItem(
                 title: 'Licenses',
                 // TODO
                 onTap: () {},
