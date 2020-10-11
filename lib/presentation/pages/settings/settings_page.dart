@@ -17,24 +17,28 @@ class SettingsPage extends StatelessWidget {
                 title: 'Default departure location',
                 displayValue: 'Boston (BOS)',
                 // TODO
+                priority: ItemPriority.disabled,
                 onTap: () {},
               ),
               SettingItem(
                 title: 'Language',
                 displayValue: 'English',
                 // TODO
+                priority: ItemPriority.disabled,
                 onTap: () {},
               ),
               SettingItem(
                 title: 'Currency',
                 displayValue: 'USD',
                 // TODO
+                priority: ItemPriority.disabled,
                 onTap: () {},
               ),
               SettingItem(
                 title: 'Temperature',
                 displayValue: 'Celsius',
                 // TODO
+                priority: ItemPriority.disabled,
                 onTap: () {},
               ),
             ],
@@ -46,6 +50,7 @@ class SettingsPage extends StatelessWidget {
                 title: 'Theme',
                 displayValue: 'Dark blue',
                 // TODO
+                priority: ItemPriority.disabled,
                 onTap: () {},
               ),
               SettingCheckboxItem(
@@ -53,6 +58,7 @@ class SettingsPage extends StatelessWidget {
                 description: 'Show immediate travel button',
                 value: true,
                 // TODO
+                priority: ItemPriority.disabled,
                 onChanged: (newValue) {},
               ),
             ],
@@ -64,12 +70,17 @@ class SettingsPage extends StatelessWidget {
                 title: 'Remove local data',
                 displayValue: 'Search history, set default settings ...',
                 // TODO
+                priority: ItemPriority.disabled,
                 onTap: () {},
               ),
               SettingItem(
                 title: 'Licenses',
-                // TODO
-                onTap: () {},
+                onTap: () {
+                  showLicensePage(
+                    context: context,
+                    applicationName: 'Virtual Traveller',
+                  );
+                },
               ),
             ],
           ),
