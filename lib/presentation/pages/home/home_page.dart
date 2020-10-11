@@ -59,7 +59,14 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              buildBottomContent(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                child: Column(
+                  children: [
+                    ...buildMostPopular(),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -69,23 +76,28 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildWaveDepartureSettingsContent() {
     return Padding(
-      padding: const EdgeInsets.only(top: 4.0),
-      child: ListTile(
-        title: Row(
-          children: <Widget>[
-            SizedBox(width: 12.0),
-            Icon(Icons.place, color: Colors.white, size: 16.0),
-            SizedBox(width: 12.0),
-            Text(
-              'Boston (BOS)',
-              style: TextStyle(color: Colors.white, fontSize: 14.0),
+      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+      child: Row(
+        children: [
+          SizedBox(width: 12.0),
+          Icon(Icons.place, color: Colors.white, size: 16.0),
+          SizedBox(width: 12.0),
+          Text(
+            'Boston (BOS)',
+            style: TextStyle(color: Colors.white, fontSize: 14.0),
+          ),
+          Spacer(flex: 1),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(60.0),
+            child: Material(
+              type: MaterialType.transparency,
+              child: IconButton(
+                icon: Icon(Icons.settings, color: Colors.white, size: 16.0),
+                onPressed: (widget.onSettingsTap),
+              ),
             ),
-          ],
-        ),
-        trailing: IconButton(
-          icon: Icon(Icons.settings, color: Colors.white, size: 16.0),
-          onPressed: widget.onSettingsTap,
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -129,7 +141,7 @@ class _HomePageState extends State<HomePage> {
         child: BlocBuilder<FlightDestinationSearchSwitcherCubit, int>(
           builder: (_, state) {
             return TextField(
-              onTap: () => setState(() => _labelTextFieldText = 'Quick one-way search') ,
+              onTap: () => setState(() => _labelTextFieldText = 'Quick one-way search'),
               controller: _textEditingController,
               showCursor: true,
               decoration: InputDecoration(
@@ -197,7 +209,7 @@ class _HomePageState extends State<HomePage> {
     ];
   }
 
-  Widget buildBottomContent() {
+  List<Widget> buildMostPopular() {
     final sampleData = <String>[
       'London',
       'Prague',
@@ -205,42 +217,39 @@ class _HomePageState extends State<HomePage> {
       'Stockholm',
     ];
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18.0),
-      child: Column(
-        children: [
-          SizedBox(height: 25.0),
-          Align(
-            alignment: AlignmentDirectional.bottomStart,
-            child: Text(
-              'Most popular',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 24.0,
-                fontWeight: FontWeight.w600,
+    return [
+      SizedBox(height: 25.0),
+      Align(
+        alignment: AlignmentDirectional.bottomStart,
+        child: Text(
+          'Most popular',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 24.0,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      SizedBox(height: 15.0),
+      SizedBox(
+        height: 200.0,
+        child: ListView.builder(
+          itemCount: sampleData.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (_, index) {
+            return Padding(
+              padding: const EdgeInsets.only(right: 3.0),
+              child: RoundedCard(
+                sample: sampleData[index],
+                onTap: () {},
               ),
-            ),
-          ),
-          SizedBox(height: 15.0),
-          SizedBox(
-            height: 200.0,
-            child: ListView.builder(
-              itemCount: sampleData.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (_, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(right: 3.0),
-                  child: RoundedCard(
-                    sample: sampleData[index],
-                    onTap: () {},
-                  ),
-                );
-              },
-            ),
-          ),
+            );
+          },
+        ),
+      ),
 
-          // TODO: Recommended flights
-          /*
+      // TODO: Recommended flights
+      /*
           SizedBox(height: 35.0),
           Align(
             alignment: AlignmentDirectional.bottomStart,
@@ -254,8 +263,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           */
-        ],
-      ),
-    );
+    ];
   }
 }
