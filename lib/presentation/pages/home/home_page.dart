@@ -190,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                 label: 'Flights',
                 isPressed: state == 0,
                 onPressed: () {
-                  context.bloc<FlightDestinationSearchSwitcherCubit>().switchType(state);
+                  context.bloc<FlightDestinationSearchSwitcherCubit>().switchType();
                 },
               ),
               SizedBox(width: 15.0),
@@ -199,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                 label: 'Destinations',
                 isPressed: state == 1,
                 onPressed: () {
-                  context.bloc<FlightDestinationSearchSwitcherCubit>().switchType(state);
+                  context.bloc<FlightDestinationSearchSwitcherCubit>().switchType();
                 },
               ),
             ],
