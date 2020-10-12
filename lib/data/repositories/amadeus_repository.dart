@@ -1,8 +1,25 @@
 import 'package:meta/meta.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/base_data.dart';
+import 'package:virtual_traveller_flutter/data/models/flights/destination.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'dart:convert';
 
+/// **Quick links**
+///
+/// *Flights related*:
+/// - [getNearestAirport]
+/// - [getFlightOffersSearch]
+/// - [getFlightCheapestDateSearch]
+/// - [getAirportCitySearch]
+/// - [getAirlineCodeLookup]
+///
+/// *Home Page & Destinations related*:
+/// - [getFlightMostBooked]
+/// - [getFlightMostTravelled]
+/// - [getTravelRecommendation]
+/// - [getHotelSearch]
+/// - [getPointsOfInterest]
+/// - [getSafePlace]
 class AmadeusRepository {
   AmadeusRepository({
     @required this.amadeusBaseDataProvider,
@@ -56,11 +73,15 @@ class AmadeusRepository {
     return data;
   }
 
-  Future<List<dynamic>> getFlightMostTravelled() async {
+  Future<List<Destination>> getFlightMostTravelled() async {
     final rawData = await amadeusBaseDataProvider.getRawFlightMostTravelled();
     final data = json.decode(rawData)['data'];
 
-    return data;
+    final destinations = (data as List).map((item) {
+      return Destination.fromJson(item);
+    }).toList();
+
+    return destinations;
   }
 
   Future<List<dynamic>> getTravelRecommendation() async {
@@ -73,7 +94,9 @@ class AmadeusRepository {
   Future<dynamic> getHotelSearch() async {
     final rawData = await amadeusBaseDataProvider.getRawHotelSearch();
     // TODO: convert {newline} back to \n when doing in model fromJson
-    final escapedData = rawData.replaceAll('\n', '{newline}'); // json decode produces an error if there is a newline \n
+    // json decode produces an error if there is a newline \n
+    final escapedData = rawData.replaceAll('\n', '{newline}');
+
     final data = json.decode(escapedData)['data'];
     final dictionaries = json.decode(escapedData)['dictionaries'];
 
