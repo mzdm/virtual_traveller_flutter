@@ -27,6 +27,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
 
   final ApiService _apiService;
 
+  // TODO
   /// Fetches the given network call with query parameters.
   ///
   /// First checks whether accessToken is still valid otherwise
@@ -71,6 +72,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     }
   }
 
+  // TODO
   // https://developers.amadeus.com/self-service/category/air/api-doc/airport-nearest-relevant/api-reference
   /// *"What are the nearest major airports to this location?"*
   ///
@@ -92,6 +94,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
+  // TODO
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-offers-search/api-reference
   /// *"What are the cheapest flights from Madrid to Paris on June 1st?"*
   ///
@@ -127,6 +130,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
+  // TODO
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-cheapest-date-search/api-reference
   /// *"What are the cheapest dates to fly from Munich to Sao Paulo?"*
   ///
@@ -150,6 +154,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
+  // TODO
   // https://developers.amadeus.com/self-service/category/air/api-doc/airport-and-city-search/api-reference
   /// *"Which cities and airports begin with Lon..?"*
   ///
@@ -170,6 +175,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
+  // TODO
   // https://developers.amadeus.com/self-service/category/air/api-doc/airline-code-lookup/api-reference
   /// *"What is the name of the airline with the given IATA code EK?"*
   ///
@@ -190,6 +196,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
+  // TODO
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-most-booked-destinations/api-reference
   /// *"Which destinations are most frequently booked by travelers in New Delhi?"*
   ///
@@ -212,6 +219,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
+  // TODO
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-most-traveled-destinations/api-reference
   /// *"What are the most visited destinations among travelers in New York City?"*
   ///
@@ -234,6 +242,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
+  // TODO
   // https://developers.amadeus.com/self-service/category/trip/api-doc/travel-recommendations/api-reference
   /// *"If a traveler has shown interest in Berlin, what other destinations would he/she like?"*
   ///
@@ -263,6 +272,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
+  // TODO
   // https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search/api-reference
   /// *"What are the best hotel deals during my trip?"*
   ///
@@ -300,6 +310,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
+  // TODO
   // https://developers.amadeus.com/self-service/category/destination-content/api-doc/points-of-interest/api-reference
   /// *"What are the best places to visit in Barcelona?"*
   ///
@@ -324,6 +335,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
+  // TODO
   // https://developers.amadeus.com/self-service/category/destination-content/api-doc/safe-place-api/api-reference
   /// *"How safe is this location?"*
   ///

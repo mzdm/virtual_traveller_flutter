@@ -28,6 +28,7 @@ class AmadeusRepository {
   final AmadeusBaseDataProvider amadeusBaseDataProvider;
 
   // Flights related
+  // TODO
   Future<List<dynamic>> getNearestAirport(Location location) async {
     final rawData = await amadeusBaseDataProvider.getRawNearestAirport(location);
     final data = json.decode(rawData)['data'];
@@ -35,6 +36,7 @@ class AmadeusRepository {
     return data;
   }
 
+  // TODO
   Future<dynamic> getFlightOffersSearch() async {
     final rawData = await amadeusBaseDataProvider.getRawFlightOffersSearch();
     final data = json.decode(rawData)['data'];
@@ -43,6 +45,7 @@ class AmadeusRepository {
     return [data, dictionaries];
   }
 
+  // TODO
   Future<dynamic> getFlightCheapestDateSearch() async {
     final rawData = await amadeusBaseDataProvider.getRawFlightCheapestDateSearch();
     final data = json.decode(rawData)['data'];
@@ -51,6 +54,7 @@ class AmadeusRepository {
     return [data, dictionaries];
   }
 
+  // TODO
   Future<List<dynamic>> getAirportCitySearch() async {
     final rawData = await amadeusBaseDataProvider.getRawAirportCitySearch();
     final data = json.decode(rawData)['data'];
@@ -58,6 +62,7 @@ class AmadeusRepository {
     return data;
   }
 
+  // TODO
   Future<dynamic> getAirlineCodeLookup() async {
     final rawData = await amadeusBaseDataProvider.getRawAirlineCodeLookup();
     final data = json.decode(rawData)['data'][0];
@@ -66,6 +71,7 @@ class AmadeusRepository {
   }
 
   // Home Page & Destinations related
+  // TODO
   Future<List<dynamic>> getFlightMostBooked() async {
     final rawData = await amadeusBaseDataProvider.getRawFlightMostBooked();
     final data = json.decode(rawData)['data'];
@@ -84,6 +90,7 @@ class AmadeusRepository {
     return destinations;
   }
 
+  // TODO
   Future<List<dynamic>> getTravelRecommendation() async {
     final rawData = await amadeusBaseDataProvider.getRawTravelRecommendation();
     final data = json.decode(rawData)['data'];
@@ -91,6 +98,7 @@ class AmadeusRepository {
     return data;
   }
 
+  // TODO
   Future<dynamic> getHotelSearch() async {
     final rawData = await amadeusBaseDataProvider.getRawHotelSearch();
     // TODO: convert {newline} back to \n when doing in model fromJson
@@ -103,6 +111,7 @@ class AmadeusRepository {
     return [data, dictionaries];
   }
 
+  // TODO
   Future<List<dynamic>> getPointsOfInterest(Location location) async {
     final rawData = await amadeusBaseDataProvider.getRawPointsOfInterest(location);
     final data = json.decode(rawData)['data'];
@@ -110,6 +119,7 @@ class AmadeusRepository {
     return data;
   }
 
+  // TODO
   Future<List<dynamic>> getSafePlace(Location location) async {
     final rawData = await amadeusBaseDataProvider.getRawSafePlace(location);
     final data = json.decode(rawData)['data'];
