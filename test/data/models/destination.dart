@@ -2,13 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/mocked_data.dart';
-import 'package:virtual_traveller_flutter/data/models/flights/destination.dart';
+import 'package:virtual_traveller_flutter/data/models/destination.dart';
 
 void main() {
-  test('a passing test', () {
-    expect(true, true);
-  });
-
   test('destinationTest', () async {
     final amadeusBaseDataProvider = AmadeusMockedDataProvider();
     final rawData = await amadeusBaseDataProvider.getRawFlightMostTravelled();

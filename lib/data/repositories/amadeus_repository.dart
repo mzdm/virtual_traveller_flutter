@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/base_data.dart';
-import 'package:virtual_traveller_flutter/data/models/flights/destination.dart';
+import 'package:virtual_traveller_flutter/data/models/destination.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'dart:convert';
 
