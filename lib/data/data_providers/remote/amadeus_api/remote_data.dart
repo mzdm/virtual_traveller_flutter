@@ -84,7 +84,9 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// the API provides the name, 3-letter [IATA code](http://www.iata.org/publications/Pages/code-search.aspx),
   /// time zone and coordinates.
   @override
-  Future<String> getRawNearestAirport(Location location) async {
+  Future<String> getRawNearestAirport(
+    Location location,
+  ) async {
     final endpointPath = 'v1/reference-data/locations/airports';
     final queryParams = {
       'latitude': location.lat, // ---REQUIRED---
@@ -230,7 +232,9 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// percentage of total departures) and a traveler score
   /// (number of passengers traveling to the destination as a percentage of total passenger departures).
   @override
-  Future<String> getRawFlightMostTravelled(String originCityCode) async {
+  Future<String> getRawFlightMostTravelled(
+    String originCityCode,
+  ) async {
     final currDate = DateTime.now();
     final currDateFormatted = '${currDate.year}-${currDate.month}';
 
@@ -262,7 +266,9 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   ///   - store locally city codes which user has searched for and use them for recommendations
   ///   - if it is first time user, display random
   @override
-  Future<String> getRawTravelRecommendation(List<String> cityCodes) async {
+  Future<String> getRawTravelRecommendation(
+    List<String> cityCodes,
+  ) async {
     final endpointPath = 'v1/reference-data/recommended-locations';
     final queryParams = {
       'cityCodes': cityCodes, // ---REQUIRED--- (eg.: 'PAR') City used by the algorithm to recommend new destination. Several cities can be specified using comma. City codes follow IATA standard http://www.iata.org/publications/Pages/code-search.aspx
