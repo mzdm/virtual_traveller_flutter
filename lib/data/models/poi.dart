@@ -1,0 +1,6 @@
+enum CategoryPOI {
+  SIGHTS,
+  NIGHTLIFE,
+  RESTAURANT,
+  SHOPPING,
+}
