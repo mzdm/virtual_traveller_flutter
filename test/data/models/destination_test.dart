@@ -7,7 +7,7 @@ import 'package:virtual_traveller_flutter/data/models/destination.dart';
 void main() {
   test('destinationTest', () async {
     final amadeusBaseDataProvider = AmadeusMockedDataProvider();
-    final rawData = await amadeusBaseDataProvider.getRawFlightMostTravelled();
+    final rawData = await amadeusBaseDataProvider.getRawFlightMostTravelled(null);
     final data = json.decode(rawData)['data'];
 
     final destinations = (data as List).map((item) {

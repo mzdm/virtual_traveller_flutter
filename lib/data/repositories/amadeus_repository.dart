@@ -79,8 +79,8 @@ class AmadeusRepository {
     return data;
   }
 
-  Future<List<Destination>> getFlightMostTravelled() async {
-    final rawData = await amadeusBaseDataProvider.getRawFlightMostTravelled();
+  Future<List<Destination>> getFlightMostTravelled(String originCityCode) async {
+    final rawData = await amadeusBaseDataProvider.getRawFlightMostTravelled(originCityCode);
     final data = json.decode(rawData)['data'];
 
     final destinations = (data as List).map((item) {
@@ -91,8 +91,8 @@ class AmadeusRepository {
   }
 
   // TODO
-  Future<List<dynamic>> getTravelRecommendation() async {
-    final rawData = await amadeusBaseDataProvider.getRawTravelRecommendation();
+  Future<List<dynamic>> getTravelRecommendation(List<String> cityCodes) async {
+    final rawData = await amadeusBaseDataProvider.getRawTravelRecommendation(cityCodes);
     final data = json.decode(rawData)['data'];
 
     return data;

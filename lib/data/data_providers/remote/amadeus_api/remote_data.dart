@@ -1,6 +1,7 @@
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/api_service.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:http/http.dart' as http;
+import 'package:virtual_traveller_flutter/utils/extensions.dart';
 
 import 'base_data.dart';
 
@@ -27,7 +28,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
 
   final ApiService _apiService;
 
-  // TODO
   /// Fetches the given network call with query parameters.
   ///
   /// First checks whether accessToken is still valid otherwise
@@ -40,7 +40,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       final valueSafeMap = <String, String>{};
       queryParams.forEach((key, value) {
         if (value != null) {
-          valueSafeMap[key] = value.toString();
+          valueSafeMap[key] = value is List ? value.toCommaString() : value.toString();
         }
       });
       queryParams = valueSafeMap;
@@ -72,7 +72,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     }
   }
 
-  // TODO
   // https://developers.amadeus.com/self-service/category/air/api-doc/airport-nearest-relevant/api-reference
   /// *"What are the nearest major airports to this location?"*
   ///
@@ -88,7 +87,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     final queryParams = {
       'latitude': location.lat, // ---REQUIRED---
       'longitude': location.long, // ---REQUIRED---
-      'page[limit]': 3 // maximum items in one page
+      'page[limit]': 10 // maximum items in one page
     };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
@@ -219,7 +218,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // TODO
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-most-traveled-destinations/api-reference
   /// *"What are the most visited destinations among travelers in New York City?"*
   ///
@@ -230,11 +228,14 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// percentage of total departures) and a traveler score
   /// (number of passengers traveling to the destination as a percentage of total passenger departures).
   @override
-  Future<String> getRawFlightMostTravelled() async {
+  Future<String> getRawFlightMostTravelled(String originCityCode) async {
+    final currDate = DateTime.now();
+    final currDateFormatted = '${currDate.year}-${currDate.month}';
+
     final endpointPath = 'v1/travel/analytics/air-traffic/traveled';
     final queryParams = {
-      'originCityCode': 'MAD', // ---REQUIRED--- Code for the origin city following IATA standard (IATA table codes). - e.g. BOS for Boston http://www.iata.org/publications/Pages/code-search.aspx
-      'period': '2019-09', // ---REQUIRED--- Period when consumers are traveling. It can be a month only. ISO 8601 format must be used - e.g. 2015-05. Period ranges are not supported. Only periods from 2011-01 up to previous month are valid. Future dates are not supported. https://en.wikipedia.org/wiki/ISO_8601
+      'originCityCode': originCityCode, // ---REQUIRED--- (eg.: 'MAD') Code for the origin city following IATA standard (IATA table codes). - e.g. BOS for Boston http://www.iata.org/publications/Pages/code-search.aspx
+      'period': currDateFormatted, // ---REQUIRED--- (eg.: '2019-09') Period when consumers are traveling. It can be a month only. ISO 8601 format must be used - e.g. 2015-05. Period ranges are not supported. Only periods from 2011-01 up to previous month are valid. Future dates are not supported. https://en.wikipedia.org/wiki/ISO_8601
       'max': 15, // maximum number of destinations in the response. Default value is 10 and maximum value is 50.
       'page[limit]': 15, // maximum items in one page, default is 10
     };
@@ -242,7 +243,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // TODO
   // https://developers.amadeus.com/self-service/category/trip/api-doc/travel-recommendations/api-reference
   /// *"If a traveler has shown interest in Berlin, what other destinations would he/she like?"*
   ///
@@ -257,16 +257,13 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   ///   - France, UK, Germany, Italy, Spain, Netherlands, USA, Argentina, Mexico and South Africa
   ///
   /// Use case in this app:
-  ///   - store locally city codes which user has searched for and use them
-  ///    for recommendations
+  ///   - store locally city codes which user has searched for and use them for recommendations
   ///   - if it is first time user, display random
   @override
-  Future<String> getRawTravelRecommendation() async {
+  Future<String> getRawTravelRecommendation(List<String> cityCodes) async {
     final endpointPath = 'v1/reference-data/recommended-locations';
     final queryParams = {
-      'cityCodes': 'PAR', // ---REQUIRED--- City used by the algorithm to recommend new destination. Several cities can be specified using comma. City codes follow IATA standard http://www.iata.org/publications/Pages/code-search.aspx
-      'travelerCountryCode': 'FR', // Origin country of the traveler following IATA standard. Default value : FR
-      'destinationCountryCodes': null, // List of country the traveler want to visit, separated with comma. Country codes follow IATA standard.
+      'cityCodes': cityCodes, // ---REQUIRED--- (eg.: 'PAR') City used by the algorithm to recommend new destination. Several cities can be specified using comma. City codes follow IATA standard http://www.iata.org/publications/Pages/code-search.aspx
     };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
@@ -335,7 +332,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // TODO
   // https://developers.amadeus.com/self-service/category/destination-content/api-doc/safe-place-api/api-reference
   /// *"How safe is this location?"*
   ///

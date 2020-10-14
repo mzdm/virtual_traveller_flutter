@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/base_data.dart';
 
 /// TODO: Reduce repetitive lines
@@ -75,7 +76,7 @@ class AmadeusMockedDataProvider implements AmadeusBaseDataProvider {
 
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-most-traveled-destinations/api-reference
   @override
-  Future<String> getRawFlightMostTravelled() async {
+  Future<String> getRawFlightMostTravelled(String originCityCode) async {
     final data = '''{"meta":{"count":10,"links":{"self":"https://test.api.amadeus.com/v1/travel/analytics/air-traffic/traveled?max=10&originCityCode=MAD&page%5Blimit%5D=10&page%5Boffset%5D=0&period=2017-01&sort=analytics.travelers.score"}},"data":[{"type":"air-traffic","destination":"PAR","subType":"TRAVELED","analytics":{"flights":{"score":74},"travelers":{"score":100}}},{"type":"air-traffic","destination":"BCN","subType":"TRAVELED","analytics":{"flights":{"score":100},"travelers":{"score":78}}},{"type":"air-traffic","destination":"TCI","subType":"TRAVELED","analytics":{"flights":{"score":33},"travelers":{"score":67}}},{"type":"air-traffic","destination":"LON","subType":"TRAVELED","analytics":{"flights":{"score":71},"travelers":{"score":56}}},{"type":"air-traffic","destination":"BRU","subType":"TRAVELED","analytics":{"flights":{"score":23},"travelers":{"score":38}}},{"type":"air-traffic","destination":"NYC","subType":"TRAVELED","analytics":{"flights":{"score":43},"travelers":{"score":22}}},{"type":"air-traffic","destination":"UIO","subType":"TRAVELED","analytics":{"flights":{"score":38},"travelers":{"score":15}}},{"type":"air-traffic","destination":"SDQ","subType":"TRAVELED","analytics":{"flights":{"score":10},"travelers":{"score":15}}},{"type":"air-traffic","destination":"OPO","subType":"TRAVELED","analytics":{"flights":{"score":16},"travelers":{"score":8}}},{"type":"air-traffic","destination":"DXB","subType":"TRAVELED","analytics":{"flights":{"score":26},"travelers":{"score":7}}}]}''';
 
     return simulateRemoteDataDelay(data);
@@ -83,7 +84,7 @@ class AmadeusMockedDataProvider implements AmadeusBaseDataProvider {
 
   // https://developers.amadeus.com/self-service/category/trip/api-doc/travel-recommendations/api-reference
   @override
-  Future<String> getRawTravelRecommendation() async {
+  Future<String> getRawTravelRecommendation(List<String> cityCodes) async {
     final data = '''{"meta":{"links":{"self":"https://test.api.amadeus.com/v1/reference-data/recommended-locations?cityCodes=LON&travelerCountryCode=FR"},"count":2},"data":[{"type":"recommended-location","subtype":"CITY","name":"PARIS","iataCode":"PAR","geoCode":{"longiture":2.34276,"latitude":48.85755},"relevance":0.71},{"type":"recommended-location","subtype":"CITY","name":"MADRID","iataCode":"MAD","geoCode":{"longiture":3.70348,"latitude":40.41654},"relevance":0.68}]}''';
 
     return simulateRemoteDataDelay(data);
