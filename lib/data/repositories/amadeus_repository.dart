@@ -4,6 +4,8 @@ import 'package:virtual_traveller_flutter/data/models/destination.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'dart:convert';
 
+import 'package:virtual_traveller_flutter/data/models/poi.dart';
+
 /// **Quick links**
 ///
 /// *Flights related*:
@@ -29,7 +31,9 @@ class AmadeusRepository {
 
   // Flights related
   // TODO
-  Future<List<dynamic>> getNearestAirport(Location location) async {
+  Future<List<dynamic>> getNearestAirport(
+    Location location,
+  ) async {
     final rawData = await amadeusBaseDataProvider.getRawNearestAirport(location);
     final data = json.decode(rawData)['data'];
 
@@ -79,7 +83,9 @@ class AmadeusRepository {
     return data;
   }
 
-  Future<List<Destination>> getFlightMostTravelled(String originCityCode) async {
+  Future<List<Destination>> getFlightMostTravelled(
+    String originCityCode,
+  ) async {
     final rawData = await amadeusBaseDataProvider.getRawFlightMostTravelled(originCityCode);
     final data = json.decode(rawData)['data'];
 
@@ -91,7 +97,9 @@ class AmadeusRepository {
   }
 
   // TODO
-  Future<List<dynamic>> getTravelRecommendation(List<String> cityCodes) async {
+  Future<List<dynamic>> getTravelRecommendation(
+    List<String> cityCodes,
+  ) async {
     final rawData = await amadeusBaseDataProvider.getRawTravelRecommendation(cityCodes);
     final data = json.decode(rawData)['data'];
 
@@ -112,15 +120,23 @@ class AmadeusRepository {
   }
 
   // TODO
-  Future<List<dynamic>> getPointsOfInterest(Location location) async {
-    final rawData = await amadeusBaseDataProvider.getRawPointsOfInterest(location);
+  Future<List<dynamic>> getPointsOfInterest(
+    Location location,
+    CategoryPOI category,
+  ) async {
+    final rawData = await amadeusBaseDataProvider.getRawPointsOfInterest(
+      location: location,
+      category: category,
+    );
     final data = json.decode(rawData)['data'];
 
     return data;
   }
 
   // TODO
-  Future<List<dynamic>> getSafePlace(Location location) async {
+  Future<List<dynamic>> getSafePlace(
+    Location location,
+  ) async {
     final rawData = await amadeusBaseDataProvider.getRawSafePlace(location);
     final data = json.decode(rawData)['data'];
 

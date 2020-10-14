@@ -1,6 +1,8 @@
+import 'package:meta/meta.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/api_service.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:http/http.dart' as http;
+import 'package:virtual_traveller_flutter/data/models/poi.dart';
 import 'package:virtual_traveller_flutter/utils/extensions.dart';
 
 import 'base_data.dart';
@@ -307,7 +309,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // TODO
   // https://developers.amadeus.com/self-service/category/destination-content/api-doc/points-of-interest/api-reference
   /// *"What are the best places to visit in Barcelona?"*
   ///
@@ -319,14 +320,17 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   ///
   /// Scores indicate positive traveler sentiments and may not reflect the most visited attractions.
   @override
-  Future<String> getRawPointsOfInterest(Location location) async {
+  Future<String> getRawPointsOfInterest({
+    @required Location location,
+    CategoryPOI category,
+  }) async {
     final endpointPath = 'v1/reference-data/locations/pois';
     final queryParams = {
       'latitude': location.lat, // ---REQUIRED---
       'longitude': location.long, // ---REQUIRED---
-      'categories': 'SIGHTS', // array[string], category of the location. Available values (multiple can be used): SIGHTS, NIGHTLIFE, RESTAURANT, SHOPPING
-      'radius': 10, // radius of the search in kilometer, can be from 0 to 20, default value is 1 km
-      'page[limit]': 1, // maximum items in one page (enough is to see safety only of the city and not also of the each district)
+      'categories': category, // array[string], category of the location. Available values (multiple can be used): SIGHTS, NIGHTLIFE, RESTAURANT, SHOPPING
+      'radius': 5, // radius of the search in kilometer, can be from 0 to 20, default value is 1 km
+      'page[limit]': 30, // maximum items in one page, default value : 10
     };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
@@ -343,7 +347,9 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// algorithm which analyzes crime, health and economic data, official travel alerts,
   /// local reporting and a variety of other sources.
   @override
-  Future<String> getRawSafePlace(Location location) async {
+  Future<String> getRawSafePlace(
+    Location location,
+  ) async {
     final endpointPath = 'v1/safety/safety-rated-locations';
     final queryParams = {
       'latitude': location.lat, // ---REQUIRED---
