@@ -40,7 +40,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       final valueSafeMap = <String, String>{};
       queryParams.forEach((key, value) {
         if (value != null) {
-          valueSafeMap[key] = value is List ? value?.toCommaString() : value?.toString();
+          valueSafeMap[key] = value is List ? value.toCommaString() : value.toString();
         }
       });
       queryParams = valueSafeMap;
