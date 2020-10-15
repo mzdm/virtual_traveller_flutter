@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
-import 'package:virtual_traveller_flutter/data/models/poi.dart';
 
+// TODO: Add APIs: Multicity search; AI Photos
 /// **Quick links**
 ///
 /// *Flights related*:
@@ -45,7 +45,19 @@ abstract class AmadeusBaseDataProvider {
   /// and book the flight with [Flight Create Orders](https://developers.amadeus.com/self-service/category/air/api-doc/flight-create-orders).
   ///
   /// [IATA code](http://www.iata.org/publications/Pages/code-search.aspx)
-  Future<String> getRawFlightOffersSearch();
+  Future<String> getRawFlightOffersSearch({
+    @required String originCity,
+    @required String destinationCity,
+    @required String departureDate,
+    String returnDate,
+    @required int adults,
+    int children,
+    int infants,
+    String travelClass,
+    bool nonStop,
+    String currencyCode,
+    int maxPrice,
+  });
 
   /// *"What are the cheapest dates to fly from Munich to Sao Paulo?"*
   ///
@@ -54,7 +66,10 @@ abstract class AmadeusBaseDataProvider {
   /// and allows you to order by price, departure date or duration.
   /// The API provides a link to [Flight Offers Search](https://developers.amadeus.com/self-service/category/air/api-doc/flight-offers-search)
   /// to complete the flight search using the chosen dates.
-  Future<String> getRawFlightCheapestDateSearch();
+  Future<String> getRawFlightCheapestDateSearch({
+    @required String originCity,
+    @required String destinationCity,
+  });
 
   /// *"Which cities and airports begin with Lon..?"*
   ///
@@ -63,14 +78,18 @@ abstract class AmadeusBaseDataProvider {
   /// traveler enters in the search field. The API provides a list of airports/cities ordered by
   /// yearly passenger volume with the name, 3-letter IATA code, time zone and
   /// coordinates of each airport.
-  Future<String> getRawAirportCitySearch();
+  Future<String> getRawAirportCitySearch(
+    String textSearchKeyword,
+  );
 
   /// *"What is the name of the airline with the given IATA code EK?"*
   ///
   /// The Airline Code Lookup API lets you find the name of an airline by
   /// its IATA or ICAO airline code. You can search for multiple airline names by
   /// including various airline codes in the same request.
-  Future<String> getRawAirlineCodeLookup();
+  Future<String> getRawAirlineCodeLookup(
+    String airlineCode,
+  );
 
   // Home Page & Destinations related
   /// *"Which destinations are most frequently booked by travelers in New Delhi?"*
@@ -145,7 +164,7 @@ abstract class AmadeusBaseDataProvider {
   /// Scores indicate positive traveler sentiments and may not reflect the most visited attractions.
   Future<String> getRawPointsOfInterest({
     @required Location location,
-    CategoryPOI category,
+    List<String> categories,
   });
 
   /// *"How safe is this location?"*
@@ -157,5 +176,7 @@ abstract class AmadeusBaseDataProvider {
   /// The scores are powered by the GeoSure GeoSafeScores](https://geosureglobal.com/)
   /// algorithm which analyzes crime, health and economic data, official travel alerts,
   /// local reporting and a variety of other sources.
-  Future<String> getRawSafePlace(Location location);
+  Future<String> getRawSafePlace(
+    Location location,
+  );
 }

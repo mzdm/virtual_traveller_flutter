@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/base_data.dart';
 import 'package:virtual_traveller_flutter/data/models/destination.dart';
@@ -41,8 +42,32 @@ class AmadeusRepository {
   }
 
   // TODO
-  Future<dynamic> getFlightOffersSearch() async {
-    final rawData = await amadeusBaseDataProvider.getRawFlightOffersSearch();
+  Future<dynamic> getFlightOffersSearch({
+    @required String originCity,
+    @required String destinationCity,
+    @required String departureDate,
+    String returnDate,
+    @required int adults,
+    int children = 0,
+    int infants = 0,
+    String travelClass,
+    bool nonStop,
+    String currencyCode = 'USD',
+    int maxPrice,
+  }) async {
+    final rawData = await amadeusBaseDataProvider.getRawFlightOffersSearch(
+    originCity: originCity,
+    destinationCity: destinationCity,
+    departureDate: departureDate,
+    returnDate: returnDate,
+    adults: adults,
+    children: children,
+    infants: infants,
+    travelClass: travelClass,
+    nonStop: nonStop,
+    currencyCode: currencyCode,
+    maxPrice: maxPrice,
+    );
     final data = json.decode(rawData)['data'];
     final dictionaries = json.decode(rawData)['dictionaries'];
 
@@ -50,8 +75,14 @@ class AmadeusRepository {
   }
 
   // TODO
-  Future<dynamic> getFlightCheapestDateSearch() async {
-    final rawData = await amadeusBaseDataProvider.getRawFlightCheapestDateSearch();
+  Future<dynamic> getFlightCheapestDateSearch({
+    @required String originCity,
+    @required String destinationCity,
+  }) async {
+    final rawData = await amadeusBaseDataProvider.getRawFlightCheapestDateSearch(
+      originCity: originCity,
+      destinationCity: destinationCity,
+    );
     final data = json.decode(rawData)['data'];
     final dictionaries = json.decode(rawData)['dictionaries'];
 
@@ -59,16 +90,20 @@ class AmadeusRepository {
   }
 
   // TODO
-  Future<List<dynamic>> getAirportCitySearch() async {
-    final rawData = await amadeusBaseDataProvider.getRawAirportCitySearch();
+  Future<List<dynamic>> getAirportCitySearch(
+    String textSearchKeyword,
+  ) async {
+    final rawData = await amadeusBaseDataProvider.getRawAirportCitySearch(textSearchKeyword);
     final data = json.decode(rawData)['data'];
 
     return data;
   }
 
   // TODO
-  Future<dynamic> getAirlineCodeLookup() async {
-    final rawData = await amadeusBaseDataProvider.getRawAirlineCodeLookup();
+  Future<dynamic> getAirlineCodeLookup(
+    String airlineCode,
+  ) async {
+    final rawData = await amadeusBaseDataProvider.getRawAirlineCodeLookup(airlineCode);
     final data = json.decode(rawData)['data'][0];
 
     return data;
@@ -130,11 +165,13 @@ class AmadeusRepository {
   // TODO
   Future<List<dynamic>> getPointsOfInterest(
     Location location,
-    CategoryPOI category,
+    List<CategoryPOI> categories,
   ) async {
+    final strList = categories.map((category) => describeEnum(category)).toList();
+
     final rawData = await amadeusBaseDataProvider.getRawPointsOfInterest(
       location: location,
-      category: category,
+      categories: strList,
     );
     final data = json.decode(rawData)['data'];
 

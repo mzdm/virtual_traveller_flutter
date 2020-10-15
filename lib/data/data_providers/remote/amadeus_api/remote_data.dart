@@ -43,71 +43,88 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // TODO
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-offers-search/api-reference
   @override
-  Future<String> getRawFlightOffersSearch() async {
+  Future<String> getRawFlightOffersSearch({
+    @required String originCity,
+    @required String destinationCity,
+    @required String departureDate,
+    String returnDate,
+    @required int adults,
+    int children,
+    int infants,
+    String travelClass,
+    bool nonStop,
+    String currencyCode,
+    int maxPrice,
+  }) async {
     final endpointPath = 'v2/shopping/flight-offers';
     final queryParams = {
-      'originLocationCode': 'SYD', // ---REQUIRED---, IATA code
-      'destinationLocationCode': 'BKK', // ---REQUIRED---, IATA code
-      'adults': 1, // ---REQUIRED---, the number of adult travelers (age 12 or older on date of departure)
-      'departureDate': '2017-12-25', // ---REQUIRED---, ISO 8601 YYYY-MM-DD format, e.g. 2017-12-25
-      'returnDate': '2018-02-28', // format same as departureDate, if null then it is one-way, otherwise round-trip
-      'children': 0, // the number of child travelers (older than age 2 and younger than age 12 on date of departure)
-      'infants': 0, // the number of infant travelers (whose age is less or equal to 2 on date of departure), infants travel on the lap of an adult traveler, and thus the number of infants must not exceed the number of adults
-      'travelClass': 'ECONOMY', // ECONOMY, PREMIUM_ECONOMY, BUSINESS, FIRST; if no travel class is specified, the search considers any travel class
-      'nonStop': false, // if set to true, the search will find only flights going from the origin to the destination with no stop in between
-      'currencyCode': 'EUR', // the preferred currency for the flight offers, currency is specified in the ISO 4217 format, e.g. EUR for Euro
-      'maxPrice': 500, // maximum price per traveler, by default, no limit is applied, if specified, the value should be a positive number with no decimals
-      'max': 100, // maximum number of flight offers to return, if specified, the value should be greater than or equal to 1 (default 250)
+      'originLocationCode': originCity, // ---REQUIRED---, (eg.: 'SYD') IATA code
+      'destinationLocationCode': destinationCity, // ---REQUIRED---, (eg.: 'BKK') IATA code
+      'departureDate': departureDate, // ---REQUIRED---, (eg.: 2017-12-25) ISO 8601 YYYY-MM-DD format
+      'returnDate': returnDate, // (eg.: 2018-02-28) format same as departureDate, if null then it is one-way, otherwise round-trip
+      'adults': adults, // ---REQUIRED---, (eg.: 1) the number of adult travelers (age 12 or older on date of departure)
+      'children': children, // (eg.: 0) the number of child travelers (older than age 2 and younger than age 12 on date of departure)
+      'infants': infants, // (eg.: 0) the number of infant travelers (whose age is less or equal to 2 on date of departure), infants travel on the lap of an adult traveler, and thus the number of infants must not exceed the number of adults
+      'travelClass': travelClass, // (eg.: 'ECONOMY') ECONOMY, PREMIUM_ECONOMY, BUSINESS, FIRST; if no travel class is specified, the search considers any travel class
+      'nonStop': nonStop, // if set to true, the search will find only flights going from the origin to the destination with no stop in between. Default value : false
+      'currencyCode': currencyCode, // (eg.: 'USD') the preferred currency for the flight offers, currency is specified in the ISO 4217 format, e.g. EUR for Euro
+      'maxPrice': maxPrice, // (eg.: 500) maximum price per traveler, by default, no limit is applied, if specified, the value should be a positive number with no decimals
+      'max': 50, // maximum number of flight offers to return, if specified, the value should be greater than or equal to 1 (default 250)
     };
 
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // TODO
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-cheapest-date-search/api-reference
   @override
-  Future<String> getRawFlightCheapestDateSearch() async {
+  Future<String> getRawFlightCheapestDateSearch({
+    @required String originCity,
+    @required String destinationCity,
+  }) async {
+    final currDate = DateTime.now();
+    final currDateFormatted = '${currDate.year}-${currDate.month}-${currDate.day}';
+
     final endpointPath = 'v1/shopping/flight-dates';
     final queryParams = {
-      'origin': 'SYD', // ---REQUIRED---, IATA code of the city from which the flight will depart, e.g. MAD for Madrid http://www.iata.org/publications/Pages/code-search.aspx
-      'destination': 'MUC', // ---REQUIRED---, IATA code of the city to which the flight is going
-      'departureDate': '2019-09-15', // the date, or range of dates, on which the flight will depart from the origin. Dates are specified in the ISO 8601 YYYY-MM-DD format, e.g. 2017-12-25. Ranges are specified with a comma and are inclusive
+      'origin': originCity, // ---REQUIRED---, (eg.: 'SYD') IATA code of the city from which the flight will depart, e.g. MAD for Madrid http://www.iata.org/publications/Pages/code-search.aspx
+      'destination': destinationCity, // ---REQUIRED---, (eg.: 'MUC') IATA code of the city to which the flight is going
+      'departureDate': currDateFormatted, // the date, or range of dates, on which the flight will depart from the origin. Dates are specified in the ISO 8601 YYYY-MM-DD format, e.g. 2017-12-25. Ranges are specified with a comma and are inclusive
       'oneWay': true, // if this parameter is set to true, only one-way flights are considered. If this parameter is not set or set to false, only round-trip flights are considered. Default: false
-      'nonStop': false, // if set to true, the search will find only flights going from the origin to the destination with no stop in between
-      'maxPrice': 500, // defines the price limit for each offer returned. The value should be a positive number, without decimals
     };
 
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // TODO
   // https://developers.amadeus.com/self-service/category/air/api-doc/airport-and-city-search/api-reference
   @override
-  Future<String> getRawAirportCitySearch() async {
+  Future<String> getRawAirportCitySearch(
+    String textSearchKeyword,
+  ) async {
     final endpointPath = 'v1/reference-data/locations';
     final queryParams = {
-      'subType': ['AIRPORT', 'CITY'], // --REQUIRED--, array[string], sub type of the location (AIRPORT and/or CITY). Available values : AIRPORT, CITY
-      'keyword': 'MUC', // --REQUIRED--, keyword that should represent the start of a word in a city or airport name or code
+      'keyword': textSearchKeyword, // --REQUIRED--, (eg.: 'MUC') keyword that should represent the start of a word in a city or airport name or code
+      'subType': 'CITY', // --REQUIRED--, array[string], sub type of the location (AIRPORT and/or CITY). Available values : AIRPORT, CITY
       'page[limit]': 10, // maximum items in one page, default value: 10
     };
 
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // TODO
   // https://developers.amadeus.com/self-service/category/air/api-doc/airline-code-lookup/api-reference
   @override
-  Future<String> getRawAirlineCodeLookup() async {
+  Future<String> getRawAirlineCodeLookup(
+    String airlineCode,
+  ) async {
     final endpointPath = 'v1/reference-data/airlines';
     final queryParams = {
       // Code of the airline following IATA standard (IATA table codes: http://www.iata.org/publications/Pages/code-search.aspx)
       // or ICAO standard (ICAO airlines table codes: https://en.wikipedia.org/wiki/List_of_airline_codes).
 
       // Several airlines can be selected at once by sending a list separated by a coma (i.e. AF, SWA).
-      'airlineCodes': 'BA',
+      // (eg.: 'BA')
+      'airlineCodes': airlineCode,
     };
 
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
@@ -199,13 +216,13 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   @override
   Future<String> getRawPointsOfInterest({
     @required Location location,
-    CategoryPOI category,
+    List<String> categories,
   }) async {
     final endpointPath = 'v1/reference-data/locations/pois';
     final queryParams = {
       'latitude': location.lat, // ---REQUIRED---
       'longitude': location.long, // ---REQUIRED---
-      'categories': category, // array[string], category of the location. Available values (multiple can be used): SIGHTS, NIGHTLIFE, RESTAURANT, SHOPPING
+      'categories': categories, // array[string], category of the location. Available values (multiple can be used): SIGHTS, NIGHTLIFE, RESTAURANT, SHOPPING
       'radius': 5, // radius of the search in kilometer, can be from 0 to 20, default value is 1 km
       'page[limit]': 30, // maximum items in one page, default value : 10
     };
