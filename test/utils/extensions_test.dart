@@ -1,27 +1,39 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:virtual_traveller_flutter/data/models/poi.dart';
 import 'package:virtual_traveller_flutter/utils/extensions.dart';
 
 void main() {
   group('List extension', () {
     test('one value', () async {
       final list = <String>['SYD'];
-      final listStr = list.toCommaString();
+      final strList = list.toCommaString();
 
-      expect(listStr, 'SYD');
+      expect(strList, 'SYD');
     });
 
     test('more than one value', () async {
       final list = <String>['SYD', 'PAR'];
-      final listStr = list.toCommaString();
+      final strList = list.toCommaString();
 
-      expect(listStr, 'SYD,PAR');
+      expect(strList, 'SYD,PAR');
     });
 
     test('int values', () async {
       final list = <int>[5, 4, 3];
-      final listStr = list.toCommaString();
+      final strList = list.toCommaString();
 
-      expect(listStr, '5,4,3');
+      expect(strList, '5,4,3');
+    });
+
+    test('CategoryPOI enum values', () async {
+      final categories = <CategoryPOI>[
+        CategoryPOI.NIGHTLIFE,
+        CategoryPOI.RESTAURANT,
+      ];
+      final strList = categories.map((category) => describeEnum(category)).toList();
+
+      expect(strList.toCommaString(), 'NIGHTLIFE,RESTAURANT');
     });
   });
 }
