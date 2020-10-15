@@ -11,7 +11,7 @@ abstract class Destination with _$Destination {
 
   const factory Destination.iata(
     @JsonKey(name: 'iataCode') String name,
-  ) = DestinationIata;
+  ) = DestinationIATA;
 
   factory Destination.fromJson(Map<String, dynamic> json) => _$DestinationFromJson(json);
 }

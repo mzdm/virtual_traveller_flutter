@@ -55,7 +55,7 @@ void main() {
       final data = json.decode(rawData)['data'];
 
       final destinations = (data as List).map((item) {
-        return DestinationIata.fromJson(item);
+        return DestinationIATA.fromJson(item);
       }).toList();
 
       print(destinations);
@@ -66,8 +66,8 @@ void main() {
       ]);
 
       expect(destinations, [
-        DestinationIata('PAR'),
-        DestinationIata('MAD'),
+        DestinationIATA('PAR'),
+        DestinationIATA('MAD'),
       ]);
     });
   });

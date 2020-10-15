@@ -140,7 +140,7 @@ class AmadeusRepository {
     final data = json.decode(rawData)['data'];
 
     final destinations = (data as List).map((item) {
-      return DestinationIata.fromJson(item);
+      return DestinationIATA.fromJson(item);
     }).toList();
 
     return destinations;
@@ -165,7 +165,6 @@ class AmadeusRepository {
     return [data, dictionaries];
   }
 
-  // TODO
   Future<List<dynamic>> getPointsOfInterest(
     Location location,
     List<CategoryPOI> categories,
@@ -177,6 +176,8 @@ class AmadeusRepository {
       categories: strList,
     );
     final data = json.decode(rawData)['data'];
+
+
 
     return data;
   }
