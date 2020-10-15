@@ -16,5 +16,12 @@ void main() {
 
       expect(listStr, 'SYD,PAR');
     });
+
+    test('int values', () async {
+      final list = <int>[5, 4, 3];
+      final listStr = list.toCommaString();
+
+      expect(listStr, '5,4,3');
+    });
   });
 }
