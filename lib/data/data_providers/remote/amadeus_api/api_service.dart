@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:virtual_traveller_flutter/data/data_providers/remote/secrets.dart';
 import 'package:virtual_traveller_flutter/utils/debug_options.dart';
+import 'package:virtual_traveller_flutter/utils/extensions.dart';
 
 class ApiService {
   static const _apiKey = Secrets.amadeusApiKey;
@@ -51,7 +52,7 @@ class ApiService {
   ///
   /// If:
   ///   - statusCode = 401 = UNAUTHORIZED = Access Token has expired -> generate a new one
-  Future<T> checkTokenValidation<T>({Future<T> Function() onChecked}) async {
+  Future<T> checkTokenValidation<T>(Future<T> Function() onChecked) async {
     try {
       _accessToken ??= await getAccessToken();
       return await onChecked();
@@ -61,6 +62,50 @@ class ApiService {
         _accessToken = await getAccessToken();
         return await onChecked();
       }
+      rethrow;
+    }
+  }
+
+  /// Fetches the given network call with query parameters.
+  ///
+  /// First checks whether accessToken is still valid otherwise
+  /// generate a new one.
+  Future<String> getRawDataFromEndpoint(
+    String endpointPath,
+    Map<String, dynamic> queryParams,
+  ) async {
+    final apiCallFunc = () async {
+      final valueSafeMap = <String, String>{};
+      queryParams.forEach((key, value) {
+        if (value != null) {
+          valueSafeMap[key] = value is List ? value.toCommaString() : value.toString();
+        }
+      });
+      queryParams = valueSafeMap;
+
+      final response = await http.get(
+        getUri(endpointPath, queryParams).toString(),
+        headers: {
+          'Authorization': 'Bearer ${accessToken}',
+        },
+      );
+
+      print(
+        'Request ${getUri(endpointPath, queryParams).toString()} with token: ${accessToken}\n'
+        'Response: ${response.statusCode}: ${response.reasonPhrase}',
+      );
+
+      if (response.statusCode == 200) {
+        return response.body;
+      }
+
+      throw (response);
+    };
+
+    try {
+      return checkTokenValidation(apiCallFunc);
+    } catch (e) {
+      print(e);
       rethrow;
     }
   }

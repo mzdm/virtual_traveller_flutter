@@ -1,9 +1,7 @@
 import 'package:meta/meta.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/api_service.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
-import 'package:http/http.dart' as http;
 import 'package:virtual_traveller_flutter/data/models/poi.dart';
-import 'package:virtual_traveller_flutter/utils/extensions.dart';
 
 import 'base_data.dart';
 
@@ -30,50 +28,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
 
   final ApiService _apiService;
 
-  /// Fetches the given network call with query parameters.
-  ///
-  /// First checks whether accessToken is still valid otherwise
-  /// generate a new one.
-  Future<String> _getRawDataFromEndpoint(
-    String endpointPath,
-    Map<String, dynamic> queryParams,
-  ) async {
-    final Function func = () async {
-      final valueSafeMap = <String, String>{};
-      queryParams.forEach((key, value) {
-        if (value != null) {
-          valueSafeMap[key] = value is List ? value.toCommaString() : value.toString();
-        }
-      });
-      queryParams = valueSafeMap;
-
-      final response = await http.get(
-        _apiService.getUri(endpointPath, queryParams).toString(),
-        headers: {
-          'Authorization': 'Bearer ${_apiService.accessToken}',
-        },
-      );
-
-      print(
-        'Request ${_apiService.getUri(endpointPath, queryParams).toString()} with token: ${_apiService.accessToken}\n'
-        'Response: ${response.statusCode}: ${response.reasonPhrase}',
-      );
-
-      if (response.statusCode == 200) {
-        return response.body;
-      }
-
-      throw (response);
-    };
-
-    try {
-      return _apiService.checkTokenValidation(onChecked: func);
-    } catch (e) {
-      print(e);
-      rethrow;
-    }
-  }
-
   // https://developers.amadeus.com/self-service/category/air/api-doc/airport-nearest-relevant/api-reference
   @override
   Future<String> getRawNearestAirport(
@@ -86,7 +40,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'page[limit]': 10 // maximum items in one page
     };
 
-    return await _getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // TODO
@@ -109,7 +63,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'max': 100, // maximum number of flight offers to return, if specified, the value should be greater than or equal to 1 (default 250)
     };
 
-    return await _getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // TODO
@@ -126,7 +80,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'maxPrice': 500, // defines the price limit for each offer returned. The value should be a positive number, without decimals
     };
 
-    return await _getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // TODO
@@ -140,7 +94,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'page[limit]': 10, // maximum items in one page, default value: 10
     };
 
-    return await _getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // TODO
@@ -156,7 +110,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'airlineCodes': 'BA',
     };
 
-    return await _getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-most-booked-destinations/api-reference
@@ -175,7 +129,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'page[limit]': 15, // maximum items in one page, default value : 10
     };
 
-    return await _getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-most-traveled-destinations/api-reference
@@ -194,7 +148,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'page[limit]': 15, // maximum items in one page, default is 10
     };
 
-    return await _getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/trip/api-doc/travel-recommendations/api-reference
@@ -207,7 +161,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'cityCodes': cityCodes, // ---REQUIRED--- (eg.: 'PAR') City used by the algorithm to recommend new destination. Several cities can be specified using comma. City codes follow IATA standard http://www.iata.org/publications/Pages/code-search.aspx
     };
 
-    return await _getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search/api-reference
@@ -238,7 +192,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'page[limit]': 10,
     };
 
-    return await _getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/destination-content/api-doc/points-of-interest/api-reference
@@ -256,7 +210,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'page[limit]': 30, // maximum items in one page, default value : 10
     };
 
-    return await _getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
   // https://developers.amadeus.com/self-service/category/destination-content/api-doc/safe-place-api/api-reference
@@ -271,6 +225,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'page[limit]': 1, // maximum items in one page (enough is to see safety only of the city and not also of the each district)
     };
 
-    return await _getRawDataFromEndpoint(endpointPath, queryParams);
+    return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 }
