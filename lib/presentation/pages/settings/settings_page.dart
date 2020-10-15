@@ -21,10 +21,8 @@ class SettingsPage extends StatelessWidget {
                 // TODO
                 onTap: () async {
                   // temp code for output testing
-                  final data = await context.repository<AmadeusRepository>().getHotelSearch(
-                    cityCode: 'PAR',
-                  );
-                  print(data);
+                  final data = await context.repository<AmadeusRepository>().getTravelRecommendation(null);
+                  print(data[0].name);
                 },
               ),
               SettingItem(

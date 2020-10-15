@@ -127,20 +127,23 @@ class AmadeusRepository {
     final data = json.decode(rawData)['data'];
 
     final destinations = (data as List).map((item) {
-      return Destination.fromJson(item);
+      return DestinationBase.fromJson(item);
     }).toList();
 
     return destinations;
   }
 
-  // TODO
-  Future<List<dynamic>> getTravelRecommendation(
+  Future<List<Destination>> getTravelRecommendation(
     List<String> cityCodes,
   ) async {
     final rawData = await amadeusBaseDataProvider.getRawTravelRecommendation(cityCodes);
     final data = json.decode(rawData)['data'];
 
-    return data;
+    final destinations = (data as List).map((item) {
+      return DestinationIata.fromJson(item);
+    }).toList();
+
+    return destinations;
   }
 
   // TODO
