@@ -199,7 +199,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // TODO
   // https://developers.amadeus.com/self-service/category/air/api-doc/flight-most-booked-destinations/api-reference
   /// *"Which destinations are most frequently booked by travelers in New Delhi?"*
   ///
@@ -210,11 +209,16 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// a traveler score (number of passengers traveling to the destination as a
   /// percentage of total passenger departures).
   @override
-  Future<String> getRawFlightMostBooked() async {
+  Future<String> getRawFlightMostBooked(
+    String originCityCode,
+  ) async {
+    final currDate = DateTime.now();
+    final currDateFormatted = '${currDate.year}-${currDate.month}';
+
     final endpointPath = 'v1/travel/analytics/air-traffic/booked';
     final queryParams = {
-      'originCityCode': 'MAD', // ---REQUIRED--- Code for the origin city following IATA standard (IATA table codes). - e.g. BOS for Boston. http://www.iata.org/publications/Pages/code-search.aspx
-      'period': '2019-09', // Period when consumers are traveling. It can be a month only. ISO format must be used - e.g. 2015-05. Period ranges are not supported. Only periods from 2011-01 up to previous month are valid. Future dates are not supported.
+      'originCityCode': originCityCode, // ---REQUIRED--- (eg.: 'MAD') Code for the origin city following IATA standard (IATA table codes). - e.g. BOS for Boston. http://www.iata.org/publications/Pages/code-search.aspx
+      'period': currDateFormatted, // (eg.: '2019-09') Period when consumers are traveling. It can be a month only. ISO format must be used - e.g. 2015-05. Period ranges are not supported. Only periods from 2011-01 up to previous month are valid. Future dates are not supported.
       'max': 15, // Maximum number of destinations in the response. Default value is 10 and maximum value is 50.
       'page[limit]': 15, // maximum items in one page, default value : 10
     };
@@ -277,7 +281,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // TODO
   // https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search/api-reference
   /// *"What are the best hotel deals during my trip?"*
   ///
@@ -292,24 +295,30 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   /// You can combine this API with the [Hotel Booking API](https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-booking)
   /// to build a complete [hotel booking engine](https://developers.amadeus.com/blog/build-hotel-booking-engine-amadeus-api).
   @override
-  Future<String> getRawHotelSearch() async {
+  Future<String> getRawHotelSearch({
+    @required cityCode,
+    String language,
+  }) async {
     final endpointPath = 'v2/shopping/hotel-offers';
     final queryParams = {
-      'cityCode': 'PAR', // ---REQUIRED--- Destination City Code (or Airport Code). In case of city code, the search will be done around the city center. Available codes can be found in IATA table codes (3 chars IATA Code). http://www.iata.org/publications/Pages/code-search.aspx
+      'cityCode': cityCode, // ---REQUIRED--- (eg.: 'PAR') Destination City Code (or Airport Code). In case of city code, the search will be done around the city center. Available codes can be found in IATA table codes (3 chars IATA Code). http://www.iata.org/publications/Pages/code-search.aspx
+      'radius': 5, // ---REQUIRED--- maximum distance (in radiusUnit) from Destination (city center or geocodes). Default value: 5
+      'radiusUnit': 'KM', // ---REQUIRED--- distance unit (of the radius value). Available values : KM, MILE
       'ratings': [5, 4, 3], // array[integer], hotel stars, up to 4 values can be requested at the same time in a comma separated list
-      'page[limit]': 20,
 
       // requested language of descriptive texts:
       // examples: FR , fr , fr-FR
       // if a language is not available the text will be returned in english
       // ISO language code (https://www.iso.org/iso-639-language-codes.html)
-      'lang': 'en-US',
+      'lang': language,
 
       // hotel descriptive content to include in the response:
       //  - NONE: geocoordinates, hotel distance
       //  - LIGHT: NONE view + city name, phone number, fax, address, postal code, country code, state code, ratings, 1 image
       //  - FULL: LIGHT view + hotel description, amenities and facilities
       'view': 'FULL',
+
+      'page[limit]': 10,
     };
 
     return await _getRawDataFromEndpoint(endpointPath, queryParams);

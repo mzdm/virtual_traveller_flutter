@@ -1,5 +1,7 @@
 import 'package:clean_settings/clean_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -17,8 +19,13 @@ class SettingsPage extends StatelessWidget {
                 title: 'Default departure location',
                 displayValue: 'Boston (BOS)',
                 // TODO
-                priority: ItemPriority.disabled,
-                onTap: () {},
+                onTap: () async {
+                  // temp code for output testing
+                  final data = await context.repository<AmadeusRepository>().getHotelSearch(
+                    cityCode: 'PAR',
+                  );
+                  print(data);
+                },
               ),
               SettingItem(
                 title: 'Language',

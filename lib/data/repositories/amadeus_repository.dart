@@ -76,8 +76,10 @@ class AmadeusRepository {
 
   // Home Page & Destinations related
   // TODO
-  Future<List<dynamic>> getFlightMostBooked() async {
-    final rawData = await amadeusBaseDataProvider.getRawFlightMostBooked();
+  Future<List<dynamic>> getFlightMostBooked(
+    String originCityCode,
+  ) async {
+    final rawData = await amadeusBaseDataProvider.getRawFlightMostBooked(originCityCode);
     final data = json.decode(rawData)['data'];
 
     return data;
@@ -107,8 +109,14 @@ class AmadeusRepository {
   }
 
   // TODO
-  Future<dynamic> getHotelSearch() async {
-    final rawData = await amadeusBaseDataProvider.getRawHotelSearch();
+  Future<dynamic> getHotelSearch({
+    @required cityCode,
+    String language,
+  }) async {
+    final rawData = await amadeusBaseDataProvider.getRawHotelSearch(
+      cityCode: cityCode,
+      language: language,
+    );
     // TODO: convert {newline} back to \n when doing in model fromJson
     // json decode produces an error if there is a newline \n
     final escapedData = rawData.replaceAll('\n', '{newline}');

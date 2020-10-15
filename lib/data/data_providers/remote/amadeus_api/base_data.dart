@@ -17,7 +17,9 @@ abstract class AmadeusBaseDataProvider {
   Future<String> getRawAirlineCodeLookup();
 
   // Home Page & Destinations related
-  Future<String> getRawFlightMostBooked();
+  Future<String> getRawFlightMostBooked(
+    String originCityCode,
+  );
 
   Future<String> getRawFlightMostTravelled(
     String originCityCode,
@@ -27,7 +29,10 @@ abstract class AmadeusBaseDataProvider {
     List<String> cityCodes,
   );
 
-  Future<String> getRawHotelSearch();
+  Future<String> getRawHotelSearch({
+    @required cityCode,
+    String language,
+  });
 
   Future<String> getRawPointsOfInterest({
     @required Location location,
