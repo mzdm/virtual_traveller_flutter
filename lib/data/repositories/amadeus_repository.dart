@@ -7,6 +7,7 @@ import 'dart:convert';
 
 import 'package:virtual_traveller_flutter/data/models/poi.dart';
 
+// TODO List safety null remove; Try Catch Function for fromJson (where output List)
 /// **Quick links**
 ///
 /// *Flights related*:
@@ -56,17 +57,17 @@ class AmadeusRepository {
     int maxPrice,
   }) async {
     final rawData = await amadeusBaseDataProvider.getRawFlightOffersSearch(
-    originCity: originCity,
-    destinationCity: destinationCity,
-    departureDate: departureDate,
-    returnDate: returnDate,
-    adults: adults,
-    children: children,
-    infants: infants,
-    travelClass: travelClass,
-    nonStop: nonStop,
-    currencyCode: currencyCode,
-    maxPrice: maxPrice,
+      originCity: originCity,
+      destinationCity: destinationCity,
+      departureDate: departureDate,
+      returnDate: returnDate,
+      adults: adults,
+      children: children,
+      infants: infants,
+      travelClass: travelClass,
+      nonStop: nonStop,
+      currencyCode: currencyCode,
+      maxPrice: maxPrice,
     );
     final data = json.decode(rawData)['data'];
     final dictionaries = json.decode(rawData)['dictionaries'];
@@ -165,21 +166,31 @@ class AmadeusRepository {
     return [data, dictionaries];
   }
 
-  Future<List<dynamic>> getPointsOfInterest(
+  Future<List<POI>> getPointsOfInterest(
     Location location,
-    List<CategoryPOI> categories,
+    List<CategoryPOI> categoriesList,
   ) async {
-    final strList = categories.map((category) => describeEnum(category)).toList();
+    final categoriesStrList = categoriesList == null
+        ? null
+        : categoriesList.map((category) => describeEnum(category)).toList();
 
     final rawData = await amadeusBaseDataProvider.getRawPointsOfInterest(
       location: location,
-      categories: strList,
+      categories: categoriesStrList,
     );
     final data = json.decode(rawData)['data'];
 
+    final pois = (data as List).map((item) {
+      try {
+        return POI.fromJson(item);
+      } catch (e) {
+        print(e);
+        return null;
+      }
+    }).toList()
+      ..removeWhere((element) => element == null);
 
-
-    return data;
+    return pois;
   }
 
   // TODO

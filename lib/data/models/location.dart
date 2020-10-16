@@ -1,12 +1,16 @@
 import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Location {
-  Location({
-    @required this.lat,
-    @required this.long,
-  })  : assert(lat != null),
-        assert(long != null);
+part 'location.freezed.dart';
 
-  final double lat;
-  final double long;
+part 'location.g.dart';
+
+@freezed
+abstract class Location with _$Location {
+  const factory Location({
+    @required double latitude,
+    @required double longitude,
+  }) = _Location;
+
+  factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
 }

@@ -35,8 +35,8 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   ) async {
     final endpointPath = 'v1/reference-data/locations/airports';
     final queryParams = {
-      'latitude': location.lat, // ---REQUIRED---
-      'longitude': location.long, // ---REQUIRED---
+      'latitude': location.latitude, // ---REQUIRED---
+      'longitude': location.longitude, // ---REQUIRED---
       'page[limit]': 10 // maximum items in one page
     };
 
@@ -220,8 +220,8 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   }) async {
     final endpointPath = 'v1/reference-data/locations/pois';
     final queryParams = {
-      'latitude': location.lat, // ---REQUIRED---
-      'longitude': location.long, // ---REQUIRED---
+      'latitude': location.latitude, // ---REQUIRED---
+      'longitude': location.longitude, // ---REQUIRED---
       'categories': categories, // array[string], category of the location. Available values (multiple can be used): SIGHTS, NIGHTLIFE, RESTAURANT, SHOPPING
       'radius': 5, // radius of the search in kilometer, can be from 0 to 20, default value is 1 km
       'page[limit]': 30, // maximum items in one page, default value : 10
@@ -237,8 +237,8 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   ) async {
     final endpointPath = 'v1/safety/safety-rated-locations';
     final queryParams = {
-      'latitude': location.lat, // ---REQUIRED---
-      'longitude': location.long, // ---REQUIRED---
+      'latitude': location.latitude, // ---REQUIRED---
+      'longitude': location.longitude, // ---REQUIRED---
       'page[limit]': 1, // maximum items in one page (enough is to see safety only of the city and not also of the each district)
     };
 
