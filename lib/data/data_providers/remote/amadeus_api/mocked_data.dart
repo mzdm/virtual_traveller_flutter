@@ -93,7 +93,7 @@ class AmadeusMockedDataProvider implements AmadeusBaseDataProvider {
 
   @override
   Future<String> getRawTravelRecommendation(_) async {
-    final rawData = '''{"meta":{"links":{"self":"https://test.api.amadeus.com/v1/reference-data/recommended-locations?cityCodes=LON&travelerCountryCode=FR"},"count":2},"data":[{"type":"recommended-location","subtype":"CITY","name":"PARIS","iataCode":"PAR","geoCode":{"longiture":2.34276,"latitude":48.85755},"relevance":0.71},{"type":"recommended-location","subtype":"CITY","name":"MADRID","iataCode":"MAD","geoCode":{"longiture":3.70348,"latitude":40.41654},"relevance":0.68}]}''';
+    final rawData = '''{"meta":{"links":{"self":"https://test.api.amadeus.com/v1/reference-data/recommended-locations?cityCodes=LON&travelerCountryCode=FR"},"count":2},"data":[{"type":"recommended-location","subtype":"CITY","name":"PARIS","iataCode":"PAR","geoCode":{"longiture":2.34276,"latitude":48.85755},"relevance":0.71},{"type":"recommended-location","subtype":"CITY","name":"MADRID","iataCode":"MAD","geoCode":{"longiture":3.70348,"latitude":40.41654},"relevance":0.68},null,null]}''';
 
     return simulateRemoteDataDelay(rawData);
   }

@@ -90,17 +90,25 @@ void main() {
       final data = json.decode(rawData)['data'];
 
       final destinations = (data as List).map((item) {
-        return DestinationIATA.fromJson(item);
-      }).toList();
+        try {
+          return DestinationIATA.fromJson(item);
+        } catch (e) {
+          print(e);
+          return null;
+        }
+      }).toList()
+        ..removeWhere((element) => element == null);
+
+      expect(destinations.length, 2);
 
       expect(destinations, [
-        Destination.iata('PAR'),
-        Destination.iata('MAD'),
+        Destination.iata(name: 'PAR', subtype: 'CITY'),
+        Destination.iata(name: 'MAD', subtype: 'CITY'),
       ]);
 
       expect(destinations, [
-        DestinationIATA('PAR'),
-        DestinationIATA('MAD'),
+        DestinationIATA(name: 'PAR', subtype: 'CITY'),
+        DestinationIATA(name: 'MAD', subtype: 'CITY'),
       ]);
     });
   });

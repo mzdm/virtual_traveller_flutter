@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/base_data.dart';
+import 'package:virtual_traveller_flutter/data/models/airport.dart';
 import 'package:virtual_traveller_flutter/data/models/destination.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'dart:convert';
@@ -33,14 +34,36 @@ class AmadeusRepository {
   final AmadeusBaseDataProvider amadeusBaseDataProvider;
 
   // Flights related
-  // TODO
   Future<List<dynamic>> getNearestAirport(
     Location location,
   ) async {
     final rawData = await amadeusBaseDataProvider.getRawNearestAirport(location);
     final data = json.decode(rawData)['data'];
 
-    return data;
+    /// We don't need Airport IATA code, but we need the city's code,
+    /// which is needed for flights & destinations searching.
+    ///
+    /// So this will also filter out cities with multiple airports.
+    final uniqueCityList = <String>{};
+    final airports = (data as List).map((item) {
+      try {
+        final airport = Airport.fromJson(item);
+        final cityCode = airport.address.cityCode;
+
+        if (uniqueCityList.contains(cityCode)) {
+          return null;
+        }
+
+        uniqueCityList.add(cityCode);
+        return airport;
+      } catch (e) {
+        print(e);
+        return null;
+      }
+    }).toList()
+      ..removeWhere((element) => element == null);
+
+    return airports;
   }
 
   // TODO
@@ -91,7 +114,6 @@ class AmadeusRepository {
     return [data, dictionaries];
   }
 
-  // TODO
   Future<List<dynamic>> getAirportCitySearch(
     String textSearchKeyword,
   ) async {
@@ -101,7 +123,6 @@ class AmadeusRepository {
     return data;
   }
 
-  // TODO
   Future<dynamic> getAirlineCodeLookup(
     String airlineCode,
   ) async {
@@ -165,7 +186,6 @@ class AmadeusRepository {
       }
     }).toList()
       ..removeWhere((element) => element == null);
-    ;
 
     return destinations;
   }

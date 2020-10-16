@@ -1,7 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/api_service.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
-import 'package:virtual_traveller_flutter/data/models/poi.dart';
 
 import 'base_data.dart';
 
@@ -36,7 +35,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     final queryParams = {
       'latitude': location.latitude, // ---REQUIRED---
       'longitude': location.longitude, // ---REQUIRED---
-      'page[limit]': 10 // maximum items in one page
+      'page[limit]': 15 // maximum items in one page
     };
 
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
