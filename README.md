@@ -147,7 +147,7 @@ The reasons why I decided to use the bloc library in my case were following:
     - [responsive_builder](https://pub.dev/packages/responsive_builder)
     - [auto_size_text](https://pub.dev/packages/auto_size_text)
     - [animations](https://pub.dev/packages/animations)
-    - [settings_ui](https://pub.dev/packages/settings_ui)
+    - [clean_settings](https://pub.dev/packages/clean_settings)
 
 ## UI inspirations
 - [Material Design - Crane Travel App](https://material.io/design/material-studies/crane.html)
