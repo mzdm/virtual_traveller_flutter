@@ -111,14 +111,23 @@ class AmadeusRepository {
   }
 
   // Home Page & Destinations related
-  // TODO
-  Future<List<dynamic>> getFlightMostBooked(
+  Future<List<Destination>> getFlightMostBooked(
     String originCityCode,
   ) async {
     final rawData = await amadeusBaseDataProvider.getRawFlightMostBooked(originCityCode);
     final data = json.decode(rawData)['data'];
 
-    return data;
+    final destinations = (data as List).map((item) {
+      try {
+        return DestinationBase.fromJson(item);
+      } catch (e) {
+        print(e);
+        return null;
+      }
+    }).toList()
+      ..removeWhere((element) => element == null);
+
+    return destinations;
   }
 
   Future<List<Destination>> getFlightMostTravelled(
