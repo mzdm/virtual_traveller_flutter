@@ -128,8 +128,14 @@ class AmadeusRepository {
     final data = json.decode(rawData)['data'];
 
     final destinations = (data as List).map((item) {
-      return DestinationBase.fromJson(item);
-    }).toList();
+      try {
+        return DestinationBase.fromJson(item);
+      } catch (e) {
+        print(e);
+        return null;
+      }
+    }).toList()
+      ..removeWhere((element) => element == null);
 
     return destinations;
   }
@@ -141,8 +147,15 @@ class AmadeusRepository {
     final data = json.decode(rawData)['data'];
 
     final destinations = (data as List).map((item) {
-      return DestinationIATA.fromJson(item);
-    }).toList();
+      try {
+        return DestinationIATA.fromJson(item);
+      } catch (e) {
+        print(e);
+        return null;
+      }
+    }).toList()
+      ..removeWhere((element) => element == null);
+    ;
 
     return destinations;
   }
@@ -181,6 +194,11 @@ class AmadeusRepository {
     final data = json.decode(rawData)['data'];
 
     final pois = (data as List).map((item) {
+      /// This safely does *fromJson* method of the given class on each
+      /// item of the list.
+      ///
+      /// If it fails, then it will return *null*, which will be then omitted from the
+      /// final output list.
       try {
         return POI.fromJson(item);
       } catch (e) {
