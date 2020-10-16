@@ -6,6 +6,7 @@ import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/models/poi.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 
+// TODO Refactor
 void main() {
   group('Flights - Points of Interests', () {
     test('fromJson POI List output', () async {

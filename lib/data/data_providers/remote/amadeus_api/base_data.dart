@@ -28,6 +28,8 @@ abstract class AmadeusBaseDataProvider {
   /// the starting point and their yearly flight traffic. For each airport,
   /// the API provides the name, 3-letter [IATA code](http://www.iata.org/publications/Pages/code-search.aspx),
   /// time zone and coordinates.
+  ///
+  /// *[Nearest Airport API docs](https://developers.amadeus.com/self-service/category/air/api-doc/airport-nearest-relevant/api-reference)*
   Future<String> getRawNearestAirport(
     Location location,
   );
@@ -44,7 +46,7 @@ abstract class AmadeusBaseDataProvider {
   /// Once a flight is chosen, confirm the real-time price using [Flight Offers Price](https://developers.amadeus.com/self-service/category/air/api-doc/flight-offers-price)
   /// and book the flight with [Flight Create Orders](https://developers.amadeus.com/self-service/category/air/api-doc/flight-create-orders).
   ///
-  /// [IATA code](http://www.iata.org/publications/Pages/code-search.aspx)
+  /// *[Flight Offers Search API docs](https://developers.amadeus.com/self-service/category/air/api-doc/flight-offers-search/api-reference)*
   Future<String> getRawFlightOffersSearch({
     @required String originCity,
     @required String destinationCity,
@@ -66,6 +68,8 @@ abstract class AmadeusBaseDataProvider {
   /// and allows you to order by price, departure date or duration.
   /// The API provides a link to [Flight Offers Search](https://developers.amadeus.com/self-service/category/air/api-doc/flight-offers-search)
   /// to complete the flight search using the chosen dates.
+  ///
+  /// *[Flight Cheapest Date Search API docs](https://developers.amadeus.com/self-service/category/air/api-doc/flight-cheapest-date-search/api-reference)*
   Future<String> getRawFlightCheapestDateSearch({
     @required String originCity,
     @required String destinationCity,
@@ -78,6 +82,8 @@ abstract class AmadeusBaseDataProvider {
   /// traveler enters in the search field. The API provides a list of airports/cities ordered by
   /// yearly passenger volume with the name, 3-letter IATA code, time zone and
   /// coordinates of each airport.
+  ///
+  /// *[Airport & City Search API docs](https://developers.amadeus.com/self-service/category/air/api-doc/airport-and-city-search/api-reference)*
   Future<String> getRawAirportCitySearch(
     String textSearchKeyword,
   );
@@ -87,6 +93,8 @@ abstract class AmadeusBaseDataProvider {
   /// The Airline Code Lookup API lets you find the name of an airline by
   /// its IATA or ICAO airline code. You can search for multiple airline names by
   /// including various airline codes in the same request.
+  ///
+  /// *[Airline Code Lookup API docs](https://developers.amadeus.com/self-service/category/air/api-doc/airline-code-lookup/api-reference)*
   Future<String> getRawAirlineCodeLookup(
     String airlineCode,
   );
@@ -100,6 +108,8 @@ abstract class AmadeusBaseDataProvider {
   /// flight score (flights to the destination as a percentage of total departures) and
   /// a traveler score (number of passengers traveling to the destination as a
   /// percentage of total passenger departures).
+  ///
+  /// *[Flight Most Booked Destinations API docs](https://developers.amadeus.com/self-service/category/air/api-doc/flight-most-booked-destinations/api-reference)*
   Future<String> getRawFlightMostBooked(
     String originCityCode,
   );
@@ -112,6 +122,8 @@ abstract class AmadeusBaseDataProvider {
   /// given city, each with a flight score (flights to the destination as a
   /// percentage of total departures) and a traveler score
   /// (number of passengers traveling to the destination as a percentage of total passenger departures).
+  ///
+  /// *[Flight Most Traveled Destinations API docs](https://developers.amadeus.com/self-service/category/air/api-doc/flight-most-traveled-destinations/api-reference)*
   Future<String> getRawFlightMostTravelled(
     String originCityCode,
   );
@@ -131,11 +143,12 @@ abstract class AmadeusBaseDataProvider {
   /// Use case in this app:
   ///   - store locally city codes which user has searched for and use them for recommendations
   ///   - if it is first time user, display random
+  ///
+  /// *[Travel Recommendations API docs](https://developers.amadeus.com/self-service/category/trip/api-doc/travel-recommendations/api-reference)*
   Future<String> getRawTravelRecommendation(
     List<String> cityCodes,
   );
 
-  // https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search/api-reference
   /// *"What are the best hotel deals during my trip?"*
   ///
   /// The Hotel Search API finds the best deals at over 150,000 hotels worldwide.
@@ -148,6 +161,8 @@ abstract class AmadeusBaseDataProvider {
   ///
   /// You can combine this API with the [Hotel Booking API](https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-booking)
   /// to build a complete [hotel booking engine](https://developers.amadeus.com/blog/build-hotel-booking-engine-amadeus-api).
+  ///
+  /// *[Hotel Search API docs](https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search/api-reference)*
   Future<String> getRawHotelSearch({
     @required cityCode,
     String language,
@@ -162,6 +177,8 @@ abstract class AmadeusBaseDataProvider {
   /// algorithm which analyzes millions of online reviews, photos and comments to determine popularity.
   ///
   /// Scores indicate positive traveler sentiments and may not reflect the most visited attractions.
+  ///
+  /// *[Points of Interest API docs](https://developers.amadeus.com/self-service/category/destination-content/api-doc/points-of-interest/api-reference)*
   Future<String> getRawPointsOfInterest({
     @required Location location,
     List<String> categories,
@@ -176,6 +193,8 @@ abstract class AmadeusBaseDataProvider {
   /// The scores are powered by the GeoSure GeoSafeScores](https://geosureglobal.com/)
   /// algorithm which analyzes crime, health and economic data, official travel alerts,
   /// local reporting and a variety of other sources.
+  ///
+  /// *[Safe Place API docs](https://developers.amadeus.com/self-service/category/destination-content/api-doc/safe-place-api/api-reference)*
   Future<String> getRawSafePlace(
     Location location,
   );

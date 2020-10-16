@@ -28,7 +28,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
 
   final ApiService _apiService;
 
-  // https://developers.amadeus.com/self-service/category/air/api-doc/airport-nearest-relevant/api-reference
   @override
   Future<String> getRawNearestAirport(
     Location location,
@@ -43,7 +42,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // https://developers.amadeus.com/self-service/category/air/api-doc/flight-offers-search/api-reference
   @override
   Future<String> getRawFlightOffersSearch({
     @required String originCity,
@@ -77,7 +75,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // https://developers.amadeus.com/self-service/category/air/api-doc/flight-cheapest-date-search/api-reference
   @override
   Future<String> getRawFlightCheapestDateSearch({
     @required String originCity,
@@ -97,7 +94,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // https://developers.amadeus.com/self-service/category/air/api-doc/airport-and-city-search/api-reference
   @override
   Future<String> getRawAirportCitySearch(
     String textSearchKeyword,
@@ -112,7 +108,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // https://developers.amadeus.com/self-service/category/air/api-doc/airline-code-lookup/api-reference
   @override
   Future<String> getRawAirlineCodeLookup(
     String airlineCode,
@@ -130,7 +125,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // https://developers.amadeus.com/self-service/category/air/api-doc/flight-most-booked-destinations/api-reference
   @override
   Future<String> getRawFlightMostBooked(
     String originCityCode,
@@ -149,7 +143,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // https://developers.amadeus.com/self-service/category/air/api-doc/flight-most-traveled-destinations/api-reference
   @override
   Future<String> getRawFlightMostTravelled(
     String originCityCode,
@@ -168,7 +161,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // https://developers.amadeus.com/self-service/category/trip/api-doc/travel-recommendations/api-reference
   @override
   Future<String> getRawTravelRecommendation(
     List<String> cityCodes,
@@ -181,7 +173,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search/api-reference
   @override
   Future<String> getRawHotelSearch({
     @required cityCode,
@@ -212,7 +203,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // https://developers.amadeus.com/self-service/category/destination-content/api-doc/points-of-interest/api-reference
   @override
   Future<String> getRawPointsOfInterest({
     @required Location location,
@@ -230,7 +220,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
   }
 
-  // https://developers.amadeus.com/self-service/category/destination-content/api-doc/safe-place-api/api-reference
   @override
   Future<String> getRawSafePlace(
     Location location,
