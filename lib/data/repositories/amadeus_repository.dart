@@ -6,6 +6,7 @@ import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'dart:convert';
 
 import 'package:virtual_traveller_flutter/data/models/poi.dart';
+import 'package:virtual_traveller_flutter/data/models/safety_rate.dart';
 
 // TODO List safety null remove; Try Catch Function for fromJson (where output List)
 /// **Quick links**
@@ -220,13 +221,14 @@ class AmadeusRepository {
     return pois;
   }
 
-  // TODO
-  Future<List<dynamic>> getSafePlace(
+  Future<SafetyRate> getSafePlace(
     Location location,
   ) async {
     final rawData = await amadeusBaseDataProvider.getRawSafePlace(location);
-    final data = json.decode(rawData)['data'];
+    final data = json.decode(rawData)['data'][0];
 
-    return data;
+    final safetyRate = SafetyRate.fromJson(data);
+
+    return safetyRate;
   }
 }
