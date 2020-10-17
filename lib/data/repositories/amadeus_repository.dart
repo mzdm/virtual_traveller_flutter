@@ -4,6 +4,7 @@ import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api
 import 'package:virtual_traveller_flutter/data/models/airline.dart';
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
 import 'package:virtual_traveller_flutter/data/models/destination.dart';
+import 'package:virtual_traveller_flutter/data/models/hotel.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'dart:convert';
 
@@ -94,7 +95,10 @@ class AmadeusRepository {
       currencyCode: currencyCode,
       maxPrice: maxPrice,
     );
-    final data = json.decode(rawData)['data'];
+    // TODO: convert {newline} back to \n when doing in model fromJson
+    // json decode produces an error if there is a newline \n, so firstly replace it
+    final escapedData = rawData.replaceAll('\n', '{newline}');
+    final data = json.decode(escapedData)['data'];
     final dictionaries = json.decode(rawData)['dictionaries'];
 
     return [data, dictionaries];
@@ -109,7 +113,9 @@ class AmadeusRepository {
       originCity: originCity,
       destinationCity: destinationCity,
     );
-    final data = json.decode(rawData)['data'];
+    // TODO: convert {newline} back to \n when doing in model fromJson
+    final escapedData = rawData.replaceAll('\n', '{newline}');
+    final data = json.decode(escapedData)['data'];
     final dictionaries = json.decode(rawData)['dictionaries'];
 
     return [data, dictionaries];
@@ -212,8 +218,7 @@ class AmadeusRepository {
     return destinations;
   }
 
-  // TODO
-  Future<dynamic> getHotelSearch({
+  Future<List<Hotel>> getHotelSearch({
     @required cityCode,
     String language,
   }) async {
@@ -221,14 +226,20 @@ class AmadeusRepository {
       cityCode: cityCode,
       language: language,
     );
-    // TODO: convert {newline} back to \n when doing in model fromJson
-    // json decode produces an error if there is a newline \n
     final escapedData = rawData.replaceAll('\n', '{newline}');
-
     final data = json.decode(escapedData)['data'];
-    final dictionaries = json.decode(escapedData)['dictionaries'];
 
-    return [data, dictionaries];
+    final hotels = (data as List).map((item) {
+      try {
+        return Hotel.fromJson(item['hotel']);
+      } catch (e) {
+        print(e);
+        return null;
+      }
+    }).toList()
+      ..removeWhere((element) => element == null);
+
+    return hotels;
   }
 
   Future<List<POI>> getPointsOfInterest(
