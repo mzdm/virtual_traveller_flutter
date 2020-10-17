@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
         child: Align(
           alignment: AlignmentDirectional.centerStart,
           child: BlocBuilder<FlightDestinationSearchSwitcherCubit, int>(
-            builder: (_, state) {
+            builder: (context, state) {
               return Text(
                 (_labelTextFieldText == '')
                     ? ''
@@ -139,7 +139,7 @@ class _HomePageState extends State<HomePage> {
         height: 45.0,
         width: MediaQuery.of(context).size.width * .85,
         child: BlocBuilder<FlightDestinationSearchSwitcherCubit, int>(
-          builder: (_, state) {
+          builder: (context, state) {
             return TextField(
               onTap: () => setState(() => _labelTextFieldText = 'Quick one-way search'),
               controller: _textEditingController,

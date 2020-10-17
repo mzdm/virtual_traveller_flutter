@@ -3,11 +3,18 @@ import 'package:flutter/material.dart';
 import 'local_widgets/favorite_list_tile.dart';
 
 class WatchlistPage extends StatelessWidget {
-  static const favorites = <String>[
+  static const cityNames = <String>[
     'London',
     'Los Angeles',
     'Paris',
     'Berlin',
+  ];
+
+  static const cityCodes = <String>[
+    'LON',
+    'LAX',
+    'PAR',
+    'BER',
   ];
 
   @override
@@ -18,7 +25,7 @@ class WatchlistPage extends StatelessWidget {
       ),
       body: Container(
         child: Center(
-          child: favorites.isEmpty
+          child: cityNames.isEmpty
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -38,12 +45,11 @@ class WatchlistPage extends StatelessWidget {
               : Padding(
                   padding: const EdgeInsets.only(top: 6.0),
                   child: ListView.builder(
-                    itemCount: favorites.length,
-                    itemBuilder: (_, index) {
-                      final item = favorites[index];
-
+                    itemCount: cityNames.length,
+                    itemBuilder: (context, index) {
                       return FavoriteListTile(
-                        item: item,
+                        cityCode: cityCodes[index],
+                        cityName: cityNames[index],
                         onPressed: () {
                           print('clicked favorite');
                         },

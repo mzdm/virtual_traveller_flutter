@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class FavoriteListTile extends StatefulWidget {
   FavoriteListTile({
-    @required this.item,
+    @required this.cityCode,
+    @required this.cityName,
     this.onPressed,
-  }) : assert(item != null);
+  }) : assert(cityName != null);
 
-  final String item;
+  final String cityCode;
+  final String cityName;
   final VoidCallback onPressed;
 
   @override
@@ -27,30 +29,20 @@ class _FavoriteListTileState extends State<FavoriteListTile> {
             Container(
               height: 45.0,
               width: 45.0,
-              decoration: ShapeDecoration(
-                color: Theme.of(context).primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                ),
-              ),
-              // BoxDecoration(
-              //   image: DecorationImage(
-              //     fit: BoxFit.cover,
-              //     image: NetworkImage(widget.assetUrl),
-              //   ),
-              // )
             ),
-            Icon(
-              Icons.beach_access,
-              color: Colors.white,
-              size: 25.0,
+            Text(
+              widget.cityCode,
+              style: TextStyle(
+                fontSize: 20.0,
+                color: Theme.of(context).primaryColor,
+              ),
             ),
           ],
         ),
-        title: Text(widget.item),
+        title: Text(widget.cityName),
         trailing: Padding(
           padding: const EdgeInsets.only(right: 3.0),
-          child: Icon(Icons.chevron_right),
+          child: Icon(Icons.drag_handle),
         ),
       ),
     );
