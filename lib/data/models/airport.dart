@@ -10,7 +10,7 @@ abstract class Airport with _$Airport {
   const factory Airport({
     @required String name,
     @required @JsonKey(name: 'iataCode') String airportIataCode,
-    Address address,
+    AirportAddress address,
     Location geoCode,
   }) = _Airport;
 
@@ -18,14 +18,14 @@ abstract class Airport with _$Airport {
 }
 
 @freezed
-abstract class Address with _$Address {
-  const factory Address({
+abstract class AirportAddress with _$AirportAddress {
+  const factory AirportAddress({
     String cityName,
     @required String cityCode,
     String countryName,
     String countryCode,
     String regionCode,
-  }) = _Address;
+  }) = _AirportAddress;
 
-  factory Address.fromJson(Map<String, dynamic> json) => _$AddressFromJson(json);
+  factory AirportAddress.fromJson(Map<String, dynamic> json) => _$AirportAddressFromJson(json);
 }

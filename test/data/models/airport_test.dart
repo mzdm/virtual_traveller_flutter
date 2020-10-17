@@ -6,7 +6,7 @@ import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 
 void main() {
-  group('Flights - Nearest Airport', () {
+  group('Flights API', () {
     AmadeusBaseDataProvider amadeusBaseDataProvider;
     AmadeusRepository amadeusRepository;
 
@@ -15,7 +15,7 @@ void main() {
       amadeusRepository = AmadeusRepository(amadeusBaseDataProvider: amadeusBaseDataProvider);
     });
 
-    test('fromJson Airport List output', () async {
+    test('Nearest Airport: fromJson Airport List output', () async {
       final airports = await amadeusRepository.getNearestAirport(null);
 
       expect(airports.length, 6);
@@ -29,7 +29,7 @@ void main() {
           Airport(
             name: 'HEATHROW',
             airportIataCode: 'LHR',
-            address: Address(
+            address: AirportAddress(
               cityName: 'LONDON',
               cityCode: 'LON',
               countryName: 'UNITED KINGDOM',
@@ -44,7 +44,7 @@ void main() {
           Airport(
             name: 'BIRMINGHAM',
             airportIataCode: 'BHX',
-            address: Address(
+            address: AirportAddress(
               cityName: 'BIRMINGHAM',
               cityCode: 'BHX',
               countryName: 'UNITED KINGDOM',
@@ -59,7 +59,7 @@ void main() {
           Airport(
             name: 'EAST MIDLANDS',
             airportIataCode: 'EMA',
-            address: Address(
+            address: AirportAddress(
               cityName: 'NOTTINGHAM',
               cityCode: 'NQT',
               countryName: 'UNITED KINGDOM',
@@ -69,6 +69,35 @@ void main() {
             geoCode: Location(
               latitude: 52.83111,
               longitude: -1.32806,
+            ),
+          ),
+        ],
+      );
+    });
+
+    test('Airport & City Search: fromJson Airport List output', () async {
+      final airports = await amadeusRepository.getAirportCitySearch(null);
+
+      // orig mocked data have 2 values, but same city, where duplicate
+      // will be filtered while doing fromJson because we only need unique city codes
+      // not airport codes
+      expect(airports.length, 1);
+      expect(
+        airports,
+        [
+          Airport(
+            name: 'MUNICH INTERNATIONAL',
+            airportIataCode: 'MUC',
+            address: AirportAddress(
+              cityName: 'MUNICH',
+              cityCode: 'MUC',
+              countryName: 'GERMANY',
+              countryCode: 'DE',
+              regionCode: 'EUROP',
+            ),
+            geoCode: Location(
+              latitude: 48.35378,
+              longitude: 11.78609,
             ),
           ),
         ],

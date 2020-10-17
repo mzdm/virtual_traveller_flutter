@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/base_data.dart';
+import 'package:virtual_traveller_flutter/data/models/airline.dart';
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
 import 'package:virtual_traveller_flutter/data/models/destination.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
@@ -114,22 +115,43 @@ class AmadeusRepository {
     return [data, dictionaries];
   }
 
-  Future<List<dynamic>> getAirportCitySearch(
+  Future<List<Airport>> getAirportCitySearch(
     String textSearchKeyword,
   ) async {
     final rawData = await amadeusBaseDataProvider.getRawAirportCitySearch(textSearchKeyword);
     final data = json.decode(rawData)['data'];
 
-    return data;
+    final uniqueCityList = <String>{};
+    final airports = (data as List).map((item) {
+      try {
+        final airport = Airport.fromJson(item);
+        final cityCode = airport.address.cityCode;
+
+        if (uniqueCityList.contains(cityCode)) {
+          return null;
+        }
+
+        uniqueCityList.add(cityCode);
+        return airport;
+      } catch (e) {
+        print(e);
+        return null;
+      }
+    }).toList()
+      ..removeWhere((element) => element == null);
+
+    return airports;
   }
 
-  Future<dynamic> getAirlineCodeLookup(
+  Future<Airline> getAirlineCodeLookup(
     String airlineCode,
   ) async {
     final rawData = await amadeusBaseDataProvider.getRawAirlineCodeLookup(airlineCode);
     final data = json.decode(rawData)['data'][0];
 
-    return data;
+    final airport = Airline.fromJson(data);
+
+    return airport;
   }
 
   // Home Page & Destinations related

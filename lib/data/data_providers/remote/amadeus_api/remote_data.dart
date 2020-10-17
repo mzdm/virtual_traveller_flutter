@@ -101,7 +101,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     final queryParams = {
       'keyword': textSearchKeyword, // --REQUIRED--, (eg.: 'MUC') keyword that should represent the start of a word in a city or airport name or code
       'subType': 'CITY', // --REQUIRED--, array[string], sub type of the location (AIRPORT and/or CITY). Available values : AIRPORT, CITY
-      'page[limit]': 10, // maximum items in one page, default value: 10
+      'page[limit]': 15, // maximum items in one page, default value: 10
     };
 
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
