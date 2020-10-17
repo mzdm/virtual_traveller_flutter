@@ -174,7 +174,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
 
   @override
   Future<String> getRawHotelSearch({
-    @required cityCode,
+    @required String cityCode,
     String language,
   }) async {
     final endpointPath = 'v2/shopping/hotel-offers';

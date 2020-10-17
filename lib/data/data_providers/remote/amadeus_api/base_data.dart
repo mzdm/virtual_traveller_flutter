@@ -164,7 +164,7 @@ abstract class AmadeusBaseDataProvider {
   ///
   /// *[Hotel Search API docs](https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search/api-reference)*
   Future<String> getRawHotelSearch({
-    @required cityCode,
+    @required String cityCode,
     String language,
   });
 
