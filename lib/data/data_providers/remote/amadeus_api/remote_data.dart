@@ -75,25 +75,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   }
 
   @override
-  Future<String> getRawFlightCheapestDateSearch({
-    @required String originCity,
-    @required String destinationCity,
-  }) async {
-    final currDate = DateTime.now();
-    final currDateFormatted = '${currDate.year}-${currDate.month}-${currDate.day}';
-
-    final endpointPath = 'v1/shopping/flight-dates';
-    final queryParams = {
-      'origin': originCity, // ---REQUIRED---, (eg.: 'SYD') IATA code of the city from which the flight will depart, e.g. MAD for Madrid http://www.iata.org/publications/Pages/code-search.aspx
-      'destination': destinationCity, // ---REQUIRED---, (eg.: 'MUC') IATA code of the city to which the flight is going
-      'departureDate': currDateFormatted, // the date, or range of dates, on which the flight will depart from the origin. Dates are specified in the ISO 8601 YYYY-MM-DD format, e.g. 2017-12-25. Ranges are specified with a comma and are inclusive
-      'oneWay': true, // if this parameter is set to true, only one-way flights are considered. If this parameter is not set or set to false, only round-trip flights are considered. Default: false
-    };
-
-    return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
-  }
-
-  @override
   Future<String> getRawAirportCitySearch(
     String textSearchKeyword,
   ) async {

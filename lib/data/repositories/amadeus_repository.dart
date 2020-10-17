@@ -103,22 +103,6 @@ class AmadeusRepository {
     return [data, dictionaries];
   }
 
-  Future<dynamic> getFlightCheapestDateSearch({
-    @required String originCity,
-    @required String destinationCity,
-  }) async {
-    final rawData = await amadeusBaseDataProvider.getRawFlightCheapestDateSearch(
-      originCity: originCity,
-      destinationCity: destinationCity,
-    );
-    // TODO: convert {newline} back to \n when doing in model fromJson
-    final escapedData = rawData.replaceAll('\n', '{newline}');
-    final data = json.decode(escapedData)['data'];
-    final dictionaries = json.decode(rawData)['dictionaries'];
-
-    return [data, dictionaries];
-  }
-
   Future<List<Airport>> getAirportCitySearch(
     String textSearchKeyword,
   ) async {

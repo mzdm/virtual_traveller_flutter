@@ -61,20 +61,6 @@ abstract class AmadeusBaseDataProvider {
     int maxPrice,
   });
 
-  /// *"What are the cheapest dates to fly from Munich to Sao Paulo?"*
-  ///
-  /// The Flight Cheapest Date Search API finds the cheapest dates to travel from
-  /// one city to another. The API provides list of flight options with dates and prices,
-  /// and allows you to order by price, departure date or duration.
-  /// The API provides a link to [Flight Offers Search](https://developers.amadeus.com/self-service/category/air/api-doc/flight-offers-search)
-  /// to complete the flight search using the chosen dates.
-  ///
-  /// *[Flight Cheapest Date Search API docs](https://developers.amadeus.com/self-service/category/air/api-doc/flight-cheapest-date-search/api-reference)*
-  Future<String> getRawFlightCheapestDateSearch({
-    @required String originCity,
-    @required String destinationCity,
-  });
-
   /// *"Which cities and airports begin with Lon..?"*
   ///
   /// The Airport & City Search API finds airports and cities that match a specific word or string
