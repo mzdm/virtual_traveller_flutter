@@ -68,7 +68,6 @@ class AmadeusRepository {
     return airports;
   }
 
-  // TODO
   Future<dynamic> getFlightOffersSearch({
     @required String originCity,
     @required String destinationCity,
@@ -104,7 +103,6 @@ class AmadeusRepository {
     return [data, dictionaries];
   }
 
-  // TODO
   Future<dynamic> getFlightCheapestDateSearch({
     @required String originCity,
     @required String destinationCity,

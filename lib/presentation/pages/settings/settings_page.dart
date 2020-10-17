@@ -10,6 +10,7 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Settings'),
       ),
+      // TODO Add distance unit settings
       body: SettingContainer(
         sections: [
           SettingSection(
