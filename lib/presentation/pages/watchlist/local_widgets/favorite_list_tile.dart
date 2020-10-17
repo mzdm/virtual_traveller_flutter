@@ -42,7 +42,7 @@ class _FavoriteListTileState extends State<FavoriteListTile> {
         title: Text(widget.cityName),
         trailing: Padding(
           padding: const EdgeInsets.only(right: 3.0),
-          child: Icon(Icons.drag_handle),
+          child: Icon(Icons.drag_indicator),
         ),
       ),
     );
