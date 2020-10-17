@@ -5,28 +5,28 @@ import 'package:virtual_traveller_flutter/utils/extensions.dart';
 
 void main() {
   group('List extension', () {
-    test('one value', () async {
+    test('one value', () {
       final list = <String>['SYD'];
       final strList = list.toCommaString();
 
       expect(strList, 'SYD');
     });
 
-    test('more than one value', () async {
+    test('more than one value', () {
       final list = <String>['SYD', 'PAR'];
       final strList = list.toCommaString();
 
       expect(strList, 'SYD,PAR');
     });
 
-    test('int values', () async {
+    test('int values', () {
       final list = <int>[5, 4, 3];
       final strList = list.toCommaString();
 
       expect(strList, '5,4,3');
     });
 
-    test('CategoryPOI enum values', () async {
+    test('CategoryPOI enum values', () {
       final categories = <CategoryPOI>[
         CategoryPOI.NIGHTLIFE,
         CategoryPOI.RESTAURANT,
