@@ -79,32 +79,64 @@ The reasons why I decided to use the bloc library in my case were following:
 - [ ] Features
   - [ ] Splash screen
   - [ ] Intro slider on the first app launch
-  - [ ] Discover recommended / popular travelling destinations
-  - [ ] Flights searching page
-    - [ ] Flight length 
-    - [ ] Filter by
+  - [ ] Home Page Features
+    - [ ] Change departure location
+    - [ ] Quick search
+        - [ ] One-Way flights
+        - [ ] Destinations
+    - [ ] Discover most popular / booked travelling destinations based on current location
+    - [ ] Recommended destinations based on search history
+  - [ ] Flight Searching Page Features
+    - [ ] View search history
+    - [ ] Search by
       - [ ] Type of the way
-        - [ ] One-way
+        - [ ] One-Way
         - [ ] Round Trip
-        - [ ] Multicity
+        - [ ] Multi City
+      - [ ] Dates
+        - [ ] Departure
+        - [ ] Return
       - [ ] Passengers
-        - [ ] Kids
         - [ ] Adults
-      - [ ] Price
-  - [ ] Virtual Mode
-    - [ ] Simulate travelling on the map
-    - [ ] Display interesting information about the destination
-      - [ ] Average temperature past week
+        - [ ] Kids
+        - [ ] Infants
+  - [ ] Flight Result Page Features
+      - [ ] Switch departure and destination in the search
+      - [ ] Display quick search query info details
+      - [ ] View more about the destination
+      - [ ] Sort by
+        - [ ] Price
+        - [ ] Length
+        - [ ] Number of stops
+      - [ ] Flight offer details
+        - [ ] From - To
+        - [ ] Departure - Arrival date
+        - [ ] Flight length
+        - [ ] Flight stops
+        - [ ] Passengers
+        - [ ] Price
+        - [ ] Airplane type
+      - [ ] Virtual Flight Mode
+        - [ ] Simulate plane flying on the map with timestamps
+  - [ ] Destination Page Features
+      - [ ] Save destination to the Watchlist
       - [ ] Pictures
-      - [ ] Points of interests
-    - [ ] Save locally to the Favorites
-  - [ ] Settings
-    - [ ] Default starting location
+      - [ ] Average temperature of the past week
+      - [ ] Safety Rating
+      - [ ] Points of Interests
+      - [ ] Hotels
+  - [ ] Watchlist Page
+    - [ ] Click to view the info about the destination
+    - [ ] Drag to reorder destinations
+    - [ ] Swipe to remove
+  - [ ] Settings Page
+    - [ ] Default departure location
     - [ ] Language
     - [ ] Currency
     - [ ] Temperature format
+    - [ ] Metric unit
     - [ ] Theme
-    - [ ] Remove all locally saved data
+    - [ ] Remove local data
 - [ ] Language Support
   - [x] English
   - [x] Czech
@@ -115,12 +147,16 @@ The reasons why I decided to use the bloc library in my case were following:
 - [ ] Supported Platforms
   - [x] Android
   - [x] iOS
-  - [ ] Web
+  - [x] Web
   - [ ] Desktop (Windows)
 
 ### Other:
 - [ ] ~~Null safety~~ (not possible yet)
 - [x] CI / Github Actions
+- [ ] Type of tests
+  - [x] Unit
+  - [ ] Widget
+  - [ ] Integration
 - [ ] Test coverage milestones
   - [ ] 40%
   - [ ] 60%
