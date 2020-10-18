@@ -4,6 +4,7 @@ import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api
 import 'package:virtual_traveller_flutter/data/models/airline.dart';
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
 import 'package:virtual_traveller_flutter/data/models/destination.dart';
+import 'package:virtual_traveller_flutter/data/models/flight_offer.dart';
 import 'package:virtual_traveller_flutter/data/models/hotel.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'dart:convert';
@@ -11,7 +12,6 @@ import 'dart:convert';
 import 'package:virtual_traveller_flutter/data/models/poi.dart';
 import 'package:virtual_traveller_flutter/data/models/safety_rate.dart';
 
-// TODO List safety null remove; Try Catch Function for fromJson (where output List)
 /// **Quick links**
 ///
 /// *Flights related*:
@@ -36,13 +36,13 @@ class AmadeusRepository {
   final AmadeusBaseDataProvider amadeusBaseDataProvider;
 
   // Flights related
-  Future<List<dynamic>> getNearestAirport(
+  Future<List<Airport>> getNearestAirport(
     Location location,
   ) async {
     final rawData = await amadeusBaseDataProvider.getRawNearestAirport(location);
     final data = json.decode(rawData)['data'];
 
-    /// We don't need Airport IATA code, but we need the city's code,
+    /// We don't need AIRPORT IATA code, but we need the CITY's code,
     /// which is needed for flights & destinations searching.
     ///
     /// So this will also filter out cities with multiple airports.
@@ -68,7 +68,7 @@ class AmadeusRepository {
     return airports;
   }
 
-  Future<dynamic> getFlightOffersSearch({
+  Future<List<FlightOffer>> getFlightOffersSearch({
     @required String originCity,
     @required String destinationCity,
     @required String departureDate,
@@ -94,13 +94,22 @@ class AmadeusRepository {
       currencyCode: currencyCode,
       maxPrice: maxPrice,
     );
-    // TODO: convert {newline} back to \n when doing in model fromJson
-    // json decode produces an error if there is a newline \n, so firstly replace it
-    final escapedData = rawData.replaceAll('\n', '{newline}');
-    final data = json.decode(escapedData)['data'];
-    final dictionaries = json.decode(rawData)['dictionaries'];
+    final data = json.decode(rawData)['data'];
+    final Map<String, dynamic> carriersDictionary = json.decode(rawData)['dictionaries']['carriers'];
 
-    return [data, dictionaries];
+    final flightOffers = (data as List).map((item) {
+      try {
+        return FlightOffer.fromJson(item).copyWith(
+          carriersDictionary: carriersDictionary,
+        );
+      } catch (e) {
+        print(e);
+        return null;
+      }
+    }).toList()
+      ..removeWhere((element) => element == null);
+
+    return flightOffers;
   }
 
   Future<List<Airport>> getAirportCitySearch(
@@ -150,6 +159,11 @@ class AmadeusRepository {
     final data = json.decode(rawData)['data'];
 
     final destinations = (data as List).map((item) {
+      /// This safely does *fromJson* method of the given class on each
+      /// item of the list.
+      ///
+      /// If it fails, then it will return *null*, which will be then omitted from the
+      /// final output list.
       try {
         return DestinationBase.fromJson(item);
       } catch (e) {
@@ -208,6 +222,8 @@ class AmadeusRepository {
       cityCode: cityCode,
       language: language,
     );
+    // TODO: convert {newline} back to \n when doing in model fromJson
+    // json decode produces an error if there is a newline \n, so firstly replace it
     final escapedData = rawData.replaceAll('\n', '{newline}');
     final data = json.decode(escapedData)['data'];
 
@@ -239,11 +255,6 @@ class AmadeusRepository {
     final data = json.decode(rawData)['data'];
 
     final pois = (data as List).map((item) {
-      /// This safely does *fromJson* method of the given class on each
-      /// item of the list.
-      ///
-      /// If it fails, then it will return *null*, which will be then omitted from the
-      /// final output list.
       try {
         return POI.fromJson(item);
       } catch (e) {
