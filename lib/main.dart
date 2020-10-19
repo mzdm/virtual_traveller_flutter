@@ -77,26 +77,25 @@ class _MainAppState extends State<MainApp> {
       home: BlocBuilder<BottomNavBarCubit, int>(
         builder: (context, state) {
           return Scaffold(
-            body: PageView(
-              controller: _pageController,
-              physics: NeverScrollableScrollPhysics(),
-              children: <Widget>[
-                BlocProvider<FlightDestinationSearchSwitcherCubit>(
-                  create: (_) => FlightDestinationSearchSwitcherCubit(),
-                  child: HomePage(
+            body: BlocProvider<FlightDestinationSearchSwitcherCubit>(
+              create: (_) => FlightDestinationSearchSwitcherCubit(),
+              child: PageView(
+                controller: _pageController,
+                physics: NeverScrollableScrollPhysics(),
+                children: <Widget>[
+                  HomePage(
                     onSettingsTap: () {
                       context.bloc<BottomNavBarCubit>().changeNavBarItem(3);
-                      context.bloc<BottomNavBarCubit>().pageTransitionEffect(
-                            _pageController,
-                            isFromSettingsIcon: true,
-                          );
+                      context
+                          .bloc<BottomNavBarCubit>()
+                          .pageTransitionEffect(_pageController, isFromSettingsIcon: true);
                     },
                   ),
-                ),
-                SearchFlightsPage(),
-                WatchlistPage(),
-                SettingsPage(),
-              ],
+                  SearchFlightsPage(),
+                  WatchlistPage(),
+                  SettingsPage(),
+                ],
+              ),
             ),
             bottomNavigationBar: BottomNavigationBar(
               onTap: (index) {
