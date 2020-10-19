@@ -176,6 +176,7 @@ The reasons why I decided to use the bloc library in my case were following:
     - [http](https://pub.dev/packages/http)
     - [equatable](https://pub.dev/packages/equatable)
     - [geolocator](https://pub.dev/packages/geolocator)
+    - [shared_preferences](https://pub.dev/packages/shared_preferences)
 
 - #### UI packages:
     - [flutter_blurhash](https://pub.dev/packages/flutter_blurhash)

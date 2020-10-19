@@ -1,7 +1,10 @@
 import 'package:clean_settings/clean_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:virtual_traveller_flutter/consts/shared_prefs_keys.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
+import 'package:virtual_traveller_flutter/helpers/settings_prefs.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -22,8 +25,11 @@ class SettingsPage extends StatelessWidget {
                 // TODO
                 onTap: () async {
                   // temp code for output testing
-                  final data = await context.repository<AmadeusRepository>().getTravelRecommendation(null);
-                  print(data[0].name);
+                  final sharedPrefs = await SharedPreferences.getInstance();
+                  final settingsPrefsHelper = SettingsPrefs(sharedPrefs);
+                  final city = 'London,LON';
+                  await settingsPrefsHelper.setDeparture(city);
+                  print(await settingsPrefsHelper.departure);
                 },
               ),
               SettingItem(

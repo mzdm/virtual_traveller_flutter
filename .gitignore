@@ -48,3 +48,4 @@ lib/data/data_providers/remote/secrets_hidden.dart
 /coverage/
 *.freezed.dart
 *.g.dart
+/local.properties
