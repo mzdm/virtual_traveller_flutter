@@ -1,10 +1,10 @@
 import 'package:clean_settings/clean_settings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:virtual_traveller_flutter/consts/shared_prefs_keys.dart';
-import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
-import 'package:virtual_traveller_flutter/helpers/settings_prefs.dart';
+import 'package:virtual_traveller_flutter/blocs/settings/settings_bloc.dart';
+import 'package:virtual_traveller_flutter/data/data_providers/local/cache/settings_prefs.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:virtual_traveller_flutter/data/models/settings.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -24,6 +24,10 @@ class SettingsPage extends StatelessWidget {
                 displayValue: 'Boston (BOS)',
                 // TODO
                 onTap: () async {
+                  context
+                      .bloc<SettingsBloc>()
+                      .add(SettingsChanged(settings: Settings.departure()));
+
                   // temp code for output testing
                   final sharedPrefs = await SharedPreferences.getInstance();
                   final settingsPrefsHelper = SettingsPrefs(sharedPrefs);
@@ -36,22 +40,31 @@ class SettingsPage extends StatelessWidget {
                 title: 'Language',
                 displayValue: 'English',
                 // TODO
-                priority: ItemPriority.disabled,
-                onTap: () {},
+                onTap: () {
+                  context
+                      .bloc<SettingsBloc>()
+                      .add(SettingsChanged(settings: Settings.lang()));
+                },
               ),
               SettingItem(
                 title: 'Currency',
                 displayValue: 'USD',
                 // TODO
-                priority: ItemPriority.disabled,
-                onTap: () {},
+                onTap: () {
+                  context
+                      .bloc<SettingsBloc>()
+                      .add(SettingsChanged(settings: Settings.curr()));
+                },
               ),
               SettingItem(
                 title: 'Temperature',
                 displayValue: 'Celsius',
                 // TODO
-                priority: ItemPriority.disabled,
-                onTap: () {},
+                onTap: () {
+                  context
+                      .bloc<SettingsBloc>()
+                      .add(SettingsChanged(settings: Settings.temp()));
+                },
               ),
             ],
           ),
@@ -62,16 +75,20 @@ class SettingsPage extends StatelessWidget {
                 title: 'Theme',
                 displayValue: 'Dark blue',
                 // TODO
-                priority: ItemPriority.disabled,
-                onTap: () {},
+                onTap: () {
+                  context
+                      .bloc<SettingsBloc>()
+                      .add(SettingsChanged(settings: Settings.theme()));
+                },
               ),
               SettingCheckboxItem(
                 title: 'Virtual mode',
                 description: 'Show immediate travel button',
                 value: true,
                 // TODO
-                priority: ItemPriority.disabled,
-                onChanged: (newValue) {},
+                onChanged: (newValue) {
+                  // TODO
+                },
               ),
             ],
           ),
@@ -82,8 +99,9 @@ class SettingsPage extends StatelessWidget {
                 title: 'Remove local data',
                 displayValue: 'Search history, set default settings ...',
                 // TODO
-                priority: ItemPriority.disabled,
-                onTap: () {},
+                onTap: () {
+                  // TODO
+                },
               ),
               SettingItem(
                 title: 'Licenses',

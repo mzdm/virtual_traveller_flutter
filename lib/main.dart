@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:virtual_traveller_flutter/blocs/settings/settings_bloc.dart';
 
 import 'blocs/bloc_observer.dart';
 import 'blocs/home/bottom_nav_bar_cubit.dart';
@@ -39,6 +40,9 @@ void main() {
       create: (_) => amadeusRepository,
       child: MultiBlocProvider(
         providers: [
+          BlocProvider<SettingsBloc>(
+            create: (_) => SettingsBloc(),
+          ),
           BlocProvider<BottomNavBarCubit>(
             create: (_) => BottomNavBarCubit(),
           ),
