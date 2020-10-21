@@ -1,16 +1,19 @@
-part of 'settings_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-abstract class SettingsEvent extends Equatable {
-  const SettingsEvent();
-}
+part 'settings_event.freezed.dart';
 
-class SettingsChanged extends SettingsEvent {
-  SettingsChanged({
-    @required this.settings,
-  });
+/// Usage in SettingsBloc as pattern matching with destructing.
+@freezed
+abstract class SettingsChanged with _$SettingsChanged {
+  const factory SettingsChanged.departure() = _Departure;
 
-  final Settings settings;
+  const factory SettingsChanged.lang() = _Lang;
 
-  @override
-  List<Object> get props => [settings];
+  const factory SettingsChanged.curr() = _Curr;
+
+  const factory SettingsChanged.temp() = _Temp;
+
+  const factory SettingsChanged.lengthUnit() = _LengthUnit;
+
+  const factory SettingsChanged.theme() = _Theme;
 }

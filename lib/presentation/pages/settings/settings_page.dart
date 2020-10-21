@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:virtual_traveller_flutter/blocs/settings/settings_bloc.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/local/cache/settings_prefs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:virtual_traveller_flutter/data/models/settings.dart';
+import 'package:virtual_traveller_flutter/blocs/settings/settings_event.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -26,7 +26,7 @@ class SettingsPage extends StatelessWidget {
                 onTap: () async {
                   context
                       .bloc<SettingsBloc>()
-                      .add(SettingsChanged(settings: Settings.departure()));
+                      .add(SettingsChanged.departure());
 
                   // temp code for output testing
                   final sharedPrefs = await SharedPreferences.getInstance();
@@ -43,7 +43,7 @@ class SettingsPage extends StatelessWidget {
                 onTap: () {
                   context
                       .bloc<SettingsBloc>()
-                      .add(SettingsChanged(settings: Settings.lang()));
+                      .add(SettingsChanged.lang());
                 },
               ),
               SettingItem(
@@ -53,7 +53,7 @@ class SettingsPage extends StatelessWidget {
                 onTap: () {
                   context
                       .bloc<SettingsBloc>()
-                      .add(SettingsChanged(settings: Settings.curr()));
+                      .add(SettingsChanged.curr());
                 },
               ),
               SettingItem(
@@ -63,7 +63,7 @@ class SettingsPage extends StatelessWidget {
                 onTap: () {
                   context
                       .bloc<SettingsBloc>()
-                      .add(SettingsChanged(settings: Settings.temp()));
+                      .add(SettingsChanged.temp());
                 },
               ),
             ],
@@ -78,7 +78,7 @@ class SettingsPage extends StatelessWidget {
                 onTap: () {
                   context
                       .bloc<SettingsBloc>()
-                      .add(SettingsChanged(settings: Settings.theme()));
+                      .add(SettingsChanged.theme());
                 },
               ),
               SettingCheckboxItem(
