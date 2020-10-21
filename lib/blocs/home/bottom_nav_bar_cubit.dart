@@ -6,6 +6,7 @@ class BottomNavBarCubit extends Cubit<int> {
 
   void changeNavBarItem(int newIndex) => emit(newIndex);
 
+  // TODO: Move to main
   void pageTransitionEffect(
     PageController pageController, {
     bool isFromSettingsIcon = false,

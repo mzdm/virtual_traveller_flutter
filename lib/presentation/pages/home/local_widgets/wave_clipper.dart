@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-// Source: https://github.com/lohanidamodar/flutter_custom_clippers/blob/master/lib/src/wave_clipper_1.dart
+// Source: https://pub.dev/packages/flutter_custom_clippers
+// by Damodar Lohani
 /// Clip widget in a wave shape. Use ClipPath widget for it.
 class WaveClipper extends CustomClipper<Path> {
   @override

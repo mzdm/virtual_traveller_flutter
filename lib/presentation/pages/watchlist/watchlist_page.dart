@@ -8,6 +8,8 @@ class WatchlistPage extends StatefulWidget {
   _WatchlistPageState createState() => _WatchlistPageState();
 }
 
+// TODO: Get data from Watchlist bloc
+// TODO: Add remove icon to Dismissible
 class _WatchlistPageState extends State<WatchlistPage> {
   final cityNames = <String>[
     'London',

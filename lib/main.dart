@@ -53,6 +53,7 @@ void main() {
   );
 }
 
+// TODO: Use Navigator 2.0 (not priority)
 class MainApp extends StatefulWidget {
   @override
   _MainAppState createState() => _MainAppState();
@@ -79,6 +80,7 @@ class _MainAppState extends State<MainApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeUtils.defaultDarkBlueTheme,
       home: BlocBuilder<BottomNavBarCubit, int>(
+        // TODO: Create a state for page transition effect
         builder: (context, state) {
           return Scaffold(
             body: BlocProvider<FlightDestinationSearchSwitcherCubit>(

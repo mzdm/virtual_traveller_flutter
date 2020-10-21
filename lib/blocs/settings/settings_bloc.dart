@@ -6,6 +6,7 @@ import 'package:virtual_traveller_flutter/blocs/settings/settings_event.dart';
 
 part 'settings_state.dart';
 
+// TODO: Convert to Hydrated Bloc eventually
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   // TODO: Add initial settings (happens on app startup)
   SettingsBloc() : super(SettingsInitial());
@@ -14,6 +15,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   Stream<SettingsState> mapEventToState(
       SettingsEvent event,
   ) async* {
+    // TODO: Handle SettingsChanged event (SettingsPrefs)
     if (event is SettingsEvent) {
       print(
         'SETTINGS ELEMENT CLICKED: ' +
