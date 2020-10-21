@@ -26,7 +26,7 @@ class SettingsPage extends StatelessWidget {
                 onTap: () async {
                   context
                       .bloc<SettingsBloc>()
-                      .add(SettingsChanged.departure());
+                      .add(SettingsEvent.changedDeparture());
 
                   // temp code for output testing
                   final sharedPrefs = await SharedPreferences.getInstance();
@@ -43,7 +43,7 @@ class SettingsPage extends StatelessWidget {
                 onTap: () {
                   context
                       .bloc<SettingsBloc>()
-                      .add(SettingsChanged.lang());
+                      .add(SettingsEvent.changedLang());
                 },
               ),
               SettingItem(
@@ -53,7 +53,7 @@ class SettingsPage extends StatelessWidget {
                 onTap: () {
                   context
                       .bloc<SettingsBloc>()
-                      .add(SettingsChanged.curr());
+                      .add(SettingsEvent.changedCurr());
                 },
               ),
               SettingItem(
@@ -63,7 +63,7 @@ class SettingsPage extends StatelessWidget {
                 onTap: () {
                   context
                       .bloc<SettingsBloc>()
-                      .add(SettingsChanged.temp());
+                      .add(SettingsEvent.changedTemp());
                 },
               ),
             ],
@@ -78,7 +78,7 @@ class SettingsPage extends StatelessWidget {
                 onTap: () {
                   context
                       .bloc<SettingsBloc>()
-                      .add(SettingsChanged.theme());
+                      .add(SettingsEvent.changedTheme());
                 },
               ),
               SettingCheckboxItem(

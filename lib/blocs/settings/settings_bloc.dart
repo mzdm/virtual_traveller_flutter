@@ -6,24 +6,24 @@ import 'package:virtual_traveller_flutter/blocs/settings/settings_event.dart';
 
 part 'settings_state.dart';
 
-class SettingsBloc extends Bloc<SettingsChanged, SettingsState> {
+class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   // TODO: Add initial settings (happens on app startup)
   SettingsBloc() : super(SettingsInitial());
 
   @override
   Stream<SettingsState> mapEventToState(
-      SettingsChanged event,
+      SettingsEvent event,
   ) async* {
-    if (event is SettingsChanged) {
+    if (event is SettingsEvent) {
       print(
         'SETTINGS ELEMENT CLICKED: ' +
         event.when(
-          departure: () => 'departure',
-          lang: () => 'lang',
-          curr: () => 'curr',
-          temp: () => 'temp',
-          lengthUnit: () => 'lengthUnit',
-          theme: () => 'theme',
+          changedDeparture: () => 'departure',
+          changedLang: () => 'lang',
+          changedCurr: () => 'curr',
+          changedTemp: () => 'temp',
+          changedLengthUnit: () => 'lengthUnit',
+          changedTheme: () => 'theme',
         ),
       );
     } else {
