@@ -13,7 +13,6 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Settings'),
       ),
-      // TODO Add distance unit settings
       body: SettingContainer(
         sections: [
           SettingSection(
@@ -54,6 +53,16 @@ class SettingsPage extends StatelessWidget {
                   context
                       .bloc<SettingsBloc>()
                       .add(SettingsEvent.changedCurr());
+                },
+              ),
+              SettingItem(
+                title: 'Length unit',
+                displayValue: 'km',
+                // TODO
+                onTap: () {
+                  context
+                      .bloc<SettingsBloc>()
+                      .add(SettingsEvent.changedLengthUnit());
                 },
               ),
               SettingItem(
