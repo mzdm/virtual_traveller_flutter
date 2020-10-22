@@ -90,15 +90,6 @@ class SettingsPage extends StatelessWidget {
                       .add(SettingsEvent.changedTheme());
                 },
               ),
-              SettingCheckboxItem(
-                title: 'Virtual mode',
-                description: 'Show immediate travel button',
-                value: true,
-                // TODO
-                onChanged: (newValue) {
-                  // TODO
-                },
-              ),
             ],
           ),
           SettingSection(
