@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:virtual_traveller_flutter/blocs/home/flight_destination_search_switcher_cubit.dart';
+import 'package:virtual_traveller_flutter/blocs/home/flight_destination_switcher_cubit.dart';
 
 import 'local_widgets/flight_destination_search_switcher.dart';
 import 'local_widgets/rounded_card.dart';
@@ -123,7 +123,7 @@ class _HomePageState extends State<HomePage> {
         ),
         child: Align(
           alignment: AlignmentDirectional.centerStart,
-          child: BlocBuilder<FlightDestinationSearchSwitcherCubit, int>(
+          child: BlocBuilder<FlightDestinationSwitcherCubit, int>(
             builder: (context, state) {
               return Text(
                 (_labelTextFieldText == null)
@@ -140,7 +140,7 @@ class _HomePageState extends State<HomePage> {
       SizedBox(
         height: 45.0,
         width: MediaQuery.of(context).size.width * .85,
-        child: BlocBuilder<FlightDestinationSearchSwitcherCubit, int>(
+        child: BlocBuilder<FlightDestinationSwitcherCubit, int>(
           builder: (context, state) {
             return TextField(
               onTap: _labelTextFieldText == null
@@ -184,7 +184,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       SizedBox(height: 15.0),
-      BlocBuilder<FlightDestinationSearchSwitcherCubit, int>(
+      BlocBuilder<FlightDestinationSwitcherCubit, int>(
         builder: (context, state) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -194,7 +194,7 @@ class _HomePageState extends State<HomePage> {
                 label: 'Flights',
                 isPressed: state == 0,
                 onPressed: () {
-                  context.bloc<FlightDestinationSearchSwitcherCubit>().switchType();
+                  context.bloc<FlightDestinationSwitcherCubit>().switchType();
                 },
               ),
               SizedBox(width: 15.0),
@@ -203,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                 label: 'Destinations',
                 isPressed: state == 1,
                 onPressed: () {
-                  context.bloc<FlightDestinationSearchSwitcherCubit>().switchType();
+                  context.bloc<FlightDestinationSwitcherCubit>().switchType();
                 },
               ),
             ],

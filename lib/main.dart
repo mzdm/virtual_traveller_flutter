@@ -5,7 +5,7 @@ import 'package:virtual_traveller_flutter/blocs/settings/settings_bloc.dart';
 
 import 'blocs/bloc_observer.dart';
 import 'blocs/home/bottom_nav_bar_cubit.dart';
-import 'blocs/home/flight_destination_search_switcher_cubit.dart';
+import 'blocs/home/flight_destination_switcher_cubit.dart';
 import 'data/data_providers/remote/amadeus_api/api_service.dart';
 import 'data/data_providers/remote/amadeus_api/mocked_data.dart';
 import 'data/data_providers/remote/amadeus_api/remote_data.dart';
@@ -83,8 +83,8 @@ class _MainAppState extends State<MainApp> {
         // TODO: Create a state for page transition effect
         builder: (context, state) {
           return Scaffold(
-            body: BlocProvider<FlightDestinationSearchSwitcherCubit>(
-              create: (_) => FlightDestinationSearchSwitcherCubit(),
+            body: BlocProvider<FlightDestinationSwitcherCubit>(
+              create: (_) => FlightDestinationSwitcherCubit(),
               child: PageView(
                 controller: _pageController,
                 physics: NeverScrollableScrollPhysics(),
