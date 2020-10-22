@@ -81,26 +81,25 @@ void main() {
       // orig mocked data have 2 values, but same city, where duplicate
       // will be filtered while doing fromJson because we only need unique city codes
       // not airport codes
-      expect(airports.length, 1);
+      expect(airports.length, 4);
+      // TODO: Add more
       expect(
-        airports,
-        [
-          Airport(
-            cityName: 'MUNICH INTERNATIONAL',
-            airportCode: 'MUC',
-            address: AirportAddress(
-              cityName: 'MUNICH',
-              cityCode: 'MUC',
-              countryName: 'GERMANY',
-              countryCode: 'DE',
-              regionCode: 'EUROP',
-            ),
-            geoCode: Location(
-              latitude: 48.35378,
-              longitude: 11.78609,
-            ),
+        airports[0],
+        Airport(
+          cityName: 'MUNICH INTERNATIONAL',
+          airportCode: 'MUC',
+          address: AirportAddress(
+            cityName: 'MUNICH',
+            cityCode: 'MUC',
+            countryName: 'GERMANY',
+            countryCode: 'DE',
+            regionCode: 'EUROP',
           ),
-        ],
+          geoCode: Location(
+            latitude: 48.35378,
+            longitude: 11.78609,
+          ),
+        ),
       );
     });
   });
