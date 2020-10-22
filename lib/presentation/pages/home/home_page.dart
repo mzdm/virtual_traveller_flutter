@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
 
   String _labelTextFieldText;
   String _searchSelectedCity;
-  bool _searchBoxVisible = false;
+  bool _suggestionBoxVisible = false;
 
   @override
   void initState() {
@@ -50,7 +50,9 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: GestureDetector(
-            onTap: !_searchBoxVisible ? () {} : () => FocusManager.instance.primaryFocus.unfocus(),
+            onTap: !_suggestionBoxVisible
+                ? () {}
+                : () => FocusManager.instance.primaryFocus.unfocus(),
             child: Column(
               children: [
                 buildWaveContents(context),
@@ -178,13 +180,14 @@ class _HomePageState extends State<HomePage> {
                     child: RaisedButton(
                       padding: EdgeInsets.all(0.0),
                       onPressed: () {
-                        _searchBoxVisible = false;
+                        _suggestionBoxVisible = false;
                         FocusManager.instance.primaryFocus.unfocus();
                         if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
                           Scaffold.of(context).showSnackBar(
                             SnackBar(
-                              content: Text('Searched city code: $_searchSelectedCity'),
+                              content: Text(
+                                  'Searched city code: $_searchSelectedCity'),
                             ),
                           );
                         }
@@ -209,7 +212,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               suggestionsCallback: (pattern) {
-                return context.repository<AmadeusRepository>().getAirportCitySearch(pattern);
+                return context
+                    .repository<AmadeusRepository>()
+                    .getAirportCitySearch(pattern);
               },
               itemBuilder: (context, suggestion) {
                 final airport = suggestion as Airport;
@@ -221,7 +226,7 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               transitionBuilder: (context, suggestionsBox, controller) {
-                _searchBoxVisible = true;
+                _suggestionBoxVisible = true;
 
                 return SizedBox(
                   height: 150.0,
@@ -229,7 +234,8 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               onSuggestionSelected: (suggestion) {
-                _textEditingController.text = (suggestion as Airport).address.cityCode;
+                _textEditingController.text =
+                    (suggestion as Airport).address.cityCode;
               },
               validator: (value) {
                 if (value.isEmpty) {
