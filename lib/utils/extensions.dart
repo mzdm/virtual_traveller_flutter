@@ -25,3 +25,12 @@ extension ListExt on List {
     return str.substring(1, str.length - 1).replaceAll(' ', '');
   }
 }
+
+// TODO: Replace String with separate model (use Destination ??) (with properties: name, code)
+extension StrExt on String {
+  String convertCityToReadable() {
+    final str = toString();
+    // TODO: Convert city name + city code with comma to readable format (e.g.: 'Boston,BOS' -> code: 'BOS', name: 'Boston')
+    return '';
+  }
+}

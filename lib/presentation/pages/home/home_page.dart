@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController _textEditingController;
 
-  String _labelTextFieldText = '';
+  String _labelTextFieldText;
 
   @override
   void initState() {
@@ -64,6 +64,7 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     ...buildMostPopular(),
+                    // TODO: Recommended destinations
                   ],
                 ),
               ),
@@ -102,6 +103,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // TODO: Auto suggestion search
   List<Widget> buildWaveSearchContent(BuildContext context) {
     return <Widget>[
       Text(
@@ -124,11 +126,11 @@ class _HomePageState extends State<HomePage> {
           child: BlocBuilder<FlightDestinationSearchSwitcherCubit, int>(
             builder: (context, state) {
               return Text(
-                (_labelTextFieldText == '')
+                (_labelTextFieldText == null)
                     ? ''
                     : state == 0
-                        ? 'Quick one-way search'
-                        : 'Quick destination preview',
+                        ? 'Quick one-way search (e.g.: BOS)'
+                        : 'Quick destination preview (e.g.: BOS)',
                 style: TextStyle(color: Colors.white60, fontSize: 12.0),
               );
             },
@@ -141,14 +143,16 @@ class _HomePageState extends State<HomePage> {
         child: BlocBuilder<FlightDestinationSearchSwitcherCubit, int>(
           builder: (context, state) {
             return TextField(
-              onTap: () => setState(() => _labelTextFieldText = 'Quick one-way search'),
+              onTap: _labelTextFieldText == null
+                  ? () => setState(() => _labelTextFieldText = '')
+                  : () {},
               controller: _textEditingController,
               showCursor: true,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.all(15.0),
                 filled: true,
                 fillColor: Colors.grey[200],
-                hintText: 'New York${state == 0 ? ' (JFK)' : ''}',
+                hintText: 'BOS (Boston)',
                 hintStyle: TextStyle(fontSize: 15.0),
                 suffixIcon: SizedBox(
                   width: 50.0,
@@ -209,6 +213,7 @@ class _HomePageState extends State<HomePage> {
     ];
   }
 
+  // TODO: Replace mocked data with bloc  & AmadeusRepository
   List<Widget> buildMostPopular() {
     final sampleData = <String>[
       'London',

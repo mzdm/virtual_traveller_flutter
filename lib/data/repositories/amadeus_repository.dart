@@ -12,6 +12,7 @@ import 'dart:convert';
 import 'package:virtual_traveller_flutter/data/models/poi.dart';
 import 'package:virtual_traveller_flutter/data/models/safety_rate.dart';
 
+// TODO: Check if models fits with Amadeus API models
 /// **Quick links**
 ///
 /// *Flights related*:
@@ -223,6 +224,7 @@ class AmadeusRepository {
       language: language,
     );
     // TODO: convert {newline} back to \n when doing in model fromJson
+    // TODO: add description property to model
     // json decode produces an error if there is a newline \n, so firstly replace it
     final escapedData = rawData.replaceAll('\n', '{newline}');
     final data = json.decode(escapedData)['data'];
