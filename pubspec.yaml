@@ -34,6 +34,7 @@ dependencies:
 #  syncfusion_flutter_datepicker: ^18.2.57-beta # https://pub.dev/packages/syncfusion_flutter_datepicker
   animations: ^1.1.2 # https://pub.dev/packages/animations
   clean_settings: ^0.1.4 # https://pub.dev/packages/clean_settings
+  flutter_typeahead: ^1.8.8 # https://pub.dev/packages/flutter_typeahead
 
 
 # flutter pub run build_runner build --delete-conflicting-outputs

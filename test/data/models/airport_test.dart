@@ -27,8 +27,8 @@ void main() {
         ],
         [
           Airport(
-            name: 'HEATHROW',
-            airportIataCode: 'LHR',
+            cityName: 'HEATHROW',
+            airportCode: 'LHR',
             address: AirportAddress(
               cityName: 'LONDON',
               cityCode: 'LON',
@@ -42,8 +42,8 @@ void main() {
             ),
           ),
           Airport(
-            name: 'BIRMINGHAM',
-            airportIataCode: 'BHX',
+            cityName: 'BIRMINGHAM',
+            airportCode: 'BHX',
             address: AirportAddress(
               cityName: 'BIRMINGHAM',
               cityCode: 'BHX',
@@ -57,8 +57,8 @@ void main() {
             ),
           ),
           Airport(
-            name: 'EAST MIDLANDS',
-            airportIataCode: 'EMA',
+            cityName: 'EAST MIDLANDS',
+            airportCode: 'EMA',
             address: AirportAddress(
               cityName: 'NOTTINGHAM',
               cityCode: 'NQT',
@@ -86,8 +86,8 @@ void main() {
         airports,
         [
           Airport(
-            name: 'MUNICH INTERNATIONAL',
-            airportIataCode: 'MUC',
+            cityName: 'MUNICH INTERNATIONAL',
+            airportCode: 'MUC',
             address: AirportAddress(
               cityName: 'MUNICH',
               cityCode: 'MUC',

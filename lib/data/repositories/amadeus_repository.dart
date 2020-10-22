@@ -116,6 +116,8 @@ class AmadeusRepository {
   Future<List<Airport>> getAirportCitySearch(
     String textSearchKeyword,
   ) async {
+    print('EVENT CALLED___');
+
     final rawData = await amadeusBaseDataProvider.getRawAirportCitySearch(textSearchKeyword);
     final data = json.decode(rawData)['data'];
 

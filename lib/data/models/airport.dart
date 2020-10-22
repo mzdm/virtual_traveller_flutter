@@ -8,8 +8,8 @@ part 'airport.g.dart';
 @freezed
 abstract class Airport with _$Airport {
   const factory Airport({
-    @required String name,
-    @required @JsonKey(name: 'iataCode') String airportIataCode,
+    @required @JsonKey(name: 'name') String cityName,
+    @required @JsonKey(name: 'iataCode') String airportCode,
     AirportAddress address,
     Location geoCode,
   }) = _Airport;
