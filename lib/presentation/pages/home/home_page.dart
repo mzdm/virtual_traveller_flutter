@@ -154,6 +154,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // TODO: Fix: when first clicking on TextField, an error is displayed in SuggestionBox, Sometimes 'No items' displayes while loading
   // TODO: Probably create a new bloc which should handle validators, ...
   Widget buildSuggestionSearch(BuildContext context) {
     return SizedBox(
@@ -216,13 +217,14 @@ class _HomePageState extends State<HomePage> {
                     .repository<AmadeusRepository>()
                     .getAirportCitySearch(pattern);
               },
+              debounceDuration: Duration(milliseconds: 1500),
               itemBuilder: (context, suggestion) {
                 final airport = suggestion as Airport;
 
                 return ListTile(
                   dense: true,
                   title: Text(airport.address.cityCode),
-                  subtitle: Text(airport.cityName),
+                  subtitle: Text(airport.address.cityName),
                 );
               },
               transitionBuilder: (context, suggestionsBox, controller) {
