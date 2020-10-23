@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
   String _labelTextFieldText;
   String _searchSelectedCity;
   bool _suggestionBoxVisible = false;
+  bool _searchSubmitted = false;
 
   @override
   void initState() {
@@ -43,6 +44,14 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
+  void searchSubmitted() {
+    _searchSubmitted = true;
+    Future.delayed(
+      Duration(seconds: 3),
+      () => _searchSubmitted = false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,9 +59,8 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: GestureDetector(
-            onTap: !_suggestionBoxVisible
-                ? () {}
-                : () => FocusManager.instance.primaryFocus.unfocus(),
+            onTap:
+                !_suggestionBoxVisible ? () {} : () => FocusManager.instance.primaryFocus.unfocus(),
             child: Column(
               children: [
                 buildWaveContents(context),
@@ -154,7 +162,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // TODO: Fix: when first clicking on TextField, an error is displayed in SuggestionBox, Sometimes 'No items' displayes while loading
+  // TODO: Sometimes 'No items' displays while items in SuggestionBox are loading
   // TODO: Probably create a new bloc which should handle validators, ...
   Widget buildSuggestionSearch(BuildContext context) {
     return SizedBox(
@@ -183,12 +191,21 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () {
                         _suggestionBoxVisible = false;
                         FocusManager.instance.primaryFocus.unfocus();
-                        if (_formKey.currentState.validate()) {
-                          _formKey.currentState.save();
+                        print(_searchSelectedCity);
+                        if (_textEditingController.text.isEmpty ||
+                            _searchSelectedCity.length != 3) {
                           Scaffold.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                  'Searched city code: $_searchSelectedCity'),
+                                  'Please enter a valid city code\nFor example for Boston: BOS'),
+                            ),
+                          );
+                        } else {
+                          searchSubmitted();
+                          Scaffold.of(context).showSnackBar(
+                            SnackBar(
+                              content:
+                                  Text('Searched city code: $_searchSelectedCity. Loading ...'),
                             ),
                           );
                         }
@@ -212,10 +229,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              suggestionsCallback: (pattern) {
-                return context
-                    .repository<AmadeusRepository>()
-                    .getAirportCitySearch(pattern);
+              // ignore: missing_return
+              suggestionsCallback: (keyword) {
+                if (keyword != '') {
+                  return context.repository<AmadeusRepository>().getAirportCitySearch(keyword);
+                }
               },
               debounceDuration: Duration(milliseconds: 1500),
               itemBuilder: (context, suggestion) {
@@ -229,22 +247,20 @@ class _HomePageState extends State<HomePage> {
               },
               transitionBuilder: (context, suggestionsBox, controller) {
                 _suggestionBoxVisible = true;
-
-                return SizedBox(
-                  height: 150.0,
-                  child: suggestionsBox,
-                );
-              },
-              onSuggestionSelected: (suggestion) {
-                _textEditingController.text =
-                    (suggestion as Airport).address.cityCode;
-              },
-              validator: (value) {
-                if (value.isEmpty) {
-                  // return 'Nothing was selected';
+                if (_textEditingController.value.text != '' && !_searchSubmitted) {
+                  return SizedBox(
+                    height: 150.0,
+                    child: suggestionsBox,
+                  );
                 }
               },
-              onSaved: (value) => _searchSelectedCity = value,
+              onSuggestionSelected: (suggestion) {
+                final airport = suggestion as Airport;
+                _searchSelectedCity = airport.address.cityCode;
+
+                final input = '${_searchSelectedCity}, ${airport.address.cityName}';
+                _textEditingController.text = input;
+              },
             ),
           );
         },
