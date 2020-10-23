@@ -134,7 +134,7 @@ The reasons why I decided to use the bloc library in my case were following:
     - [ ] Language
     - [ ] Currency
     - [ ] Temperature format
-    - [ ] Metric unit
+    - [ ] Length unit
     - [ ] Theme
     - [ ] Remove local data
 - [ ] Language Support
@@ -151,7 +151,7 @@ The reasons why I decided to use the bloc library in my case were following:
   - [ ] Desktop (Windows)
 
 ### Other:
-- [ ] ~~Null safety~~ (not possible yet)
+- [ ] ~~Null safety~~ (not possible yet - not all packages are yet migrated)
 - [x] CI / Github Actions
 - [ ] Type of tests
   - [x] Unit
@@ -164,27 +164,22 @@ The reasons why I decided to use the bloc library in my case were following:
 
 ## Dependencies:
 - #### Common packages:
-    - [flutter_bloc](https://pub.dev/packages/flutter_bloc)
-    - [rx_dart](https://pub.dev/packages/rxdart)
     - [pedantic](https://pub.dev/packages/pedantic)
+    - [equatable](https://pub.dev/packages/equatable)
+    - [flutter_bloc](https://pub.dev/packages/flutter_bloc)
     - [bloc_test](https://pub.dev/packages/bloc_test)
     - [mockito](https://pub.dev/packages/mockito)
+    - [http](https://pub.dev/packages/http)
+    - [rx_dart](https://pub.dev/packages/rxdart)
+    - [freezed](https://pub.dev/packages/freezed)
     - [build_runner](https://pub.dev/packages/build_runner)
     - [json_serializable](https://pub.dev/packages/json_serializable)
-    - [freezed](https://pub.dev/packages/freezed)
-    - [meta](https://pub.dev/packages/meta)
-    - [http](https://pub.dev/packages/http)
-    - [equatable](https://pub.dev/packages/equatable)
-    - [geolocator](https://pub.dev/packages/geolocator)
     - [shared_preferences](https://pub.dev/packages/shared_preferences)
+    - [geolocator](https://pub.dev/packages/geolocator)
 
 - #### UI packages:
-    - [flutter_blurhash](https://pub.dev/packages/flutter_blurhash)
-    - [intro_slider](https://pub.dev/packages/intro_slider)
-    - [responsive_builder](https://pub.dev/packages/responsive_builder)
-    - [auto_size_text](https://pub.dev/packages/auto_size_text)
-    - [animations](https://pub.dev/packages/animations)
     - [clean_settings](https://pub.dev/packages/clean_settings)
+    - [flutter_typeahead](https://pub.dev/packages/flutter_typeahead)
 
 ## UI inspirations
 - [Material Design - Crane Travel App](https://material.io/design/material-studies/crane.html)
