@@ -20,6 +20,7 @@ Search for flights and deep dive into large offers of travelling destinations. D
 - [Dependencies](https://github.com/mzdm/virtual_traveller_flutter#dependencies)
 - [UI inspirations](https://github.com/mzdm/virtual_traveller_flutter#ui-inspirations)
 - [Related recommended resources](https://github.com/mzdm/virtual_traveller_flutter#related-recommended-resources)
+- [Credits](https://github.com/mzdm/virtual_traveller_flutter#credits)
 - [Contribution](https://github.com/mzdm/virtual_traveller_flutter#contribution)
 
 ## Previews
@@ -38,7 +39,19 @@ Search for flights and deep dive into large offers of travelling destinations. D
 </p>
 
 ## How to run
-\-
+1. Clone this repository
+2. Fetch packages:</br>
+```flutter pub get```
+3. Run freezed and json_serializable code generators:</br>
+```flutter pub run build_runner build --delete-conflicting-outputs```</br>
+Automatically rebuild on changes with:</br>
+```flutter pub run build_runner watch```
+4. Run on the device:</br>
+```flutter run``` (run in Profile mode if you want to test the performance)</br>
+To run on web:</br>
+```flutter run -d web```</br>
+Run with flag on web with better performance (experimental):</br>
+```flutter run -d web --release --dart-define=FLUTTER_WEB_USE_SKIA=true```</br>
 
 ## Idea
 I wanted to make a flight searching app with interesting suggestions, fully from the scratch. However, due to the current situation with the pandemic, many countries are restricted for some citizens so travelling there isn't possible. This app has virtual travelling mode, which simulates the travelling here, displays interesting information about the desired location, including picture, points of interests and etc. There's a possibility to save the locations, so you can check them out later!
@@ -188,12 +201,14 @@ The reasons why I decided to use the bloc library in my case were following:
 - [Flight Tickets Deal Tracker App | Day 340/365 - Project365 by Kishore](https://dribbble.com/shots/5662956-Flight-Tickets-Deal-Tracker-App-Day-340-365-Project365)
 
 ## Related recommended resources
-- [Amadeus for Developers API Overview](https://github.com/amadeus4dev/hackathon-starter/blob/master/cheatsheets/amadeus4dev.pdf)
-- [Amadeus Self-Service API](https://developers.amadeus.com/self-service)
-- [Great YouTube channel about the BLoC Architecture](https://www.youtube.com/channel/UC5PYcSe3to4mtm3SPCUmjvw)
-- [bloc library docs](https://bloclibrary.dev/#/)
+- [Amadeus Travel API](https://developers.amadeus.com/self-service)
+- [flutter_bloc package docs](https://bloclibrary.dev/#/)
+- [Flutterly YouTube Channel - about BLoC](https://www.youtube.com/channel/UC5PYcSe3to4mtm3SPCUmjvw)
 - [Freezed ❄ – Data Class & Union in One Dart Package - by Reso Coder](https://resocoder.com/2020/02/11/freezed-data-class-union-in-one-dart-package/#t-1600693077177)
 - [Flutter Internationalization User Guide](http://flutter.dev/go/i18n-user-guide)
+
+## Credits
+- [Unsplash](https://unsplash.com/) (Asset Images)
 
 ## Contribution
 The app is still in the development process and isn't suitable for contributions yet.
