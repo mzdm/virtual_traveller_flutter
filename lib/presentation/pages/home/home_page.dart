@@ -272,12 +272,12 @@ class _HomePageState extends State<HomePage> {
                   ? Duration(milliseconds: 0)
                   : Duration(milliseconds: 750),
               itemBuilder: (context, suggestion) {
-                final airport = suggestion as Airport;
+                final airportAddress = (suggestion as Airport).address;
 
                 return ListTile(
                   dense: true,
-                  title: Text(airport.address.cityCode),
-                  subtitle: Text(airport.address.cityName),
+                  title: Text(airportAddress.cityCode),
+                  subtitle: Text('${airportAddress.cityName}, ${airportAddress.countryName}'),
                 );
               },
               transitionBuilder: (context, suggestionsBox, controller) {
@@ -426,6 +426,7 @@ class _HomePageState extends State<HomePage> {
                     child: RoundedCard(
                       cityCode: data[index].name,
                       assetNum: index > 4 ? index % 5 : index,
+                      // TODO: Navigate to destination page (with flight search button, if it matches with current location then hide)
                       onTap: () {
                         print(data[index].name);
                       },
