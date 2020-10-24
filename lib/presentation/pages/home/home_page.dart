@@ -402,7 +402,7 @@ class _HomePageState extends State<HomePage> {
                     return Shimmer.fromColors(
                       baseColor: Colors.grey[300],
                       highlightColor: Colors.grey[100],
-                      child: RoundedCard(
+                      child: DestinationRoundedCard(
                         cityCode: 'Sample',
                         onTap: () {},
                       ),
@@ -423,7 +423,7 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (_, index) {
                   return Padding(
                     padding: const EdgeInsets.only(right: 3.0),
-                    child: RoundedCard(
+                    child: DestinationRoundedCard(
                       cityCode: data[index].name,
                       assetNum: index > 4 ? index % 5 : index,
                       // TODO: Navigate to destination page (with flight search button, if it matches with current location then hide)

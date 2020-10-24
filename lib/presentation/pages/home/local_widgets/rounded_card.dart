@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class RoundedCard extends StatelessWidget {
-  const RoundedCard({
+class DestinationRoundedCard extends StatelessWidget {
+  const DestinationRoundedCard({
     Key key,
     @required this.cityCode,
     this.assetNum,
