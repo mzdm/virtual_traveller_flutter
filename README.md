@@ -180,6 +180,7 @@ The reasons why I decided to use the bloc library in my case were following:
 - #### UI packages:
     - [clean_settings](https://pub.dev/packages/clean_settings)
     - [flutter_typeahead](https://pub.dev/packages/flutter_typeahead)
+    - [shimmer](https://pub.dev/packages/shimmer)
 
 ## UI inspirations
 - [Material Design - Crane Travel App](https://material.io/design/material-studies/crane.html)
