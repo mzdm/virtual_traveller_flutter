@@ -27,10 +27,39 @@ extension ListExt on List {
 }
 
 // TODO: Replace String with separate model (use Destination ??) (with properties: name, code)
+// TODO: Tests
 extension StrExt on String {
-  String convertCityToReadable() {
+  String toDestinationModel() {
     final str = toString();
     // TODO: Convert city name + city code with comma to readable format (e.g.: 'Boston,BOS' -> code: 'BOS', name: 'Boston')
     return '';
+  }
+
+  // TODO: Tests
+  String toPascalCase() {
+    final str = toString();
+
+    if (str.isEmpty) {
+      return '';
+    }
+
+    if (str.length == 1) {
+      return str.toUpperCase();
+    }
+
+    final strBuffer = StringBuffer();
+
+    str.split(' ').forEach((element) {
+      if (element.length > 1) {
+        strBuffer
+          ..write(element.substring(0, 1).toUpperCase())
+          ..write(element.substring(1).toLowerCase());
+      } else {
+        strBuffer.write(element.toUpperCase());
+      }
+
+      strBuffer.write(' ');
+    });
+    return (strBuffer.toString()).trim();
   }
 }
