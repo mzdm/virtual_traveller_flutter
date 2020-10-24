@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -27,8 +26,8 @@ class _HomePageState extends State<HomePage> {
 
   TextEditingController _textEditingController;
 
-  String _labelTextFieldText;
-  String _searchSelectedCity;
+  String _keywordSearchTextFieldText;
+  String _suffixFullCityTextFieldText = '';
   bool _suggestionBoxVisible = false;
   bool _searchSubmitted = false;
 
@@ -149,7 +148,7 @@ class _HomePageState extends State<HomePage> {
         child: BlocBuilder<FlightDestinationSwitcherCubit, int>(
           builder: (context, state) {
             return Text(
-              (_labelTextFieldText == null)
+              (_keywordSearchTextFieldText == null)
                   ? ''
                   : state == 0
                       ? 'Quick one-way search (e.g.: BOS)'
@@ -162,8 +161,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // TODO: PRIORITY! This code below is a big MESS. Should be moved to separate bloc ... !!
   // TODO: Sometimes 'No items' displays while items in SuggestionBox are loading
-  // TODO: Probably create a new bloc which should handle validators, ...
   Widget buildSuggestionSearch(BuildContext context) {
     return SizedBox(
       height: 45.0,
@@ -175,51 +174,62 @@ class _HomePageState extends State<HomePage> {
             child: TypeAheadFormField(
               textFieldConfiguration: TextFieldConfiguration(
                 controller: _textEditingController,
-                onTap: _labelTextFieldText == null
-                    ? () => setState(() => _labelTextFieldText = '')
+                onTap: _keywordSearchTextFieldText == null
+                    ? () => setState(() => _keywordSearchTextFieldText = '')
                     : () {},
+                onChanged: (value) {
+                  setState(() => _suffixFullCityTextFieldText = '');
+                },
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(15.0),
                   filled: true,
                   fillColor: Colors.grey[200],
                   hintText: 'BOS (Boston)',
+                  suffixText: _suffixFullCityTextFieldText,
+                  suffixStyle: TextStyle(fontSize: 12.0, color: Colors.grey),
                   hintStyle: TextStyle(fontSize: 15.0),
-                  suffixIcon: SizedBox(
-                    width: 50.0,
-                    child: RaisedButton(
-                      padding: EdgeInsets.all(0.0),
-                      onPressed: () {
-                        _suggestionBoxVisible = false;
-                        FocusManager.instance.primaryFocus.unfocus();
-                        print(_searchSelectedCity);
-                        if (_textEditingController.text.isEmpty ||
-                            _searchSelectedCity.length != 3) {
-                          Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                  'Please enter a valid city code\nFor example for Boston: BOS'),
-                            ),
-                          );
-                        } else {
-                          searchSubmitted();
-                          Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                              content:
-                                  Text('Searched city code: $_searchSelectedCity. Loading ...'),
-                            ),
-                          );
-                        }
-                      },
-                      child: Icon(
-                        Icons.search,
-                        size: 16.0,
-                        color: Colors.grey,
-                      ),
-                      color: Colors.white,
-                      elevation: 7.0,
-                      highlightElevation: 0.0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.0),
+                  suffixIcon: Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: SizedBox(
+                      width: 50.0,
+                      child: RaisedButton(
+                        padding: EdgeInsets.all(0.0),
+                        onPressed: () {
+                          _suggestionBoxVisible = false;
+                          FocusManager.instance.primaryFocus.unfocus();
+
+                          final _searchedCity = _textEditingController.text;
+                          if (_searchedCity.length != 3) {
+                            Scaffold.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Please enter a valid city code (3 letters)\nFor example for Boston city search: BOS',
+                                ),
+                              ),
+                            );
+                          } else {
+                            searchSubmitted();
+                            // TODO: Navigate to next page (Flight results page or Destination page)
+                            Scaffold.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Searched city code: $_searchedCity. Loading ...',
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                        child: Icon(
+                          Icons.search,
+                          size: 16.0,
+                          color: Colors.grey,
+                        ),
+                        color: Colors.white,
+                        elevation: 7.0,
+                        highlightElevation: 0.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0),
+                        ),
                       ),
                     ),
                   ),
@@ -229,13 +239,32 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              noItemsFoundBuilder: (context) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    'No available cities found',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Theme.of(context).disabledColor,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                );
+              },
               // ignore: missing_return
               suggestionsCallback: (keyword) {
-                if (keyword != '') {
+                // TODO: When user clicks on any suggestion, Suggestion Box will dismiss,
+                // and when user clicks again into the TextField it will call with the same
+                // value inside the TextField. This causes too much same API calls, so this
+                // should be cached.
+                if (keyword != '' && !_searchSubmitted) {
                   return context.repository<AmadeusRepository>().getAirportCitySearch(keyword);
                 }
               },
-              debounceDuration: Duration(milliseconds: 1500),
+              debounceDuration: _textEditingController.text.length == 1
+                  ? Duration(milliseconds: 0)
+                  : Duration(milliseconds: 750),
               itemBuilder: (context, suggestion) {
                 final airport = suggestion as Airport;
 
@@ -247,6 +276,20 @@ class _HomePageState extends State<HomePage> {
               },
               transitionBuilder: (context, suggestionsBox, controller) {
                 _suggestionBoxVisible = true;
+
+                /// First condition:
+                /// Checks whether the TextField on clicking contains text.
+                /// If doesn't, then don't show Suggestion Box (because it needs some input
+                /// in order to search something).
+                ///
+                /// Second condition:
+                /// When clicking on Search icon and if validating was successful
+                /// it would display Suggestion Search Box, but it shouldn't
+                /// because user would have a loading animation and
+                /// navigating to the Flight result page.
+                ///
+                /// So _searchSubmitted checks if the button wasn't pressed in the last
+                /// 3 seconds.
                 if (_textEditingController.value.text != '' && !_searchSubmitted) {
                   return SizedBox(
                     height: 150.0,
@@ -256,10 +299,8 @@ class _HomePageState extends State<HomePage> {
               },
               onSuggestionSelected: (suggestion) {
                 final airport = suggestion as Airport;
-                _searchSelectedCity = airport.address.cityCode;
-
-                final input = '${_searchSelectedCity}, ${airport.address.cityName}';
-                _textEditingController.text = input;
+                _textEditingController.text = airport.address.cityCode;
+                setState(() => _suffixFullCityTextFieldText = airport.address.cityName);
               },
             ),
           );
