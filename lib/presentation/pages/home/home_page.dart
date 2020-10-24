@@ -403,7 +403,7 @@ class _HomePageState extends State<HomePage> {
                       baseColor: Colors.grey[300],
                       highlightColor: Colors.grey[100],
                       child: RoundedCard(
-                        sample: 'Sample',
+                        cityCode: 'Sample',
                         onTap: () {},
                       ),
                     );
@@ -424,7 +424,8 @@ class _HomePageState extends State<HomePage> {
                   return Padding(
                     padding: const EdgeInsets.only(right: 3.0),
                     child: RoundedCard(
-                      sample: data[index].name,
+                      cityCode: data[index].name,
+                      assetNum: index > 4 ? index % 5 : index,
                       onTap: () {
                         print(data[index].name);
                       },

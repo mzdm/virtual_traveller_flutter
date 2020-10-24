@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class RoundedCard extends StatelessWidget {
   const RoundedCard({
-    @required this.sample,
+    Key key,
+    @required this.cityCode,
+    this.assetNum,
     this.onTap,
-  }) : assert(sample != null);
+  })  : assert(cityCode != null),
+        super(key: key);
 
-  final String sample;
+  final String cityCode;
+  final int assetNum;
   final VoidCallback onTap;
+
+  String get assetName =>
+      assetNum == null ? null : 'assets/images/most_popular_destination$assetNum.jpg';
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +31,13 @@ class RoundedCard extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: Colors.red,
-                image: null,
+                color: Colors.grey[200],
+                image: assetName != null
+                    ? DecorationImage(
+                        image: AssetImage(assetName),
+                        fit: BoxFit.cover,
+                      )
+                    : null,
               ),
             ),
             Material(
@@ -47,7 +60,7 @@ class RoundedCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        sample,
+                        cityCode,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.headline6.copyWith(color: Colors.white),
