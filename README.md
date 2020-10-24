@@ -26,6 +26,7 @@ Search for flights and deep dive into large offers of travelling destinations. D
 ## Previews
 <p align="left">
 <img height="450" width="auto" src="github_images/app_preview_home1.png" />
+<img height="450" width="auto" src="github_images/app_preview_home2.png" />
 </p>
 <p align="left">
 <img height="450" width="auto" src="github_images/app_preview_flights1.jpg" />
@@ -35,7 +36,7 @@ Search for flights and deep dive into large offers of travelling destinations. D
 <img height="450" width="auto" src="github_images/app_preview_watchlist2.png" />
 </p>
 <p align="left">
-<img height="450" width="auto" src="github_images/app_preview_settings1.jpg" />
+<img height="450" width="auto" src="github_images/app_preview_settings1.png" />
 </p>
 
 ## How to run
