@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ThemeUtils {
-  static final defaultDarkBlueTheme = ThemeData(
+  static final defaultDarkBlueTheme = ThemeData.light().copyWith(
     primaryColor: ColorUtils.primaryDefaultColorBlue,
   );
 }
