@@ -116,7 +116,7 @@ class AmadeusRepository {
   Future<List<Airport>> getAirportCitySearch(
     String textSearchKeyword,
   ) async {
-    print('EVENT CALLED___');
+    print('DATA CALLED: getAirportCitySearch (src: amadeus_repository.dart)');
 
     final rawData = await amadeusBaseDataProvider.getRawAirportCitySearch(textSearchKeyword);
     final data = json.decode(rawData)['data'];
@@ -182,6 +182,8 @@ class AmadeusRepository {
   Future<List<Destination>> getFlightMostTravelled(
     String originCityCode,
   ) async {
+    print('DATA CALLED: getFlightMostTravelled (src: amadeus_repository.dart)');
+
     final rawData = await amadeusBaseDataProvider.getRawFlightMostTravelled(originCityCode);
     final data = json.decode(rawData)['data'];
 

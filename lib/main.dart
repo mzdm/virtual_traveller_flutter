@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:virtual_traveller_flutter/blocs/home/most_popular/most_popular_destinations_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/settings/settings_bloc.dart';
 
 import 'blocs/bloc_observer.dart';
@@ -83,8 +84,17 @@ class _MainAppState extends State<MainApp> {
         // TODO: Create a state for page transition effect
         builder: (context, state) {
           return Scaffold(
-            body: BlocProvider<FlightDestinationSwitcherCubit>(
-              create: (_) => FlightDestinationSwitcherCubit(),
+            body: MultiBlocProvider(
+              providers: [
+                BlocProvider<FlightDestinationSwitcherCubit>(
+                  create: (_) => FlightDestinationSwitcherCubit(),
+                ),
+                BlocProvider<MostPopularDestinationsCubit>(
+                  create: (_) => MostPopularDestinationsCubit(
+                    context.repository<AmadeusRepository>(),
+                  ),
+                ),
+              ],
               child: PageView(
                 controller: _pageController,
                 physics: NeverScrollableScrollPhysics(),

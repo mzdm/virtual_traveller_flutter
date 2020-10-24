@@ -14,6 +14,7 @@ class RoundedCard extends StatelessWidget {
     return SizedBox(
       width: 240.0,
       child: Card(
+        elevation: 0.0,
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25.0),

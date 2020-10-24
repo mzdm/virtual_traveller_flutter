@@ -27,6 +27,15 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
 
   final ApiService _apiService;
 
+  // TODO: To method parameter to bloc & to utils
+  String _getPrevDate() {
+    final currDate = DateTime.now();
+    final subtractMonths = DateTime(currDate.year, currDate.month - 6, currDate.day);
+    final monthStr = subtractMonths.month.toString();
+    final formattedMonth = monthStr.length == 1 ? '0${subtractMonths.month}' : monthStr;
+    return '${subtractMonths.year}-${formattedMonth}';
+  }
+
   @override
   Future<String> getRawNearestAirport(
     Location location,
@@ -109,13 +118,10 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   Future<String> getRawFlightMostBooked(
     String originCityCode,
   ) async {
-    final currDate = DateTime.now();
-    final currDateFormatted = '${currDate.year}-${currDate.month}';
-
     final endpointPath = 'v1/travel/analytics/air-traffic/booked';
     final queryParams = {
       'originCityCode': originCityCode, // ---REQUIRED--- (eg.: 'MAD') Code for the origin city following IATA standard (IATA table codes). - e.g. BOS for Boston. http://www.iata.org/publications/Pages/code-search.aspx
-      'period': currDateFormatted, // (eg.: '2019-09') Period when consumers are traveling. It can be a month only. ISO format must be used - e.g. 2015-05. Period ranges are not supported. Only periods from 2011-01 up to previous month are valid. Future dates are not supported.
+      'period': _getPrevDate(), // (eg.: '2019-09') Period when consumers are traveling. It can be a month only. ISO format must be used - e.g. 2015-05. Period ranges are not supported. Only periods from 2011-01 up to previous month are valid. Future dates are not supported.
       'max': 15, // Maximum number of destinations in the response. Default value is 10 and maximum value is 50.
       'page[limit]': 15, // maximum items in one page, default value : 10
     };
@@ -127,13 +133,10 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   Future<String> getRawFlightMostTravelled(
     String originCityCode,
   ) async {
-    final currDate = DateTime.now();
-    final currDateFormatted = '${currDate.year}-${currDate.month}';
-
     final endpointPath = 'v1/travel/analytics/air-traffic/traveled';
     final queryParams = {
       'originCityCode': originCityCode, // ---REQUIRED--- (eg.: 'MAD') Code for the origin city following IATA standard (IATA table codes). - e.g. BOS for Boston http://www.iata.org/publications/Pages/code-search.aspx
-      'period': currDateFormatted, // ---REQUIRED--- (eg.: '2019-09') Period when consumers are traveling. It can be a month only. ISO 8601 format must be used - e.g. 2015-05. Period ranges are not supported. Only periods from 2011-01 up to previous month are valid. Future dates are not supported. https://en.wikipedia.org/wiki/ISO_8601
+      'period': _getPrevDate(), // ---REQUIRED--- (eg.: '2019-09') Period when consumers are traveling. It can be a month only. ISO 8601 format must be used - e.g. 2015-05. Period ranges are not supported. Only periods from 2011-01 up to previous month are valid. Future dates are not supported. https://en.wikipedia.org/wiki/ISO_8601
       'max': 15, // maximum number of destinations in the response. Default value is 10 and maximum value is 50.
       'page[limit]': 15, // maximum items in one page, default is 10
     };

@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:virtual_traveller_flutter/blocs/home/flight_destination_switcher_cubit.dart';
+import 'package:virtual_traveller_flutter/blocs/home/most_popular/most_popular_destinations_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 
@@ -33,6 +36,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    // TODO: Cache result to save API quota
+    context.bloc<MostPopularDestinationsCubit>().fetchMostPopularDestinations('MAD');
+
     _textEditingController = TextEditingController();
     super.initState();
   }
@@ -63,7 +69,7 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 buildWaveContents(context),
-                buildBottomContents(),
+                buildBottomContents(context),
               ],
             ),
           ),
@@ -106,7 +112,7 @@ class _HomePageState extends State<HomePage> {
           Icon(Icons.place, color: Colors.white, size: 16.0),
           SizedBox(width: 12.0),
           Text(
-            'Boston (BOS)',
+            'BOS, Boston',
             style: TextStyle(color: Colors.white, fontSize: 14.0),
           ),
           Spacer(flex: 1),
@@ -338,12 +344,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget buildBottomContents() {
+  Widget buildBottomContents(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18.0),
       child: Column(
         children: [
-          ...buildMostPopular(),
+          ...buildMostPopular(context),
           // TODO: Recommended destinations
           /*
           SizedBox(height: 35.0),
@@ -364,21 +370,16 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // TODO: Replace mocked data with bloc & AmadeusRepository
-  List<Widget> buildMostPopular() {
-    final sampleData = <String>[
-      'London',
-      'Prague',
-      'Barcelona',
-      'Stockholm',
-    ];
-
+  // TODO: On Web change scrolling Axis to vertical, possibly use GridView
+  // TODO: Remove elevation (on Web ?)
+  // TODO: Add to city code also a country name (AirportCitySearch API call needed for that) (heavy on API usage ??)
+  List<Widget> buildMostPopular(BuildContext context) {
     return [
       SizedBox(height: 25.0),
       Align(
         alignment: AlignmentDirectional.bottomStart,
         child: Text(
-          'Most popular',
+          'Most popular destinations',
           style: TextStyle(
             color: Colors.black,
             fontSize: 24.0,
@@ -389,17 +390,66 @@ class _HomePageState extends State<HomePage> {
       SizedBox(height: 15.0),
       SizedBox(
         height: 200.0,
-        child: ListView.builder(
-          itemCount: sampleData.length,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (_, index) {
-            return Padding(
-              padding: const EdgeInsets.only(right: 3.0),
-              child: RoundedCard(
-                sample: sampleData[index],
-                onTap: () {},
-              ),
-            );
+        child: BlocBuilder<MostPopularDestinationsCubit, MostPopularDestinationsState>(
+          builder: (context, state) {
+            if (state is MostPopularDestinationsInitial) {
+              if (!kIsWeb) {
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 4,
+                  itemBuilder: (context, int index) {
+                    // TODO: Shimmer not supported for web yet, add a condition check
+                    return Shimmer.fromColors(
+                      baseColor: Colors.grey[300],
+                      highlightColor: Colors.grey[100],
+                      child: RoundedCard(
+                        sample: 'Sample',
+                        onTap: () {},
+                      ),
+                    );
+                  },
+                );
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            }
+
+            if (state is MostPopularDestinationsSuccess) {
+              final data = state.data;
+
+              return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: data.length,
+                itemBuilder: (_, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 3.0),
+                    child: RoundedCard(
+                      sample: data[index].name,
+                      onTap: () {
+                        print(data[index].name);
+                      },
+                    ),
+                  );
+                },
+              );
+            }
+
+            if (state is MostPopularDestinationsFailure) {
+              return Align(
+                alignment: AlignmentDirectional.topStart,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 12.0),
+                  child: Text(
+                    state.message,
+                    style: TextStyle(
+                      color: Theme.of(context).errorColor,
+                    ),
+                  ),
+                ),
+              );
+            }
+
+            return Container();
           },
         ),
       ),
