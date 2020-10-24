@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:virtual_traveller_flutter/presentation/pages/destination/destination_page.dart';
 
 import 'local_widgets/favorite_list_tile.dart';
 
@@ -48,53 +49,57 @@ class _WatchlistPageState extends State<WatchlistPage> {
         child: Center(
           child: cityNames.isEmpty
               ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'You have not favorited a destination yet.',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .subtitle1,
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 20.0),
-              OutlinedButton.icon(
-                icon: Icon(Icons.search),
-                label: Text('Search for destinations', textAlign: TextAlign.center),
-                onPressed: () {},
-              ),
-            ],
-          )
-              : Padding(
-            padding: const EdgeInsets.only(top: 6.0),
-            child: ReorderableListView(
-              onReorder: (oldIndex, newIndex) => _reorder(oldIndex, newIndex),
-              children: [
-                for (var i = 0; i < cityNames.length; i++)
-                  Dismissible(
-                    key: UniqueKey(),
-
-                    onDismissed: (direction) {
-                      if (direction == DismissDirection.endToStart) {
-                        setState(() {
-                          cityNames.remove(i);
-                          cityCodes.remove(i);
-                          print(cityNames.isEmpty);
-                        });
-                      }
-                    },
-                    child: FavoriteListTile(
-                      cityCode: cityCodes[i],
-                      cityName: cityNames[i],
-                      onPressed: () {
-                        print('clicked favorite');
-                      },
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'You have not favorited a destination yet.',
+                      style: Theme.of(context).textTheme.subtitle1,
+                      textAlign: TextAlign.center,
                     ),
+                    SizedBox(height: 20.0),
+                    OutlinedButton.icon(
+                      icon: Icon(Icons.search),
+                      label: Text('Search for destinations', textAlign: TextAlign.center),
+                      onPressed: () {},
+                    ),
+                  ],
+                )
+              : Padding(
+                  padding: const EdgeInsets.only(top: 6.0),
+                  child: ReorderableListView(
+                    onReorder: (oldIndex, newIndex) => _reorder(oldIndex, newIndex),
+                    children: [
+                      for (var i = 0; i < cityNames.length; i++)
+                        Dismissible(
+                          key: UniqueKey(),
+                          onDismissed: (direction) {
+                            if (direction == DismissDirection.endToStart) {
+                              setState(() {
+                                cityNames.remove(i);
+                                cityCodes.remove(i);
+                                print(cityNames.isEmpty);
+                              });
+                            }
+                          },
+                          child: FavoriteListTile(
+                            cityCode: cityCodes[i],
+                            cityName: cityNames[i],
+                            onPressed: () {
+                              print('clicked favorite');
+
+                              // temp
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DestinationPage(),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                    ],
                   ),
-              ],
-            ),
-          ),
+                ),
         ),
       ),
     );
