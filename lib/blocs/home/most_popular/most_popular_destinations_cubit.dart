@@ -14,6 +14,7 @@ class MostPopularDestinationsCubit extends Cubit<MostPopularDestinationsState> {
 
   final AmadeusRepository amadeusRepository;
 
+  // TODO: Implement also Most booked API
   void fetchMostPopularDestinations(String originCityCode) async {
     emit(MostPopularDestinationsInitial());
     try {
