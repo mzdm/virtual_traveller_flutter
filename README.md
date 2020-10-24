@@ -49,10 +49,17 @@ Automatically rebuild on changes with:</br>
 ```flutter pub run build_runner watch```
 4. Run on the device:</br>
 ```flutter run``` (run in Profile mode if you want to test the performance)</br>
-To run on web:</br>
+Run on web:</br>
 ```flutter run -d web```</br>
 Run with flag on web with better performance (experimental):</br>
-```flutter run -d web --release --dart-define=FLUTTER_WEB_USE_SKIA=true```</br>
+```flutter run -d web --release --dart-define=FLUTTER_WEB_USE_SKIA=true```</br></br>
+If you want to use remote APIs instead of local mocked data, you need to obtain API key(s).</br>
+[Obtain the Amadeus Travel API key here](https://developers.amadeus.com/get-started/get-started-with-self-service-apis-335).</br>
+Then:
+	- place the key to this file: *lib/data/data_providers/remote/secrets.dart*
+	- set **quotaSaveMode** to ```false``` in *lib/utils/debug_options.dart*
+
+
 
 ## Idea
 I wanted to make a flight searching app with interesting suggestions, fully from the scratch. However, due to the current situation with the pandemic, many countries are restricted for some citizens so travelling there isn't possible. This app has virtual travelling mode, which simulates the travelling here, displays interesting information about the desired location, including picture, points of interests and etc. There's a possibility to save the locations, so you can check them out later!
