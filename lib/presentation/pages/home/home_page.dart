@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:virtual_traveller_flutter/blocs/home/flight_destination_switcher_cubit.dart';
-import 'package:virtual_traveller_flutter/blocs/home/most_popular/most_popular_destinations_cubit.dart';
+import 'package:virtual_traveller_flutter/blocs/home/most_popular_destinations/most_popular_destinations_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 
