@@ -8,9 +8,9 @@ class SearchFlightsPage extends StatefulWidget {
   _SearchFlightsPageState createState() => _SearchFlightsPageState();
 }
 
-// TODO: Add interactive widgets (Date, TextField, ...)
+// TODO: SliverAppBar instead AppBar
+// TODO: Add interactive widgets (Date, TextField, Search suggestion search ...)
 // TODO: Move logic handling to bloc
-// TODO: Search suggestion search
 class _SearchFlightsPageState extends State<SearchFlightsPage> {
   int _wayTypeCurrButtonSelectionIndex = 1;
 

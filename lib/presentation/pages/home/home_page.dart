@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(toolbarHeight: 0.0),
       body: SafeArea(
         child: SingleChildScrollView(
           child: GestureDetector(
