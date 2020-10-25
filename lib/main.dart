@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:virtual_traveller_flutter/blocs/settings/settings_bloc.dart';
 
 import 'blocs/bloc_observer.dart';
+import 'blocs/destination/hotels/hotels_cubit.dart';
 import 'blocs/home/bottom_nav_bar_cubit.dart';
 import 'blocs/home/flight_destination_switcher_cubit.dart';
 import 'blocs/home/most_popular_destinations/most_popular_destinations_cubit.dart';
@@ -21,12 +22,12 @@ import 'utils/theme_utils.dart';
 void main() {
   Bloc.observer = SimpleBlocObserver();
 
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.light,
-      statusBarColor: ColorUtils.primaryDefaultColorBlue,
-    ),
-  );
+  // SystemChrome.setSystemUIOverlayStyle(
+  //   SystemUiOverlayStyle(
+  //     statusBarIconBrightness: Brightness.light,
+  //     statusBarColor: ColorUtils.primaryDefaultColorBlue,
+  //   ),
+  // );
 
   final amadeusBaseDataProvider = DebugOptions.quotaSaveMode
       ? AmadeusMockedDataProvider()
@@ -46,6 +47,11 @@ void main() {
           ),
           BlocProvider<BottomNavBarCubit>(
             create: (_) => BottomNavBarCubit(),
+          ),
+          BlocProvider<HotelsCubit>(
+            create: (_) => HotelsCubit(
+              amadeusRepository: amadeusRepository,
+            ),
           ),
         ],
         child: MainApp(),

@@ -86,13 +86,9 @@ class _WatchlistPageState extends State<WatchlistPage> {
                             cityName: cityNames[i],
                             onPressed: () {
                               print('clicked favorite');
-
-                              // temp
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                  builder: (context) => DestinationInfoPage(),
-                                ),
+                                DestinationInfoPage.route(),
                               );
                             },
                           ),
