@@ -36,9 +36,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // TODO: Cache result to save API quota
-    context.bloc<MostPopularDestinationsCubit>().fetchMostPopularDestinations('MAD');
-
     _textEditingController = TextEditingController();
     super.initState();
   }

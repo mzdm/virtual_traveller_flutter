@@ -92,7 +92,7 @@ class _MainAppState extends State<MainApp> {
                 BlocProvider<MostPopularDestinationsCubit>(
                   create: (_) => MostPopularDestinationsCubit(
                     context.repository<AmadeusRepository>(),
-                  ),
+                  )..fetchMostPopularDestinations('MAD'),
                 ),
               ],
               child: PageView(
