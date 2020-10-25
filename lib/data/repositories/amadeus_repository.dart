@@ -220,7 +220,7 @@ class AmadeusRepository {
   }
 
   Future<List<Hotel>> getHotelSearch({
-    @required cityCode,
+    @required String cityCode,
     String language,
   }) async {
     final rawData = await amadeusBaseDataProvider.getRawHotelSearch(

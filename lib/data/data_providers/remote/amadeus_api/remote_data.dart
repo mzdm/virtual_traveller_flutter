@@ -166,7 +166,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       'cityCode': cityCode, // ---REQUIRED--- (eg.: 'PAR') Destination City Code (or Airport Code). In case of city code, the search will be done around the city center. Available codes can be found in IATA table codes (3 chars IATA Code). http://www.iata.org/publications/Pages/code-search.aspx
       'radius': 5, // ---REQUIRED--- maximum distance (in radiusUnit) from Destination (city center or geocodes). Default value: 5
       'radiusUnit': 'KM', // ---REQUIRED--- distance unit (of the radius value). Available values : KM, MILE
-      'ratings': [5, 4, 3], // array[integer], hotel stars, up to 4 values can be requested at the same time in a comma separated list
+      'ratings': null, // array[integer], hotel stars, up to 4 values can be requested at the same time in a comma separated list
 
       // requested language of descriptive texts:
       // examples: FR , fr , fr-FR
