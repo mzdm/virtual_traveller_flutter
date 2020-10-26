@@ -36,6 +36,9 @@ Search for flights and deep dive into large offers of travelling destinations. D
 <img height="450" width="auto" src="github_images/app_preview_watchlist2.png" />
 </p>
 <p align="left">
+<img height="450" width="auto" src="github_images/app_preview_hotels1.png" />
+</p>
+<p align="left">
 <img height="450" width="auto" src="github_images/app_preview_settings1.png" />
 </p>
 
@@ -101,11 +104,11 @@ The reasons why I decided to use the bloc library in my case were following:
   - [ ] Splash screen
   - [ ] Intro slider on the first app launch
   - [ ] Home Page Features
-    - [ ] Change departure location
+    - [x] Change departure location
     - [ ] Quick search
-        - [ ] One-Way flights
+        - [x] One-Way flights
         - [ ] Destinations
-    - [ ] Discover most popular / booked travelling destinations based on current location
+    - [x] Discover most popular / booked travelling destinations based on the current location
     - [ ] Recommended destinations based on search history
   - [ ] Flight Searching Page Features
     - [ ] View search history
@@ -138,14 +141,24 @@ The reasons why I decided to use the bloc library in my case were following:
         - [ ] Price
         - [ ] Airplane type
       - [ ] Virtual Flight Mode
-        - [ ] Simulate plane flying on the map with timestamps
+        - [ ] Simulate airplane flying on the map with the timestamps
   - [ ] Destination Page Features
       - [ ] Save destination to the Watchlist
       - [ ] Pictures
       - [ ] Average temperature of the past week
       - [ ] Safety Rating
       - [ ] Points of Interests
+        - [ ] POI Details
+            - [ ] GPS Coordinates
+            - [ ] Pictures
       - [ ] Hotels
+        - [ ] Hotel Details
+            - [ ] GPS Coordinates
+            - [ ] Distance from the city center
+            - [ ] Stars
+            - [ ] Description
+            - [ ] Pictures
+            - [ ] Tags: Extra benefits, Appliances, ...
   - [ ] Watchlist Page
     - [ ] Click to view the info about the destination
     - [ ] Drag to reorder destinations
@@ -162,9 +175,10 @@ The reasons why I decided to use the bloc library in my case were following:
   - [x] English
   - [x] Czech
   - [ ] Portuguese
+  - [ ] Russian
+  - [ ] Chinese
   - [ ] French
   - [ ] German
-  - [ ] Russian
 - [ ] Supported Platforms
   - [x] Android
   - [x] iOS
@@ -172,7 +186,7 @@ The reasons why I decided to use the bloc library in my case were following:
   - [ ] Desktop (Windows)
 
 ### Other:
-- [ ] ~~Null safety~~ (not possible yet - not all packages are yet migrated)
+- [ ] ~~Null safety~~ (not possible currently - not all packages are migrated yet)
 - [x] CI / Github Actions
 - [ ] Type of tests
   - [x] Unit

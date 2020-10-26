@@ -153,41 +153,48 @@ class HotelsPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.airplanemode_active,
-                                    size: 15.0,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                    child: Text(
-                                      '-',
-                                      style: TextStyle(
-                                        color: Colors.grey[800],
+                              Tooltip(
+                                message: 'Distance from the city center to hotel',
+                                child: AbsorbPointer(
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.directions_walk,
+                                        size: 15.0,
                                       ),
-                                    ),
-                                  ),
-                                  Icon(
-                                    Icons.hotel_outlined,
-                                    size: 15.0,
-                                  ),
-                                  SizedBox(width: 1.0),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: Text(
-                                      '${hotel?.hotelDistance?.distance?.toString() ?? '-'} ${hotel.hotelDistance?.distanceUnit ?? '-'}',
-                                      style: TextStyle(
-                                        color: Colors.grey[800],
-                                        fontSize: 12.0,
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                        child: Text(
+                                          '-',
+                                          style: TextStyle(
+                                            color: Colors.grey[800],
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      Icon(
+                                        Icons.hotel_outlined,
+                                        size: 15.0,
+                                      ),
+                                      SizedBox(width: 1.0),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 10.0),
+                                        child: Text(
+                                          '${hotel?.hotelDistance?.distance?.toString() ?? '-'} ${hotel.hotelDistance?.distanceUnit ?? '-'}',
+                                          style: TextStyle(
+                                            color: Colors.grey[800],
+                                            fontSize: 12.0,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 4.0),
+                                    ],
                                   ),
-                                  SizedBox(width: 4.0),
-                                ],
+                                ),
                               ),
                               IgnorePointer(
-                                child: Icon(Icons.navigate_next_outlined),
+                                child: Icon(
+                                  Icons.navigate_next_outlined,
+                                ),
                               ),
                             ],
                           ),
