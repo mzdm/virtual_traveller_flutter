@@ -94,55 +94,61 @@ class HotelsPage extends StatelessWidget {
         return SizedBox(
           height: 130.0,
           child: Card(
-            color: Colors.white.withOpacity(1),
+            elevation: 1.5,
             child: Stack(
               children: [
                 Material(
                   color: Colors.transparent,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      print('clicked ${hotel}');
+                    },
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 10.0),
                   child: Column(
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              hotel.name.toPascalCase(),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: Colors.grey[800],
-                                fontSize: 18.0,
+                      IgnorePointer(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                hotel.name.toPascalCase(),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.grey[800],
+                                  fontSize: 18.0,
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(width: 65.0),
-                          Icon(
-                            Icons.star,
-                            size: 15.0,
-                          ),
-                          SizedBox(width: 1.0),
-                          Text(
-                            hotel.stars,
-                            style: TextStyle(
-                              color: Colors.grey[800],
+                            SizedBox(width: 65.0),
+                            Icon(
+                              Icons.star,
+                              size: 15.0,
                             ),
-                          ),
-                          SizedBox(width: 4.0),
-                        ],
+                            SizedBox(width: 1.0),
+                            Text(
+                              hotel.stars,
+                              style: TextStyle(
+                                color: Colors.grey[800],
+                              ),
+                            ),
+                            SizedBox(width: 4.0),
+                          ],
+                        ),
                       ),
                       SizedBox(height: 8.0),
-                      Align(
-                        alignment: AlignmentDirectional.topStart,
-                        child: Text(
-                          hotel.address.cityName,
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.4),
+                      IgnorePointer(
+                        child: Align(
+                          alignment: AlignmentDirectional.topStart,
+                          child: Text(
+                            hotel.address?.cityName ?? '',
+                            style: TextStyle(
+                              color: Colors.black.withOpacity(0.4),
+                            ),
                           ),
                         ),
                       ),
@@ -179,7 +185,7 @@ class HotelsPage extends StatelessWidget {
                                       Padding(
                                         padding: const EdgeInsets.only(left: 10.0),
                                         child: Text(
-                                          '${hotel?.hotelDistance?.distance?.toString() ?? '-'} ${hotel.hotelDistance?.distanceUnit ?? '-'}',
+                                          '${hotel.hotelDistance?.distance?.toString() ?? '-'} ${hotel.hotelDistance?.distanceUnit ?? '-'}',
                                           style: TextStyle(
                                             color: Colors.grey[800],
                                             fontSize: 12.0,
