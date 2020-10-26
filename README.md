@@ -52,10 +52,12 @@ Automatically rebuild on changes with:</br>
 ```flutter pub run build_runner watch```
 4. Run on the device:</br>
 ```flutter run``` (run in Profile mode if you want to test the performance)</br>
-Run on web:</br>
+Run on the web (make sure you are on the **beta** channel):</br>
 ```flutter run -d web```</br>
-Run with flag on web with better performance (experimental):</br>
-```flutter run -d web --release --dart-define=FLUTTER_WEB_USE_SKIA=true```</br></br>
+Run with flag on the web with better performance (experimental):</br>
+```flutter run -d web --release --dart-define=FLUTTER_WEB_USE_SKIA=true```</br>
+Run on the desktop (Windows) (make sure you are on the **dev** channel):</br>
+```flutter run -d windows```</br></br>
 If you want to use remote APIs instead of local mocked data, you need to obtain API key(s).</br>
 [Obtain the Amadeus Travel API key here](https://developers.amadeus.com/get-started/get-started-with-self-service-apis-335).</br>
 Then:
