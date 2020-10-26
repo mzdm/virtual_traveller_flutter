@@ -24,7 +24,10 @@ import 'package:virtual_traveller_flutter/data/models/location.dart';
 /// - [getRawSafePlace]
 class AmadeusMockedDataProvider implements AmadeusBaseDataProvider {
   Future<T> simulateRemoteDataDelay<T>(T data) {
-    return Future.delayed(Duration(milliseconds: 750), () => data);
+    return Future.delayed(
+      Duration(milliseconds: 2500),
+      () => data,
+    );
   }
 
   @override
