@@ -1,6 +1,7 @@
 import 'package:meta/meta.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/api_service.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
+import 'package:virtual_traveller_flutter/utils/debug_options.dart';
 
 import 'base_data.dart';
 
@@ -29,11 +30,15 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
 
   // TODO: To method parameter to bloc & to utils
   String _getPrevDate() {
-    final currDate = DateTime.now();
-    final subtractMonths = DateTime(currDate.year, currDate.month - 6, currDate.day);
-    final monthStr = subtractMonths.month.toString();
-    final formattedMonth = monthStr.length == 1 ? '0${subtractMonths.month}' : monthStr;
-    return '${subtractMonths.year}-${formattedMonth}';
+    if (DebugOptions.productionMode) {
+      final currDate = DateTime.now();
+      final subtractMonths = DateTime(currDate.year, currDate.month - 6, currDate.day);
+      final monthStr = subtractMonths.month.toString();
+      final formattedMonth = monthStr.length == 1 ? '0${subtractMonths.month}' : monthStr;
+      return '${subtractMonths.year}-${formattedMonth}';
+    }
+    // In the test environment not all dates are available.
+    return '2018-03';
   }
 
   @override
@@ -180,7 +185,8 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       //  - FULL: LIGHT view + hotel description, amenities and facilities
       'view': 'FULL',
 
-      'page[limit]': 10,
+      // page[limit] doesn't seem to work
+      'page[limit]': null,
     };
 
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);

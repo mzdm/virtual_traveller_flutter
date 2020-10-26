@@ -138,7 +138,7 @@ class DestinationInfoPage extends StatelessWidget {
                             final hotelsBloc = context.bloc<HotelsCubit>();
                             if (hotelsBloc.state is HotelsInitial) {
                               hotelsBloc.fetchHotels(
-                                cityCode: null,
+                                cityCode: 'LON',
                                 language: null,
                               );
                             }

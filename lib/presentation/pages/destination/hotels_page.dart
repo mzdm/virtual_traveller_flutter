@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/hotels/hotels_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/hotel.dart';
+import 'package:virtual_traveller_flutter/utils/extensions.dart';
 
 class HotelsPage extends StatelessWidget {
   static Route route() {
@@ -56,13 +57,24 @@ class HotelsPage extends StatelessWidget {
             itemCount: 20,
             itemBuilder: (context, index) {
               return Shimmer.fromColors(
-                baseColor: Colors.grey,
+                baseColor: Colors.grey[400],
                 highlightColor: Colors.grey[200],
-                child: ListTile(
-                  title: Text('Name'),
-                  trailing: Icon(
-                    Icons.star,
-                    size: 15.0,
+                child: SizedBox(
+                  height: 150.0,
+                  child: Card(
+                    color: Colors.transparent,
+                    child: ListTile(
+                      title: Text(
+                        'Hotel name',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.25),
+                        ),
+                      ),
+                      trailing: Icon(
+                        Icons.star,
+                        size: 15.0,
+                      ),
+                    ),
                   ),
                 ),
               );
@@ -71,8 +83,125 @@ class HotelsPage extends StatelessWidget {
   }
 
   // TODO: List hotels
+  // TODO: Pagination
   Widget buildHotelsSuccess(List<Hotel> hotels) {
-    return Container();
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      itemCount: hotels.length,
+      itemBuilder: (context, index) {
+        final hotel = hotels[index];
+
+        return SizedBox(
+          height: 130.0,
+          child: Card(
+            color: Colors.white.withOpacity(1),
+            child: Stack(
+              children: [
+                Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {},
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 10.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              hotel.name.toPascalCase(),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.grey[800],
+                                fontSize: 18.0,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 65.0),
+                          Icon(
+                            Icons.star,
+                            size: 15.0,
+                          ),
+                          SizedBox(width: 1.0),
+                          Text(
+                            hotel.stars,
+                            style: TextStyle(
+                              color: Colors.grey[800],
+                            ),
+                          ),
+                          SizedBox(width: 4.0),
+                        ],
+                      ),
+                      SizedBox(height: 8.0),
+                      Align(
+                        alignment: AlignmentDirectional.topStart,
+                        child: Text(
+                          hotel.address.cityName,
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.4),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.airplanemode_active,
+                                    size: 15.0,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                    child: Text(
+                                      '-',
+                                      style: TextStyle(
+                                        color: Colors.grey[800],
+                                      ),
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.hotel_outlined,
+                                    size: 15.0,
+                                  ),
+                                  SizedBox(width: 1.0),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Text(
+                                      '${hotel?.hotelDistance?.distance?.toString() ?? '-'} ${hotel.hotelDistance?.distanceUnit ?? '-'}',
+                                      style: TextStyle(
+                                        color: Colors.grey[800],
+                                        fontSize: 12.0,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 4.0),
+                                ],
+                              ),
+                              IgnorePointer(
+                                child: Icon(Icons.navigate_next_outlined),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Widget buildHotelsEmpty(BuildContext context) {

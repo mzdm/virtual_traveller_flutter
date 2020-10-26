@@ -223,6 +223,8 @@ class AmadeusRepository {
     @required String cityCode,
     String language,
   }) async {
+    print('DATA CALLED: getHotelSearch (src: amadeus_repository.dart)');
+
     final rawData = await amadeusBaseDataProvider.getRawHotelSearch(
       cityCode: cityCode,
       language: language,
