@@ -57,8 +57,8 @@ class HotelsPage extends StatelessWidget {
             itemCount: 20,
             itemBuilder: (context, index) {
               return Shimmer.fromColors(
-                baseColor: Colors.grey[400],
-                highlightColor: Colors.grey[200],
+                baseColor: Colors.grey[350],
+                highlightColor: Colors.grey[100],
                 child: SizedBox(
                   height: 150.0,
                   child: Card(
@@ -67,7 +67,7 @@ class HotelsPage extends StatelessWidget {
                       title: Text(
                         'Hotel name',
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.25),
+                          color: Colors.black,
                         ),
                       ),
                       trailing: Icon(
@@ -82,7 +82,7 @@ class HotelsPage extends StatelessWidget {
           );
   }
 
-  // TODO: List hotels
+  // TODO: Make a separate widget
   // TODO: Pagination
   Widget buildHotelsSuccess(List<Hotel> hotels) {
     return ListView.builder(
@@ -160,7 +160,7 @@ class HotelsPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Tooltip(
-                                message: 'Distance from the city center to hotel',
+                                message: 'Distance from the city center to the hotel',
                                 child: AbsorbPointer(
                                   child: Row(
                                     children: [
