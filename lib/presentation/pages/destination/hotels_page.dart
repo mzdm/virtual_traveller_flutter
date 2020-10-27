@@ -60,9 +60,10 @@ class HotelsPage extends StatelessWidget {
                 baseColor: Colors.grey[350],
                 highlightColor: Colors.grey[100],
                 child: SizedBox(
-                  height: 150.0,
+                  height: 130.0,
                   child: Card(
                     color: Colors.transparent,
+                    elevation: 1.5,
                     child: ListTile(
                       title: Text(
                         'Hotel name',
