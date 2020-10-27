@@ -1,4 +1,4 @@
-class DebugOptions {
+class DebugConfig {
   /// Set to `true` if the app is in the testing and/or debugging mode.
   ///
   /// If it is set to `true` then it influences following:

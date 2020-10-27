@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:virtual_traveller_flutter/blocs/settings/settings_bloc.dart';
 
@@ -16,8 +15,8 @@ import 'presentation/pages/flights/search_flights_page.dart';
 import 'presentation/pages/home/home_page.dart';
 import 'presentation/pages/settings/settings_page.dart';
 import 'presentation/pages/watchlist/watchlist_page.dart';
-import 'utils/debug_options.dart';
-import 'utils/theme_utils.dart';
+import 'config/app/debug_config.dart';
+import 'config/theme/theme_config.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();
@@ -29,7 +28,7 @@ void main() {
   //   ),
   // );
 
-  final amadeusBaseDataProvider = DebugOptions.quotaSaveMode
+  final amadeusBaseDataProvider = DebugConfig.quotaSaveMode
       ? AmadeusMockedDataProvider()
       : AmadeusRemoteDataProvider(ApiService());
 
@@ -85,7 +84,7 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeUtils.defaultDarkBlueTheme,
+      theme: ThemeConfig.defaultDarkBlueTheme,
       home: BlocBuilder<BottomNavBarCubit, int>(
         // TODO: Create a state for page transition effect
         builder: (context, state) {

@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
+import 'package:virtual_traveller_flutter/config/app/debug_config.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/api_service.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
-import 'package:virtual_traveller_flutter/utils/debug_options.dart';
 
 import 'base_data.dart';
 
@@ -30,7 +30,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
 
   // TODO: To method parameter to bloc & to utils
   String _getPrevDate() {
-    if (DebugOptions.productionMode) {
+    if (DebugConfig.productionMode) {
       final currDate = DateTime.now();
       final subtractMonths = DateTime(currDate.year, currDate.month - 6, currDate.day);
       final monthStr = subtractMonths.month.toString();

@@ -1,15 +1,15 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:virtual_traveller_flutter/config/app/debug_config.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/secrets.dart';
-import 'package:virtual_traveller_flutter/utils/debug_options.dart';
 import 'package:virtual_traveller_flutter/utils/extensions.dart';
 
 class ApiService {
   static const _apiKey = Secrets.amadeusApiKey;
   static const _secretKey = Secrets.amadeusSecretKey;
 
-  static const _baseUrl = DebugOptions.productionMode
+  static const _baseUrl = DebugConfig.productionMode
       ? 'api.amadeus.com'
       : 'test.api.amadeus.com';
 

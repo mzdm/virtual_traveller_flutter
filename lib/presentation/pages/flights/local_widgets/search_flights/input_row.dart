@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:virtual_traveller_flutter/utils/theme_utils.dart';
+import 'package:virtual_traveller_flutter/config/theme/base_colors.dart';
 
 enum _Type { text, dateTime, counter }
 
@@ -158,7 +158,7 @@ class InputRow extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {},
-                          color: ColorUtils.secondaryDefaultColorLightOrange,
+                          color: BaseColors.secondaryDefaultColorLightOrange,
                           child: Icon(
                             Icons.remove,
                             color: Colors.white,
@@ -194,7 +194,7 @@ class InputRow extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {},
-                          color: ColorUtils.secondaryDefaultColorLightOrange,
+                          color: BaseColors.secondaryDefaultColorLightOrange,
                           child: Icon(
                             Icons.add,
                             color: Colors.white,
