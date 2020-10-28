@@ -11,7 +11,7 @@ void main() {
   group('Flights - Points of Interests', () {
     test('fromJson POI List output', () async {
       final amadeusBaseDataProvider = AmadeusRepository(amadeusBaseDataProvider: AmadeusMockedDataProvider());
-      final pois = await amadeusBaseDataProvider.getPointsOfInterest(null, null);
+      final pois = await amadeusBaseDataProvider.getPointsOfInterest(location: null);
 
       print(pois);
       expect(pois.length, 10);
