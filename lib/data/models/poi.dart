@@ -6,7 +6,7 @@ part 'poi.freezed.dart';
 part 'poi.g.dart';
 
 /// Points of Interests
-enum CategoryPOI { SIGHTS, NIGHTLIFE, RESTAURANT, SHOPPING }
+enum CategoryPOI { SIGHTS, NIGHTLIFE, RESTAURANT, SHOPPING, BEACH_PARK, HISTORICAL}
 
 @freezed
 abstract class POI with _$POI {

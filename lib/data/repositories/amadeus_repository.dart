@@ -248,10 +248,10 @@ class AmadeusRepository {
     return hotels;
   }
 
-  Future<List<POI>> getPointsOfInterest(
-    Location location,
+  Future<List<POI>> getPointsOfInterest({
+    @required Location location,
     List<CategoryPOI> categoriesList,
-  ) async {
+  }) async {
     final categoriesStrList = categoriesList == null
         ? null
         : categoriesList.map((category) => describeEnum(category)).toList();

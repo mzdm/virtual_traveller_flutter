@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/hotels/hotels_cubit.dart';
+import 'package:virtual_traveller_flutter/blocs/destination/poi/pois_cubit.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 import 'package:virtual_traveller_flutter/presentation/pages/destination/hotels_page.dart';
 import 'package:virtual_traveller_flutter/presentation/pages/destination/local_widgets/rounded_card.dart';
@@ -13,10 +14,19 @@ class DestinationInfoPage extends StatelessWidget {
   static Route route(BuildContext context) {
     return MaterialPageRoute(
       builder: (_) {
-        return BlocProvider<HotelsCubit>(
-          create: (_) => HotelsCubit(
-            amadeusRepository: context.repository<AmadeusRepository>(),
-          )..fetchHotels(cityCode: 'LON', language: null),
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<HotelsCubit>(
+              create: (_) => HotelsCubit(
+                amadeusRepository: context.repository<AmadeusRepository>(),
+              )..fetchHotels(cityCode: 'LON', language: null),
+            ),
+            BlocProvider<PoisCubit>(
+              create: (_) => PoisCubit(
+                amadeusRepository: context.repository<AmadeusRepository>(),
+              )..fetchPois(location: null),
+            ),
+          ],
           child: DestinationInfoPage(),
         );
       },
@@ -155,7 +165,10 @@ class DestinationInfoPage extends StatelessWidget {
                     title: 'as',
                     assetName: 'most_popular_destination0.jpg',
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => PoisPage()));
+                      Navigator.push(
+                        context,
+                        PoisPage.route(context),
+                      );
                     },
                   ),
                   SizedBox(height: 5.0),
