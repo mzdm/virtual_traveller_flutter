@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/hotels/hotels_cubit.dart';
+import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 import 'package:virtual_traveller_flutter/presentation/pages/destination/hotels_page.dart';
 import 'package:virtual_traveller_flutter/presentation/pages/destination/local_widgets/rounded_card.dart';
 import 'package:virtual_traveller_flutter/presentation/pages/destination/pois_page.dart';
@@ -9,79 +10,77 @@ import 'package:virtual_traveller_flutter/utils/extensions.dart';
 import 'local_widgets/image_sliver_app_bar.dart';
 
 class DestinationInfoPage extends StatelessWidget {
-  static Route route() {
+  static Route route(BuildContext context) {
     return MaterialPageRoute(
-      builder: (context) {
-        return DestinationInfoPage();
+      builder: (_) {
+        return BlocProvider<HotelsCubit>(
+          create: (_) => HotelsCubit(
+            amadeusRepository: context.repository<AmadeusRepository>(),
+          )..fetchHotels(cityCode: 'LON', language: null),
+          child: DestinationInfoPage(),
+        );
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        context.bloc<HotelsCubit>().resetState();
-        Navigator.pop(context);
-        return true;
-      },
-      child: Scaffold(
-        body: CustomScrollView(
-          slivers: <Widget>[
-            buildSliverAppBar(),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return Container(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: double.infinity,
-                          child: Card(
-                            color: Theme.of(context).primaryColor,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'BUTTON TO SEARCH FLIGHTS (if from watchlist/home page)\n\nBasic info: City name, Country name, Country abbreviation',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17.0,
-                                    ),
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          buildSliverAppBar(),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return Container(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        child: Card(
+                          color: Theme.of(context).primaryColor,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'BUTTON TO SEARCH FLIGHTS (if from watchlist/home page)\n\nBasic info: City name, Country name, Country abbreviation',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17.0,
                                   ),
-                                  Text(
-                                    '\nLocation\nlat: xyz longitude: xyz',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17.0,
-                                    ),
+                                ),
+                                Text(
+                                  '\nLocation\nlat: xyz longitude: xyz',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17.0,
                                   ),
-                                  Text(
-                                    '\nAverage temperature last week: xyz',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17.0,
-                                    ),
+                                ),
+                                Text(
+                                  '\nAverage temperature last week: xyz',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17.0,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
-                        buildCategories(context),
-                        SizedBox(height: 400),
-                      ],
-                    ),
-                  );
-                },
-                childCount: 1,
-              ),
+                      ),
+                      SizedBox(height: 20),
+                      buildCategories(context),
+                      SizedBox(height: 400),
+                    ],
+                  ),
+                );
+              },
+              childCount: 1,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -123,16 +122,9 @@ class DestinationInfoPage extends StatelessWidget {
                           title: 'as',
                           assetName: 'most_popular_destination0.jpg',
                           onTap: () {
-                            final hotelsBloc = context.bloc<HotelsCubit>();
-                            if (hotelsBloc.state is HotelsInitial) {
-                              hotelsBloc.fetchHotels(
-                                cityCode: 'LON',
-                                language: null,
-                              );
-                            }
                             Navigator.push(
                               context,
-                              HotelsPage.route(),
+                              HotelsPage.route(context),
                             );
                           },
                         ),

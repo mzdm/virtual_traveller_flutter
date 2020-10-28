@@ -8,10 +8,13 @@ import 'package:virtual_traveller_flutter/presentation/pages/destination/hotel_d
 import 'package:virtual_traveller_flutter/utils/extensions.dart';
 
 class HotelsPage extends StatelessWidget {
-  static Route route() {
+  static Route route(BuildContext context) {
     return MaterialPageRoute(
       builder: (_) {
-        return HotelsPage();
+        return BlocProvider<HotelsCubit>.value(
+          value: context.repository<HotelsCubit>(),
+          child: HotelsPage(),
+        );
       },
     );
   }

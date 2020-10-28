@@ -88,7 +88,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
                               print('clicked favorite');
                               Navigator.push(
                                 context,
-                                DestinationInfoPage.route(),
+                                DestinationInfoPage.route(context),
                               );
                             },
                           ),

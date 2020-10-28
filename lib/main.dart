@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:virtual_traveller_flutter/blocs/settings/settings_bloc.dart';
 
 import 'blocs/bloc_observer.dart';
-import 'blocs/destination/hotels/hotels_cubit.dart';
 import 'blocs/home/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import 'blocs/home/flight_destination_switcher/flight_destination_switcher_cubit.dart';
 import 'blocs/home/most_popular_destinations/most_popular_destinations_cubit.dart';
@@ -46,11 +45,6 @@ void main() {
           ),
           BlocProvider<BottomNavBarCubit>(
             create: (_) => BottomNavBarCubit(),
-          ),
-          BlocProvider<HotelsCubit>(
-            create: (_) => HotelsCubit(
-              amadeusRepository: amadeusRepository,
-            ),
           ),
         ],
         child: MainApp(),
