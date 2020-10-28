@@ -3,8 +3,10 @@ import 'package:virtual_traveller_flutter/blocs/destination/hotels/hotels_cubit.
 import 'package:virtual_traveller_flutter/presentation/pages/destination/hotels_page.dart';
 import 'package:virtual_traveller_flutter/presentation/pages/destination/local_widgets/rounded_card.dart';
 import 'package:virtual_traveller_flutter/presentation/pages/destination/pois_page.dart';
-import 'package:virtual_traveller_flutter/utils/extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:virtual_traveller_flutter/utils/extensions.dart';
+
+import 'local_widgets/image_sliver_app_bar.dart';
 
 class DestinationInfoPage extends StatelessWidget {
   static Route route() {
@@ -26,37 +28,7 @@ class DestinationInfoPage extends StatelessWidget {
       child: Scaffold(
         body: CustomScrollView(
           slivers: <Widget>[
-            SliverAppBar(
-              expandedHeight: 150,
-              pinned: true,
-              floating: true,
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.favorite_border),
-                  tooltip: '(Un)favorite',
-                  onPressed: () {
-                    print('to favorites');
-                  },
-                ),
-              ],
-              flexibleSpace: Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage('assets/images/most_popular_destination3.jpg'),
-                    )),
-                  ),
-                  FlexibleSpaceBar(
-                    title: Text(
-                      'London'.toPascalCase(),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // Next, create a SliverList
+            buildSliverAppBar(),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
@@ -111,6 +83,22 @@ class DestinationInfoPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  ImageSliverAppBar buildSliverAppBar() {
+    return ImageSliverAppBar(
+      title: 'London'.toPascalCase(),
+      assetName: 'most_popular_destination3.jpg',
+      actions: [
+        IconButton(
+          icon: Icon(Icons.favorite_border),
+          tooltip: '(Un)favorite',
+          onPressed: () {
+            print('to favorites');
+          },
+        ),
+      ],
     );
   }
 
