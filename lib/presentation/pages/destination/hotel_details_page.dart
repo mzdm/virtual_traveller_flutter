@@ -47,21 +47,7 @@ class HotelDetailsPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'BUTTON TO SEARCH FLIGHTS (if from watchlist/home page)\n\nBasic info: City name, Country name, Country abbreviation',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17.0,
-                                  ),
-                                ),
-                                Text(
-                                  '\nLocation\nlat: xyz longitude: xyz',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17.0,
-                                  ),
-                                ),
-                                Text(
-                                  '\nAverage temperature last week: xyz',
+                                  'Detailed hotel info',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 17.0,
