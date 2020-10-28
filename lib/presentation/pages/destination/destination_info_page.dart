@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/hotels/hotels_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/poi/pois_cubit.dart';
+import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 import 'package:virtual_traveller_flutter/presentation/pages/destination/hotels_page.dart';
 import 'package:virtual_traveller_flutter/presentation/pages/destination/local_widgets/rounded_card.dart';
@@ -24,7 +25,7 @@ class DestinationInfoPage extends StatelessWidget {
             BlocProvider<PoisCubit>(
               create: (_) => PoisCubit(
                 amadeusRepository: context.repository<AmadeusRepository>(),
-              )..fetchPois(location: null),
+              )..fetchPois(location: Location(latitude: 40.416775, longitude: -3.703790)),
             ),
           ],
           child: DestinationInfoPage(),
