@@ -119,7 +119,7 @@ class ExpansionCard extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         child: Row(
           children: <Widget>[
-            Text('Name'),
+            Text('Copy name'),
             Spacer(),
             Icon(Icons.copy),
           ],
