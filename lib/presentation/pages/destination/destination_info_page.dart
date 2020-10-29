@@ -1,10 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/hotels/hotels_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/poi/pois_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 import 'package:virtual_traveller_flutter/presentation/pages/destination/hotels_page.dart';
-import 'package:virtual_traveller_flutter/presentation/pages/destination/local_widgets/rounded_card.dart';
+import 'package:virtual_traveller_flutter/presentation/pages/destination/local_widgets/rounded_icon_card.dart';
+import 'package:virtual_traveller_flutter/presentation/pages/destination/local_widgets/rounded_vertical_card.dart';
 import 'package:virtual_traveller_flutter/presentation/pages/destination/pois_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:virtual_traveller_flutter/utils/extensions.dart';
@@ -12,20 +14,32 @@ import 'package:virtual_traveller_flutter/utils/extensions.dart';
 import 'local_widgets/image_sliver_app_bar.dart';
 
 class DestinationInfoPage extends StatelessWidget {
-  static Route route(BuildContext context) {
+  static Route route(
+    BuildContext context, {
+    bool displayFlights = true,
+  }) {
+    final amadeusRepo = context.repository<AmadeusRepository>();
     return MaterialPageRoute(
       builder: (_) {
         return MultiBlocProvider(
           providers: [
             BlocProvider<HotelsCubit>(
               create: (_) => HotelsCubit(
-                amadeusRepository: context.repository<AmadeusRepository>(),
-              )..fetchHotels(cityCode: 'LON', language: null),
+                amadeusRepository: amadeusRepo,
+              )..fetchHotels(
+                  cityCode: 'LON',
+                  language: null,
+                ),
             ),
             BlocProvider<PoisCubit>(
               create: (_) => PoisCubit(
-                amadeusRepository: context.repository<AmadeusRepository>(),
-              )..fetchPois(location: Location(latitude: 40.416775, longitude: -3.703790)),
+                amadeusRepository: amadeusRepo,
+              )..fetchPois(
+                  location: Location(
+                    latitude: 40.416775,
+                    longitude: -3.703790,
+                  ),
+                ),
             ),
           ],
           child: DestinationInfoPage(),
@@ -46,44 +60,12 @@ class DestinationInfoPage extends StatelessWidget {
                 return Container(
                   child: Column(
                     children: [
-                      SizedBox(
-                        width: double.infinity,
-                        child: Card(
-                          color: Theme.of(context).primaryColor,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'BUTTON TO SEARCH FLIGHTS (if from watchlist/home page)\n\nBasic info: City name, Country name, Country abbreviation',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17.0,
-                                  ),
-                                ),
-                                Text(
-                                  '\nLocation\nlat: xyz longitude: xyz',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17.0,
-                                  ),
-                                ),
-                                Text(
-                                  '\nAverage temperature last week: xyz',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17.0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      buildCategories(context),
-                      SizedBox(height: 400),
+                      SizedBox(height: 10.0),
+                      buildInfoContent(context),
+                      SizedBox(height: 20.0),
+                      buildExploreContent(context),
+                      SizedBox(height: 20.0),
+                      buildBottomContent(),
                     ],
                   ),
                 );
@@ -112,84 +94,140 @@ class DestinationInfoPage extends StatelessWidget {
     );
   }
 
-  Widget buildCategories(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Flexible(
+  Widget buildInfoContent(BuildContext context) {
+    return FractionallySizedBox(
+      widthFactor: 0.95,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: RoundedIconCard(
               child: Padding(
-                padding: const EdgeInsets.only(top: 50.0),
+                padding: const EdgeInsets.all(4.0),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Placeholder(
-                      fallbackHeight: 250.0,
+                    Icon(
+                      Icons.info_outline,
+                      color: Colors.blue,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CategoryRoundedCard(
-                          title: 'as',
-                          assetName: 'most_popular_destination0.jpg',
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              HotelsPage.route(context),
-                            );
-                          },
-                        ),
-                        SizedBox(height: 5.0),
                         Padding(
-                          padding: const EdgeInsets.only(left: 4.0),
+                          padding: const EdgeInsets.all(4.0),
                           child: Text(
-                            'Hotels',
-                            style: Theme.of(context).textTheme.headline5.copyWith(
-                                  color: Colors.black,
-                                  fontSize: 18.0,
-                                ),
+                            '20 °C sasa sdfsd',
+                            maxLines: 1,
+                            style: Theme.of(context).textTheme.headline4,
                           ),
-                        )
+                        ),
+                        Text(
+                          'Detailed location\n\n',
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                color: Color(0x8a000000),
+                              ),
+                        ),
                       ],
                     ),
                   ],
                 ),
               ),
             ),
+          ),
+          Expanded(
+            child: RoundedIconCard(
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Icon(
+                      Icons.thermostat_outlined,
+                      color: Colors.redAccent,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(
+                            '20 °C sasa sdfsd',
+                            maxLines: 1,
+                            style: Theme.of(context).textTheme.headline4.copyWith(
+                                  color: Colors.black,
+                                ),
+                          ),
+                        ),
+                        Text(
+                          'Avg. temperature last week',
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                color: Color(0x8a000000),
+                              ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // TODO: hardcoded assetNames
+  Widget buildExploreContent(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 20.0),
+          child: Text(
+            'Explore',
+            style: Theme.of(context).textTheme.headline5,
+          ),
+        ),
+        SizedBox(height: 8.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Flexible(
+              child: RoundedVerticalCard(
+                title: 'Hotels',
+                assetName: 'destination_hotels.jpg',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    HotelsPage.route(context),
+                  );
+                },
+              ),
+            ),
             SizedBox(width: 8.0),
             Flexible(
-              flex: 1,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CategoryRoundedCard(
-                    title: 'as',
-                    assetName: 'most_popular_destination0.jpg',
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        PoisPage.route(context),
-                      );
-                    },
-                  ),
-                  SizedBox(height: 5.0),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 4.0),
-                    child: Text(
-                      'Points of Interests',
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.headline5.copyWith(
-                            color: Colors.black,
-                            fontSize: 18.0,
-                          ),
-                    ),
-                  ),
-                ],
+              child: RoundedVerticalCard(
+                title: 'Points of Interests',
+                assetName: 'destination_pois.jpg',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    PoisPage.route(context),
+                  );
+                },
               ),
             ),
           ],
         ),
       ],
     );
+  }
+
+  // TODO:
+  Widget buildBottomContent() {
+    return SizedBox(height: 20.0);
   }
 }

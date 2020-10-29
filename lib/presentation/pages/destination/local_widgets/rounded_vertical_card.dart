@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:virtual_traveller_flutter/utils/utils.dart';
 
-class CategoryRoundedCard extends StatelessWidget {
-  const CategoryRoundedCard({
+class RoundedVerticalCard extends StatelessWidget {
+  const RoundedVerticalCard({
     Key key,
     @required this.title,
     @required this.assetName,
@@ -16,8 +17,8 @@ class CategoryRoundedCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 180.0,
-      height: 220.0,
+      width: 170.0,
+      height: 230.0,
       child: Card(
         elevation: 0.0,
         clipBehavior: Clip.antiAlias,
@@ -28,9 +29,11 @@ class CategoryRoundedCard extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: Colors.grey,
                 image: DecorationImage(
-                  image: AssetImage('assets/images/$assetName'),
+                  image: AssetImage(
+                    Utils.getImageAsset(assetName),
+                  ),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -39,6 +42,18 @@ class CategoryRoundedCard extends StatelessWidget {
               color: Colors.transparent,
               child: InkWell(
                 onTap: onTap,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(14.0),
+              child: Text(
+                title,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: Theme.of(context).textTheme.headline5.copyWith(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                    ),
               ),
             ),
           ],

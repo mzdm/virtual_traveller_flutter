@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:virtual_traveller_flutter/utils/utils.dart';
 
 class ImageSliverAppBar extends StatelessWidget {
   const ImageSliverAppBar({
@@ -17,8 +18,6 @@ class ImageSliverAppBar extends StatelessWidget {
   final bool twoLineTitle;
   final List<Widget> actions;
 
-  String get asset => 'assets/images/$assetName';
-
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
@@ -31,7 +30,9 @@ class ImageSliverAppBar extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage(asset),
+                image: AssetImage(
+                  Utils.getImageAsset(assetName),
+                ),
               ),
             ),
           ),
