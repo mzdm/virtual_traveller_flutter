@@ -9,6 +9,11 @@ class MostPopularDestinationsInitial extends MostPopularDestinationsState {
   List<Object> get props => [];
 }
 
+class MostPopularDestinationsLoading extends MostPopularDestinationsState {
+  @override
+  List<Object> get props => [];
+}
+
 class MostPopularDestinationsSuccess extends MostPopularDestinationsState {
   MostPopularDestinationsSuccess(this.data);
 

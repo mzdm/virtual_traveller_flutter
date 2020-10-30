@@ -17,17 +17,16 @@ class MostPopularDestinationsCubit extends Cubit<MostPopularDestinationsState> {
   // TODO: Implement also Most booked API
   // TODO: Cache result to save API quota
   void fetchMostPopularDestinations(String originCityCode) async {
-    emit(MostPopularDestinationsInitial());
+    emit(MostPopularDestinationsLoading());
     try {
-      final data = await amadeusRepository.getFlightMostTravelled(originCityCode);
-
-      if (data.isNotEmpty) {
-        emit(MostPopularDestinationsSuccess(data));
-      } else {
-        emitMockedDataOnEmpty();
-      }
+      await amadeusRepository.getFlightMostTravelled(originCityCode).then((data) {
+        if (data.isNotEmpty) {
+          emit(MostPopularDestinationsSuccess(data));
+        } else {
+          emitMockedDataOnEmpty();
+        }
+      });
     } catch (e) {
-      print(e);
       emit(MostPopularDestinationsFailure(
         (e is Response) ? e.reasonPhrase : 'An error has occurred while fetching the data.',
       ));
@@ -35,8 +34,10 @@ class MostPopularDestinationsCubit extends Cubit<MostPopularDestinationsState> {
   }
 
   void emitMockedDataOnEmpty() async {
-    final mockedData = await AmadeusRepository(amadeusBaseDataProvider: AmadeusMockedDataProvider())
-        .getFlightMostTravelled('');
-    emit(MostPopularDestinationsSuccess(mockedData));
+    await AmadeusRepository(
+      amadeusBaseDataProvider: AmadeusMockedDataProvider(),
+    ).getFlightMostTravelled('').then((mockedData) {
+      emit(MostPopularDestinationsSuccess(mockedData));
+    });
   }
 }

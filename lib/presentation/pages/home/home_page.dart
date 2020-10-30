@@ -6,6 +6,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:virtual_traveller_flutter/blocs/home/flight_destination_switcher/flight_destination_switcher_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/home/most_popular_destinations/most_popular_destinations_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
+import 'package:virtual_traveller_flutter/data/models/destination.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 
 import 'local_widgets/flight_destination_search_switcher.dart';
@@ -390,62 +391,18 @@ class _HomePageState extends State<HomePage> {
         height: 200.0,
         child: BlocBuilder<MostPopularDestinationsCubit, MostPopularDestinationsState>(
           builder: (context, state) {
-            if (state is MostPopularDestinationsInitial) {
-              if (!kIsWeb) {
-                return ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 4,
-                  itemBuilder: (context, int index) {
-                    // TODO: Shimmer not supported for web yet, add a condition check
-                    return Shimmer.fromColors(
-                      baseColor: Colors.grey[300],
-                      highlightColor: Colors.grey[100],
-                      child: DestinationRoundedCard(
-                        cityCode: 'Sample',
-                        onTap: () {},
-                      ),
-                    );
-                  },
-                );
-              } else {
-                return Center(child: CircularProgressIndicator());
-              }
+            if (state is MostPopularDestinationsLoading) {
+              return buildMostPopularDestinationsLoading();
             }
 
             if (state is MostPopularDestinationsSuccess) {
-              final data = state.data;
-
-              return ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: data.length,
-                itemBuilder: (_, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 3.0),
-                    child: DestinationRoundedCard(
-                      cityCode: data[index].name,
-                      assetNum: index > 4 ? index % 5 : index,
-                      // TODO: Navigate to destination page (with flight search button, if it matches with current location then hide)
-                      onTap: () {
-                        print(data[index].name);
-                      },
-                    ),
-                  );
-                },
-              );
+              return buildMostPopularDestinationsSuccess(state.data);
             }
 
             if (state is MostPopularDestinationsFailure) {
-              return Align(
-                alignment: AlignmentDirectional.topStart,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 12.0),
-                  child: Text(
-                    state.message,
-                    style: TextStyle(
-                      color: Theme.of(context).errorColor,
-                    ),
-                  ),
-                ),
+              return buildMostPopularDestinationsFailure(
+                context,
+                errorMessage: state.message,
               );
             }
 
@@ -454,5 +411,62 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     ];
+  }
+
+  Widget buildMostPopularDestinationsLoading() {
+    return kIsWeb
+        ? Center(child: CircularProgressIndicator())
+        : ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 4,
+            itemBuilder: (context, int index) {
+              return Shimmer.fromColors(
+                baseColor: Colors.grey[300],
+                highlightColor: Colors.grey[100],
+                child: DestinationRoundedCard(
+                  cityCode: 'Sample',
+                  onTap: () {},
+                ),
+              );
+            },
+          );
+  }
+
+  Widget buildMostPopularDestinationsSuccess(List<Destination> data) {
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: data.length,
+      itemBuilder: (_, index) {
+        return Padding(
+          padding: const EdgeInsets.only(right: 3.0),
+          child: DestinationRoundedCard(
+            cityCode: data[index].name,
+            assetNum: index > 4 ? index % 5 : index,
+            // TODO: Navigate to destination page (with flight search button, if it matches with current location then hide)
+            onTap: () {
+              print(data[index].name);
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  Widget buildMostPopularDestinationsFailure(
+    BuildContext context, {
+    @required String errorMessage,
+  }) {
+    return Align(
+      alignment: AlignmentDirectional.topStart,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 12.0),
+        child: Text(
+          errorMessage,
+          style: TextStyle(
+            color: Theme.of(context).errorColor,
+          ),
+        ),
+      ),
+    );
   }
 }
