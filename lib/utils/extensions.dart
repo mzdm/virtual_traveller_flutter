@@ -1,3 +1,5 @@
+import 'package:virtual_traveller_flutter/presentation/pages/destination/hotels_page.dart';
+
 extension ListExt on List {
   /// Converts a List of elements to comma separated String
   /// without any spaces.
@@ -26,16 +28,18 @@ extension ListExt on List {
   }
 }
 
-// TODO: Replace String with separate model (use Destination ??) (with properties: name, code)
-// TODO: Tests
 extension StrExt on String {
-  String toDestinationModel() {
-    final str = toString();
-    // TODO: Convert city name + city code with comma to readable format (e.g.: 'Boston,BOS' -> code: 'BOS', name: 'Boston')
-    return '';
-  }
-
-  // TODO: Tests
+  /// Similar to Camel case except that Pascal case makes first letter
+  /// of each word capitalized.
+  ///
+  /// Used in [HotelsPage], where API call returns all names of the hotels as upper case
+  /// so for better readability it is converted.
+  ///
+  /// E.g.:
+  /// ```
+  /// INPUT: 'PARIS CAFÉ'
+  /// OUTPUT: 'Paris Café'
+  /// ```
   String toPascalCase() {
     final str = toString();
 
@@ -62,4 +66,11 @@ extension StrExt on String {
     });
     return (strBuffer.toString()).trim();
   }
+
+// // TODO: Replace String with separate model (use Destination ??) (with properties: name, code)
+// // TODO: Convert city name + city code with comma to readable format (e.g.: 'Boston,BOS' -> code: 'BOS', name: 'Boston')
+// String toDestinationModel() {
+//   final str = toString();
+//   return '';
+// }
 }
