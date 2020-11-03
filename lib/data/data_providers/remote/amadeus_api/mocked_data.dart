@@ -16,7 +16,6 @@ import 'package:virtual_traveller_flutter/data/models/location.dart';
 /// - [getRawAirlineCodeLookup]
 ///
 /// *Home Page & Destinations related*:
-/// - [getRawFlightMostBooked]
 /// - [getRawFlightMostTravelled]
 /// - [getRawTravelRecommendation]
 /// - [getRawHotelSearch]
@@ -67,13 +66,6 @@ class AmadeusMockedDataProvider implements AmadeusBaseDataProvider {
   @override
   Future<String> getRawAirlineCodeLookup(_) async {
     final rawData = '''{"meta":{"count":1,"links":{"self":"https://test.api.amadeus.com/v1/reference-data/airlines?airlineCodes=BA"}},"data":[{"type":"airline","iataCode":"BA","icaoCode":"BAW","businessName":"BRITISH AIRWAYS","commonName":"BRITISH A/W"}]}''';
-
-    return simulateRemoteDataDelay(rawData);
-  }
-
-  @override
-  Future<String> getRawFlightMostBooked(_) async {
-    final rawData = '''{"meta":{"count":10,"links":{"self":"https://test.api.amadeus.com/v1/travel/analytics/air-traffic/booked?originCityCode=MAD&page%5Blimit%5D=10&page%5Boffset%5D=0&period=2017-08"}},"data":[{"type":"air-traffic","destination":"PAR","subType":"BOOKED","analytics":{"flights":{"score":100},"travelers":{"score":100}}},{"type":"air-traffic","destination":"TCI","subType":"BOOKED","analytics":{"flights":{"score":61},"travelers":{"score":80}}},{"type":"air-traffic","destination":"LON","subType":"BOOKED","analytics":{"flights":{"score":93},"travelers":{"score":65}}},{"type":"air-traffic","destination":"BCN","subType":"BOOKED","analytics":{"flights":{"score":91},"travelers":{"score":61}}},{"type":"air-traffic","destination":"NYC","subType":"BOOKED","analytics":{"flights":{"score":61},"travelers":{"score":51}}},{"type":"air-traffic","destination":"BRU","subType":"BOOKED","analytics":{"flights":{"score":41},"travelers":{"score":39}}},{"type":"air-traffic","destination":"UIO","subType":"BOOKED","analytics":{"flights":{"score":48},"travelers":{"score":37}}},{"type":"air-traffic","destination":"SDQ","subType":"BOOKED","analytics":{"flights":{"score":15},"travelers":{"score":19}}},{"type":"air-traffic","destination":"DXB","subType":"BOOKED","analytics":{"flights":{"score":22},"travelers":{"score":11}}},{"type":"air-traffic","destination":"OPO","subType":"BOOKED","analytics":{"flights":{"score":18},"travelers":{"score":8}}}]}''';
 
     return simulateRemoteDataDelay(rawData);
   }

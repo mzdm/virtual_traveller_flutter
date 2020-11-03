@@ -12,7 +12,6 @@ import 'package:virtual_traveller_flutter/data/models/location.dart';
 /// - [getRawAirlineCodeLookup]
 ///
 /// *Home Page & Destinations related*:
-/// - [getRawFlightMostBooked]
 /// - [getRawFlightMostTravelled]
 /// - [getRawTravelRecommendation]
 /// - [getRawHotelSearch]
@@ -86,20 +85,6 @@ abstract class AmadeusBaseDataProvider {
   );
 
   // Home Page & Destinations related
-  /// *"Which destinations are most frequently booked by travelers in New Delhi?"*
-  ///
-  /// Get insight into local booking trends by finding which destinations are most frequently
-  /// booked by travelers in a specific city. The Flight Most Booked Destinations API provides a
-  /// list of the most booked destinations by travelers from a given city, each with a
-  /// flight score (flights to the destination as a percentage of total departures) and
-  /// a traveler score (number of passengers traveling to the destination as a
-  /// percentage of total passenger departures).
-  ///
-  /// *[Flight Most Booked Destinations API docs](https://developers.amadeus.com/self-service/category/air/api-doc/flight-most-booked-destinations/api-reference)*
-  Future<String> getRawFlightMostBooked(
-    String originCityCode,
-  );
-
   /// *"What are the most visited destinations among travelers in New York City?"*
   ///
   /// Get insight into local travel habits by finding which destinations are most visited by

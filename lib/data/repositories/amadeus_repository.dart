@@ -23,7 +23,6 @@ import 'package:virtual_traveller_flutter/data/models/safety_rate.dart';
 /// - [getAirlineCodeLookup]
 ///
 /// *Home Page & Destinations related*:
-/// - [getFlightMostBooked]
 /// - [getFlightMostTravelled]
 /// - [getTravelRecommendation]
 /// - [getHotelSearch]
@@ -155,30 +154,6 @@ class AmadeusRepository {
   }
 
   // Home Page & Destinations related
-  Future<List<Destination>> getFlightMostBooked(
-    String originCityCode,
-  ) async {
-    final rawData = await amadeusBaseDataProvider.getRawFlightMostBooked(originCityCode);
-    final data = json.decode(rawData)['data'];
-
-    final destinations = (data as List).map((item) {
-      /// This safely does *fromJson* method of the given class on each
-      /// item of the list.
-      ///
-      /// If it fails, then it will return *null*, which will be then omitted from the
-      /// final output list.
-      try {
-        return DestinationBase.fromJson(item);
-      } catch (e) {
-        print(e);
-        return null;
-      }
-    }).toList()
-      ..removeWhere((element) => element == null);
-
-    return destinations;
-  }
-
   Future<List<Destination>> getFlightMostTravelled(
     String originCityCode,
   ) async {

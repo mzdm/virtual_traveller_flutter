@@ -17,7 +17,6 @@ import 'base_data.dart';
 /// - [getRawAirlineCodeLookup]
 ///
 /// *Home Page & Destinations related*:
-/// - [getRawFlightMostBooked]
 /// - [getRawFlightMostTravelled]
 /// - [getRawTravelRecommendation]
 /// - [getRawHotelSearch]
@@ -114,21 +113,6 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       // Several airlines can be selected at once by sending a list separated by a coma (i.e. AF, SWA).
       // (eg.: 'BA')
       'airlineCodes': airlineCode,
-    };
-
-    return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
-  }
-
-  @override
-  Future<String> getRawFlightMostBooked(
-    String originCityCode,
-  ) async {
-    final endpointPath = 'v1/travel/analytics/air-traffic/booked';
-    final queryParams = {
-      'originCityCode': originCityCode, // ---REQUIRED--- (eg.: 'MAD') Code for the origin city following IATA standard (IATA table codes). - e.g. BOS for Boston. http://www.iata.org/publications/Pages/code-search.aspx
-      'period': _getPrevDate(), // (eg.: '2019-09') Period when consumers are traveling. It can be a month only. ISO format must be used - e.g. 2015-05. Period ranges are not supported. Only periods from 2011-01 up to previous month are valid. Future dates are not supported.
-      'max': 15, // Maximum number of destinations in the response. Default value is 10 and maximum value is 50.
-      'page[limit]': 15, // maximum items in one page, default value : 10
     };
 
     return await _apiService.getRawDataFromEndpoint(endpointPath, queryParams);
