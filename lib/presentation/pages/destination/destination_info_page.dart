@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/hotels/hotels_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/poi/pois_cubit.dart';
@@ -65,7 +64,7 @@ class DestinationInfoPage extends StatelessWidget {
                       SizedBox(height: 20.0),
                       buildExploreContent(context),
                       SizedBox(height: 20.0),
-                      buildBottomContent(),
+                      buildBottomContent(context),
                     ],
                   ),
                 );
@@ -94,6 +93,7 @@ class DestinationInfoPage extends StatelessWidget {
     );
   }
 
+  // TODO: Refactor (reuse widgets)
   Widget buildInfoContent(BuildContext context) {
     return FractionallySizedBox(
       widthFactor: 0.95,
@@ -112,30 +112,44 @@ class DestinationInfoPage extends StatelessWidget {
                       Icons.info_outline,
                       color: Colors.blue,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                            '20 °C sasa sdfsd',
-                            maxLines: 1,
-                            style: Theme.of(context).textTheme.headline4,
-                          ),
-                        ),
-                        Text(
-                          'Detailed location\n\n',
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                color: Color(0x8a000000),
+                    Center(
+                      child: Align(
+                        alignment: AlignmentDirectional.bottomStart,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                'Info',
+                                maxLines: 1,
+                                style: Theme.of(context).textTheme.headline4.copyWith(
+                                  fontSize: 28.0,
+                                  color: Colors.black,
+                                ),
                               ),
+                            ),
+                            // TODO: Fetch from API
+                            // TODO: Add more ?
+                            Text(
+                              'Destination: London\n'
+                                  'City code: LON\n'
+                                  'Country: GB',
+                              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                    color: Color(0x8a000000),
+                                  ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
           ),
+          // TODO: Fetch Weather API (OpenWeather ?)
           Expanded(
             child: RoundedIconCard(
               child: Padding(
@@ -148,26 +162,29 @@ class DestinationInfoPage extends StatelessWidget {
                       Icons.thermostat_outlined,
                       color: Colors.redAccent,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                            '20 °C sasa sdfsd',
-                            maxLines: 1,
-                            style: Theme.of(context).textTheme.headline4.copyWith(
-                                  color: Colors.black,
+                    Align(
+                      alignment: AlignmentDirectional.bottomStart,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text(
+                              '20 °C',
+                              maxLines: 1,
+                              style: Theme.of(context).textTheme.headline4.copyWith(
+                                    color: Colors.black,
+                                  ),
+                            ),
+                          ),
+                          Text(
+                            'Avg. temperature last week',
+                            style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                  color: Color(0x8a000000),
                                 ),
                           ),
-                        ),
-                        Text(
-                          'Avg. temperature last week',
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                color: Color(0x8a000000),
-                              ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -226,8 +243,23 @@ class DestinationInfoPage extends StatelessWidget {
     );
   }
 
-  // TODO:
-  Widget buildBottomContent() {
-    return SizedBox(height: 20.0);
+  // TODO: Add actions (copy name, gps coords, pictures link, ...)
+  Widget buildBottomContent(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 20.0),
+          child: Align(
+            alignment: AlignmentDirectional.topStart,
+            child: Text(
+              'More actions',
+              style: Theme.of(context).textTheme.headline5,
+            ),
+          ),
+        ),
+        SizedBox(height: 200.0),
+      ],
+    );
   }
 }
