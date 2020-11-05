@@ -13,7 +13,7 @@ class RoundedIconCard extends StatelessWidget {
     return SizedBox(
       height: 170.0,
       child: Card(
-        elevation: 2.5,
+        elevation: 1.0,
         clipBehavior: Clip.hardEdge,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
