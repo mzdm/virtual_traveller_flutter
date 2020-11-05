@@ -5,16 +5,4 @@ class BottomNavBarCubit extends Cubit<int> {
   BottomNavBarCubit() : super(0);
 
   void changeNavBarItem(int newIndex) => emit(newIndex);
-
-  // TODO: Move to main
-  void pageTransitionEffect(
-    PageController pageController, {
-    bool isFromSettingsIcon = false,
-  }) {
-    pageController.animateToPage(
-      state,
-      duration: Duration(milliseconds: isFromSettingsIcon ? 500 : 250),
-      curve: Curves.easeIn,
-    );
-  }
 }

@@ -58,18 +58,22 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  PageController _pageController;
+  Widget getPage(
+    BuildContext context, {
+    @required int index,
+  }) {
+    final pages = <Widget>[
+      HomePage(
+        onSettingsTap: () {
+          context.bloc<BottomNavBarCubit>().changeNavBarItem(3);
+        },
+      ),
+      SearchFlightsPage(),
+      WatchlistPage(),
+      SettingsPage(),
+    ];
 
-  @override
-  void initState() {
-    _pageController = PageController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
+    return pages[index];
   }
 
   @override
@@ -78,7 +82,6 @@ class _MainAppState extends State<MainApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeConfig.defaultDarkBlueTheme,
       home: BlocBuilder<BottomNavBarCubit, int>(
-        // TODO: Create a state for page transition effect
         builder: (context, state) {
           return Scaffold(
             body: MultiBlocProvider(
@@ -92,53 +95,45 @@ class _MainAppState extends State<MainApp> {
                   )..fetchMostPopularDestinations('MAD'),
                 ),
               ],
-              child: PageView(
-                controller: _pageController,
-                physics: NeverScrollableScrollPhysics(),
-                children: <Widget>[
-                  HomePage(
-                    onSettingsTap: () {
-                      context.bloc<BottomNavBarCubit>().changeNavBarItem(3);
-                      context
-                          .bloc<BottomNavBarCubit>()
-                          .pageTransitionEffect(_pageController, isFromSettingsIcon: true);
-                    },
-                  ),
-                  SearchFlightsPage(),
-                  WatchlistPage(),
-                  SettingsPage(),
-                ],
+              child: getPage(
+                context,
+                index: state,
               ),
             ),
-            bottomNavigationBar: BottomNavigationBar(
-              onTap: (index) {
-                context.bloc<BottomNavBarCubit>().changeNavBarItem(index);
-                context.bloc<BottomNavBarCubit>().pageTransitionEffect(_pageController);
-              },
-              currentIndex: state,
-              type: BottomNavigationBarType.fixed,
-              items: [
-                BottomNavigationBarItem(
-                  label: 'Home',
-                  icon: Icon(Icons.home),
-                ),
-                BottomNavigationBarItem(
-                  label: 'Flights',
-                  icon: Icon(Icons.flight),
-                ),
-                BottomNavigationBarItem(
-                  label: 'Watchlist',
-                  icon: Icon(Icons.favorite),
-                ),
-                BottomNavigationBarItem(
-                  label: 'Settings',
-                  icon: Icon(Icons.settings),
-                ),
-              ],
-            ),
+            bottomNavigationBar: buildBottomNavigationBar(context),
           );
         },
       ),
+    );
+  }
+
+  BottomNavigationBar buildBottomNavigationBar(BuildContext context) {
+    final bottomNavBarCubit = context.bloc<BottomNavBarCubit>();
+
+    return BottomNavigationBar(
+      onTap: (index) {
+        bottomNavBarCubit.changeNavBarItem(index);
+      },
+      currentIndex: bottomNavBarCubit.state,
+      type: BottomNavigationBarType.fixed,
+      items: [
+        BottomNavigationBarItem(
+          label: 'Home',
+          icon: Icon(Icons.home),
+        ),
+        BottomNavigationBarItem(
+          label: 'Flights',
+          icon: Icon(Icons.flight),
+        ),
+        BottomNavigationBarItem(
+          label: 'Watchlist',
+          icon: Icon(Icons.favorite),
+        ),
+        BottomNavigationBarItem(
+          label: 'Settings',
+          icon: Icon(Icons.settings),
+        ),
+      ],
     );
   }
 }
