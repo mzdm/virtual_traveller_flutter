@@ -31,13 +31,11 @@ void main() {
       ? AmadeusMockedDataProvider()
       : AmadeusRemoteDataProvider(ApiService());
 
-  final amadeusRepository = AmadeusRepository(
-    amadeusBaseDataProvider: amadeusBaseDataProvider,
-  );
-
   runApp(
     RepositoryProvider<AmadeusRepository>(
-      create: (_) => amadeusRepository,
+      create: (_) => AmadeusRepository(
+        amadeusBaseDataProvider: amadeusBaseDataProvider,
+      ),
       child: MultiBlocProvider(
         providers: [
           BlocProvider<SettingsBloc>(
