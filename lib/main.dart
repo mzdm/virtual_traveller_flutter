@@ -58,23 +58,12 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  Widget getPage(
-    BuildContext context, {
-    @required int index,
-  }) {
-    final pages = <Widget>[
-      HomePage(
-        onSettingsTap: () {
-          context.bloc<BottomNavBarCubit>().changeNavBarItem(3);
-        },
-      ),
-      SearchFlightsPage(),
-      WatchlistPage(),
-      SettingsPage(),
-    ];
-
-    return pages[index];
-  }
+  final pages = <Widget>[
+    HomePage(),
+    SearchFlightsPage(),
+    WatchlistPage(),
+    SettingsPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -95,10 +84,7 @@ class _MainAppState extends State<MainApp> {
                   )..fetchMostPopularDestinations('MAD'),
                 ),
               ],
-              child: getPage(
-                context,
-                index: state,
-              ),
+              child: pages[state],
             ),
             bottomNavigationBar: buildBottomNavigationBar(context),
           );

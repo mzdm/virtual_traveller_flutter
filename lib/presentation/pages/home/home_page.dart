@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:virtual_traveller_flutter/blocs/home/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/home/flight_destination_switcher/flight_destination_switcher_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/home/most_popular_destinations/most_popular_destinations_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
@@ -14,12 +15,7 @@ import 'local_widgets/rounded_card.dart';
 import 'local_widgets/wave_clipper.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({
-    Key key,
-    @required this.onSettingsTap,
-  }) : super(key: key);
-
-  final VoidCallback onSettingsTap;
+  const HomePage({Key key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -86,7 +82,7 @@ class _HomePageState extends State<HomePage> {
           color: Theme.of(context).primaryColor,
           child: Column(
             children: [
-              buildDepartureSettingsContent(),
+              buildDepartureSettingsContent(context),
               SizedBox(height: 40.0),
               buildHeader(),
               SizedBox(height: 35.0),
@@ -102,7 +98,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   // TODO: Create separate widget
-  Widget buildDepartureSettingsContent() {
+  Widget buildDepartureSettingsContent(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: Row(
@@ -121,7 +117,9 @@ class _HomePageState extends State<HomePage> {
               type: MaterialType.transparency,
               child: IconButton(
                 icon: Icon(Icons.settings, color: Colors.white, size: 16.0),
-                onPressed: (widget.onSettingsTap),
+                onPressed: () {
+                  context.bloc<BottomNavBarCubit>().changeNavBarItem(3);
+                },
               ),
             ),
           ),
