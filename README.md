@@ -16,7 +16,7 @@ Search for flights and deep dive into large offers of travelling destinations. D
 - [Visualizing the flow of the app](https://github.com/mzdm/virtual_traveller_flutter#visualizing-the-flow-of-the-app)
 - [State management](https://github.com/mzdm/virtual_traveller_flutter#state-management)
 - [App Architecture](https://github.com/mzdm/virtual_traveller_flutter#app-architecture)
-- [TO:DO list](https://github.com/mzdm/virtual_traveller_flutter#todo-list)
+- [TODO list](https://github.com/mzdm/virtual_traveller_flutter#todo-list)
 - [Dependencies](https://github.com/mzdm/virtual_traveller_flutter#dependencies)
 - [UI inspirations](https://github.com/mzdm/virtual_traveller_flutter#ui-inspirations)
 - [Related recommended resources](https://github.com/mzdm/virtual_traveller_flutter#related-recommended-resources)
@@ -48,21 +48,20 @@ Search for flights and deep dive into large offers of travelling destinations. D
 1. Clone this repository
 2. Fetch packages:</br>
 ```flutter pub get```
-3. Run freezed and json_serializable code generators:</br>
+3. 	- Run freezed and json_serializable code generators:</br>
 ```flutter pub run build_runner build --delete-conflicting-outputs```</br>
-Automatically rebuild on changes with:</br>
+	- Automatically rebuild on changes with:</br>
 ```flutter pub run build_runner watch```
-4. Run on the device:</br>
+4. 	- Run on the device:</br>
 ```flutter run``` (run in Profile mode if you want to test the performance)</br>
-Run on the web (make sure you are on the **beta** channel):</br>
+	- Run on the web (make sure you are on the **beta** channel):</br>
 ```flutter run -d web```</br>
-Run with flag on the web with better performance (experimental):</br>
+	- Run with flag on the web with better performance (experimental):</br>
 ```flutter run -d web --release --dart-define=FLUTTER_WEB_USE_SKIA=true```</br>
-Run on the desktop (Windows) (make sure you are on the **dev** channel):</br>
+	- Run on the desktop (Windows) (make sure you are on the **dev** channel):</br>
 ```flutter run -d windows```</br></br>
-If you want to use remote APIs instead of local mocked data, you need to obtain API key(s).</br>
-[Obtain the Amadeus Travel API key here](https://developers.amadeus.com/get-started/get-started-with-self-service-apis-335).</br>
-Then:
+**NOTE:** If you want to use remote APIs instead of local mocked data, you need to obtain API key(s).</br>
+[Obtain the Amadeus Travel API key here](https://developers.amadeus.com/get-started/get-started-with-self-service-apis-335). Then:
 	- place the key to this file: *lib/data/data_providers/remote/secrets.dart*
 	- set **quotaSaveMode** to ```false``` in *lib/utils/debug_options.dart*
 
@@ -102,7 +101,7 @@ The reasons why I decided to use the bloc library in my case were following:
 - easy and reliable tests via bloc_test library, which is based on Mockito
 - it isn't only a state management library, but it also helps implement the BLoC (Business Logic Component) design pattern
 
-## TO:DO list
+## TODO list
 ### Basics:
 - [ ] Features
   - [ ] Splash screen
@@ -111,23 +110,23 @@ The reasons why I decided to use the bloc library in my case were following:
     - [x] Change departure location
     - [ ] Quick search
         - [x] One-Way flights
-        - [ ] Destinations
+        - [x] Destinations
     - [x] Discover most popular / booked travelling destinations based on the current location
     - [ ] Recommended destinations based on search history
   - [ ] Flight Searching Page Features
     - [ ] View search history
     - [ ] Search by
-      - [ ] Type of the way
-        - [ ] One-Way
-        - [ ] Round Trip
+      - [x] Type of the way
+        - [x] One-Way
+        - [x] Round Trip
         - [ ] Multi City
       - [ ] Dates
         - [ ] Departure
         - [ ] Return
-      - [ ] Passengers
-        - [ ] Adults
-        - [ ] Kids
-        - [ ] Infants
+      - [x] Passengers
+        - [x] Adults
+        - [x] Kids
+        - [x] Infants
   - [ ] Flight Result Page Features
       - [ ] Switch departure and destination in the search
       - [ ] Display quick search query info details
@@ -146,25 +145,25 @@ The reasons why I decided to use the bloc library in my case were following:
         - [ ] Airplane type
       - [ ] Virtual Flight Mode
         - [ ] Simulate airplane flying on the map with the timestamps
-  - [ ] Destination Page Features
+  - [ ] Destination Info Page
       - [ ] Save destination to the Watchlist
-      - [ ] Pictures
+      - [x] Pictures
       - [ ] Average temperature of the past week
       - [ ] Safety Rating
-      - [ ] Points of Interests
-        - [ ] POI Details
-            - [ ] GPS Coordinates
-            - [ ] Pictures
-      - [ ] Hotels
-        - [ ] Hotel Details
+      - [x] List nearby Points of Interests Page
+        - [x] POI Details Page
+            - [x] GPS Coordinates
+            - [x] Pictures
+      - [x] List nearby Hotels Page
+        - [ ] Hotel Details Page
             - [ ] GPS Coordinates
             - [ ] Distance from the city center
             - [ ] Stars
             - [ ] Description
             - [ ] Pictures
-            - [ ] Tags: Extra benefits, Appliances, ...
+            - [ ] Tags: Amenities (Wi-Fi, TV, ...), Appliances etc.
   - [ ] Watchlist Page
-    - [ ] Click to view the info about the destination
+    - [x] Click to view the info about the destination
     - [ ] Drag to reorder destinations
     - [ ] Swipe to remove
   - [ ] Settings Page
@@ -187,7 +186,7 @@ The reasons why I decided to use the bloc library in my case were following:
   - [x] Android
   - [x] iOS
   - [x] Web
-  - [ ] Desktop (Windows)
+  - [x] Desktop (Windows)
 
 ### Other:
 - [ ] ~~Null safety~~ (not possible currently - not all packages are migrated yet)
