@@ -2,8 +2,6 @@ import 'package:meta/meta.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/base_data.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 
-/// TODO: Reduce repetitive lines
-///
 /// Use for tests & when playing with things so API quota is saved.
 ///
 /// **Quick links**

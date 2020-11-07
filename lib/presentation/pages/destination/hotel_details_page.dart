@@ -77,7 +77,6 @@ class HotelDetailsPage extends StatelessWidget {
     String city = '',
   }) {
     return ImageSliverAppBar(
-      // TODO: Add hotel picture
       assetName: 'most_popular_destination3.jpg',
       title: hotelName.toPascalCase(),
       twoLineTitle: true,
