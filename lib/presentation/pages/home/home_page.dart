@@ -203,7 +203,7 @@ class _HomePageState extends State<HomePage> {
 
                           final _searchedCity = _textEditingController.text;
                           if (_searchedCity.length != 3) {
-                            Scaffold.of(context).showSnackBar(
+                            ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
                                   'Please enter a valid city code (3 letters)\nFor example for Boston city search: BOS',
@@ -213,7 +213,7 @@ class _HomePageState extends State<HomePage> {
                           } else {
                             searchSubmitted();
                             // TODO: Navigate to next page (Flight results page or Destination page)
-                            Scaffold.of(context).showSnackBar(
+                            ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
                                   'Searched city code: $_searchedCity. Loading ...',
