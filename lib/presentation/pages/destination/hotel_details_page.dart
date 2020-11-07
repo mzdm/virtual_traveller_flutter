@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:virtual_traveller_flutter/data/models/hotel.dart';
 import 'package:virtual_traveller_flutter/utils/extensions.dart';
+import 'package:virtual_traveller_flutter/utils/utils.dart';
 
 import 'local_widgets/image_sliver_app_bar.dart';
 
@@ -77,7 +77,7 @@ class HotelDetailsPage extends StatelessWidget {
     String city = '',
   }) {
     return ImageSliverAppBar(
-      assetName: 'most_popular_destination3.jpg',
+      assetName: 'destination_hotels.jpg',
       title: hotelName.toPascalCase(),
       twoLineTitle: true,
       actions: [
@@ -85,18 +85,11 @@ class HotelDetailsPage extends StatelessWidget {
           icon: Icon(Icons.copy),
           tooltip: 'Copy name of the hotel',
           onPressed: () {
-            final textData = '${hotelName.toPascalCase()} hotel ${city}';
-            Clipboard.setData(
-              ClipboardData(
-                text: textData,
-              ),
-            );
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  'Hotel \'${hotelName.toPascalCase()}\' was copied to the clipboard.',
-                ),
-              ),
+            final text = '${hotelName.toPascalCase()} hotel';
+            Utils.copyToClipboard(
+              context,
+              textCopyData: '$text $city',
+              snackBarMessage: text,
             );
           },
         ),
