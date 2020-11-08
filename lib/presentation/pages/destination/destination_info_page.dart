@@ -17,7 +17,8 @@ class DestinationInfoPage extends StatelessWidget {
     BuildContext context, {
     bool displayFlights = true,
   }) {
-    final amadeusRepo = context.repository<AmadeusRepository>();
+    final amadeusRepo = context.read<AmadeusRepository>();
+
     return MaterialPageRoute(
       builder: (_) {
         return MultiBlocProvider(
@@ -125,17 +126,17 @@ class DestinationInfoPage extends StatelessWidget {
                                 'Info',
                                 maxLines: 1,
                                 style: Theme.of(context).textTheme.headline4.copyWith(
-                                  fontSize: 28.0,
-                                  color: Colors.black,
-                                ),
+                                      fontSize: 28.0,
+                                      color: Colors.black,
+                                    ),
                               ),
                             ),
                             // TODO: Fetch from API
                             // TODO: Add more ?
                             Text(
                               'Destination: London\n'
-                                  'City code: LON\n'
-                                  'Country: GB',
+                              'City code: LON\n'
+                              'Country: GB',
                               style: Theme.of(context).textTheme.bodyText1.copyWith(
                                     color: Color(0x8a000000),
                                   ),

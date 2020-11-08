@@ -10,7 +10,7 @@ class PoisPage extends StatelessWidget {
     return MaterialPageRoute(
       builder: (_) {
         return BlocProvider<PoisCubit>.value(
-          value: context.repository<PoisCubit>(),
+          value: context.read<PoisCubit>(),
           child: PoisPage(),
         );
       },

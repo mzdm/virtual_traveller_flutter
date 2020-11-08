@@ -24,7 +24,7 @@ class SettingsPage extends StatelessWidget {
                 // TODO
                 onTap: () async {
                   context
-                      .bloc<SettingsBloc>()
+                      .read<SettingsBloc>()
                       .add(SettingsEvent.changedDeparture());
 
                   // temp code for output testing
@@ -41,7 +41,7 @@ class SettingsPage extends StatelessWidget {
                 // TODO
                 onTap: () {
                   context
-                      .bloc<SettingsBloc>()
+                      .read<SettingsBloc>()
                       .add(SettingsEvent.changedLang());
                 },
               ),
@@ -51,7 +51,7 @@ class SettingsPage extends StatelessWidget {
                 // TODO
                 onTap: () {
                   context
-                      .bloc<SettingsBloc>()
+                      .read<SettingsBloc>()
                       .add(SettingsEvent.changedCurr());
                 },
               ),
@@ -61,7 +61,7 @@ class SettingsPage extends StatelessWidget {
                 // TODO
                 onTap: () {
                   context
-                      .bloc<SettingsBloc>()
+                      .read<SettingsBloc>()
                       .add(SettingsEvent.changedLengthUnit());
                 },
               ),
@@ -71,7 +71,7 @@ class SettingsPage extends StatelessWidget {
                 // TODO
                 onTap: () {
                   context
-                      .bloc<SettingsBloc>()
+                      .read<SettingsBloc>()
                       .add(SettingsEvent.changedTemp());
                 },
               ),
@@ -86,7 +86,7 @@ class SettingsPage extends StatelessWidget {
                 // TODO
                 onTap: () {
                   context
-                      .bloc<SettingsBloc>()
+                      .read<SettingsBloc>()
                       .add(SettingsEvent.changedTheme());
                 },
               ),

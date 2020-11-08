@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
               child: IconButton(
                 icon: Icon(Icons.settings, color: Colors.white, size: 16.0),
                 onPressed: () {
-                  context.bloc<BottomNavBarCubit>().changeNavBarItem(3);
+                  context.read<BottomNavBarCubit>().changeNavBarItem(3);
                 },
               ),
             ),
@@ -148,17 +148,13 @@ class _HomePageState extends State<HomePage> {
       ),
       child: Align(
         alignment: AlignmentDirectional.centerStart,
-        child: BlocBuilder<FlightDestinationSwitcherCubit, int>(
-          builder: (context, state) {
-            return Text(
-              (_keywordSearchTextFieldText == null)
-                  ? ''
-                  : state == 0
-                      ? 'Quick one-way search (e.g.: BOS)'
-                      : 'Quick destination preview (e.g.: BOS)',
-              style: TextStyle(color: Colors.white60, fontSize: 12.0),
-            );
-          },
+        child: Text(
+          (_keywordSearchTextFieldText == null)
+              ? ''
+              : context.watch<FlightDestinationSwitcherCubit>().state == 0
+                  ? 'Quick one-way search (e.g.: BOS)'
+                  : 'Quick destination preview (e.g.: BOS)',
+          style: TextStyle(color: Colors.white60, fontSize: 12.0),
         ),
       ),
     );
@@ -262,7 +258,7 @@ class _HomePageState extends State<HomePage> {
                 // value inside the TextField. This causes too much same API calls, so this
                 // should be cached.
                 if (keyword != '' && !_searchSubmitted) {
-                  return context.repository<AmadeusRepository>().getAirportCitySearch(keyword);
+                  return context.read<AmadeusRepository>().getAirportCitySearch(keyword);
                 }
               },
               debounceDuration: _textEditingController.text.length == 1
@@ -313,31 +309,29 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildFlightDestinationSwitcher() {
-    return BlocBuilder<FlightDestinationSwitcherCubit, int>(
-      builder: (context, state) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FlightDestinationSearchSwitcher(
-              icon: Icons.flight_outlined,
-              label: 'Flights',
-              isPressed: state == 0,
-              onPressed: () {
-                context.bloc<FlightDestinationSwitcherCubit>().switchType();
-              },
-            ),
-            SizedBox(width: 15.0),
-            FlightDestinationSearchSwitcher(
-              icon: Icons.beach_access,
-              label: 'Destinations',
-              isPressed: state == 1,
-              onPressed: () {
-                context.bloc<FlightDestinationSwitcherCubit>().switchType();
-              },
-            ),
-          ],
-        );
-      },
+    final switcherState = context.watch<FlightDestinationSwitcherCubit>().state;
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        FlightDestinationSearchSwitcher(
+          icon: Icons.flight_outlined,
+          label: 'Flights',
+          isPressed: switcherState == 0,
+          onPressed: () {
+            context.read<FlightDestinationSwitcherCubit>().switchType();
+          },
+        ),
+        SizedBox(width: 15.0),
+        FlightDestinationSearchSwitcher(
+          icon: Icons.beach_access,
+          label: 'Destinations',
+          isPressed: switcherState == 1,
+          onPressed: () {
+            context.read<FlightDestinationSwitcherCubit>().switchType();
+          },
+        ),
+      ],
     );
   }
 

@@ -12,7 +12,7 @@ class HotelsPage extends StatelessWidget {
     return MaterialPageRoute(
       builder: (_) {
         return BlocProvider<HotelsCubit>.value(
-          value: context.repository<HotelsCubit>(),
+          value: context.read<HotelsCubit>(),
           child: HotelsPage(),
         );
       },

@@ -67,40 +67,42 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
+    final bottomNavBarState = context.watch<BottomNavBarCubit>().state;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeConfig.defaultDarkBlueTheme,
-      home: BlocBuilder<BottomNavBarCubit, int>(
-        builder: (context, state) {
-          return Scaffold(
-            body: MultiBlocProvider(
-              providers: [
-                BlocProvider<FlightDestinationSwitcherCubit>(
-                  create: (_) => FlightDestinationSwitcherCubit(),
-                ),
-                BlocProvider<MostPopularDestinationsCubit>(
-                  create: (_) => MostPopularDestinationsCubit(
-                    context.repository<AmadeusRepository>(),
-                  )..fetchMostPopularDestinations('MAD'),
-                ),
-              ],
-              child: pages[state],
+      home: Scaffold(
+        body: MultiBlocProvider(
+          providers: [
+            BlocProvider<FlightDestinationSwitcherCubit>(
+              create: (_) => FlightDestinationSwitcherCubit(),
             ),
-            bottomNavigationBar: buildBottomNavigationBar(context),
-          );
-        },
+            BlocProvider<MostPopularDestinationsCubit>(
+              create: (_) => MostPopularDestinationsCubit(
+                context.read<AmadeusRepository>(),
+              )..fetchMostPopularDestinations('MAD'),
+            ),
+          ],
+          child: pages[bottomNavBarState],
+        ),
+        bottomNavigationBar: buildBottomNavigationBar(
+          context,
+          currentIndex: bottomNavBarState,
+        ),
       ),
     );
   }
 
-  BottomNavigationBar buildBottomNavigationBar(BuildContext context) {
-    final bottomNavBarCubit = context.bloc<BottomNavBarCubit>();
-
+  BottomNavigationBar buildBottomNavigationBar(
+    BuildContext context, {
+    @required int currentIndex,
+  }) {
     return BottomNavigationBar(
       onTap: (index) {
-        bottomNavBarCubit.changeNavBarItem(index);
+        context.read<BottomNavBarCubit>().changeNavBarItem(index);
       },
-      currentIndex: bottomNavBarCubit.state,
+      currentIndex: currentIndex,
       type: BottomNavigationBarType.fixed,
       items: [
         BottomNavigationBarItem(
