@@ -88,7 +88,7 @@ class HotelDetailsPage extends StatelessWidget {
             Utils.copyToClipboard(
               context,
               textCopyData: '$text $city',
-              snackBarMessage: text,
+              snackBarContentMessage: text,
             );
           },
         ),
