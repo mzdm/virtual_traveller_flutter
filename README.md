@@ -60,12 +60,13 @@ Search for flights and deep dive into large offers of travelling destinations. D
 ```flutter run -d web --release --dart-define=FLUTTER_WEB_USE_SKIA=true```</br>
 	- Run on the desktop (Windows) (make sure you are on the **dev** channel):</br>
 ```flutter run -d windows```</br></br>
+
 **NOTE:** If you want to use remote APIs instead of local mocked data, you need to obtain API key(s).</br>
-[Obtain the Amadeus Travel API key here](https://developers.amadeus.com/get-started/get-started-with-self-service-apis-335). Then:
-	- place the key to this file: *lib/data/data_providers/remote/secrets.dart*
-	- set **quotaSaveMode** to ```false``` in *lib/utils/debug_options.dart*
+[Obtain the Amadeus Travel API key here](https://developers.amadeus.com/get-started/get-started-with-self-service-apis-335).
 
-
+Then:
+- place the key to this file: *lib/data/data_providers/remote/secrets.dart*
+- set **quotaSaveMode** to ```false``` in *lib/utils/debug_options.dart*
 
 ## Idea
 I wanted to make a flight searching app with interesting suggestions, fully from the scratch. However, due to the current situation with the pandemic, many countries are restricted for some citizens so travelling there isn't possible. This app has virtual travelling mode, which simulates the travelling here, displays interesting information about the desired location, including picture, points of interests and etc. There's a possibility to save the locations, so you can check them out later!
@@ -213,6 +214,7 @@ The reasons why I decided to use the bloc library in my case were following:
     - [build_runner](https://pub.dev/packages/build_runner)
     - [json_serializable](https://pub.dev/packages/json_serializable)
     - [shared_preferences](https://pub.dev/packages/shared_preferences)
+    - [url_launcher](https://pub.dev/packages/url_launcher)
     - [geolocator](https://pub.dev/packages/geolocator)
 
 - #### UI packages:
