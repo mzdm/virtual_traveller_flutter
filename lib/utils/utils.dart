@@ -7,7 +7,7 @@ class Utils {
   static void copyToClipboard(
     BuildContext context, {
     @required String textCopyData,
-    @required String snackBarMessage,
+    String snackBarMessage,
   }) {
     Clipboard.setData(
       ClipboardData(text: textCopyData),
@@ -15,7 +15,7 @@ class Utils {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          '$snackBarMessage was copied to the clipboard.',
+          '${snackBarMessage ?? textCopyData} was copied to the clipboard.',
         ),
       ),
     );
