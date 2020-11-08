@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_traveller_flutter/data/models/hotel.dart';
+import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/utils/extensions.dart';
 import 'package:virtual_traveller_flutter/utils/utils.dart';
 
@@ -29,40 +30,14 @@ class HotelDetailsPage extends StatelessWidget {
           buildSliverAppBar(
             context,
             hotelName: hotel.name.toPascalCase(),
-            city: hotel.address?.cityName,
+            location: Location(
+              latitude: hotel?.latitude ?? 0,
+              longitude: hotel?.longitude ?? 0,
+            ),
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return Container(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        child: Card(
-                          color: Theme.of(context).primaryColor,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Detailed hotel info',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17.0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 1400),
-                    ],
-                  ),
-                );
-              },
+              (context, _) => buildPageContent(context),
               childCount: 1,
             ),
           ),
@@ -74,7 +49,7 @@ class HotelDetailsPage extends StatelessWidget {
   ImageSliverAppBar buildSliverAppBar(
     BuildContext context, {
     @required String hotelName,
-    String city = '',
+    @required Location location,
   }) {
     return ImageSliverAppBar(
       title: hotelName,
@@ -82,17 +57,46 @@ class HotelDetailsPage extends StatelessWidget {
       actions: [
         IconButton(
           icon: Icon(Icons.navigation_outlined),
-          tooltip: 'Navigate',
+          tooltip: 'Show on map',
           onPressed: () {
-            final text = '$hotelName hotel';
-            Utils.copyToClipboard(
+            Utils.launchGeoUrl(
               context,
-              textCopyData: '$text $city',
-              snackBarContentMessage: text,
+              location: location,
             );
           },
         ),
       ],
+    );
+  }
+
+  Container buildPageContent(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: Card(
+              color: Theme.of(context).primaryColor,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Detailed hotel info',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17.0,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 1400),
+        ],
+      ),
     );
   }
 }
