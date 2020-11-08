@@ -28,7 +28,7 @@ class HotelDetailsPage extends StatelessWidget {
         slivers: <Widget>[
           buildSliverAppBar(
             context,
-            hotelName: hotel.name,
+            hotelName: hotel.name.toPascalCase(),
             city: hotel.address?.cityName,
           ),
           SliverList(
@@ -77,15 +77,14 @@ class HotelDetailsPage extends StatelessWidget {
     String city = '',
   }) {
     return ImageSliverAppBar(
-      assetName: 'destination_hotels.jpg',
-      title: hotelName.toPascalCase(),
+      title: hotelName,
       twoLineTitle: true,
       actions: [
         IconButton(
-          icon: Icon(Icons.copy),
-          tooltip: 'Copy name of the hotel',
+          icon: Icon(Icons.navigation_outlined),
+          tooltip: 'Navigate',
           onPressed: () {
-            final text = '${hotelName.toPascalCase()} hotel';
+            final text = '$hotelName hotel';
             Utils.copyToClipboard(
               context,
               textCopyData: '$text $city',

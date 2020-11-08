@@ -5,12 +5,11 @@ import 'package:virtual_traveller_flutter/utils/utils.dart';
 class ImageSliverAppBar extends StatelessWidget {
   const ImageSliverAppBar({
     Key key,
-    @required this.assetName,
     @required this.title,
+    this.assetName,
     this.twoLineTitle = false,
     this.actions,
-  })  : assert(assetName != null),
-        assert(title != null),
+  })  : assert(title != null),
         super(key: key);
 
   final String assetName;
@@ -21,21 +20,23 @@ class ImageSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 150,
+      expandedHeight: 56,
       pinned: true,
       actions: actions,
       flexibleSpace: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage(
-                  Utils.getImageAsset(assetName),
+          assetName == null
+              ? Container()
+              : Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage(
+                        Utils.getImageAsset(assetName),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
           FlexibleSpaceBar(
             title: Align(
               alignment: AlignmentDirectional.bottomStart,

@@ -19,11 +19,11 @@ class _SearchFlightsPageState extends State<SearchFlightsPage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 86.0,
+        elevation: 0.0,
         title: Text(
           'Search Flights',
           style: TextStyle(fontSize: 28.0),
         ),
-        elevation: 0.0,
       ),
       backgroundColor: Theme.of(context).primaryColor,
       body: SizedBox(
