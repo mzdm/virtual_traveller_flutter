@@ -23,6 +23,7 @@ class ImageSliverAppBar extends StatelessWidget {
       expandedHeight: 56,
       pinned: true,
       actions: actions,
+      elevation: twoLineTitle ? 0.0 : Theme.of(context).appBarTheme.elevation,
       flexibleSpace: Stack(
         children: [
           assetName == null
