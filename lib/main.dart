@@ -67,29 +67,31 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    final bottomNavBarState = context.watch<BottomNavBarCubit>().state;
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeConfig.defaultDarkBlueTheme,
-      home: Scaffold(
-        body: MultiBlocProvider(
-          providers: [
-            BlocProvider<FlightDestinationSwitcherCubit>(
-              create: (_) => FlightDestinationSwitcherCubit(),
+      home: BlocBuilder<BottomNavBarCubit, int>(
+        builder: (context, state) {
+          return Scaffold(
+            body: MultiBlocProvider(
+              providers: [
+                BlocProvider<FlightDestinationSwitcherCubit>(
+                  create: (_) => FlightDestinationSwitcherCubit(),
+                ),
+                BlocProvider<MostPopularDestinationsCubit>(
+                  create: (_) => MostPopularDestinationsCubit(
+                    context.read<AmadeusRepository>(),
+                  )..fetchMostPopularDestinations('MAD'),
+                ),
+              ],
+              child: pages[state],
             ),
-            BlocProvider<MostPopularDestinationsCubit>(
-              create: (_) => MostPopularDestinationsCubit(
-                context.read<AmadeusRepository>(),
-              )..fetchMostPopularDestinations('MAD'),
+            bottomNavigationBar: buildBottomNavigationBar(
+              context,
+              currentIndex: state,
             ),
-          ],
-          child: pages[bottomNavBarState],
-        ),
-        bottomNavigationBar: buildBottomNavigationBar(
-          context,
-          currentIndex: bottomNavBarState,
-        ),
+          );
+        },
       ),
     );
   }

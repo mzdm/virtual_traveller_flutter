@@ -148,13 +148,17 @@ class _HomePageState extends State<HomePage> {
       ),
       child: Align(
         alignment: AlignmentDirectional.centerStart,
-        child: Text(
-          (_keywordSearchTextFieldText == null)
-              ? ''
-              : context.watch<FlightDestinationSwitcherCubit>().state == 0
-                  ? 'Quick one-way search (e.g.: BOS)'
-                  : 'Quick destination preview (e.g.: BOS)',
-          style: TextStyle(color: Colors.white60, fontSize: 12.0),
+        child: Builder(
+          builder: (context) {
+            return Text(
+              (_keywordSearchTextFieldText == null)
+                  ? ''
+                  : context.watch<FlightDestinationSwitcherCubit>().state == 0
+                      ? 'Quick one-way search (e.g.: BOS)'
+                      : 'Quick destination preview (e.g.: BOS)',
+              style: TextStyle(color: Colors.white60, fontSize: 12.0),
+            );
+          },
         ),
       ),
     );
@@ -311,27 +315,31 @@ class _HomePageState extends State<HomePage> {
   Widget buildFlightDestinationSwitcher() {
     final switcherState = context.watch<FlightDestinationSwitcherCubit>().state;
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        FlightDestinationSearchSwitcher(
-          icon: Icons.flight_outlined,
-          label: 'Flights',
-          isPressed: switcherState == 0,
-          onPressed: () {
-            context.read<FlightDestinationSwitcherCubit>().switchType();
-          },
-        ),
-        SizedBox(width: 15.0),
-        FlightDestinationSearchSwitcher(
-          icon: Icons.beach_access,
-          label: 'Destinations',
-          isPressed: switcherState == 1,
-          onPressed: () {
-            context.read<FlightDestinationSwitcherCubit>().switchType();
-          },
-        ),
-      ],
+    return Builder(
+      builder: (BuildContext context) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FlightDestinationSearchSwitcher(
+              icon: Icons.flight_outlined,
+              label: 'Flights',
+              isPressed: switcherState == 0,
+              onPressed: () {
+                context.read<FlightDestinationSwitcherCubit>().switchType();
+              },
+            ),
+            SizedBox(width: 15.0),
+            FlightDestinationSearchSwitcher(
+              icon: Icons.beach_access,
+              label: 'Destinations',
+              isPressed: switcherState == 1,
+              onPressed: () {
+                context.read<FlightDestinationSwitcherCubit>().switchType();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
