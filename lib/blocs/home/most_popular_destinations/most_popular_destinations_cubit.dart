@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart';
-import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/mocked_data.dart';
+import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/fake_data.dart';
 import 'package:virtual_traveller_flutter/data/models/destination.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 
@@ -23,7 +23,7 @@ class MostPopularDestinationsCubit extends Cubit<MostPopularDestinationsState> {
         if (data.isNotEmpty) {
           emit(MostPopularDestinationsSuccess(data));
         } else {
-          emitMockedDataOnEmpty();
+          emitFakeDataOnEmpty();
         }
       });
     } catch (e) {
@@ -33,11 +33,11 @@ class MostPopularDestinationsCubit extends Cubit<MostPopularDestinationsState> {
     }
   }
 
-  void emitMockedDataOnEmpty() async {
+  void emitFakeDataOnEmpty() async {
     await AmadeusRepository(
-      amadeusBaseDataProvider: AmadeusMockedDataProvider(),
-    ).getFlightMostTravelled('').then((mockedData) {
-      emit(MostPopularDestinationsSuccess(mockedData));
+      amadeusBaseDataProvider: AmadeusFakeDataProvider(),
+    ).getFlightMostTravelled('').then((fakeData) {
+      emit(MostPopularDestinationsSuccess(fakeData));
     });
   }
 }

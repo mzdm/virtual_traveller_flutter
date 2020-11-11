@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/mocked_data.dart';
+import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/fake_data.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/models/poi.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
@@ -10,7 +10,7 @@ import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.d
 void main() {
   group('Flights - Points of Interests', () {
     test('fromJson POI List output', () async {
-      final amadeusBaseDataProvider = AmadeusRepository(amadeusBaseDataProvider: AmadeusMockedDataProvider());
+      final amadeusBaseDataProvider = AmadeusRepository(amadeusBaseDataProvider: AmadeusFakeDataProvider());
       final pois = await amadeusBaseDataProvider.getPointsOfInterest(location: null);
 
       print(pois);

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/base_data.dart';
-import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/mocked_data.dart';
+import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/fake_data.dart';
 import 'package:virtual_traveller_flutter/data/models/safety_rate.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 
@@ -10,7 +10,7 @@ void main() {
     AmadeusRepository amadeusRepository;
 
     setUp(() {
-      amadeusBaseDataProvider = AmadeusMockedDataProvider();
+      amadeusBaseDataProvider = AmadeusFakeDataProvider();
       amadeusRepository = AmadeusRepository(amadeusBaseDataProvider: amadeusBaseDataProvider);
     });
 

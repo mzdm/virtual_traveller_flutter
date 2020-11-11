@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/base_data.dart';
-import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/mocked_data.dart';
+import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/fake_data.dart';
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
@@ -11,7 +11,7 @@ void main() {
     AmadeusRepository amadeusRepository;
 
     setUp(() {
-      amadeusBaseDataProvider = AmadeusMockedDataProvider();
+      amadeusBaseDataProvider = AmadeusFakeDataProvider();
       amadeusRepository = AmadeusRepository(amadeusBaseDataProvider: amadeusBaseDataProvider);
     });
 
@@ -78,7 +78,7 @@ void main() {
     test('Airport & City Search: fromJson Airport List output', () async {
       final airports = await amadeusRepository.getAirportCitySearch(null);
 
-      // orig mocked data have 2 values, but same city, where duplicate
+      // fake data have 2 similar values (city and airport code), if both same then it
       // will be filtered while doing fromJson because we only need unique city codes
       // not airport codes
       expect(airports.length, 4);

@@ -19,7 +19,7 @@ import 'package:virtual_traveller_flutter/data/models/location.dart';
 /// - [getRawHotelSearch]
 /// - [getRawPointsOfInterest]
 /// - [getRawSafePlace]
-class AmadeusMockedDataProvider implements AmadeusBaseDataProvider {
+class AmadeusFakeDataProvider implements AmadeusBaseDataProvider {
   Future<T> simulateRemoteDataDelay<T>(T data) {
     return Future.delayed(
       Duration(milliseconds: 2500),

@@ -7,7 +7,7 @@ import 'blocs/home/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import 'blocs/home/flight_destination_switcher/flight_destination_switcher_cubit.dart';
 import 'blocs/home/most_popular_destinations/most_popular_destinations_cubit.dart';
 import 'data/data_providers/remote/amadeus_api/api_service.dart';
-import 'data/data_providers/remote/amadeus_api/mocked_data.dart';
+import 'data/data_providers/remote/amadeus_api/fake_data.dart';
 import 'data/data_providers/remote/amadeus_api/remote_data.dart';
 import 'data/repositories/amadeus_repository.dart';
 import 'presentation/pages/flights/search_flights_page.dart';
@@ -28,7 +28,7 @@ void main() {
   // );
 
   final amadeusBaseDataProvider = DebugConfig.quotaSaveMode
-      ? AmadeusMockedDataProvider()
+      ? AmadeusFakeDataProvider()
       : AmadeusRemoteDataProvider(ApiService());
 
   runApp(

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/base_data.dart';
-import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/mocked_data.dart';
+import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/fake_data.dart';
 import 'package:virtual_traveller_flutter/data/models/destination.dart';
 
 void main() {
@@ -10,7 +10,7 @@ void main() {
     AmadeusBaseDataProvider amadeusDataProvider;
 
     setUp(() {
-      amadeusDataProvider = AmadeusMockedDataProvider();
+      amadeusDataProvider = AmadeusFakeDataProvider();
     });
 
     test('Flights - Most booked', () async {
