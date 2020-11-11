@@ -17,8 +17,6 @@ class PoisPage extends StatelessWidget {
     );
   }
 
-  // TODO: Collapsable cards
-  // TODO: Show info: name, gps coords, category
   @override
   Widget build(BuildContext context) {
     return Scaffold(

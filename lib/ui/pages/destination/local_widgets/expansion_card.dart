@@ -2,58 +2,22 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/models/poi.dart';
+import 'package:virtual_traveller_flutter/utils/extensions.dart';
 
 class ExpansionCard extends StatelessWidget {
-  const ExpansionCard({
+  ExpansionCard({
     Key key,
     @required this.name,
     @required this.category,
     this.location,
-  }) : super(key: key);
+  })  : categoryMatcherData = CategoryMatcherData(poiCategory: category),
+        super(key: key);
 
   final String name;
   final CategoryPOI category;
   final Location location;
 
-  // TODO: Move this somewhere else
-  // TODO: Add Tooltips
-  IconData _matchCategoryIcon(CategoryPOI category) {
-    switch (category) {
-      case CategoryPOI.RESTAURANT:
-        return Icons.restaurant;
-      case CategoryPOI.NIGHTLIFE:
-        return Icons.nightlife;
-      case CategoryPOI.SHOPPING:
-        return Icons.shopping_cart;
-      case CategoryPOI.BEACH_PARK:
-        return Icons.beach_access;
-      case CategoryPOI.HISTORICAL:
-        return Icons.location_city;
-      default:
-        return Icons.camera_alt;
-    }
-  }
-
-  Color _matchCategoryColor(CategoryPOI category) {
-    switch (category) {
-      case CategoryPOI.RESTAURANT:
-        return Colors.brown[700];
-      case CategoryPOI.NIGHTLIFE:
-        return Colors.black;
-      case CategoryPOI.SHOPPING:
-        return Colors.green;
-      case CategoryPOI.BEACH_PARK:
-        return Colors.orange;
-      case CategoryPOI.HISTORICAL:
-        return Colors.blueGrey;
-      default:
-        return Colors.blue;
-    }
-  }
-
-  String _matchCategoryLabel(CategoryPOI category) {
-    return describeEnum(category).replaceAll('_', ' ');
-  }
+  final CategoryMatcherData categoryMatcherData;
 
   @override
   Widget build(BuildContext context) {
@@ -68,18 +32,18 @@ class ExpansionCard extends StatelessWidget {
       ),
       child: ExpansionTile(
         backgroundColor: Colors.white,
-        title: _buildVisible(
+        title: _buildVisibleContent(
           context,
           name: name,
           category: category,
         ),
         childrenPadding: const EdgeInsets.all(12.0),
-        children: _buildHidden(location),
+        children: _buildHiddenContent(location),
       ),
     );
   }
 
-  Widget _buildVisible(
+  Widget _buildVisibleContent(
     BuildContext context, {
     @required String name,
     @required CategoryPOI category,
@@ -95,14 +59,14 @@ class ExpansionCard extends StatelessWidget {
             padding: const EdgeInsets.all(6.0),
             child: RawChip(
               label: Text(
-                _matchCategoryLabel(category),
+                category.replaceUnderscores(),
                 style: TextStyle(
                   color: Colors.white,
                 ),
               ),
-              backgroundColor: _matchCategoryColor(category),
+              backgroundColor: categoryMatcherData.color,
               avatar: Icon(
-                _matchCategoryIcon(category),
+                categoryMatcherData.icon,
                 size: 16.0,
                 color: Colors.white,
               ),
@@ -113,66 +77,78 @@ class ExpansionCard extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildHidden(Location location) {
+  List<Widget> _buildHiddenContent(Location location) {
     return <Widget>[
-      Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          children: <Widget>[
-            Text('Copy name'),
-            Spacer(),
-            Icon(Icons.copy),
-          ],
-        ),
-      ),
-      if (location != null)
-        Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
-                  child: Tooltip(
-                    message: 'GPS coordinates',
-                    child: Text(
-                      'GPS coordinates',
-                      overflow: TextOverflow.clip,
-                      maxLines: 1,
+      SizedBox(
+        width: double.infinity,
+        height: 170.0,
+        child: ListView(
+          children: [
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {},
+                child: ListTile(
+                  title: Text('Copy name'),
+                  trailing: _buildListTileIcon(
+                    tooltip: 'Copy name',
+                    icon: Icons.copy,
+                  ),
+                ),
+              ),
+            ),
+            if (location != null)
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () {},
+                  child: ListTile(
+                    title: Text('GPS coordinates', style: TextStyle(color: Colors.black)),
+                    trailing: Wrap(
+                      spacing: 10.0,
+                      children: [
+                        _buildListTileIcon(
+                          tooltip: 'View on the map',
+                          icon: Icons.navigation_outlined,
+                        ),
+                        _buildListTileIcon(
+                          tooltip: 'Copy GPS coordinates',
+                          icon: Icons.copy,
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
-              Row(
-                children: [
-                  Tooltip(
-                    message: 'Navigate',
-                    child: Icon(
-                      Icons.navigation_outlined,
-                    ),
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {},
+                child: ListTile(
+                  title: Text('Browse pictures'),
+                  trailing: _buildListTileIcon(
+                    tooltip: 'Browse pictures',
+                    icon: Icons.open_in_new_sharp,
                   ),
-                  SizedBox(width: 10.0),
-                  Tooltip(
-                    message: 'Copy GPS coordinates',
-                    child: Icon(
-                      Icons.copy,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ],
-          ),
-        ),
-      Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          children: <Widget>[
-            Text('Browse pictures'),
-            Spacer(),
-            Icon(Icons.open_in_new_sharp),
+            ),
           ],
         ),
       ),
     ];
+  }
+
+  Tooltip _buildListTileIcon({
+    @required String tooltip,
+    @required IconData icon,
+  }) {
+    return Tooltip(
+      message: tooltip,
+      child: Icon(
+        icon,
+        color: Colors.black,
+      ),
+    );
   }
 }

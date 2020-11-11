@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
+import 'package:virtual_traveller_flutter/data/models/poi.dart';
 import 'package:virtual_traveller_flutter/ui/pages/destination/hotels_page.dart';
+import 'package:virtual_traveller_flutter/ui/pages/destination/pois_page.dart';
 
 extension ListExt on List {
   /// Converts a List of elements to comma separated String
@@ -73,4 +76,18 @@ extension StrExt on String {
 //   final str = toString();
 //   return '';
 // }
+}
+
+extension CategoryPoiExt on CategoryPOI {
+  /// Returns described enum (String value) and replaces all underscores with empty spaces
+  /// to make it look nicer in [PoisPage].
+  ///
+  ///
+  /// e.g.:
+  /// ```
+  /// CategoryPOI.BEACH_PARK -> BEACH PARK
+  /// ```
+  String replaceUnderscores() {
+    return describeEnum(this).replaceAll('_', ' ');
+  }
 }
