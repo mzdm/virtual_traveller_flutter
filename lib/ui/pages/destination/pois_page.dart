@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/poi/pois_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/models/poi.dart';
-import 'package:virtual_traveller_flutter/presentation/pages/destination/local_widgets/expansion_card.dart';
+import 'package:virtual_traveller_flutter/ui/pages/destination/local_widgets/expansion_card.dart';
 
 class PoisPage extends StatelessWidget {
   static Route route(BuildContext context) {

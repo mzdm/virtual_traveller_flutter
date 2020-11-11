@@ -1,4 +1,4 @@
-import 'package:virtual_traveller_flutter/presentation/pages/destination/hotels_page.dart';
+import 'package:virtual_traveller_flutter/ui/pages/destination/hotels_page.dart';
 
 extension ListExt on List {
   /// Converts a List of elements to comma separated String

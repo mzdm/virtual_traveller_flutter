@@ -10,10 +10,10 @@ import 'data/data_providers/remote/amadeus_api/api_service.dart';
 import 'data/data_providers/remote/amadeus_api/fake_data.dart';
 import 'data/data_providers/remote/amadeus_api/remote_data.dart';
 import 'data/repositories/amadeus_repository.dart';
-import 'presentation/pages/flights/search_flights_page.dart';
-import 'presentation/pages/home/home_page.dart';
-import 'presentation/pages/settings/settings_page.dart';
-import 'presentation/pages/watchlist/watchlist_page.dart';
+import 'ui/pages/flights/search_flights_page.dart';
+import 'ui/pages/home/home_page.dart';
+import 'ui/pages/settings/settings_page.dart';
+import 'ui/pages/watchlist/watchlist_page.dart';
 import 'config/app/debug_config.dart';
 import 'config/theme/theme_config.dart';
 

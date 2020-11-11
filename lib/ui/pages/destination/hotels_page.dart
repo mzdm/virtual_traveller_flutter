@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/hotels/hotels_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/hotel.dart';
-import 'package:virtual_traveller_flutter/presentation/pages/destination/hotel_details_page.dart';
+import 'package:virtual_traveller_flutter/ui/pages/destination/hotel_details_page.dart';
 import 'package:virtual_traveller_flutter/utils/extensions.dart';
 
 class HotelsPage extends StatelessWidget {

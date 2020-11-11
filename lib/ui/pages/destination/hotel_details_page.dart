@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_traveller_flutter/data/models/hotel.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
-import 'package:virtual_traveller_flutter/presentation/pages/destination/local_widgets/toolbar_clipper.dart';
 import 'package:virtual_traveller_flutter/utils/extensions.dart';
 import 'package:virtual_traveller_flutter/utils/utils.dart';
 
 import 'local_widgets/image_sliver_app_bar.dart';
+import 'local_widgets/toolbar_clipper.dart';
 
 class HotelDetailsPage extends StatelessWidget {
   static Route route({

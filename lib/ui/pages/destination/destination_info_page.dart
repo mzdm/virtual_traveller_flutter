@@ -3,14 +3,14 @@ import 'package:virtual_traveller_flutter/blocs/destination/hotels/hotels_cubit.
 import 'package:virtual_traveller_flutter/blocs/destination/poi/pois_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
-import 'package:virtual_traveller_flutter/presentation/pages/destination/hotels_page.dart';
-import 'package:virtual_traveller_flutter/presentation/pages/destination/local_widgets/rounded_icon_card.dart';
-import 'package:virtual_traveller_flutter/presentation/pages/destination/local_widgets/rounded_vertical_card.dart';
-import 'package:virtual_traveller_flutter/presentation/pages/destination/pois_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:virtual_traveller_flutter/ui/pages/destination/pois_page.dart';
 import 'package:virtual_traveller_flutter/utils/extensions.dart';
 
+import 'hotels_page.dart';
 import 'local_widgets/image_sliver_app_bar.dart';
+import 'local_widgets/rounded_icon_card.dart';
+import 'local_widgets/rounded_vertical_card.dart';
 
 class DestinationInfoPage extends StatelessWidget {
   static Route route(

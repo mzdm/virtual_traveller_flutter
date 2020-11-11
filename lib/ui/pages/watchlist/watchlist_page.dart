@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:virtual_traveller_flutter/presentation/pages/destination/destination_info_page.dart';
+import 'package:virtual_traveller_flutter/ui/pages/destination/destination_info_page.dart';
 
 import 'local_widgets/favorite_list_tile.dart';
 
