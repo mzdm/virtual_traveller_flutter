@@ -313,10 +313,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildFlightDestinationSwitcher() {
-    final switcherState = context.watch<FlightDestinationSwitcherCubit>().state;
-
     return Builder(
-      builder: (BuildContext context) {
+      builder: (context) {
+        final switcherState = context.watch<FlightDestinationSwitcherCubit>().state;
+
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
