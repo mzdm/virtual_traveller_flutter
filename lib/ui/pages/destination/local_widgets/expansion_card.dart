@@ -59,7 +59,7 @@ class ExpansionCard extends StatelessWidget {
             padding: const EdgeInsets.all(6.0),
             child: RawChip(
               label: Text(
-                category.replaceUnderscores(),
+                category?.replaceUnderscores() ?? '',
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -79,61 +79,56 @@ class ExpansionCard extends StatelessWidget {
 
   List<Widget> _buildHiddenContent(Location location) {
     return <Widget>[
-      SizedBox(
-        width: double.infinity,
-        height: 170.0,
-        child: ListView(
-          children: [
-            Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {},
-                child: ListTile(
-                  title: Text('Copy name'),
-                  trailing: _buildListTileIcon(
-                    tooltip: 'Copy name',
+      Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () {},
+          child: ListTile(
+            title: Text('Copy name'),
+            trailing: _buildListTileIcon(
+              tooltip: 'Copy name',
+              icon: Icons.copy,
+            ),
+          ),
+        ),
+      ),
+      if (location != null)
+        Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: () {},
+            child: ListTile(
+              title: Text(
+                'GPS coordinates',
+                style: TextStyle(color: Colors.black),
+              ),
+              trailing: Wrap(
+                spacing: 10.0,
+                children: [
+                  _buildListTileIcon(
+                    tooltip: 'View on the map',
+                    icon: Icons.navigation_outlined,
+                  ),
+                  _buildListTileIcon(
+                    tooltip: 'Copy GPS coordinates',
                     icon: Icons.copy,
                   ),
-                ),
+                ],
               ),
             ),
-            if (location != null)
-              Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () {},
-                  child: ListTile(
-                    title: Text('GPS coordinates', style: TextStyle(color: Colors.black)),
-                    trailing: Wrap(
-                      spacing: 10.0,
-                      children: [
-                        _buildListTileIcon(
-                          tooltip: 'View on the map',
-                          icon: Icons.navigation_outlined,
-                        ),
-                        _buildListTileIcon(
-                          tooltip: 'Copy GPS coordinates',
-                          icon: Icons.copy,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {},
-                child: ListTile(
-                  title: Text('Browse pictures'),
-                  trailing: _buildListTileIcon(
-                    tooltip: 'Browse pictures',
-                    icon: Icons.open_in_new_sharp,
-                  ),
-                ),
-              ),
+          ),
+        ),
+      Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () {},
+          child: ListTile(
+            title: Text('Browse pictures'),
+            trailing: _buildListTileIcon(
+              tooltip: 'Browse pictures',
+              icon: Icons.open_in_new_sharp,
             ),
-          ],
+          ),
         ),
       ),
     ];

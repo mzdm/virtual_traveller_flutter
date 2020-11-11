@@ -78,6 +78,7 @@ extension StrExt on String {
 // }
 }
 
+// TODO: Tests
 extension CategoryPoiExt on CategoryPOI {
   /// Returns described enum (String value) and replaces all underscores with empty spaces
   /// to make it look nicer in [PoisPage].

@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/poi/pois_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/models/poi.dart';
@@ -52,9 +54,19 @@ class PoisPage extends StatelessWidget {
   }
 
   Widget buildPoiLoading() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
+    return kIsWeb
+        ? Center(child: CircularProgressIndicator())
+        : Shimmer.fromColors(
+            baseColor: Colors.grey[300],
+            highlightColor: Colors.grey[100],
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return buildExpansionCard(null, null);
+              },
+            ),
+          );
   }
 
   Widget buildPoisSuccess(List<POI> pois) {
@@ -67,20 +79,24 @@ class PoisPage extends StatelessWidget {
           final poi = pois[index];
           final poiLocation = poi.geoCode;
 
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 15.0),
-            child: ExpansionCard(
-              name: poi.name,
-              category: poi.category,
-              location: poiLocation == null
-                  ? null
-                  : Location(
-                      latitude: poiLocation.latitude,
-                      longitude: poiLocation.longitude,
-                    ),
-            ),
-          );
+          return buildExpansionCard(poi, poiLocation);
         },
+      ),
+    );
+  }
+
+  Padding buildExpansionCard(POI poi, Location poiLocation) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 15.0),
+      child: ExpansionCard(
+        name: poi?.name ?? '',
+        category: poi?.category,
+        location: poiLocation == null
+            ? null
+            : Location(
+                latitude: poiLocation.latitude,
+                longitude: poiLocation.longitude,
+              ),
       ),
     );
   }

@@ -9,6 +9,7 @@ part 'poi.g.dart';
 /// Points of Interests
 enum CategoryPOI { SIGHTS, NIGHTLIFE, RESTAURANT, SHOPPING, BEACH_PARK, HISTORICAL }
 
+// TODO: Tests
 class CategoryMatcherData {
   CategoryMatcherData({
     @required CategoryPOI poiCategory,
