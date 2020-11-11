@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'local_widgets/search_flights/input_row.dart';
-import 'local_widgets/search_flights/way_type_selection_card.dart';
+import 'local_widgets/input_row.dart';
+import 'local_widgets/way_type_selection_card.dart';
 
 class SearchFlightsPage extends StatefulWidget {
   @override
