@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/ui/pages/destination/destination_info_page.dart';
 
 import 'local_widgets/favorite_list_tile.dart';
@@ -11,30 +12,13 @@ class WatchlistPage extends StatefulWidget {
 // TODO: Get data from Watchlist bloc
 // TODO: Add remove icon to Dismissible
 class _WatchlistPageState extends State<WatchlistPage> {
-  final cityNames = <String>[
-    'London',
-    'Los Angeles',
-    'Paris',
-    'Berlin',
-  ];
-
-  final cityCodes = <String>[
-    'LON',
-    'LAX',
-    'PAR',
-    'BER',
-  ];
-
   void _reorder(int oldIndex, int newIndex) {
     setState(() {
       if (newIndex > oldIndex) {
         newIndex -= 1;
       }
-      final cityNameItem = cityNames.removeAt(oldIndex);
-      final cityCodeItem = cityCodes.removeAt(oldIndex);
-
-      cityNames.insert(newIndex, cityNameItem);
-      cityCodes.insert(newIndex, cityCodeItem);
+      final watchListItem = watchListItems.removeAt(oldIndex);
+      watchListItems.insert(newIndex, watchListItem);
     });
   }
 
@@ -46,7 +30,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
       ),
       body: Container(
         child: Center(
-          child: cityNames.isEmpty
+          child: watchListItems.isEmpty
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -68,29 +52,28 @@ class _WatchlistPageState extends State<WatchlistPage> {
                   child: ReorderableListView(
                     onReorder: (oldIndex, newIndex) => _reorder(oldIndex, newIndex),
                     children: [
-                      for (var i = 0; i < cityNames.length; i++)
-                        Dismissible(
+                      for (var i = 0; i < watchListItems.length - 1; i++)
+                        // Dismissible(
+                        //   key: UniqueKey(),
+                        //   onDismissed: (direction) {
+                        //     if (direction == DismissDirection.endToStart) {
+                        //       setState(() {
+                        //         watchListItems.removeAt(i);
+                        //         print(watchListItems.isEmpty);
+                        //       });
+                        //     }
+                        //   },
+                        FavoriteListTile(
                           key: UniqueKey(),
-                          onDismissed: (direction) {
-                            if (direction == DismissDirection.endToStart) {
-                              setState(() {
-                                cityNames.remove(i);
-                                cityCodes.remove(i);
-                                print(cityNames.isEmpty);
-                              });
-                            }
+                          cityCode: watchListItems[i].cityCode,
+                          cityName: watchListItems[i].cityName,
+                          onPressed: () {
+                            print('clicked favorite');
+                            Navigator.push(
+                              context,
+                              DestinationInfoPage.route(context),
+                            );
                           },
-                          child: FavoriteListTile(
-                            cityCode: cityCodes[i],
-                            cityName: cityNames[i],
-                            onPressed: () {
-                              print('clicked favorite');
-                              Navigator.push(
-                                context,
-                                DestinationInfoPage.route(context),
-                              );
-                            },
-                          ),
                         ),
                     ],
                   ),
@@ -100,3 +83,28 @@ class _WatchlistPageState extends State<WatchlistPage> {
     );
   }
 }
+
+// temporary model for fake watchlist
+class WatchListItemModel {
+  const WatchListItemModel(
+    this.cityCode,
+    this.cityName,
+    this.location,
+  );
+
+  final String cityCode;
+  final String cityName;
+  final Location location;
+}
+
+// these dat would be retrieved from Flights API which is not yet implemented
+final watchListItems = <WatchListItemModel>[
+  WatchListItemModel('SFO', 'San Francisco', Location(latitude: 37.773972, longitude: -122.431297)),
+  WatchListItemModel('PAR', 'Paris', Location(latitude: 48.864716, longitude: 2.349014)),
+  WatchListItemModel('NYC', 'New York', Location(latitude: 40.730610, longitude: -73.935242)),
+  WatchListItemModel('LON', 'London', Location(latitude: 51.509865, longitude: -0.118092)),
+  WatchListItemModel('DFW', 'Dallas', Location(latitude: 32.779167, longitude: -96.808891)),
+  WatchListItemModel('BER', 'Berlin', Location(latitude: 52.520008, longitude: 13.404954)),
+  WatchListItemModel('BCN', 'Barcelona', Location(latitude: 41.390205, longitude: 2.154007)),
+  WatchListItemModel('BLR', 'Bangalore', Location(latitude: 12.972442, longitude: 77.580643)),
+];
