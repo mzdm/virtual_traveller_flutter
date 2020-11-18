@@ -98,7 +98,13 @@ class SettingsPage extends StatelessWidget {
               SettingItem(
                 title: 'Remove local data',
                 displayValue: 'Search history, set default settings ...',
-                // TODO
+                onTap: () {
+                  // TODO
+                },
+              ),
+              SettingItem(
+                title: 'Source code',
+                displayValue: 'GitHub',
                 onTap: () {
                   // TODO
                 },
@@ -108,7 +114,8 @@ class SettingsPage extends StatelessWidget {
                 onTap: () {
                   showLicensePage(
                     context: context,
-                    applicationName: 'Virtual Traveller',
+                    applicationName: 'Virtual Traveller\n(DEV VERSION)',
+                    applicationLegalese: 'Author: Matěj Žídek',
                   );
                 },
               ),
