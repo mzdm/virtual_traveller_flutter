@@ -94,7 +94,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
     final endpointPath = 'v1/reference-data/locations';
     final queryParams = {
       'keyword': textSearchKeyword, // --REQUIRED--, (eg.: 'MUC') keyword that should represent the start of a word in a city or airport name or code
-      'subType': 'CITY', // --REQUIRED--, array[string], sub type of the location (AIRPORT and/or CITY). Available values : AIRPORT, CITY
+      'subType': 'CITY,AIRPORT', // --REQUIRED--, array[string], sub type of the location (AIRPORT and/or CITY). Available values : AIRPORT, CITY
       'page[limit]': 15, // maximum items in one page, default value: 10
     };
 

@@ -23,6 +23,23 @@ class Utils {
     );
   }
 
+  static void launchUrl(
+    BuildContext context, {
+    @required String url,
+  }) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Error opening website \'$url\'',
+          ),
+        ),
+      );
+    }
+  }
+
   // Should probably be replaced with Map Launcher package.
   static void launchGeoUrl(
     BuildContext context, {
@@ -43,7 +60,8 @@ class Utils {
       return;
     }
 
-    final geoUrl = 'https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}';
+    final geoUrl =
+        'https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}';
     final alternativeGeoUrl = 'geo:${location.latitude},${location.longitude}';
 
     if (await canLaunch(geoUrl)) {

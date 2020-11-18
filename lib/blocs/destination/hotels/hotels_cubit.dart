@@ -44,6 +44,4 @@ class HotelsCubit extends Cubit<HotelsState> {
               : e.toString()));
     }
   }
-
-  void resetState() => emit(HotelsInitial());
 }

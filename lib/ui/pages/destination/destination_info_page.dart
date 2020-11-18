@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:virtual_traveller_flutter/blocs/destination/geo/geo_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/hotels/hotels_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/poi/pois_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
@@ -16,6 +17,7 @@ class DestinationInfoPage extends StatelessWidget {
   static Route route(
     BuildContext context, {
     bool displayFlights = true,
+    @required String cityCode,
   }) {
     final amadeusRepo = context.read<AmadeusRepository>();
 
@@ -23,6 +25,11 @@ class DestinationInfoPage extends StatelessWidget {
       builder: (_) {
         return MultiBlocProvider(
           providers: [
+            BlocProvider<GeoCubit>(
+              create: (_) => GeoCubit(
+                amadeusRepository: amadeusRepo,
+              )..fetchCityGeoData(cityCode: cityCode),
+            ),
             BlocProvider<HotelsCubit>(
               create: (_) => HotelsCubit(
                 amadeusRepository: amadeusRepo,

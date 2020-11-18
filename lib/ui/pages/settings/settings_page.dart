@@ -5,6 +5,7 @@ import 'package:virtual_traveller_flutter/blocs/settings/settings_bloc.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/local/cache/settings_prefs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:virtual_traveller_flutter/blocs/settings/settings_event.dart';
+import 'package:virtual_traveller_flutter/utils/utils.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -21,6 +22,7 @@ class SettingsPage extends StatelessWidget {
               SettingItem(
                 title: 'Default departure location',
                 displayValue: 'Oslo (OSL)',
+                priority: ItemPriority.disabled,
                 // TODO
                 onTap: () async {
                   context
@@ -38,6 +40,7 @@ class SettingsPage extends StatelessWidget {
               SettingItem(
                 title: 'Language',
                 displayValue: 'English',
+                priority: ItemPriority.disabled,
                 // TODO
                 onTap: () {
                   context
@@ -48,6 +51,7 @@ class SettingsPage extends StatelessWidget {
               SettingItem(
                 title: 'Currency',
                 displayValue: 'USD',
+                priority: ItemPriority.disabled,
                 // TODO
                 onTap: () {
                   context
@@ -58,6 +62,7 @@ class SettingsPage extends StatelessWidget {
               SettingItem(
                 title: 'Length unit',
                 displayValue: 'km',
+                priority: ItemPriority.disabled,
                 // TODO
                 onTap: () {
                   context
@@ -68,6 +73,7 @@ class SettingsPage extends StatelessWidget {
               SettingItem(
                 title: 'Temperature',
                 displayValue: 'Celsius',
+                priority: ItemPriority.disabled,
                 // TODO
                 onTap: () {
                   context
@@ -83,6 +89,7 @@ class SettingsPage extends StatelessWidget {
               SettingItem(
                 title: 'Theme',
                 displayValue: 'Dark blue',
+                priority: ItemPriority.disabled,
                 // TODO
                 onTap: () {
                   context
@@ -97,6 +104,7 @@ class SettingsPage extends StatelessWidget {
             items: [
               SettingItem(
                 title: 'Remove local data',
+                priority: ItemPriority.disabled,
                 displayValue: 'Search history, set default settings ...',
                 onTap: () {
                   // TODO
@@ -106,7 +114,7 @@ class SettingsPage extends StatelessWidget {
                 title: 'Source code',
                 displayValue: 'GitHub',
                 onTap: () {
-                  // TODO
+                  Utils.launchUrl(context, url: 'https://github.com/mzdm');
                 },
               ),
               SettingItem(
