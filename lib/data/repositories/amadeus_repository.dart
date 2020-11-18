@@ -121,6 +121,7 @@ class AmadeusRepository {
     final data = json.decode(rawData)['data'];
 
     final uniqueCityList = <String>{};
+    // TODO: Remove list check. User can search for city and also airport code in Search flights offer API
     final airports = (data as List).map((item) {
       try {
         final airport = Airport.fromJson(item);
