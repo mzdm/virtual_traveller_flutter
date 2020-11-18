@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:virtual_traveller_flutter/blocs/settings/settings_bloc.dart';
 
 import 'blocs/bloc_observer.dart';
@@ -112,8 +113,15 @@ class _MainAppState extends State<MainApp> {
           icon: Icon(Icons.home),
         ),
         BottomNavigationBarItem(
-          label: 'Flights',
-          icon: Icon(Icons.flight),
+          // label: 'Flights',
+          // icon: Icon(Icons.flight),
+          label: 'Sails',
+          // author: Smashicons, source: https://www.flaticon.com/free-icon/viking-ship_302094?term=viking%20ship&page=1&position=20
+          icon: SvgPicture.asset(
+              'assets/icons/viking_ship.svg',
+            width: 24.0,
+            height: 24.0,
+          ),
         ),
         BottomNavigationBarItem(
           label: 'Watchlist',

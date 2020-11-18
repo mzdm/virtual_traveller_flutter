@@ -13,7 +13,7 @@ class FlightDestinationSearchSwitcher extends StatelessWidget {
         super(key: key);
 
   final VoidCallback onPressed;
-  final IconData icon;
+  final Widget icon;
   final String label;
   final bool isPressed;
 
@@ -23,12 +23,13 @@ class FlightDestinationSearchSwitcher extends StatelessWidget {
       onPressed: onPressed,
       child: Row(
         children: [
-          Icon(
-            icon,
-            size: 16.0,
-            color: Colors.white,
-          ),
-          SizedBox(width: 6.0),
+          icon,
+          // Icon(
+          //   icon,
+          //   size: 16.0,
+          //   color: Colors.white,
+          // ),
+          SizedBox(width: 9.0),
           Text(
             label,
             style: TextStyle(

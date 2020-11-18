@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:virtual_traveller_flutter/blocs/home/bottom_nav_bar/bottom_nav_bar_cubit.dart';
@@ -321,16 +322,29 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FlightDestinationSearchSwitcher(
-              icon: Icons.flight_outlined,
-              label: 'Flights',
+              // icon: Icons.flight_outlined,
+              // label: 'Flights',
+              // author: Smashicons, source: https://www.flaticon.com/free-icon/viking-ship_302094?term=viking%20ship&page=1&position=20
+              label: 'Sails',
+              icon: SvgPicture.asset(
+                'assets/icons/viking_ship.svg',
+                width: 22.0,
+                height: 22.0,
+                color: Colors.white,
+              ),
               isPressed: switcherState == 0,
               onPressed: () {
                 context.read<FlightDestinationSwitcherCubit>().switchType();
               },
             ),
-            SizedBox(width: 15.0),
+            SizedBox(width: 20.0),
             FlightDestinationSearchSwitcher(
-              icon: Icons.beach_access,
+              // icon: Icons.beach_access,
+              icon: Icon(
+                Icons.beach_access,
+                size: 22.0,
+                color: Colors.white,
+              ),
               label: 'Destinations',
               isPressed: switcherState == 1,
               onPressed: () {
@@ -378,7 +392,7 @@ class _HomePageState extends State<HomePage> {
       Align(
         alignment: AlignmentDirectional.bottomStart,
         child: Text(
-          'Most popular destinations',
+          'Most popular raids',
           style: TextStyle(
             color: Colors.black,
             fontSize: 24.0,
