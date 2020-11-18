@@ -44,16 +44,18 @@ class RoundedVerticalCard extends StatelessWidget {
                 onTap: onTap,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(14.0),
-              child: Text(
-                title,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: Theme.of(context).textTheme.headline5.copyWith(
-                      color: Colors.white,
-                      fontSize: 18.0,
-                    ),
+            IgnorePointer(
+              child: Padding(
+                padding: const EdgeInsets.all(14.0),
+                child: Text(
+                  title,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: Theme.of(context).textTheme.headline5.copyWith(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                      ),
+                ),
               ),
             ),
           ],

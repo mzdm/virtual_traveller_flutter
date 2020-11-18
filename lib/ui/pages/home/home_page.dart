@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildHeader() {
     return Text(
-      'I would like to go ...',
+      'Let me sail to ...',
       style: TextStyle(
         color: Colors.white,
         fontSize: 23.0,
