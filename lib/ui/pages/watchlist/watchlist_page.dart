@@ -52,7 +52,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
                   child: ReorderableListView(
                     onReorder: (oldIndex, newIndex) => _reorder(oldIndex, newIndex),
                     children: [
-                      for (var i = 0; i < watchListItems.length - 1; i++)
+                      for (var i = 0; i < watchListItems.length; i++)
                         // Dismissible(
                         //   key: UniqueKey(),
                         //   onDismissed: (direction) {
@@ -71,7 +71,12 @@ class _WatchlistPageState extends State<WatchlistPage> {
                             print('clicked favorite');
                             Navigator.push(
                               context,
-                              DestinationInfoPage.route(context),
+                              DestinationInfoPage.route(
+                                context,
+                                // TODO: reduce code duplication
+                                cityCode: watchListItems[i].cityCode,
+                                cityName: watchListItems[i].cityName,
+                              ),
                             );
                           },
                         ),
@@ -97,7 +102,8 @@ class WatchListItemModel {
   final Location location;
 }
 
-// these dat would be retrieved from Flights API which is not yet implemented
+// (these data would be retrieved otherwise from Flights API which is not yet implemented)
+// data of these items are passed to blocs in DestinationInfo page to fetch hotels, pois, geo info, ...
 final watchListItems = <WatchListItemModel>[
   WatchListItemModel('SFO', 'San Francisco', Location(latitude: 37.773972, longitude: -122.431297)),
   WatchListItemModel('PAR', 'Paris', Location(latitude: 48.864716, longitude: 2.349014)),

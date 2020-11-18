@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/geo/geo_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/hotels/hotels_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/poi/pois_cubit.dart';
+import 'package:virtual_traveller_flutter/blocs/destination/safety_rate/safety_rate_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,10 +19,14 @@ class DestinationInfoPage extends StatelessWidget {
     BuildContext context, {
     bool displayFlights = true,
     @required String cityCode,
+    @required String cityName,
   }) {
     final amadeusRepo = context.read<AmadeusRepository>();
 
     return MaterialPageRoute(
+      settings: RouteSettings(
+        arguments: cityName,
+      ),
       builder: (_) {
         return MultiBlocProvider(
           providers: [
@@ -29,6 +34,11 @@ class DestinationInfoPage extends StatelessWidget {
               create: (_) => GeoCubit(
                 amadeusRepository: amadeusRepo,
               )..fetchCityGeoData(cityCode: cityCode),
+            ),
+            BlocProvider<SafetyRateCubit>(
+              create: (_) => SafetyRateCubit(
+                amadeusRepository: amadeusRepo,
+              ),
             ),
             BlocProvider<HotelsCubit>(
               create: (_) => HotelsCubit(
@@ -57,10 +67,12 @@ class DestinationInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String cityName = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          buildSliverAppBar(),
+          buildSliverAppBar(cityName ?? ''),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
@@ -68,7 +80,8 @@ class DestinationInfoPage extends StatelessWidget {
                   child: Column(
                     children: [
                       SizedBox(height: 10.0),
-                      buildInfoContent(context),
+                      buildGeoContent(context),
+                      buildStatsContent(context),
                       SizedBox(height: 20.0),
                       buildExploreContent(context),
                       SizedBox(height: 20.0),
@@ -85,9 +98,9 @@ class DestinationInfoPage extends StatelessWidget {
     );
   }
 
-  ImageSliverAppBar buildSliverAppBar() {
+  ImageSliverAppBar buildSliverAppBar(String cityName) {
     return ImageSliverAppBar(
-      title: 'London'.toPascalCase(),
+      title: cityName.toPascalCase(),
       assetName: 'most_popular_destination3.jpg',
       actions: [
         IconButton(
@@ -101,8 +114,7 @@ class DestinationInfoPage extends StatelessWidget {
     );
   }
 
-  // TODO: Refactor (reuse widgets)
-  Widget buildInfoContent(BuildContext context) {
+  Widget buildGeoContent(BuildContext context) {
     return FractionallySizedBox(
       widthFactor: 0.95,
       child: Row(
@@ -157,6 +169,18 @@ class DestinationInfoPage extends StatelessWidget {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  // TODO: Refactor (reuse widgets)
+  Widget buildStatsContent(BuildContext context) {
+    return FractionallySizedBox(
+      widthFactor: 0.95,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
           // TODO: Fetch Weather API (OpenWeather ?)
           Expanded(
             child: RoundedIconCard(
@@ -178,7 +202,7 @@ class DestinationInfoPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Text(
-                              '20 °C',
+                              '- °C',
                               maxLines: 1,
                               style: Theme.of(context).textTheme.headline4.copyWith(
                                     color: Colors.black,
@@ -195,6 +219,71 @@ class DestinationInfoPage extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Tooltip(
+              message: 'Safety rating ranges from 0 to 100, where 0 means the best/very safe and '
+                  '100 score means worst/very dangerous.',
+              child: RoundedIconCard(
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Icon(
+                        Icons.healing,
+                        color: Colors.green,
+                      ),
+                      Center(
+                        child: Align(
+                          alignment: AlignmentDirectional.bottomStart,
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Safety',
+                                  maxLines: 1,
+                                  style: Theme.of(context).textTheme.headline4.copyWith(
+                                        fontSize: 28.0,
+                                        color: Colors.black,
+                                      ),
+                                ),
+                                SizedBox(height: 5.0),
+                                BlocBuilder<SafetyRateCubit, SafetyRateState>(
+                                  builder: (context, state) {
+                                    if (state is SafetyRateSuccess) {
+                                      return Text(
+                                        state.result.text.toUpperCase(),
+                                        maxLines: 2,
+                                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                              color: state.result.color,
+                                            ),
+                                      );
+                                    }
+
+                                    return Text(
+                                      '-',
+                                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                            color: Color(0x8a000000),
+                                          ),
+                                    );
+                                  },
+                                ),
+                                SizedBox(height: 10.0),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
