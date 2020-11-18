@@ -20,7 +20,7 @@ class SettingsPage extends StatelessWidget {
             items: [
               SettingItem(
                 title: 'Default departure location',
-                displayValue: 'Boston (BOS)',
+                displayValue: 'Oslo (OSL)',
                 // TODO
                 onTap: () async {
                   context

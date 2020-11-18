@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
           Icon(Icons.place, color: Colors.white, size: 16.0),
           SizedBox(width: 12.0),
           Text(
-            'BOS, Boston',
+            'OSL, Oslo',
             style: TextStyle(color: Colors.white, fontSize: 14.0),
           ),
           Spacer(flex: 1),
@@ -188,7 +188,7 @@ class _HomePageState extends State<HomePage> {
                   contentPadding: EdgeInsets.all(15.0),
                   filled: true,
                   fillColor: Colors.grey[200],
-                  hintText: 'BOS (Boston)',
+                  hintText: 'LON (London)',
                   suffixText: _suffixFullCityTextFieldText,
                   suffixStyle: TextStyle(fontSize: 12.0, color: Colors.grey),
                   hintStyle: TextStyle(fontSize: 15.0),
