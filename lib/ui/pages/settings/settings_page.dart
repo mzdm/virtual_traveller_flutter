@@ -1,8 +1,6 @@
 import 'package:clean_settings/clean_settings.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:virtual_traveller_flutter/blocs/settings/settings_bloc.dart';
-import 'package:virtual_traveller_flutter/data/data_providers/local/cache/settings_prefs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:virtual_traveller_flutter/blocs/settings/settings_event.dart';
 import 'package:virtual_traveller_flutter/utils/utils.dart';
@@ -25,16 +23,14 @@ class SettingsPage extends StatelessWidget {
                 priority: ItemPriority.disabled,
                 // TODO
                 onTap: () async {
-                  context
-                      .read<SettingsBloc>()
-                      .add(SettingsEvent.changedDeparture());
+                  context.read<SettingsBloc>().add(SettingsEvent.changedDeparture());
 
                   // temp code for output testing
-                  final sharedPrefs = await SharedPreferences.getInstance();
-                  final settingsPrefsHelper = SettingsPrefs(sharedPrefs);
-                  final city = 'London,LON';
-                  await settingsPrefsHelper.setDeparture(city);
-                  print(await settingsPrefsHelper.departure);
+                  // final sharedPrefs = await SharedPreferences.getInstance();
+                  // final settingsPrefsHelper = SettingsPrefs(sharedPrefs);
+                  // final city = 'London,LON';
+                  // await settingsPrefsHelper.setDeparture(city);
+                  // print(await settingsPrefsHelper.departure);
                 },
               ),
               SettingItem(
@@ -43,9 +39,7 @@ class SettingsPage extends StatelessWidget {
                 priority: ItemPriority.disabled,
                 // TODO
                 onTap: () {
-                  context
-                      .read<SettingsBloc>()
-                      .add(SettingsEvent.changedLang());
+                  context.read<SettingsBloc>().add(SettingsEvent.changedLang());
                 },
               ),
               SettingItem(
@@ -54,9 +48,7 @@ class SettingsPage extends StatelessWidget {
                 priority: ItemPriority.disabled,
                 // TODO
                 onTap: () {
-                  context
-                      .read<SettingsBloc>()
-                      .add(SettingsEvent.changedCurr());
+                  context.read<SettingsBloc>().add(SettingsEvent.changedCurr());
                 },
               ),
               SettingItem(
@@ -65,9 +57,7 @@ class SettingsPage extends StatelessWidget {
                 priority: ItemPriority.disabled,
                 // TODO
                 onTap: () {
-                  context
-                      .read<SettingsBloc>()
-                      .add(SettingsEvent.changedLengthUnit());
+                  context.read<SettingsBloc>().add(SettingsEvent.changedLengthUnit());
                 },
               ),
               SettingItem(
@@ -76,9 +66,7 @@ class SettingsPage extends StatelessWidget {
                 priority: ItemPriority.disabled,
                 // TODO
                 onTap: () {
-                  context
-                      .read<SettingsBloc>()
-                      .add(SettingsEvent.changedTemp());
+                  context.read<SettingsBloc>().add(SettingsEvent.changedTemp());
                 },
               ),
             ],
@@ -92,9 +80,7 @@ class SettingsPage extends StatelessWidget {
                 priority: ItemPriority.disabled,
                 // TODO
                 onTap: () {
-                  context
-                      .read<SettingsBloc>()
-                      .add(SettingsEvent.changedTheme());
+                  context.read<SettingsBloc>().add(SettingsEvent.changedTheme());
                 },
               ),
             ],
@@ -114,7 +100,8 @@ class SettingsPage extends StatelessWidget {
                 title: 'Source code',
                 displayValue: 'GitHub',
                 onTap: () {
-                  Utils.launchUrl(context, url: 'https://github.com/mzdm/virtual_traveller_flutter');
+                  Utils.launchUrl(context,
+                      url: 'https://github.com/mzdm/virtual_traveller_flutter');
                 },
               ),
               SettingItem(

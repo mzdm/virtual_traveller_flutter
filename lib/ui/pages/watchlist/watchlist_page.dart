@@ -52,6 +52,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
                   child: ReorderableListView(
                     onReorder: (oldIndex, newIndex) => _reorder(oldIndex, newIndex),
                     children: [
+
                       for (var i = 0; i < watchListItems.length; i++)
                         // Dismissible(
                         //   key: UniqueKey(),
@@ -69,6 +70,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
                           cityName: watchListItems[i].cityName,
                           onPressed: () {
                             print('clicked favorite');
+                            ScaffoldMessenger.of(context).removeCurrentSnackBar();
                             Navigator.push(
                               context,
                               DestinationInfoPage.route(

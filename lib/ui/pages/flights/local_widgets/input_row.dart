@@ -141,6 +141,7 @@ class InputRow extends StatelessWidget {
                   ),
                 )
               : Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Flexible(
                       flex: 1,

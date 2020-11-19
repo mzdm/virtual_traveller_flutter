@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:virtual_traveller_flutter/blocs/home/event/logo_counter_cubit.dart';
 
 import 'local_widgets/input_row.dart';
 import 'local_widgets/way_type_selection_card.dart';
@@ -78,12 +82,56 @@ class _SearchFlightsPageState extends State<SearchFlightsPage> {
             inputLabels: ['Depart', 'Return'],
             inputHintTexts: ['Wed, 18 March', 'Tue, 24 March'],
           ),
-          SizedBox(height: 45.0),
-          InputRow.counter(
-            icon: Icons.person,
-            label: 'Passengers',
-            inputLabels: ['Adult', 'Children', 'Infants'],
-            inputHintTexts: ['1', '0', '0'],
+          SizedBox(height: 25.0),
+          Stack(
+            children: [
+              Align(
+                alignment: AlignmentDirectional.topEnd,
+                child: BlocConsumer<LogoCounterCubit, List<String>>(
+                  listener: (context, state) {
+                    if (state.contains('flights')) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Found ${state.length}/3 easter egg.',
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    if (!state.contains('flights')) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: () {
+                              context.read<LogoCounterCubit>().logoFound('flights');
+                            },
+                            child: SvgPicture.asset(
+                              'assets/icons/logo.svg',
+                              width: 48.0,
+                              height: 48.0,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    return Container();
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 45.0),
+                child: InputRow.counter(
+                  icon: Icons.person,
+                  label: 'Passengers',
+                  inputLabels: ['Adult', 'Children', 'Infants'],
+                  inputHintTexts: ['1', '0', '0'],
+                ),
+              ),
+            ],
           ),
         ],
       ),

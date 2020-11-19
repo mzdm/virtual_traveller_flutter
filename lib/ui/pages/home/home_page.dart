@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:virtual_traveller_flutter/blocs/home/bottom_nav_bar/bottom_nav_bar_cubit.dart';
+import 'package:virtual_traveller_flutter/blocs/home/event/logo_counter_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/home/flight_destination_switcher/flight_destination_switcher_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/home/most_popular_destinations/most_popular_destinations_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
@@ -448,20 +450,55 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildMostPopularDestinationsSuccess(List<Destination> data) {
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: data.length,
-      itemBuilder: (_, index) {
-        return Padding(
-          padding: const EdgeInsets.only(right: 3.0),
-          child: DestinationRoundedCard(
-            cityCode: data[index].name,
-            assetNum: index > 4 ? index % 5 : index,
-            // TODO: Navigate to destination page (with flight search button, if it matches with current location then hide)
-            onTap: () {
-              print(data[index].name);
-            },
-          ),
+    return BlocConsumer<LogoCounterCubit, List<String>>(
+      listener: (context, state) {
+        if (state.contains('most_popular')) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Found ${state.length}/3 easter egg.',
+              ),
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        return ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: data.length + 1,
+          itemBuilder: (_, index) {
+            if (!state.contains('most_popular')) {
+              if (index == data.length) {
+                return MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () {
+                      context.read<LogoCounterCubit>().logoFound('most_popular');
+                    },
+                    child: SvgPicture.asset(
+                      'assets/icons/logo.svg',
+                      width: 48.0,
+                      height: 48.0,
+                    ),
+                  ),
+                );
+              }
+            }
+
+            if (index <= data.length - 1) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 3.0),
+                child: DestinationRoundedCard(
+                  cityCode: data[index].name,
+                  assetNum: index > 4 ? index % 5 : index,
+                  // TODO: Navigate to destination page (with flight search button, if it matches with current location then hide)
+                  onTap: () {
+                    print(data[index].name);
+                  },
+                ),
+              );
+            }
+          },
         );
       },
     );

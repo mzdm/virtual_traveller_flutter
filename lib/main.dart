@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:virtual_traveller_flutter/blocs/home/event/logo_counter_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/settings/settings_bloc.dart';
 
 import 'blocs/bloc_observer.dart';
@@ -45,6 +46,9 @@ void main() {
           ),
           BlocProvider<BottomNavBarCubit>(
             create: (_) => BottomNavBarCubit(),
+          ),
+          BlocProvider<LogoCounterCubit>(
+            create: (_) => LogoCounterCubit(),
           ),
         ],
         child: MainApp(),

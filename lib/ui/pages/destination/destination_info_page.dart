@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/geo/geo_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/hotels/hotels_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/poi/pois_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/safety_rate/safety_rate_cubit.dart';
+import 'package:virtual_traveller_flutter/blocs/home/event/logo_counter_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -387,6 +390,40 @@ class DestinationInfoPage extends StatelessWidget {
               style: Theme.of(context).textTheme.headline5,
             ),
           ),
+        ),
+        BlocConsumer<LogoCounterCubit, List<String>>(
+          listener: (context, state) {
+            if (state.contains('settings')) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Found ${state.length}/3 easter egg.',
+                  ),
+                ),
+              );
+            }
+          },
+          builder: (context, state) {
+            if (!state.contains('settings')) {
+              return Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () {
+                      context.read<LogoCounterCubit>().logoFound('settings');
+                    },
+                    child: SvgPicture.asset(
+                      'assets/icons/logo.svg',
+                      width: 48.0,
+                      height: 48.0,
+                    ),
+                  ),
+                ),
+              );
+            }
+            return Container();
+          },
         ),
         SizedBox(height: 200.0),
       ],
