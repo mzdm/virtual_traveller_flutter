@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
+import 'package:virtual_traveller_flutter/config/app/debug_config.dart';
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 
@@ -17,14 +18,19 @@ class GeoCubit extends Cubit<GeoState> {
   final AmadeusRepository amadeusRepository;
 
   void fetchCityGeoData({
-    @required String cityCode,
+    @required String inputCityCode,
   }) async {
-    emit(GeoLoading());
     try {
-      await amadeusRepository.getAirportCitySearch(cityCode).then((airportList) {
+      await amadeusRepository.getAirportCitySearch(inputCityCode).then((airportList) {
         if (airportList.isNotEmpty) {
+          // load fake response data if quotaSaveMode == true
+          if (DebugConfig.quotaSaveMode) {
+            return emit(GeoSuccess(airportList[0]));
+          }
+
+          // find airport in API response from user input
           for (final airport in airportList) {
-            if (airport.airportCode == cityCode) {
+            if (inputCityCode == airport.airportCode) {
               return emit(GeoSuccess(airport));
             }
           }

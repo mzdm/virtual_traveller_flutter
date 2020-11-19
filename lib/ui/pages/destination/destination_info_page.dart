@@ -28,15 +28,18 @@ class DestinationInfoPage extends StatelessWidget {
         arguments: cityName,
       ),
       builder: (_) {
+        final geoCubit = GeoCubit(
+          amadeusRepository: amadeusRepo,
+        )..fetchCityGeoData(inputCityCode: cityCode);
+
         return MultiBlocProvider(
           providers: [
             BlocProvider<GeoCubit>(
-              create: (_) => GeoCubit(
-                amadeusRepository: amadeusRepo,
-              )..fetchCityGeoData(cityCode: cityCode),
+              create: (context) => geoCubit,
             ),
             BlocProvider<SafetyRateCubit>(
               create: (_) => SafetyRateCubit(
+                geoCubit: geoCubit,
                 amadeusRepository: amadeusRepo,
               ),
             ),
@@ -117,60 +120,90 @@ class DestinationInfoPage extends StatelessWidget {
   Widget buildGeoContent(BuildContext context) {
     return FractionallySizedBox(
       widthFactor: 0.95,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: RoundedIconCard(
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Icon(
+      child: RoundedIconCard(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: Text(
+                      'Info',
+                      maxLines: 1,
+                      style: Theme.of(context).textTheme.headline4.copyWith(
+                            fontSize: 28.0,
+                            color: Colors.black,
+                          ),
+                    ),
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional.topEnd,
+                    child: Icon(
                       Icons.info_outline,
                       color: Colors.blue,
                     ),
-                    Center(
-                      child: Align(
-                        alignment: AlignmentDirectional.bottomStart,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Text(
-                                'Info',
-                                maxLines: 1,
-                                style: Theme.of(context).textTheme.headline4.copyWith(
-                                      fontSize: 28.0,
-                                      color: Colors.black,
-                                    ),
-                              ),
-                            ),
-                            // TODO: Fetch from API
-                            // TODO: Add more ?
-                            Text(
-                              'Destination: London\n'
-                              'City code: LON\n'
-                              'Country: GB',
-                              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                    color: Color(0x8a000000),
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+            buildGeoBloc(),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget buildGeoBloc() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        BlocBuilder<GeoCubit, GeoState>(
+          builder: (context, state) {
+            if (state is GeoSuccess) {
+              final address = state.geoData.address;
+
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Flexible(
+                    flex: 3,
+                    fit: FlexFit.tight,
+                    child: Text(
+                      'Region code: ${address?.regionCode}\n'
+                      'Country: ${address?.countryName}\n'
+                      'Country code: ${address?.countryCode}',
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            color: Color(0x8a000000),
+                          ),
+                    ),
+                  ),
+                  Flexible(
+                    child: SizedBox(width: 15.0),
+                  ),
+                  Flexible(
+                    flex: 3,
+                    fit: FlexFit.tight,
+                    child: Text(
+                      'Latitude: ${state.geoData.geoCode?.latitude}\n'
+                      'Longitude: ${state.geoData.geoCode?.longitude}\n',
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            color: Color(0x8a000000),
+                          ),
+                    ),
+                  ),
+                ],
+              );
+            }
+
+            return Container(
+              child: Text('...'),
+            );
+          },
+        ),
+      ],
     );
   }
 
@@ -226,7 +259,7 @@ class DestinationInfoPage extends StatelessWidget {
           Expanded(
             child: Tooltip(
               message: 'Safety rating ranges from 0 to 100, where 0 means the best/very safe and '
-                  '100 score means worst/very dangerous.',
+                  '100 score means worst/very dangerous. Based on this value is displayed appropriate text.',
               child: RoundedIconCard(
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),

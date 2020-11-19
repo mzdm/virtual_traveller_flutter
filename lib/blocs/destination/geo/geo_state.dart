@@ -9,11 +9,6 @@ class GeoInitial extends GeoState {
   List<Object> get props => [];
 }
 
-class GeoLoading extends GeoState {
-  @override
-  List<Object> get props => [];
-}
-
 class GeoSuccess extends GeoState {
   const GeoSuccess(this.geoData);
 

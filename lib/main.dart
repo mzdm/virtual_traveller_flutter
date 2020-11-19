@@ -17,6 +17,7 @@ import 'ui/pages/settings/settings_page.dart';
 import 'ui/pages/watchlist/watchlist_page.dart';
 import 'config/app/debug_config.dart';
 import 'config/theme/theme_config.dart';
+import 'package:virtual_traveller_flutter/utils/responsive_extensions.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();
@@ -58,13 +59,25 @@ class MainApp extends StatefulWidget {
   _MainAppState createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
+  TabController _tabController;
+
   final pages = <Widget>[
     HomePage(),
     SearchFlightsPage(),
     WatchlistPage(),
     SettingsPage(),
   ];
+
+  @override
+  void initState() {
+    _tabController = TabController(
+      initialIndex: 0,
+      length: 4,
+      vsync: this,
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,12 +98,34 @@ class _MainAppState extends State<MainApp> {
                   )..fetchMostPopularDestinations('MAD'),
                 ),
               ],
-              child: pages[state],
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  if (constraints.maxWidth <= 720) {
+                    return pages[state];
+                  }
+
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        child: webMenu(state),
+                      ),
+                      Flexible(
+                        flex: 4,
+                        child: pages[state],
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
-            bottomNavigationBar: buildBottomNavigationBar(
-              context,
-              currentIndex: state,
-            ),
+            bottomNavigationBar: context.isMobileSize
+                ? buildBottomNavigationBar(
+                    context,
+                    currentIndex: state,
+                  )
+                : null,
           );
         },
       ),
@@ -118,7 +153,7 @@ class _MainAppState extends State<MainApp> {
           label: 'Sails',
           // author: Smashicons, source: https://www.flaticon.com/free-icon/viking-ship_302094?term=viking%20ship&page=1&position=20
           icon: SvgPicture.asset(
-              'assets/icons/viking_ship.svg',
+            'assets/icons/viking_ship.svg',
             width: 24.0,
             height: 24.0,
           ),
@@ -132,6 +167,72 @@ class _MainAppState extends State<MainApp> {
           icon: Icon(Icons.settings),
         ),
       ],
+    );
+  }
+
+  Widget webMenu(int currentIndex) {
+    return Container(
+      height: double.infinity,
+      width: 200.0,
+      color: Colors.black.withOpacity(0.1),
+      child: ListView(
+        shrinkWrap: true,
+        children: <Widget>[
+          SizedBox(height: 50.0),
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Home'),
+            selected: _tabController.index == 0 ? true : false,
+            onTap: () {
+              setState(() {
+                context.read<BottomNavBarCubit>().changeNavBarItem(0);
+                _tabController.animateTo(0);
+              });
+            },
+          ),
+          SizedBox(height: 20.0),
+          ListTile(
+            leading: // author: Smashicons, source: https://www.flaticon.com/free-icon/viking-ship_302094?term=viking%20ship&page=1&position=20
+                SvgPicture.asset(
+              'assets/icons/viking_ship.svg',
+              width: 24.0,
+              height: 24.0,
+            ),
+            title: Text('Sails'),
+            selected: _tabController.index == 1 ? true : false,
+            onTap: () {
+              setState(() {
+                context.read<BottomNavBarCubit>().changeNavBarItem(1);
+                _tabController.animateTo(1);
+              });
+            },
+          ),
+          SizedBox(height: 5.0),
+          ListTile(
+            leading: Icon(Icons.favorite),
+            title: Text('Watchlist'),
+            selected: _tabController.index == 2 ? true : false,
+            onTap: () {
+              setState(() {
+                context.read<BottomNavBarCubit>().changeNavBarItem(2);
+                _tabController.animateTo(2);
+              });
+            },
+          ),
+          SizedBox(height: 5.0),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Settings'),
+            selected: _tabController.index == 3 ? true : false,
+            onTap: () {
+              setState(() {
+                context.read<BottomNavBarCubit>().changeNavBarItem(3);
+                _tabController.animateTo(3);
+              });
+            },
+          ),
+        ],
+      ),
     );
   }
 }

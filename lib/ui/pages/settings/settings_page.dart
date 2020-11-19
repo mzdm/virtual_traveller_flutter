@@ -114,7 +114,7 @@ class SettingsPage extends StatelessWidget {
                 title: 'Source code',
                 displayValue: 'GitHub',
                 onTap: () {
-                  Utils.launchUrl(context, url: 'https://github.com/mzdm');
+                  Utils.launchUrl(context, url: 'https://github.com/mzdm/virtual_traveller_flutter');
                 },
               ),
               SettingItem(

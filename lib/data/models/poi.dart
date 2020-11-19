@@ -10,6 +10,7 @@ part 'poi.g.dart';
 enum CategoryPOI { SIGHTS, NIGHTLIFE, RESTAURANT, SHOPPING, BEACH_PARK, HISTORICAL }
 
 // TODO: Tests
+// TODO: Simplify to use just models
 class CategoryMatcherData {
   CategoryMatcherData({
     @required CategoryPOI poiCategory,

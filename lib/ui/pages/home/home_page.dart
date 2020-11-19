@@ -10,6 +10,7 @@ import 'package:virtual_traveller_flutter/blocs/home/most_popular_destinations/m
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
 import 'package:virtual_traveller_flutter/data/models/destination.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
+import 'package:virtual_traveller_flutter/utils/responsive_extensions.dart';
 
 import 'local_widgets/flight_destination_search_switcher.dart';
 import 'local_widgets/rounded_card.dart';
@@ -170,7 +171,7 @@ class _HomePageState extends State<HomePage> {
   Widget buildSuggestionSearch(BuildContext context) {
     return SizedBox(
       height: 45.0,
-      width: MediaQuery.of(context).size.width * .85,
+      width: context.isMobileSize ? context.screenWidth * .85 : context.screenWidth * .65,
       child: BlocBuilder<FlightDestinationSwitcherCubit, int>(
         builder: (context, state) {
           return Form(
@@ -217,8 +218,8 @@ class _HomePageState extends State<HomePage> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  'Searched city code: $_searchedCity. Loading ...',
-                                ),
+                                    // 'Searched city code: $_searchedCity. Loading ...',
+                                    'Searching for tickets is not available yet.'),
                               ),
                             );
                           }
@@ -392,7 +393,7 @@ class _HomePageState extends State<HomePage> {
       Align(
         alignment: AlignmentDirectional.bottomStart,
         child: Text(
-          'Most popular raids',
+          'Most Popular Raids',
           style: TextStyle(
             color: Colors.black,
             fontSize: 24.0,

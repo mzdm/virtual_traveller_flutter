@@ -9,11 +9,6 @@ class SafetyRateInitial extends SafetyRateState {
   List<Object> get props => [];
 }
 
-class SafetyRateLoading extends SafetyRateState {
-  @override
-  List<Object> get props => [];
-}
-
 class SafetyRateSuccess extends SafetyRateState {
   const SafetyRateSuccess(this.result);
 

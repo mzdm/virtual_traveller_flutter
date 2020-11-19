@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/models/poi.dart';
 import 'package:virtual_traveller_flutter/utils/extensions.dart';
+import 'package:virtual_traveller_flutter/utils/utils.dart';
 
 class ExpansionCard extends StatelessWidget {
   ExpansionCard({
@@ -38,7 +39,11 @@ class ExpansionCard extends StatelessWidget {
           category: category,
         ),
         childrenPadding: const EdgeInsets.all(12.0),
-        children: _buildHiddenContent(location),
+        children: _buildHiddenContent(
+          context,
+          location: location,
+          name: name,
+        ),
       ),
     );
   }
@@ -77,12 +82,18 @@ class ExpansionCard extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildHiddenContent(Location location) {
+  List<Widget> _buildHiddenContent(
+    BuildContext context, {
+    @required Location location,
+    @required String name,
+  }) {
     return <Widget>[
       Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Utils.copyToClipboard(context, textCopyData: name);
+          },
           child: ListTile(
             title: Text('Copy name'),
             trailing: _buildListTileIcon(
@@ -96,7 +107,9 @@ class ExpansionCard extends StatelessWidget {
         Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              Utils.launchGeoUrl(context, location: location);
+            },
             child: ListTile(
               title: Text(
                 'GPS coordinates',
@@ -121,7 +134,13 @@ class ExpansionCard extends StatelessWidget {
       Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Utils.launchUrl(
+              context,
+              url: 'http://images.google.com/images?um=1&hl=en&safe=active&nfpr=1&q=$name',
+            );
+            print('here');
+          },
           child: ListTile(
             title: Text('Browse pictures'),
             trailing: _buildListTileIcon(

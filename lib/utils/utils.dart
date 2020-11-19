@@ -17,7 +17,7 @@ class Utils {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          '${snackBarContentMessage ?? textCopyData} was copied to the clipboard.',
+          '\'${snackBarContentMessage ?? textCopyData}\' was copied to the clipboard.',
         ),
       ),
     );

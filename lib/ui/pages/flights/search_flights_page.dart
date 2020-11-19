@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'local_widgets/input_row.dart';
 import 'local_widgets/way_type_selection_card.dart';
+import 'package:virtual_traveller_flutter/utils/responsive_extensions.dart';
 
 class SearchFlightsPage extends StatefulWidget {
   @override
@@ -35,19 +36,23 @@ class _SearchFlightsPageState extends State<SearchFlightsPage> {
             borderRadius: BorderRadius.vertical(top: Radius.circular(32.0)),
           ),
           color: Colors.white,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 25.0),
-                buildWayTypeSelectionText(),
-                SizedBox(height: 20.0),
-                buildWayTypeButtons(context),
-                SizedBox(height: 45.0),
-                buildInputRows(),
-                SizedBox(height: 45.0),
-                buildSearchButton(context),
-                SizedBox(height: 25.0),
-              ],
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: context.isMobileSize ? 0.0 : context.screenWidth * 0.07),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 25.0),
+                  buildWayTypeSelectionText(),
+                  SizedBox(height: 20.0),
+                  buildWayTypeButtons(context),
+                  SizedBox(height: 45.0),
+                  buildInputRows(),
+                  SizedBox(height: 45.0),
+                  buildSearchButton(context),
+                  SizedBox(height: 25.0),
+                ],
+              ),
             ),
           ),
         ),

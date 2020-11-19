@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -5,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:virtual_traveller_flutter/blocs/destination/geo/geo_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/models/safety_rate.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
@@ -12,16 +14,31 @@ import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.d
 part 'safety_rate_state.dart';
 
 class SafetyRateCubit extends Cubit<SafetyRateState> {
-  SafetyRateCubit({
-    @required this.amadeusRepository,
-  }) : super(SafetyRateInitial());
+  StreamSubscription _geoSubscription;
 
+  SafetyRateCubit({
+    @required this.geoCubit,
+    @required this.amadeusRepository,
+  }) : super(SafetyRateInitial()) {
+    _geoSubscription = geoCubit.listen((geoState) {
+      if (geoState is GeoSuccess) {
+        final geoCodes = geoState.geoData?.geoCode;
+        fetchSafetyRating(
+          location: Location(
+            latitude: geoCodes?.latitude,
+            longitude: geoCodes?.longitude,
+          ),
+        );
+      }
+    });
+  }
+
+  final GeoCubit geoCubit;
   final AmadeusRepository amadeusRepository;
 
   void fetchSafetyRating({
     @required Location location,
   }) async {
-    emit(SafetyRateLoading());
     try {
       await amadeusRepository.getSafePlace(location).then((safetyRate) {
         if (safetyRate != null) {
@@ -70,6 +87,12 @@ class SafetyRateCubit extends Cubit<SafetyRateState> {
     }
 
     return _SafetyResult('very dangerous', Colors.red);
+  }
+
+  @override
+  Future<void> close() {
+    _geoSubscription?.cancel();
+    return super.close();
   }
 }
 
