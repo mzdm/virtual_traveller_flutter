@@ -120,18 +120,18 @@ class AmadeusRepository {
     final rawData = await amadeusBaseDataProvider.getRawAirportCitySearch(textSearchKeyword);
     final data = json.decode(rawData)['data'];
 
-    // final uniqueCityList = <String>{};
+    final uniqueCityList = <String>{};
     // TODO: Remove list check. User can search for city and also airport code in Search flights offer API
     final airports = (data as List).map((item) {
       try {
         final airport = Airport.fromJson(item);
-        // final cityCode = airport.address.cityCode;
-        //
-        // if (uniqueCityList.contains(cityCode)) {
-        //   return null;
-        // }
-        //
-        // uniqueCityList.add(cityCode);
+        final cityCode = airport.address.cityCode;
+
+        if (uniqueCityList.contains(cityCode)) {
+          return null;
+        }
+
+        uniqueCityList.add(cityCode);
         return airport;
       } catch (e) {
         print(e);
