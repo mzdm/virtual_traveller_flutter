@@ -23,6 +23,7 @@ class DestinationInfoPage extends StatelessWidget {
     bool displayFlights = true,
     @required String cityCode,
     @required String cityName,
+    @required Location location,
   }) {
     final amadeusRepo = context.read<AmadeusRepository>();
 
@@ -44,25 +45,21 @@ class DestinationInfoPage extends StatelessWidget {
               create: (_) => SafetyRateCubit(
                 geoCubit: geoCubit,
                 amadeusRepository: amadeusRepo,
-              ),
+              )..fetchSafetyRating(location: location),
             ),
             BlocProvider<HotelsCubit>(
               create: (_) => HotelsCubit(
                 amadeusRepository: amadeusRepo,
               )..fetchHotels(
-                  cityCode: 'LON',
+                  cityCode: cityCode,
                   language: null,
                 ),
             ),
             BlocProvider<PoisCubit>(
               create: (_) => PoisCubit(
+                geoCubit: geoCubit,
                 amadeusRepository: amadeusRepo,
-              )..fetchPois(
-                  location: Location(
-                    latitude: 40.416775,
-                    longitude: -3.703790,
-                  ),
-                ),
+              )..fetchPois(location: location),
             ),
           ],
           child: DestinationInfoPage(),

@@ -20,17 +20,17 @@ class SafetyRateCubit extends Cubit<SafetyRateState> {
     @required this.geoCubit,
     @required this.amadeusRepository,
   }) : super(SafetyRateInitial()) {
-    _geoSubscription = geoCubit.listen((geoState) {
-      if (geoState is GeoSuccess) {
-        final geoCodes = geoState.geoData?.geoCode;
-        fetchSafetyRating(
-          location: Location(
-            latitude: geoCodes?.latitude,
-            longitude: geoCodes?.longitude,
-          ),
-        );
-      }
-    });
+    // _geoSubscription = geoCubit.listen((geoState) {
+    //   if (geoState is GeoSuccess) {
+    //     final geoCodes = geoState.geoData?.geoCode;
+    //     fetchSafetyRating(
+    //       location: Location(
+    //         latitude: geoCodes?.latitude,
+    //         longitude: geoCodes?.longitude,
+    //       ),
+    //     );
+    //   }
+    // });
   }
 
   final GeoCubit geoCubit;

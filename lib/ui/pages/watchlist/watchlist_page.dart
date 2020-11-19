@@ -52,7 +52,6 @@ class _WatchlistPageState extends State<WatchlistPage> {
                   child: ReorderableListView(
                     onReorder: (oldIndex, newIndex) => _reorder(oldIndex, newIndex),
                     children: [
-
                       for (var i = 0; i < watchListItems.length; i++)
                         // Dismissible(
                         //   key: UniqueKey(),
@@ -78,6 +77,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
                                 // TODO: reduce code duplication
                                 cityCode: watchListItems[i].cityCode,
                                 cityName: watchListItems[i].cityName,
+                                location: watchListItems[i].location,
                               ),
                             );
                           },
@@ -112,7 +112,7 @@ final watchListItems = <WatchListItemModel>[
   WatchListItemModel('NYC', 'New York', Location(latitude: 40.730610, longitude: -73.935242)),
   WatchListItemModel('LON', 'London', Location(latitude: 51.509865, longitude: -0.118092)),
   WatchListItemModel('DFW', 'Dallas', Location(latitude: 32.779167, longitude: -96.808891)),
-  WatchListItemModel('BER', 'Berlin', Location(latitude: 52.520008, longitude: 13.404954)),
+  WatchListItemModel('BER', 'Berlin', Location(latitude: 52.541755, longitude: 13.354201)),
   WatchListItemModel('BCN', 'Barcelona', Location(latitude: 41.390205, longitude: 2.154007)),
   WatchListItemModel('BLR', 'Bangalore', Location(latitude: 12.972442, longitude: 77.580643)),
 ];

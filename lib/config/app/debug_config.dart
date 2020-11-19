@@ -3,7 +3,7 @@ class DebugConfig {
   ///
   /// If it is set to `true` then it influences following:
   ///   - uses local fake REST API data in order to save API calls quota
-  static const quotaSaveMode = true;
+  static const quotaSaveMode = false;
 
   /// **Amadeus API related**
   ///
