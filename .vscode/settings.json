@@ -1,5 +1,0 @@
-{
-    "staticWebApps.appSubpath": "/",
-    "staticWebApps.apiSubpath": "",
-    "staticWebApps.appArtifactSubpath": "build\\web"
-}
