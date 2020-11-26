@@ -1,4 +1,5 @@
 // TODO:
-class ImageAssetName {
-  static const todo = '';
+class ImageAssetNames {
+  // hotel related
+  static const hotelDetails = 'hotel_details.jpg';
 }

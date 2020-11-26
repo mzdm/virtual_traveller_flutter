@@ -40,7 +40,6 @@ class Utils {
     }
   }
 
-  // Should probably be replaced with Map Launcher package.
   static void launchGeoUrl(
     BuildContext context, {
     @required Location location,

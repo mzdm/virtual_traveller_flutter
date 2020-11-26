@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:virtual_traveller_flutter/consts/asset_names.dart';
 import 'package:virtual_traveller_flutter/data/models/hotel.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/utils/extensions.dart';
@@ -103,7 +104,7 @@ class HotelDetailsPage extends StatelessWidget {
                       color: Colors.grey,
                       image: DecorationImage(
                         image: AssetImage(
-                          Utils.getImageAsset('hotel_details.jpg'),
+                          Utils.getImageAsset(ImageAssetNames.hotelDetails),
                         ),
                         fit: BoxFit.cover,
                       ),
