@@ -3,11 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:virtual_traveller_flutter/blocs/home/event/logo_counter_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/settings/settings_bloc.dart';
+import 'package:virtual_traveller_flutter/utils/responsive_extensions.dart';
 
 import 'blocs/bloc_observer.dart';
 import 'blocs/home/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 import 'blocs/home/flight_destination_switcher/flight_destination_switcher_cubit.dart';
 import 'blocs/home/most_popular_destinations/most_popular_destinations_cubit.dart';
+import 'config/app/debug_config.dart';
+import 'config/theme/theme_config.dart';
 import 'data/data_providers/remote/amadeus_api/api_service.dart';
 import 'data/data_providers/remote/amadeus_api/fake_data.dart';
 import 'data/data_providers/remote/amadeus_api/remote_data.dart';
@@ -16,9 +19,6 @@ import 'ui/pages/flights/search_flights_page.dart';
 import 'ui/pages/home/home_page.dart';
 import 'ui/pages/settings/settings_page.dart';
 import 'ui/pages/watchlist/watchlist_page.dart';
-import 'config/app/debug_config.dart';
-import 'config/theme/theme_config.dart';
-import 'package:virtual_traveller_flutter/utils/responsive_extensions.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();

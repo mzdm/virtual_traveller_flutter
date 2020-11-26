@@ -137,7 +137,8 @@ class ExpansionCard extends StatelessWidget {
           onTap: () {
             Utils.launchUrl(
               context,
-              url: 'http://images.google.com/images?um=1&hl=en&safe=active&nfpr=1&q=$name',
+              url:
+                  'http://images.google.com/images?um=1&hl=en&safe=active&nfpr=1&q=$name',
             );
             print('here');
           },

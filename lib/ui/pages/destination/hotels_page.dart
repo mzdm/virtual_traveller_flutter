@@ -168,7 +168,8 @@ class HotelsPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Tooltip(
-                                message: 'Distance from the city center to the hotel',
+                                message:
+                                    'Distance from the city center to the hotel',
                                 child: AbsorbPointer(
                                   child: Row(
                                     children: [
@@ -177,7 +178,9 @@ class HotelsPage extends StatelessWidget {
                                         size: 15.0,
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10.0,
+                                        ),
                                         child: Text(
                                           '-',
                                           style: TextStyle(
@@ -191,7 +194,8 @@ class HotelsPage extends StatelessWidget {
                                       ),
                                       SizedBox(width: 1.0),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 10.0),
+                                        padding:
+                                            const EdgeInsets.only(left: 10.0),
                                         child: Text(
                                           '${hotel.hotelDistance?.distance?.toString() ?? '-'} ${hotel.hotelDistance?.distanceUnit ?? '-'}',
                                           style: TextStyle(

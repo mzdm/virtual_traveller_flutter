@@ -21,7 +21,9 @@ class GeoCubit extends Cubit<GeoState> {
     @required String inputCityCode,
   }) async {
     try {
-      await amadeusRepository.getAirportCitySearch(inputCityCode).then((airportList) {
+      await amadeusRepository
+          .getAirportCitySearch(inputCityCode)
+          .then((airportList) {
         if (airportList.isNotEmpty) {
           // load fake response data if quotaSaveMode == true
           if (DebugConfig.quotaSaveMode) {

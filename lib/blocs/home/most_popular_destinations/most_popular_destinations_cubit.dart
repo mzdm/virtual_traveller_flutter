@@ -19,7 +19,9 @@ class MostPopularDestinationsCubit extends Cubit<MostPopularDestinationsState> {
   void fetchMostPopularDestinations(String originCityCode) async {
     emit(MostPopularDestinationsLoading());
     try {
-      await amadeusRepository.getFlightMostTravelled(originCityCode).then((data) {
+      await amadeusRepository
+          .getFlightMostTravelled(originCityCode)
+          .then((data) {
         if (data.isNotEmpty) {
           emit(MostPopularDestinationsSuccess(data));
         } else {
@@ -28,7 +30,9 @@ class MostPopularDestinationsCubit extends Cubit<MostPopularDestinationsState> {
       });
     } catch (e) {
       emit(MostPopularDestinationsFailure(
-        (e is Response) ? e.reasonPhrase : 'An error has occurred while fetching the data.',
+        (e is Response)
+            ? e.reasonPhrase
+            : 'An error has occurred while fetching the data.',
       ));
     }
   }

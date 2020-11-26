@@ -66,7 +66,9 @@ class ImageSliverAppBar extends StatelessWidget {
               /// We check current width of the screen and the text length
               /// if it isn't potentially 2 line
               /// (very possible on small screens and with length of text 35 and more).
-              bottom: MediaQuery.of(context).size.width <= 720 && title.length >= 35 && twoLineTitle
+              bottom: MediaQuery.of(context).size.width <= 720 &&
+                      title.length >= 35 &&
+                      twoLineTitle
                   ? 12.0
                   : 16.0,
             ),

@@ -32,7 +32,8 @@ void main() {
           CategoryPOI.NIGHTLIFE,
           CategoryPOI.RESTAURANT,
         ];
-        final strList = categories.map((category) => describeEnum(category)).toList();
+        final strList =
+            categories.map((category) => describeEnum(category)).toList();
 
         expect(strList.toCommaString(), 'NIGHTLIFE,RESTAURANT');
       });
@@ -74,13 +75,19 @@ void main() {
       test('uppercase only - many words input', () {
         final inputStr = 'PARIS CAFÉ AND RESTAURANT HOTEL LUXURY 250';
 
-        expect(inputStr.toPascalCase(), 'Paris Café And Restaurant Hotel Luxury 250');
+        expect(
+          inputStr.toPascalCase(),
+          'Paris Café And Restaurant Hotel Luxury 250',
+        );
       });
 
       test('mixed letter cases - many words input', () {
         final inputStr = 'Paris café and RESTAURANT hotel luxury 250';
 
-        expect(inputStr.toPascalCase(), 'Paris Café And Restaurant Hotel Luxury 250');
+        expect(
+          inputStr.toPascalCase(),
+          'Paris Café And Restaurant Hotel Luxury 250',
+        );
       });
 
       test('empty input', () {

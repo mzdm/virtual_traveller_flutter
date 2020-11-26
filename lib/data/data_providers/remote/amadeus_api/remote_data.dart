@@ -31,9 +31,11 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
   String _getPrevDate() {
     if (DebugConfig.productionMode) {
       final currDate = DateTime.now();
-      final subtractMonths = DateTime(currDate.year, currDate.month - 6, currDate.day);
+      final subtractMonths =
+          DateTime(currDate.year, currDate.month - 6, currDate.day);
       final monthStr = subtractMonths.month.toString();
-      final formattedMonth = monthStr.length == 1 ? '0${subtractMonths.month}' : monthStr;
+      final formattedMonth =
+          monthStr.length == 1 ? '0${subtractMonths.month}' : monthStr;
       return '${subtractMonths.year}-${formattedMonth}';
     }
     // In the test environment not all dates are available.

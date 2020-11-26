@@ -6,5 +6,12 @@ class SettingsKeys {
   static const String lengthUnit = 'settings_length_unit';
   static const String theme = 'settings_theme';
 
-  static const List<String> allKeys = [departure, lang, curr, temp, lengthUnit, theme];
+  static const List<String> allKeys = [
+    departure,
+    lang,
+    curr,
+    temp,
+    lengthUnit,
+    theme,
+  ];
 }

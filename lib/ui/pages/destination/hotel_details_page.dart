@@ -126,10 +126,11 @@ class HotelDetailsPage extends StatelessWidget {
                             'Room\nPictures',
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
-                            style: Theme.of(context).textTheme.headline5.copyWith(
-                                  color: Colors.grey[900],
-                                  fontWeight: FontWeight.w500,
-                                ),
+                            style:
+                                Theme.of(context).textTheme.headline5.copyWith(
+                                      color: Colors.grey[900],
+                                      fontWeight: FontWeight.w500,
+                                    ),
                           ),
                           Spacer(),
                           Flexible(

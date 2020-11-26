@@ -9,11 +9,11 @@ class ApiService {
   static const _apiKey = Secrets.amadeusApiKey;
   static const _secretKey = Secrets.amadeusSecretKey;
 
-  static const _baseUrl = DebugConfig.productionMode
-      ? 'api.amadeus.com'
-      : 'test.api.amadeus.com';
+  static const _baseUrl =
+      DebugConfig.productionMode ? 'api.amadeus.com' : 'test.api.amadeus.com';
 
-  static const _authUrl = 'https://test.api.amadeus.com/v1/security/oauth2/token';
+  static const _authUrl =
+      'https://test.api.amadeus.com/v1/security/oauth2/token';
 
   String _accessToken;
 
@@ -26,7 +26,8 @@ class ApiService {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: 'grant_type=client_credentials&client_id=${_apiKey}&client_secret=${_secretKey}',
+      body:
+          'grant_type=client_credentials&client_id=${_apiKey}&client_secret=${_secretKey}',
     );
 
     if (response.statusCode == 200) {
@@ -78,7 +79,8 @@ class ApiService {
       final valueSafeMap = <String, String>{};
       queryParams.forEach((key, value) {
         if (value != null) {
-          valueSafeMap[key] = value is List ? value.toCommaString() : value.toString();
+          valueSafeMap[key] =
+              value is List ? value.toCommaString() : value.toString();
         }
       });
       queryParams = valueSafeMap;

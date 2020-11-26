@@ -3,10 +3,10 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:virtual_traveller_flutter/blocs/home/event/logo_counter_cubit.dart';
+import 'package:virtual_traveller_flutter/utils/responsive_extensions.dart';
 
 import 'local_widgets/input_row.dart';
 import 'local_widgets/way_type_selection_card.dart';
-import 'package:virtual_traveller_flutter/utils/responsive_extensions.dart';
 
 class SearchFlightsPage extends StatefulWidget {
   @override
@@ -42,7 +42,9 @@ class _SearchFlightsPageState extends State<SearchFlightsPage> {
           color: Colors.white,
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: context.isMobileSize ? 0.0 : context.screenWidth * 0.07),
+              horizontal:
+                  context.isMobileSize ? 0.0 : context.screenWidth * 0.07,
+            ),
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -107,7 +109,9 @@ class _SearchFlightsPageState extends State<SearchFlightsPage> {
                           cursor: SystemMouseCursors.click,
                           child: GestureDetector(
                             onTap: () {
-                              context.read<LogoCounterCubit>().logoFound('flights');
+                              context
+                                  .read<LogoCounterCubit>()
+                                  .logoFound('flights');
                             },
                             child: SvgPicture.asset(
                               'assets/icons/logo.svg',

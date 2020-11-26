@@ -63,8 +63,9 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: GestureDetector(
-            onTap:
-                !_suggestionBoxVisible ? () {} : () => FocusManager.instance.primaryFocus.unfocus(),
+            onTap: !_suggestionBoxVisible
+                ? () {}
+                : () => FocusManager.instance.primaryFocus.unfocus(),
             child: Column(
               children: [
                 buildWaveContents(context),
@@ -173,7 +174,9 @@ class _HomePageState extends State<HomePage> {
   Widget buildSuggestionSearch(BuildContext context) {
     return SizedBox(
       height: 45.0,
-      width: context.isMobileSize ? context.screenWidth * .85 : context.screenWidth * .65,
+      width: context.isMobileSize
+          ? context.screenWidth * .85
+          : context.screenWidth * .65,
       child: BlocBuilder<FlightDestinationSwitcherCubit, int>(
         builder: (context, state) {
           return Form(
@@ -266,7 +269,9 @@ class _HomePageState extends State<HomePage> {
                 // value inside the TextField. This causes too much same API calls, so this
                 // should be cached.
                 if (keyword != '' && !_searchSubmitted) {
-                  return context.read<AmadeusRepository>().getAirportCitySearch(keyword);
+                  return context
+                      .read<AmadeusRepository>()
+                      .getAirportCitySearch(keyword);
                 }
               },
               debounceDuration: _textEditingController.text.length == 1
@@ -278,7 +283,8 @@ class _HomePageState extends State<HomePage> {
                 return ListTile(
                   dense: true,
                   title: Text(airportAddress.cityCode),
-                  subtitle: Text('${airportAddress.cityName}, ${airportAddress.countryName}'),
+                  subtitle: Text(
+                      '${airportAddress.cityName}, ${airportAddress.countryName}'),
                 );
               },
               transitionBuilder: (context, suggestionsBox, controller) {
@@ -297,7 +303,8 @@ class _HomePageState extends State<HomePage> {
                 ///
                 /// So _searchSubmitted checks if the button wasn't pressed in the last
                 /// 3 seconds.
-                if (_textEditingController.value.text != '' && !_searchSubmitted) {
+                if (_textEditingController.value.text != '' &&
+                    !_searchSubmitted) {
                   return SizedBox(
                     height: 150.0,
                     child: suggestionsBox,
@@ -307,7 +314,8 @@ class _HomePageState extends State<HomePage> {
               onSuggestionSelected: (suggestion) {
                 final airport = suggestion as Airport;
                 _textEditingController.text = airport.address.cityCode;
-                setState(() => _suffixFullCityTextFieldText = airport.address.cityName);
+                setState(() =>
+                    _suffixFullCityTextFieldText = airport.address.cityName);
               },
             ),
           );
@@ -319,7 +327,8 @@ class _HomePageState extends State<HomePage> {
   Widget buildFlightDestinationSwitcher() {
     return Builder(
       builder: (context) {
-        final switcherState = context.watch<FlightDestinationSwitcherCubit>().state;
+        final switcherState =
+            context.watch<FlightDestinationSwitcherCubit>().state;
 
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -406,7 +415,8 @@ class _HomePageState extends State<HomePage> {
       SizedBox(height: 15.0),
       SizedBox(
         height: 200.0,
-        child: BlocBuilder<MostPopularDestinationsCubit, MostPopularDestinationsState>(
+        child: BlocBuilder<MostPopularDestinationsCubit,
+            MostPopularDestinationsState>(
           builder: (context, state) {
             if (state is MostPopularDestinationsLoading) {
               return buildMostPopularDestinationsLoading();
@@ -463,6 +473,7 @@ class _HomePageState extends State<HomePage> {
         }
       },
       builder: (context, state) {
+        // TODO: On web horizontal scroll with mouse
         return ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: data.length + 1,
@@ -473,7 +484,9 @@ class _HomePageState extends State<HomePage> {
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () {
-                      context.read<LogoCounterCubit>().logoFound('most_popular');
+                      context
+                          .read<LogoCounterCubit>()
+                          .logoFound('most_popular');
                     },
                     child: SvgPicture.asset(
                       'assets/icons/logo.svg',
@@ -498,6 +511,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             }
+
+            return Container();
           },
         );
       },

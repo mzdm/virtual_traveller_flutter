@@ -36,7 +36,7 @@ extension StrExt on String {
   /// of each word capitalized.
   ///
   /// Used in [HotelsPage], where API call returns all names of the hotels as upper case
-  /// so for better readability it is converted.
+  /// so it is converted for better readability.
   ///
   /// E.g.:
   /// ```

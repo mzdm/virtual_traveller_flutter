@@ -14,8 +14,9 @@ class DestinationRoundedCard extends StatelessWidget {
   final int assetNum;
   final VoidCallback onTap;
 
-  String get assetName =>
-      assetNum == null ? null : 'assets/images/most_popular_destination$assetNum.jpg';
+  String get assetName => assetNum == null
+      ? null
+      : 'assets/images/most_popular_destination$assetNum.jpg';
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,10 @@ class DestinationRoundedCard extends StatelessWidget {
                         cityCode,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.headline6.copyWith(color: Colors.white),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6
+                            .copyWith(color: Colors.white),
                       ),
                     ],
                   ),

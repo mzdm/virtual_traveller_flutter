@@ -127,7 +127,9 @@ class InputRow extends StatelessWidget {
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
-          padding: !isCounter ? const EdgeInsets.all(10.0) : const EdgeInsets.all(5.0),
+          padding: !isCounter
+              ? const EdgeInsets.all(10.0)
+              : const EdgeInsets.all(5.0),
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.grey[900].withOpacity(0.25),
@@ -141,7 +143,7 @@ class InputRow extends StatelessWidget {
                   ),
                 )
               : Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Flexible(
                       flex: 1,

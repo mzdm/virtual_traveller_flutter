@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/geo/geo_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/hotels/hotels_cubit.dart';
@@ -8,7 +9,6 @@ import 'package:virtual_traveller_flutter/blocs/destination/safety_rate/safety_r
 import 'package:virtual_traveller_flutter/blocs/home/event/logo_counter_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:virtual_traveller_flutter/ui/pages/destination/pois_page.dart';
 import 'package:virtual_traveller_flutter/utils/extensions.dart';
 
@@ -237,16 +237,20 @@ class DestinationInfoPage extends StatelessWidget {
                             child: Text(
                               '- °C',
                               maxLines: 1,
-                              style: Theme.of(context).textTheme.headline4.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline4
+                                  .copyWith(
                                     color: Colors.black,
                                   ),
                             ),
                           ),
                           Text(
                             'Avg. temperature last week',
-                            style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                  color: Color(0x8a000000),
-                                ),
+                            style:
+                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                      color: Color(0x8a000000),
+                                    ),
                           ),
                         ],
                       ),
@@ -258,7 +262,8 @@ class DestinationInfoPage extends StatelessWidget {
           ),
           Expanded(
             child: Tooltip(
-              message: 'Safety rating ranges from 0 to 100, where 0 means the best/very safe and '
+              message:
+                  'Safety rating ranges from 0 to 100, where 0 means the best/very safe and '
                   '100 score means worst/very dangerous. Based on this value is displayed appropriate text.',
               child: RoundedIconCard(
                 child: Padding(
@@ -283,7 +288,10 @@ class DestinationInfoPage extends StatelessWidget {
                                 Text(
                                   'Safety',
                                   maxLines: 1,
-                                  style: Theme.of(context).textTheme.headline4.copyWith(
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline4
+                                      .copyWith(
                                         fontSize: 28.0,
                                         color: Colors.black,
                                       ),
@@ -295,7 +303,10 @@ class DestinationInfoPage extends StatelessWidget {
                                       return Text(
                                         state.result.text.toUpperCase(),
                                         maxLines: 2,
-                                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1
+                                            .copyWith(
                                               color: state.result.color,
                                             ),
                                       );
@@ -303,7 +314,10 @@ class DestinationInfoPage extends StatelessWidget {
 
                                     return Text(
                                       '-',
-                                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .copyWith(
                                             color: Color(0x8a000000),
                                           ),
                                     );

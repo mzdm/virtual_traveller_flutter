@@ -31,7 +31,8 @@ class WayTypeSelectionCard extends StatelessWidget {
             child: Text(
               label,
               style: TextStyle(
-                color: isSelected ? Colors.white : Colors.black.withOpacity(0.35),
+                color:
+                    isSelected ? Colors.white : Colors.black.withOpacity(0.35),
                 fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
               ),
             ),

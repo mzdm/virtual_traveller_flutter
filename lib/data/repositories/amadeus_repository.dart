@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/base_data.dart';
@@ -7,8 +9,6 @@ import 'package:virtual_traveller_flutter/data/models/destination.dart';
 import 'package:virtual_traveller_flutter/data/models/flight_offer.dart';
 import 'package:virtual_traveller_flutter/data/models/hotel.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
-import 'dart:convert';
-
 import 'package:virtual_traveller_flutter/data/models/poi.dart';
 import 'package:virtual_traveller_flutter/data/models/safety_rate.dart';
 
@@ -39,7 +39,8 @@ class AmadeusRepository {
   Future<List<Airport>> getNearestAirport(
     Location location,
   ) async {
-    final rawData = await amadeusBaseDataProvider.getRawNearestAirport(location);
+    final rawData =
+        await amadeusBaseDataProvider.getRawNearestAirport(location);
     final data = json.decode(rawData)['data'];
 
     /// We don't need AIRPORT IATA code, but we need the CITY's code,
@@ -95,7 +96,8 @@ class AmadeusRepository {
       maxPrice: maxPrice,
     );
     final data = json.decode(rawData)['data'];
-    final Map<String, dynamic> carriersDictionary = json.decode(rawData)['dictionaries']['carriers'];
+    final Map<String, dynamic> carriersDictionary =
+        json.decode(rawData)['dictionaries']['carriers'];
 
     final flightOffers = (data as List).map((item) {
       try {
@@ -117,7 +119,8 @@ class AmadeusRepository {
   ) async {
     print('DATA CALLED: getAirportCitySearch (src: amadeus_repository.dart)');
 
-    final rawData = await amadeusBaseDataProvider.getRawAirportCitySearch(textSearchKeyword);
+    final rawData = await amadeusBaseDataProvider
+        .getRawAirportCitySearch(textSearchKeyword);
     final data = json.decode(rawData)['data'];
 
     final uniqueCityList = <String>{};
@@ -146,7 +149,8 @@ class AmadeusRepository {
   Future<Airline> getAirlineCodeLookup(
     String airlineCode,
   ) async {
-    final rawData = await amadeusBaseDataProvider.getRawAirlineCodeLookup(airlineCode);
+    final rawData =
+        await amadeusBaseDataProvider.getRawAirlineCodeLookup(airlineCode);
     final data = json.decode(rawData)['data'][0];
 
     final airport = Airline.fromJson(data);
@@ -160,7 +164,8 @@ class AmadeusRepository {
   ) async {
     print('DATA CALLED: getFlightMostTravelled (src: amadeus_repository.dart)');
 
-    final rawData = await amadeusBaseDataProvider.getRawFlightMostTravelled(originCityCode);
+    final rawData =
+        await amadeusBaseDataProvider.getRawFlightMostTravelled(originCityCode);
     final data = json.decode(rawData)['data'];
 
     final destinations = (data as List).map((item) {
@@ -179,7 +184,8 @@ class AmadeusRepository {
   Future<List<Destination>> getTravelRecommendation(
     List<String> cityCodes,
   ) async {
-    final rawData = await amadeusBaseDataProvider.getRawTravelRecommendation(cityCodes);
+    final rawData =
+        await amadeusBaseDataProvider.getRawTravelRecommendation(cityCodes);
     final data = json.decode(rawData)['data'];
 
     final destinations = (data as List).map((item) {
