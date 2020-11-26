@@ -115,4 +115,20 @@ void main() {
       });
     });
   });
+
+  group('CategoryPOI extensions', () {
+    group('replaceUnderscores function', () {
+      test('has one underscore', () {
+        final input = CategoryPOI.BEACH_PARK;
+
+        expect(input.replaceUnderscores(), 'BEACH PARK');
+      });
+
+      test('does not have underscore', () {
+        final input = CategoryPOI.SIGHTS;
+
+        expect(input.replaceUnderscores(), 'SIGHTS');
+      });
+    });
+  });
 }

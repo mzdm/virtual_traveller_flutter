@@ -69,16 +69,8 @@ extension StrExt on String {
     });
     return (strBuffer.toString()).trim();
   }
-
-// // TODO: Replace String with separate model (use Destination ??) (with properties: name, code)
-// // TODO: Convert city name + city code with comma to readable format (e.g.: 'Boston,BOS' -> code: 'BOS', name: 'Boston')
-// String toDestinationModel() {
-//   final str = toString();
-//   return '';
-// }
 }
 
-// TODO: Tests
 extension CategoryPoiExt on CategoryPOI {
   /// Returns described enum (String value) and replaces all underscores with empty spaces
   /// to make it look nicer in [PoisPage].
