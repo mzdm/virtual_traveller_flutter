@@ -150,7 +150,7 @@ The reasons why I decided to use the bloc library in my case were following:
       - [ ] Save destination to the Watchlist
       - [x] Pictures
       - [ ] Average temperature of the past week
-      - [ ] Safety Rating
+      - [x] Safety Rating
       - [x] List nearby Points of Interests Page
         - [x] POI Details Page
             - [x] GPS Coordinates
@@ -168,7 +168,7 @@ The reasons why I decided to use the bloc library in my case were following:
     - [ ] Drag to reorder destinations
     - [ ] Swipe to remove
   - [ ] Settings Page
-    - [ ] Default departure location
+    - [ ] Change default departure location
     - [ ] Language
     - [ ] Currency
     - [ ] Temperature format
@@ -197,9 +197,9 @@ The reasons why I decided to use the bloc library in my case were following:
   - [ ] Widget
   - [ ] Integration
 - [ ] Test coverage milestones
+  - [x] 20%
   - [ ] 40%
   - [ ] 60%
-  - [ ] 80%
 
 ## Dependencies:
 - #### Common packages:
