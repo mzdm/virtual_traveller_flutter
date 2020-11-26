@@ -1,18 +1,17 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/base_data.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/fake_data.dart';
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 
 void main() {
-  group('Flights API', () {
-    AmadeusBaseDataProvider amadeusBaseDataProvider;
+  group('Amadeus Airport APIs', () {
     AmadeusRepository amadeusRepository;
 
     setUp(() {
-      amadeusBaseDataProvider = AmadeusFakeDataProvider();
-      amadeusRepository = AmadeusRepository(amadeusBaseDataProvider: amadeusBaseDataProvider);
+      amadeusRepository = AmadeusRepository(
+        amadeusBaseDataProvider: AmadeusFakeDataProvider(),
+      );
     });
 
     test('Nearest Airport: fromJson Airport List output', () async {

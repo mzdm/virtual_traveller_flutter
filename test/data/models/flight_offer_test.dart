@@ -1,17 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/base_data.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/fake_data.dart';
 import 'package:virtual_traveller_flutter/data/models/flight_offer.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 
 void main() {
   group('Flights - Offers Search', () {
-    AmadeusBaseDataProvider amadeusBaseDataProvider;
     AmadeusRepository amadeusRepository;
 
     setUp(() {
-      amadeusBaseDataProvider = AmadeusFakeDataProvider();
-      amadeusRepository = AmadeusRepository(amadeusBaseDataProvider: amadeusBaseDataProvider);
+      amadeusRepository = AmadeusRepository(
+        amadeusBaseDataProvider: AmadeusFakeDataProvider(),
+      );
     });
 
     test('fromJson Offers Search List output', () async {

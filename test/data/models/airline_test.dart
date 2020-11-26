@@ -11,7 +11,9 @@ void main() {
 
     setUp(() {
       amadeusBaseDataProvider = AmadeusFakeDataProvider();
-      amadeusRepository = AmadeusRepository(amadeusBaseDataProvider: amadeusBaseDataProvider);
+      amadeusRepository = AmadeusRepository(
+        amadeusBaseDataProvider: amadeusBaseDataProvider,
+      );
     });
 
     test('fromJson Airline output', () async {
