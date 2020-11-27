@@ -148,7 +148,7 @@ The reasons why I decided to use the bloc library in my case were following:
         - [ ] Simulate airplane flying on the map with the timestamps
   - [ ] Destination Info Page
       - [ ] Save destination to the Watchlist
-      - [x] Pictures
+      - [ ] Pictures
       - [ ] Average temperature of the past week
       - [x] Safety Rating
       - [x] List nearby Points of Interests Page
@@ -183,18 +183,18 @@ The reasons why I decided to use the bloc library in my case were following:
   - [ ] Chinese
   - [ ] French
   - [ ] German
-- [ ] Supported Platforms
+- [x] Supported Platforms
   - [x] Android
   - [x] iOS
   - [x] Web
-  - [x] Desktop (Windows)
+  - [x] Desktop (Windows) (was not tested on Linux & macOS)
 
 ### Other:
 - [ ] ~~Null safety~~ (not possible currently - not all packages are migrated yet)
 - [x] CI / Github Actions
 - [ ] Type of tests
   - [x] Unit
-  - [ ] Widget
+  - [x] Widget
   - [ ] Integration
 - [ ] Test coverage milestones
   - [x] 20%
