@@ -9,6 +9,7 @@ import 'package:virtual_traveller_flutter/blocs/home/bottom_nav_bar/bottom_nav_b
 import 'package:virtual_traveller_flutter/blocs/home/event/logo_counter_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/home/flight_destination_switcher/flight_destination_switcher_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/home/most_popular_destinations/most_popular_destinations_cubit.dart';
+import 'package:virtual_traveller_flutter/consts/local_keys.dart';
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
 import 'package:virtual_traveller_flutter/data/models/destination.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
@@ -121,7 +122,12 @@ class _HomePageState extends State<HomePage> {
             child: Material(
               type: MaterialType.transparency,
               child: IconButton(
-                icon: Icon(Icons.settings, color: Colors.white, size: 16.0),
+                icon: Icon(
+                  Icons.settings,
+                  key: Key(LocalKeys.waveSettingsIcon),
+                  color: Colors.white,
+                  size: 16.0,
+                ),
                 onPressed: () {
                   context.read<BottomNavBarCubit>().changeNavBarItem(3);
                 },
