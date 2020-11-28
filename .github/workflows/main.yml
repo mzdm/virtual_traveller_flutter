@@ -20,6 +20,7 @@ jobs:
     - name: Run tests & Generate code coverage
       run: flutter test --coverage
     - name: Upload code coverage to Codecov
+      if: github.ref == 'refs/heads/master'
       uses: codecov/codecov-action@v1
       with:
         file: coverage/lcov.info

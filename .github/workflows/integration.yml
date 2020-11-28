@@ -1,0 +1,96 @@
+# https://medium.com/flutter-community/run-flutter-driver-tests-on-github-actions-13c639c7e4ab
+
+name: integration tests
+on: [push, pull_request]
+jobs:
+
+  iOS:
+    strategy:
+      matrix:
+        device:
+          - "iPhone 8 (14.0)"
+          - "iPhone SE (2nd generation) (14.0)"
+          - "iPhone 11 Pro Max (14.0)"
+      # When set to true, GitHub cancels all in-progress jobs if any matrix job fails.
+      fail-fast: false
+    runs-on: macOS-latest
+    steps:
+      - name: "List all simulators"
+        run: "xcrun instruments -s"
+      - name: "Start simulators"
+        run: |
+          UDID=$(
+            xcrun instruments -s |
+            awk \
+              -F ' *[][]' \
+              -v 'device=${{ matrix.device }}' \
+              '$1 == device { print $2 }'
+          )
+          xcrun simctl boot "${UDID:?No simulator with this name found}"
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'beta'
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Code generation for immutable classes
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+      # https://stackoverflow.com/questions/64759960/error-while-running-flutter-driver-on-github-actions-macos
+      - name: Fix flutter driver issue with simlink to $FLUTTER_HOME.pub-cache from ~/.pub-cache.
+        run: ln -s "${FLUTTER_HOME}/.pub-cache" ~/.pub-cache
+      - name: "Run Flutter Driver tests"
+        run: "flutter drive --target=test_driver/app.dart"
+
+  android_pixel:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        api-level: [23, 29]
+        target: [default]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'beta'
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Code generation for immutable classes
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+      # https://stackoverflow.com/questions/64759960/error-while-running-flutter-driver-on-github-actions-macos
+      - name: Fix flutter driver issue with simlink to $FLUTTER_HOME.pub-cache from ~/.pub-cache.
+        run: ln -s "${FLUTTER_HOME}/.pub-cache" ~/.pub-cache
+      - name: Run Flutter Driver tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.target }}
+          arch: x86_64
+          profile: pixel_4_xl
+          script: flutter drive --target=test_driver/app.dart
+
+  android_nexus:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        api-level: [23]
+        target: [default]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'beta'
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Code generation for immutable classes
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+      # https://stackoverflow.com/questions/64759960/error-while-running-flutter-driver-on-github-actions-macos
+      - name: Fix flutter driver issue with simlink to $FLUTTER_HOME.pub-cache from ~/.pub-cache.
+        run: ln -s "${FLUTTER_HOME}/.pub-cache" ~/.pub-cache
+      - name: Run Flutter Driver tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.target }}
+          arch: x86_64
+          profile: Nexus 6
+          script: flutter drive --target=test_driver/app.dart
