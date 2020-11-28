@@ -43,6 +43,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  test: any
+  flutter_driver:
+    sdk: flutter
   pedantic: ^1.10.0-nullsafety.2 # https://pub.dev/packages/pedantic
   build_runner: ^1.10.4 # https://pub.dev/packages/build_runner
 

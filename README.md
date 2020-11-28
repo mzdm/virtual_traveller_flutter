@@ -195,7 +195,7 @@ The reasons why I decided to use the bloc library in my case were following:
 - [ ] Type of tests
   - [x] Unit
   - [x] Widget
-  - [ ] Integration
+  - [x] Integration
 - [ ] Test coverage milestones
   - [x] 20%
   - [ ] 40%
