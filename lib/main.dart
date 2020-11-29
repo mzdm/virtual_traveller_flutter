@@ -104,8 +104,19 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
               ],
               child: LayoutBuilder(
                 builder: (context, constraints) {
+                  final page = state == 0
+                      ? HomePage(
+                          onSettingsTap: () {
+                            context
+                                .read<BottomNavBarCubit>()
+                                .changeNavBarItem(3);
+                            setState(() => _tabController.animateTo(3));
+                          },
+                        )
+                      : pages[state];
+
                   if (constraints.maxWidth <= 720) {
-                    return pages[state];
+                    return page;
                   }
 
                   return Row(
@@ -117,7 +128,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                       ),
                       Flexible(
                         flex: 4,
-                        child: pages[state],
+                        child: page,
                       ),
                     ],
                   );
@@ -188,10 +199,8 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
             title: Text('Home'),
             selected: _tabController.index == 0 ? true : false,
             onTap: () {
-              setState(() {
-                context.read<BottomNavBarCubit>().changeNavBarItem(0);
-                _tabController.animateTo(0);
-              });
+              context.read<BottomNavBarCubit>().changeNavBarItem(0);
+              setState(() => _tabController.animateTo(0));
             },
           ),
           SizedBox(height: 20.0),
@@ -205,10 +214,8 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
             title: Text('Sails'),
             selected: _tabController.index == 1 ? true : false,
             onTap: () {
-              setState(() {
-                context.read<BottomNavBarCubit>().changeNavBarItem(1);
-                _tabController.animateTo(1);
-              });
+              context.read<BottomNavBarCubit>().changeNavBarItem(1);
+              setState(() => _tabController.animateTo(1));
             },
           ),
           SizedBox(height: 5.0),
@@ -217,10 +224,8 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
             title: Text('Watchlist'),
             selected: _tabController.index == 2 ? true : false,
             onTap: () {
-              setState(() {
-                context.read<BottomNavBarCubit>().changeNavBarItem(2);
-                _tabController.animateTo(2);
-              });
+              context.read<BottomNavBarCubit>().changeNavBarItem(2);
+              setState(() => _tabController.animateTo(2));
             },
           ),
           SizedBox(height: 5.0),
@@ -229,10 +234,8 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
             title: Text('Settings'),
             selected: _tabController.index == 3 ? true : false,
             onTap: () {
-              setState(() {
-                context.read<BottomNavBarCubit>().changeNavBarItem(3);
-                _tabController.animateTo(3);
-              });
+              context.read<BottomNavBarCubit>().changeNavBarItem(3);
+              setState(() => _tabController.animateTo(3));
             },
           ),
         ],

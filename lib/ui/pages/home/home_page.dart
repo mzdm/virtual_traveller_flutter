@@ -20,7 +20,12 @@ import 'local_widgets/rounded_card.dart';
 import 'local_widgets/wave_clipper.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
+  const HomePage({
+    Key key,
+    this.onSettingsTap,
+  }) : super(key: key);
+
+  final VoidCallback onSettingsTap;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -128,9 +133,7 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.white,
                   size: 16.0,
                 ),
-                onPressed: () {
-                  context.read<BottomNavBarCubit>().changeNavBarItem(3);
-                },
+                onPressed: widget.onSettingsTap,
               ),
             ),
           ),
