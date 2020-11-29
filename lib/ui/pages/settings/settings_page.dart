@@ -12,6 +12,7 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Settings'),
       ),
+      // TODO: Web scroll issue
       body: SettingContainer(
         sections: [
           SettingSection(
@@ -22,7 +23,7 @@ class SettingsPage extends StatelessWidget {
                 displayValue: 'Oslo (OSL)',
                 priority: ItemPriority.disabled,
                 // TODO
-                onTap: () async {
+                onTap: () {
                   context
                       .read<SettingsBloc>()
                       .add(SettingsEvent.changedDeparture());

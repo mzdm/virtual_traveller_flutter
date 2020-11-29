@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               buildDepartureSettingsContent(context),
               SizedBox(height: 40.0),
-              buildHeader(),
+              buildTitleHeader(),
               SizedBox(height: 35.0),
               buildSearchLabel(context),
               buildSuggestionSearch(context),
@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget buildHeader() {
+  Widget buildTitleHeader() {
     return Text(
       'Let me sail to ...',
       style: TextStyle(
