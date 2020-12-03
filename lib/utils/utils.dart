@@ -33,7 +33,7 @@ class Utils {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            'Error opening website \'$url\'',
+            'Error: Can not open the website \'$url\'.',
           ),
         ),
       );
