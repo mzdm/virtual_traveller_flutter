@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:virtual_traveller_flutter/consts/asset_names.dart';
+import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/utils/utils.dart';
 
 // TODO: migrate to Flutter Driver
@@ -12,11 +13,11 @@ void main() {
       const mAssetName = ImageAssetNames.hotelDetails;
       const mAssetPath = 'assets/images/$mAssetName';
 
-      final GlobalKey key = GlobalKey();
+      final containerKey = GlobalKey();
 
       await tester.pumpWidget(
         Container(
-          key: key,
+          key: containerKey,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage(
@@ -38,7 +39,7 @@ void main() {
 
       // or via Global Key and Render Object:
       final RenderDecoratedBox renderConstrainedBox =
-          key.currentContext.findRenderObject() as RenderDecoratedBox;
+          containerKey.currentContext.findRenderObject() as RenderDecoratedBox;
       final boxDecoration = (renderConstrainedBox.decoration as BoxDecoration);
       expect(
         boxDecoration.toString().contains(mAssetPath),
@@ -49,12 +50,12 @@ void main() {
 
     testWidgets('throws an exception when rendering unknown asset image',
         (tester) async {
-      final GlobalKey key = GlobalKey();
+      final imageKey = GlobalKey();
 
       await tester.pumpWidget(
         Image.asset(
           Utils.getImageAsset(''),
-          key: key,
+          key: imageKey,
           excludeFromSemantics: true,
         ),
       );
@@ -66,8 +67,8 @@ void main() {
 
       // note that height and width is > 0
       // probably due to that is is not actually rendered?
-      final RenderImage renderImage =
-          key.currentContext.findRenderObject() as RenderImage;
+      final renderImage =
+          imageKey.currentContext.findRenderObject() as RenderImage;
       expect(renderImage.image, isNull);
 
       final Finder imageFinder = find.byType(Image);
@@ -77,24 +78,23 @@ void main() {
       );
     });
 
-    testWidgets('renders existing image asset (partial alternative)',
-        (tester) async {
-      final GlobalKey key = GlobalKey();
+    testWidgets('renders existing image asset (alternative)', (tester) async {
+      final imageKey = GlobalKey();
 
       // must have: excludeFromSemantics: true
       // otherwise can not retrieve RenderImage via findRenderObject
       await tester.pumpWidget(
         Image.asset(
           Utils.getImageAsset(ImageAssetNames.hotelDetails),
-          key: key,
+          key: imageKey,
           excludeFromSemantics: true,
         ),
       );
 
       // note that renderImage.image is null
-      // probably due to that is is not actually rendered?
-      final RenderImage renderImage =
-          key.currentContext.findRenderObject() as RenderImage;
+      // probably due to that is is not actually rendered
+      final renderImage =
+          imageKey.currentContext.findRenderObject() as RenderImage;
       expect(renderImage.size.width > 0, true);
       expect(renderImage.size.height > 0, true);
 
@@ -109,7 +109,7 @@ void main() {
   group('copyToClipboard function', () {
     const copyData = 'Some copy data';
 
-    final GlobalKey containerKey = GlobalKey();
+    const containerKey = Key('containerKey');
 
     final Widget widget = MaterialApp(
       home: Scaffold(
@@ -149,14 +149,121 @@ void main() {
   });
 
   group('launchUrl function', () {
-    testWidgets('_____', (tester) async {
-      // TODO
+    const validUrl = 'https://www.google.com/maps';
+    const invalidUrl = null;
+
+    const snackBarErrorMsg = 'Error: Can not open the website';
+
+    const containerKey = Key('containerKey');
+
+    final Function(String) page = (String url) {
+      return MaterialApp(
+        home: Scaffold(
+          body: Builder(
+            builder: (context) {
+              return GestureDetector(
+                onTap: () {
+                  Utils.launchUrl(
+                    context,
+                    url: url,
+                  );
+                },
+                behavior: HitTestBehavior.opaque,
+                child: Container(
+                  height: 100.0,
+                  width: 100.0,
+                  key: containerKey,
+                ),
+              );
+            },
+          ),
+        ),
+      );
+    };
+
+    testWidgets('valid link - SnackBar is NOT shown', (tester) async {
+      await tester.pumpWidget(page(validUrl));
+
+      // no SnackBar yet
+      expect(find.textContaining(snackBarErrorMsg), findsNothing);
+
+      // no SnackBar even on click (valid link)
+      await tester.tap(find.byKey(containerKey));
+      await tester.pump();
+      expect(find.textContaining(snackBarErrorMsg), findsNothing);
+    });
+
+    testWidgets('invalid link - SnackBar IS shown with an error message',
+        (tester) async {
+      await tester.pumpWidget(page(invalidUrl));
+
+      // no SnackBar yet
+      expect(find.textContaining(snackBarErrorMsg), findsNothing);
+
+      // shows SnackBar with error message on click (invalid link)
+      await tester.tap(find.byKey(containerKey));
+      await tester.pump();
+      expect(find.textContaining(snackBarErrorMsg), findsOneWidget);
     });
   });
 
   group('launchGeoUrl function', () {
-    testWidgets('_____', (tester) async {
-      // TODO
+    const validLocation = Location(latitude: 51.507351, longitude: -0.127758);
+    const invalidLocation = Location(latitude: 0, longitude: 14.5);
+
+    const snackBarErrorMsg = 'Error: Can not open these coordinates.';
+
+    const containerKey = Key('containerKey');
+
+    final Function(Location) page = (Location location) {
+      return MaterialApp(
+        home: Scaffold(
+          body: Builder(
+            builder: (context) {
+              return GestureDetector(
+                onTap: () {
+                  Utils.launchGeoUrl(
+                    context,
+                    location: location,
+                  );
+                },
+                behavior: HitTestBehavior.opaque,
+                child: Container(
+                  height: 100.0,
+                  width: 100.0,
+                  key: containerKey,
+                ),
+              );
+            },
+          ),
+        ),
+      );
+    };
+
+    testWidgets('valid location - SnackBar is NOT shown', (tester) async {
+      await tester.pumpWidget(page(validLocation));
+
+      // no SnackBar yet
+      expect(find.textContaining(snackBarErrorMsg), findsNothing);
+
+      // no SnackBar even on click (valid link)
+      await tester.tap(find.byKey(containerKey));
+      await tester.pump();
+      expect(find.textContaining(snackBarErrorMsg), findsNothing);
+    });
+
+    testWidgets(
+        'invalid location - longitude and/or latitude is 0 - SnackBar IS shown with an error message',
+        (tester) async {
+      await tester.pumpWidget(page(invalidLocation));
+
+      // no SnackBar yet
+      expect(find.textContaining(snackBarErrorMsg), findsNothing);
+
+      // shows SnackBar with error message on click (invalid location)
+      await tester.tap(find.byKey(containerKey));
+      await tester.pump();
+      expect(find.textContaining(snackBarErrorMsg), findsOneWidget);
     });
   });
 }
