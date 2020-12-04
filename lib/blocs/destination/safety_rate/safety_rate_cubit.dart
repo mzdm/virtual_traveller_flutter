@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -14,7 +13,7 @@ import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.d
 part 'safety_rate_state.dart';
 
 class SafetyRateCubit extends Cubit<SafetyRateState> {
-  StreamSubscription _geoSubscription;
+  // StreamSubscription _geoSubscription;
 
   SafetyRateCubit({
     @required this.geoCubit,
@@ -36,27 +35,26 @@ class SafetyRateCubit extends Cubit<SafetyRateState> {
   final GeoCubit geoCubit;
   final AmadeusRepository amadeusRepository;
 
-  void fetchSafetyRating({
-    @required Location location,
-  }) async {
+  void fetchSafetyRating({@required Location location}) async {
     try {
-      await amadeusRepository.getSafePlace(location).then((safetyRate) {
-        if (safetyRate != null) {
-          final score = safetyRate.safetyScores?.overall;
-          if (score != null) {
-            final safetyTextResult = _getSafetyResult(score);
-            return emit(SafetyRateSuccess(safetyTextResult));
-          }
+      final safetyRatesList = await amadeusRepository.getSafePlace(location);
+      if (safetyRatesList != null) {
+        final score = safetyRatesList.safetyScores?.overall;
+        if (score != null) {
+          final safetyTextResult = _getSafetyResult(score);
+          return emit(SafetyRateSuccess(safetyTextResult));
         }
-        return emit(SafetyRateFailure('Could not fetch safety data'));
-      });
+      }
+      return emit(SafetyRateFailure('Could not fetch safety data'));
     } catch (e) {
       print(e);
-      emit(SafetyRateFailure(e is Response
+
+      final errorMsg = e is Response
           ? e.reasonPhrase
           : e is SocketException
               ? e.toString()
-              : e.toString()));
+              : e.toString();
+      emit(SafetyRateFailure(errorMsg));
     }
   }
 
@@ -89,11 +87,11 @@ class SafetyRateCubit extends Cubit<SafetyRateState> {
     return _SafetyResult('very dangerous', Colors.red);
   }
 
-  @override
-  Future<void> close() {
-    _geoSubscription?.cancel();
-    return super.close();
-  }
+// @override
+// Future<void> close() {
+//   _geoSubscription?.cancel();
+//   return super.close();
+// }
 }
 
 class _SafetyResult extends Equatable {

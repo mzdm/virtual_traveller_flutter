@@ -17,35 +17,34 @@ class GeoCubit extends Cubit<GeoState> {
 
   final AmadeusRepository amadeusRepository;
 
-  void fetchCityGeoData({
-    @required String inputCityCode,
-  }) async {
+  void fetchCityGeoData({@required String inputCityCode}) async {
     try {
-      await amadeusRepository
-          .getAirportCitySearch(inputCityCode)
-          .then((airportList) {
-        if (airportList.isNotEmpty) {
-          // load fake response data if quotaSaveMode == true
-          if (DebugConfig.quotaSaveMode) {
-            return emit(GeoSuccess(airportList[0]));
-          }
+      final airportList =
+          await amadeusRepository.getAirportCitySearch(inputCityCode);
 
-          // find airport in API response from user input
-          for (final airport in airportList) {
-            if (inputCityCode == airport.airportCode) {
-              return emit(GeoSuccess(airport));
-            }
+      if (airportList.isNotEmpty) {
+        // load fake response data if it is quotaSaveMode
+        if (DebugConfig.quotaSaveMode) {
+          return emit(GeoSuccess(airportList[0]));
+        }
+
+        // find airport in API response from user input
+        for (final airport in airportList) {
+          if (inputCityCode == airport.airportCode) {
+            return emit(GeoSuccess(airport));
           }
         }
-        return emit(GeoFailure('Could not fetch geo data'));
-      });
+      }
+      return emit(GeoFailure('Could not fetch geo data'));
     } catch (e) {
       print(e);
-      emit(GeoFailure(e is Response
+
+      final errorMsg = e is Response
           ? e.reasonPhrase
           : e is SocketException
               ? e.toString()
-              : e.toString()));
+              : e.toString();
+      emit(GeoFailure(errorMsg));
     }
   }
 }

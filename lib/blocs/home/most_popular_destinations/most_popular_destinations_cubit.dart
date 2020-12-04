@@ -14,34 +14,29 @@ class MostPopularDestinationsCubit extends Cubit<MostPopularDestinationsState> {
 
   final AmadeusRepository amadeusRepository;
 
-  // TODO: Implement also Most booked API
   // TODO: Cache result to save API quota
   void fetchMostPopularDestinations(String originCityCode) async {
     emit(MostPopularDestinationsLoading());
     try {
-      await amadeusRepository
-          .getFlightMostTravelled(originCityCode)
-          .then((data) {
-        if (data.isNotEmpty) {
-          emit(MostPopularDestinationsSuccess(data));
-        } else {
-          emitFakeDataOnEmpty();
-        }
-      });
+      final popularDestinationsList =
+          await amadeusRepository.getFlightMostTravelled(originCityCode);
+      if (popularDestinationsList.isNotEmpty) {
+        emit(MostPopularDestinationsSuccess(popularDestinationsList));
+      } else {
+        emitFakeDataOnEmpty();
+      }
     } catch (e) {
-      emit(MostPopularDestinationsFailure(
-        (e is Response)
-            ? e.reasonPhrase
-            : 'An error has occurred while fetching the data.',
-      ));
+      final errorMsg = e is Response
+          ? e.reasonPhrase
+          : 'An error has occurred while fetching the data.';
+      emit(MostPopularDestinationsFailure(errorMsg));
     }
   }
 
   void emitFakeDataOnEmpty() async {
-    await AmadeusRepository(
+    final fakeData = await AmadeusRepository(
       amadeusBaseDataProvider: AmadeusFakeDataProvider(),
-    ).getFlightMostTravelled('').then((fakeData) {
-      emit(MostPopularDestinationsSuccess(fakeData));
-    });
+    ).getFlightMostTravelled('');
+    emit(MostPopularDestinationsSuccess(fakeData));
   }
 }

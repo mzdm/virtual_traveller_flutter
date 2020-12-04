@@ -16,32 +16,31 @@ class HotelsCubit extends Cubit<HotelsState> {
 
   final AmadeusRepository amadeusRepository;
 
-  // TODO: Improve error message
   void fetchHotels({
     @required String cityCode,
     String language,
   }) async {
     emit(HotelsLoading());
     try {
-      await amadeusRepository
-          .getHotelSearch(
+      final hotelsList = await amadeusRepository.getHotelSearch(
         cityCode: cityCode,
         language: language,
-      )
-          .then((hotels) {
-        if (hotels.isNotEmpty) {
-          return emit(HotelsSuccess(hotels));
-        } else {
-          return emit(HotelsEmpty());
-        }
-      });
+      );
+
+      if (hotelsList.isNotEmpty) {
+        return emit(HotelsSuccess(hotelsList));
+      } else {
+        return emit(HotelsEmpty());
+      }
     } catch (e) {
       print(e);
-      emit(HotelsFailure(e is Response
+
+      final errorMsg = e is Response
           ? e.reasonPhrase
           : e is SocketException
               ? e.toString()
-              : e.toString()));
+              : e.toString();
+      emit(HotelsFailure(errorMsg));
     }
   }
 }

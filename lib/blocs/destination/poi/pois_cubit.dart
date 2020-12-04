@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -12,7 +10,7 @@ import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.d
 part 'pois_state.dart';
 
 class PoisCubit extends Cubit<PoisState> {
-  StreamSubscription _geoSubscription;
+  // StreamSubscription _geoSubscription;
 
   PoisCubit({
     @required this.geoCubit,
@@ -40,22 +38,21 @@ class PoisCubit extends Cubit<PoisState> {
   }) async {
     emit(PoisLoading());
     try {
-      await amadeusRepository
-          .getPointsOfInterest(
+      final poisList = await amadeusRepository.getPointsOfInterest(
         location: location,
         categoriesList: categories,
-      )
-          .then((pois) {
-        if (pois.isNotEmpty) {
-          return emit(PoisSuccess(pois));
-        } else {
-          return emitFakeDataOnEmpty();
-          // return emit(PoisEmpty());
-        }
-      });
+      );
+
+      if (poisList.isNotEmpty) {
+        return emit(PoisSuccess(poisList));
+      } else {
+        return emitFakeDataOnEmpty();
+        // return emit(PoisEmpty());
+      }
     } catch (e) {
       print(e);
       emitFakeDataOnEmpty();
+
       // emit(
       //   PoisFailure(
       //     e is Response
@@ -69,16 +66,15 @@ class PoisCubit extends Cubit<PoisState> {
   }
 
   void emitFakeDataOnEmpty() async {
-    await AmadeusRepository(
+    final fakeData = await AmadeusRepository(
       amadeusBaseDataProvider: AmadeusFakeDataProvider(),
-    ).getPointsOfInterest(location: null).then((fakeData) {
-      emit(PoisSuccess(fakeData));
-    });
+    ).getPointsOfInterest(location: null);
+    emit(PoisSuccess(fakeData));
   }
 
-  @override
-  Future<void> close() {
-    _geoSubscription?.cancel();
-    return super.close();
-  }
+// @override
+// Future<void> close() {
+//   _geoSubscription?.cancel();
+//   return super.close();
+// }
 }
