@@ -43,7 +43,7 @@ void main() {
     );
 
     group('scenarios when cubit re-notify listeners', () {
-      // issue - blocTest always emit first state even first state equals initial:
+      // blocTest always emit first state even first state equals initial:
       // ONLY works for first time with 0 index because "blocs needs to "reignite" (re-notify) listeners"
       // see: https://github.com/felangel/bloc/issues/1829
       blocTest<BottomNavBarCubit, int>(

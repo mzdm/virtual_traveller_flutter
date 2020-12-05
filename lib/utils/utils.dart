@@ -4,8 +4,11 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 
 class Utils {
+  /// Returns the asset path of an image named [assetName].
   static String getImageAsset(String assetName) => 'assets/images/$assetName';
 
+  /// Copies the text content of the [textCopyData] parameter
+  /// to the [Clipboard].
   static void copyToClipboard(
     BuildContext context, {
     @required String textCopyData,
@@ -22,6 +25,7 @@ class Utils {
     );
   }
 
+  /// Opens the given [url] in a native browser, on web in the new tab.
   static void launchUrl(
     BuildContext context, {
     @required String url,
@@ -39,6 +43,8 @@ class Utils {
     }
   }
 
+  /// Opens a map app pointed to the [location] (geographic coordinates).
+  /// On the web/desktop it opens in a new tab in a browser.
   static void launchGeoUrl(
     BuildContext context, {
     @required Location location,
@@ -53,6 +59,8 @@ class Utils {
       );
     };
 
+    // if the location coord could not have been retrieved
+    // then it is set to null
     if (location.latitude == 0 || location.longitude == 0) {
       snackBarErrorMessage();
       return;
