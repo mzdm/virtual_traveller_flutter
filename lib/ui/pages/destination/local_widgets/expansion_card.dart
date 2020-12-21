@@ -8,15 +8,17 @@ import 'package:virtual_traveller_flutter/utils/utils.dart';
 class ExpansionCard extends StatelessWidget {
   ExpansionCard({
     Key key,
-    @required this.name,
-    @required this.category,
-    this.location,
-  })  : categoryMatcherData = CategoryMatcherData(poiCategory: category),
+    this.cityName,
+    @required this.poiName,
+    @required this.poiCategory,
+    this.poiLocation,
+  })  : categoryMatcherData = CategoryMatcherData(poiCategory: poiCategory),
         super(key: key);
 
-  final String name;
-  final CategoryPOI category;
-  final Location location;
+  final String cityName;
+  final String poiName;
+  final CategoryPOI poiCategory;
+  final Location poiLocation;
 
   final CategoryMatcherData categoryMatcherData;
 
@@ -35,14 +37,14 @@ class ExpansionCard extends StatelessWidget {
         backgroundColor: Colors.white,
         title: _buildVisibleContent(
           context,
-          name: name,
-          category: category,
+          name: poiName,
+          category: poiCategory,
         ),
         childrenPadding: const EdgeInsets.all(12.0),
         children: _buildHiddenContent(
           context,
-          location: location,
-          name: name,
+          poiLocation: poiLocation,
+          poiName: poiName,
         ),
       ),
     );
@@ -84,15 +86,15 @@ class ExpansionCard extends StatelessWidget {
 
   List<Widget> _buildHiddenContent(
     BuildContext context, {
-    @required Location location,
-    @required String name,
+    @required Location poiLocation,
+    @required String poiName,
   }) {
     return <Widget>[
       Material(
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
-            Utils.copyToClipboard(context, textCopyData: name);
+            Utils.copyToClipboard(context, textCopyData: poiName);
           },
           child: ListTile(
             title: Text('Copy name'),
@@ -103,12 +105,12 @@ class ExpansionCard extends StatelessWidget {
           ),
         ),
       ),
-      if (location != null)
+      if (poiLocation != null)
         Material(
           color: Colors.transparent,
           child: InkWell(
             onTap: () {
-              Utils.launchGeoUrl(context, location: location);
+              Utils.launchGeoUrl(context, location: poiLocation);
             },
             child: ListTile(
               title: Text(
@@ -135,12 +137,13 @@ class ExpansionCard extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
+            final cityStr = cityName == null ? '' : '+$cityName';
             Utils.launchUrl(
               context,
               url:
-                  'http://images.google.com/images?um=1&hl=en&safe=active&nfpr=1&q=$name',
+                  'http://images.google.com/images?um=1&hl=en&safe=active&nfpr=1&q=',
+              queryParam: '$poiName$cityStr',
             );
-            print('here');
           },
           child: ListTile(
             title: Text('Browse pictures'),

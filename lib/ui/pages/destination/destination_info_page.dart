@@ -28,9 +28,7 @@ class DestinationInfoPage extends StatelessWidget {
     final amadeusRepo = context.read<AmadeusRepository>();
 
     return MaterialPageRoute(
-      settings: RouteSettings(
-        arguments: cityName,
-      ),
+      settings: RouteSettings(arguments: cityName),
       builder: (_) {
         final geoCubit = GeoCubit(
           amadeusRepository: amadeusRepo,
@@ -68,14 +66,16 @@ class DestinationInfoPage extends StatelessWidget {
     );
   }
 
+  String getCityName(BuildContext context) {
+    return ModalRoute.of(context).settings.arguments;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final String cityName = ModalRoute.of(context).settings.arguments;
-
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          buildSliverAppBar(cityName ?? ''),
+          buildSliverAppBar(getCityName(context) ?? ''),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
@@ -263,8 +263,7 @@ class DestinationInfoPage extends StatelessWidget {
           Expanded(
             child: Tooltip(
               message:
-                  'Safety rating ranges from 0 to 100, where 0 means the best/very safe and '
-                  '100 score means worst/very dangerous. Based on this value is displayed appropriate text.',
+                  'Safety rating ranges from 0 to 100, where 0 means the best/very safe and 100 score means worst/very dangerous. Based on this value is displayed appropriate text.',
               child: RoundedIconCard(
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
@@ -376,7 +375,10 @@ class DestinationInfoPage extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    PoisPage.route(context),
+                    PoisPage.route(
+                      context,
+                      cityName: getCityName(context),
+                    ),
                   );
                 },
               ),
@@ -408,7 +410,7 @@ class DestinationInfoPage extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
-                    'Found ${state.length}/3 easter egg.',
+                    'Found ${state.length}/3 easter egg. #FlutterVikings',
                   ),
                 ),
               );

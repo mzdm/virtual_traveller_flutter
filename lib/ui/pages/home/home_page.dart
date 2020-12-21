@@ -474,7 +474,7 @@ class _HomePageState extends State<HomePage> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                'Found ${state.length}/3 easter egg.',
+                'Found ${state.length}/3 easter egg. #FlutterVikings',
               ),
             ),
           );

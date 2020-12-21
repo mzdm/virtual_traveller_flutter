@@ -95,7 +95,7 @@ class _SearchFlightsPageState extends State<SearchFlightsPage> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            'Found ${state.length}/3 easter egg.',
+                            'Found ${state.length}/3 easter egg. #FlutterVikings',
                           ),
                         ),
                       );

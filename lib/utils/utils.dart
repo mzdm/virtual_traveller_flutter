@@ -29,7 +29,14 @@ class Utils {
   static void launchUrl(
     BuildContext context, {
     @required String url,
+    String queryParam,
   }) async {
+    if (queryParam != null) {
+      // escape '&' character for the correct search query
+      queryParam = queryParam.replaceAll('&', '%26');
+      url = '$url$queryParam';
+    }
+
     if (await canLaunch(url)) {
       await launch(url);
     } else {

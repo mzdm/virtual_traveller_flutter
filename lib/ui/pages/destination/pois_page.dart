@@ -8,8 +8,12 @@ import 'package:virtual_traveller_flutter/data/models/poi.dart';
 import 'package:virtual_traveller_flutter/ui/pages/destination/local_widgets/expansion_card.dart';
 
 class PoisPage extends StatelessWidget {
-  static Route route(BuildContext context) {
+  static Route route(
+    BuildContext context, {
+    @required String cityName,
+  }) {
     return MaterialPageRoute(
+      settings: RouteSettings(arguments: cityName),
       builder: (_) {
         return BlocProvider<PoisCubit>.value(
           value: context.read<PoisCubit>(),
@@ -21,6 +25,8 @@ class PoisPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String cityName = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Points of Interests'),
@@ -29,13 +35,11 @@ class PoisPage extends StatelessWidget {
         child: BlocBuilder<PoisCubit, PoisState>(
           builder: (context, state) {
             if (state is PoisLoading) {
-              print('loading');
               return buildPoiLoading();
             }
 
             if (state is PoisSuccess) {
-              print('success');
-              return buildPoisSuccess(state.pois);
+              return buildPoisSuccess(cityName, state.pois);
             }
 
             if (state is PoisEmpty) {
@@ -62,14 +66,14 @@ class PoisPage extends StatelessWidget {
             child: ListView.builder(
               scrollDirection: Axis.vertical,
               itemCount: 10,
-              itemBuilder: (context, index) {
-                return buildExpansionCard(null, null);
+              itemBuilder: (_, index) {
+                return buildExpansionCard(poi: null, poiLocation: null);
               },
             ),
           );
   }
 
-  Widget buildPoisSuccess(List<POI> pois) {
+  Widget buildPoisSuccess(String cityName, List<POI> pois) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: ListView.builder(
@@ -79,19 +83,28 @@ class PoisPage extends StatelessWidget {
           final poi = pois[index];
           final poiLocation = poi.geoCode;
 
-          return buildExpansionCard(poi, poiLocation);
+          return buildExpansionCard(
+            cityName: cityName,
+            poi: poi,
+            poiLocation: poiLocation,
+          );
         },
       ),
     );
   }
 
-  Padding buildExpansionCard(POI poi, Location poiLocation) {
+  Padding buildExpansionCard({
+    String cityName,
+    @required POI poi,
+    @required Location poiLocation,
+  }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
       child: ExpansionCard(
-        name: poi?.name ?? '',
-        category: poi?.category,
-        location: poiLocation == null
+        cityName: cityName,
+        poiName: poi?.name ?? '',
+        poiCategory: poi?.category,
+        poiLocation: poiLocation == null
             ? null
             : Location(
                 latitude: poiLocation.latitude,
