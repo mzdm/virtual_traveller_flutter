@@ -454,14 +454,11 @@ class _HomePageState extends State<HomePage> {
         : ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: 4,
-            itemBuilder: (context, int index) {
+            itemBuilder: (_, __) {
               return Shimmer.fromColors(
                 baseColor: Colors.grey[300],
                 highlightColor: Colors.grey[100],
-                child: DestinationRoundedCard(
-                  cityCode: 'Sample',
-                  onTap: () {},
-                ),
+                child: DestinationRoundedCard(cityCode: ''),
               );
             },
           );
