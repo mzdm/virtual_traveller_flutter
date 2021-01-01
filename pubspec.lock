@@ -91,7 +91,7 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.10.6"
+    version: "1.10.11"
   build_runner_core:
     dependency: transitive
     description:
@@ -262,7 +262,21 @@ packages:
       name: flutter_keyboard_visibility
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.3.0"
+    version: "4.0.2"
+  flutter_keyboard_visibility_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_keyboard_visibility_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
+  flutter_keyboard_visibility_web:
+    dependency: transitive
+    description:
+      name: flutter_keyboard_visibility_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -281,7 +295,7 @@ packages:
       name: flutter_typeahead
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.8"
+    version: "1.9.1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -293,7 +307,7 @@ packages:
       name: freezed
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.3"
+    version: "0.12.6"
   freezed_annotation:
     dependency: transitive
     description:
@@ -312,7 +326,7 @@ packages:
       name: geolocator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.8+1"
+    version: "6.1.13"
   geolocator_platform_interface:
     dependency: transitive
     description:
@@ -389,7 +403,7 @@ packages:
       name: json_serializable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.5.0"
+    version: "3.5.1"
   logging:
     dependency: transitive
     description:
@@ -821,7 +835,7 @@ packages:
       name: vm_service
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.2.0"
+    version: "5.5.0"
   watcher:
     dependency: transitive
     description:
