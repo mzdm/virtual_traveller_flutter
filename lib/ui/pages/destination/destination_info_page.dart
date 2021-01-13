@@ -7,10 +7,12 @@ import 'package:virtual_traveller_flutter/blocs/destination/hotels/hotels_cubit.
 import 'package:virtual_traveller_flutter/blocs/destination/poi/pois_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/safety_rate/safety_rate_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/home/event/logo_counter_cubit.dart';
+import 'package:virtual_traveller_flutter/consts/asset_names.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 import 'package:virtual_traveller_flutter/ui/pages/destination/pois_page.dart';
 import 'package:virtual_traveller_flutter/utils/extensions.dart';
+import 'package:virtual_traveller_flutter/utils/utils.dart';
 
 import 'hotels_page.dart';
 import 'local_widgets/image_sliver_app_bar.dart';
@@ -427,7 +429,7 @@ class DestinationInfoPage extends StatelessWidget {
                       context.read<LogoCounterCubit>().logoFound('settings');
                     },
                     child: SvgPicture.asset(
-                      'assets/icons/logo.svg',
+                      Utils.getIconAsset(IconAssetNames.flutter_vikings_logo),
                       width: 48.0,
                       height: 48.0,
                     ),

@@ -38,18 +38,18 @@ void main() {
       () async {
         await driver.tap(find.text('Home'));
         await delay_custom(milliseconds: 1000);
-        await driver.waitFor(find.text('Let me sail to ...'));
+        await driver.waitFor(find.text('I would like to visit ...'));
       },
     );
 
     test(
       '3) Home Page: click to the same page (Home Page) and stay at the same page',
       () async {
-        await driver.waitFor(find.text('Let me sail to ...'));
+        await driver.waitFor(find.text('I would like to visit ...'));
         await driver.tap(find.text('Home'));
         await delay_650ms();
         await driver.waitFor(find.text('Home'));
-        await driver.waitFor(find.text('Let me sail to ...'));
+        await driver.waitFor(find.text('I would like to visit ...'));
       },
     );
 
@@ -60,7 +60,7 @@ void main() {
         await delay_650ms();
         await driver.waitFor(find.text('Destinations Watchlist'));
 
-        await driver.tap(find.text('Sails'));
+        await driver.tap(find.text('Flights'));
         await delay_650ms();
         await driver.waitFor(find.text('Search Flights'));
 
@@ -70,7 +70,7 @@ void main() {
 
         await driver.tap(find.text('Home'));
         await delay_650ms();
-        await driver.waitFor(find.text('Let me sail to ...'));
+        await driver.waitFor(find.text('I would like to visit ...'));
       },
     );
 
@@ -96,7 +96,7 @@ void main() {
 
         // Bottom Nav Bar items visible
         await driver.waitFor(find.text('Home'));
-        await driver.waitFor(find.text('Sails'));
+        await driver.waitFor(find.text('Flights'));
         await driver.waitFor(find.text('Settings'));
       },
     );
@@ -106,7 +106,7 @@ void main() {
       () async {
         await driver.tap(find.text('Home'));
         await delay_650ms();
-        await driver.waitFor(find.text('Let me sail to ...'));
+        await driver.waitFor(find.text('I would like to visit ...'));
       },
     );
   });

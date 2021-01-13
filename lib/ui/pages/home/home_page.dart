@@ -8,11 +8,13 @@ import 'package:shimmer/shimmer.dart';
 import 'package:virtual_traveller_flutter/blocs/home/event/logo_counter_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/home/flight_destination_switcher/flight_destination_switcher_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/home/most_popular_destinations/most_popular_destinations_cubit.dart';
+import 'package:virtual_traveller_flutter/consts/asset_names.dart';
 import 'package:virtual_traveller_flutter/consts/local_keys.dart';
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
 import 'package:virtual_traveller_flutter/data/models/destination.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 import 'package:virtual_traveller_flutter/utils/responsive_extensions.dart';
+import 'package:virtual_traveller_flutter/utils/utils.dart';
 
 import 'local_widgets/flight_destination_search_switcher.dart';
 import 'local_widgets/rounded_card.dart';
@@ -143,7 +145,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildTitleHeader() {
     return Text(
-      'Let me sail to ...',
+      'I would like to visit ...',
       style: TextStyle(
         color: Colors.white,
         fontSize: 23.0,
@@ -342,16 +344,8 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FlightDestinationSearchSwitcher(
-              // icon: Icons.flight_outlined,
-              // label: 'Flights',
-              // author: Smashicons, source: https://www.flaticon.com/free-icon/viking-ship_302094?term=viking%20ship&page=1&position=20
-              label: 'Sails',
-              icon: SvgPicture.asset(
-                'assets/icons/viking_ship.svg',
-                width: 22.0,
-                height: 22.0,
-                color: Colors.white,
-              ),
+              label: 'Flights',
+              icon: Icons.flight_outlined,
               isPressed: switcherState == 0,
               onPressed: () {
                 context.read<FlightDestinationSwitcherCubit>().switchType();
@@ -359,12 +353,7 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(width: 20.0),
             FlightDestinationSearchSwitcher(
-              // icon: Icons.beach_access,
-              icon: Icon(
-                Icons.beach_access,
-                size: 22.0,
-                color: Colors.white,
-              ),
+              icon: Icons.beach_access,
               label: 'Destinations',
               isPressed: switcherState == 1,
               onPressed: () {
@@ -412,7 +401,7 @@ class _HomePageState extends State<HomePage> {
       Align(
         alignment: AlignmentDirectional.bottomStart,
         child: Text(
-          'Most Popular Raids',
+          'Most Popular Destinations',
           style: TextStyle(
             color: Colors.black,
             fontSize: 24.0,
@@ -494,7 +483,7 @@ class _HomePageState extends State<HomePage> {
                           .logoFound('most_popular');
                     },
                     child: SvgPicture.asset(
-                      'assets/icons/logo.svg',
+                      Utils.getIconAsset(IconAssetNames.flutter_vikings_logo),
                       width: 48.0,
                       height: 48.0,
                     ),

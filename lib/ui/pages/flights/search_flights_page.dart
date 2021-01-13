@@ -3,7 +3,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:virtual_traveller_flutter/blocs/home/event/logo_counter_cubit.dart';
+import 'package:virtual_traveller_flutter/consts/asset_names.dart';
 import 'package:virtual_traveller_flutter/utils/responsive_extensions.dart';
+import 'package:virtual_traveller_flutter/utils/utils.dart';
 
 import 'local_widgets/input_row.dart';
 import 'local_widgets/way_type_selection_card.dart';
@@ -114,7 +116,8 @@ class _SearchFlightsPageState extends State<SearchFlightsPage> {
                                   .logoFound('flights');
                             },
                             child: SvgPicture.asset(
-                              'assets/icons/logo.svg',
+                              Utils.getIconAsset(
+                                  IconAssetNames.flutter_vikings_logo),
                               width: 48.0,
                               height: 48.0,
                             ),

@@ -5,7 +5,14 @@ import 'package:virtual_traveller_flutter/data/models/location.dart';
 
 class Utils {
   /// Returns the asset path of an image named [assetName].
+  ///
+  /// The [assetName] must have included a file extension (.png, .svg, ...).
   static String getImageAsset(String assetName) => 'assets/images/$assetName';
+
+  /// Returns the asset path of an icon named [assetName].
+  ///
+  /// The [assetName] must have included a file extension (.png, .svg, ...).
+  static String getIconAsset(String assetName) => 'assets/icons/$assetName';
 
   /// Copies the text content of the [textCopyData] parameter
   /// to the [Clipboard].
