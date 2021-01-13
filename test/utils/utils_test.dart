@@ -9,7 +9,7 @@ import 'package:virtual_traveller_flutter/utils/utils.dart';
 // TODO: migrate to Flutter Driver
 void main() {
   group('getImageAsset function', () {
-    testWidgets('renders existing image asset', (tester) async {
+    testWidgets('loads an existing image asset', (tester) async {
       const mAssetName = ImageAssetNames.hotelDetails;
       const mAssetPath = 'assets/images/$mAssetName';
 
@@ -48,7 +48,27 @@ void main() {
       // also equivalent to: tester.element(imageContainerFinder).renderObject.toStringDeep();
     });
 
-    testWidgets('throws an exception when rendering unknown asset image',
+    testWidgets('loads an existing image asset (alternative)', (tester) async {
+      final imageKey = GlobalKey();
+
+      // must have: excludeFromSemantics: true
+      // otherwise can not retrieve RenderImage via findRenderObject
+      await tester.pumpWidget(
+        Image.asset(
+          Utils.getImageAsset(ImageAssetNames.hotelDetails),
+          key: imageKey,
+          excludeFromSemantics: true,
+        ),
+      );
+
+      // no exception
+      expect(
+        tester.takeException(),
+        isNull,
+      );
+    });
+
+    testWidgets('throws an exception when rendering an invalid asset image',
         (tester) async {
       final imageKey = GlobalKey();
 
@@ -65,44 +85,34 @@ void main() {
         isInstanceOf<FlutterError>(),
       );
 
-      // note that height and width is > 0
-      // probably due to that is is not actually rendered?
       final renderImage =
           imageKey.currentContext.findRenderObject() as RenderImage;
       expect(renderImage.image, isNull);
-
-      final Finder imageFinder = find.byType(Image);
-      expect(
-        tester.element(imageFinder).toStringShallow().contains('pixels: null'),
-        true,
-      );
     });
+  });
 
-    testWidgets('renders existing image asset (alternative)', (tester) async {
+  group('getIconAsset function', () {
+    // note: loading a svg image is platform specific
+    testWidgets('throws an exception when loading an invalid asset icon',
+        (tester) async {
       final imageKey = GlobalKey();
 
-      // must have: excludeFromSemantics: true
-      // otherwise can not retrieve RenderImage via findRenderObject
       await tester.pumpWidget(
         Image.asset(
-          Utils.getImageAsset(ImageAssetNames.hotelDetails),
+          Utils.getIconAsset(''),
           key: imageKey,
           excludeFromSemantics: true,
         ),
       );
 
-      // note that renderImage.image is null
-      // probably due to that is is not actually rendered
-      final renderImage =
-          imageKey.currentContext.findRenderObject() as RenderImage;
-      expect(renderImage.size.width > 0, true);
-      expect(renderImage.size.height > 0, true);
-
-      // no exception
       expect(
         tester.takeException(),
-        isNull,
+        isInstanceOf<FlutterError>(),
       );
+
+      final renderImage =
+          imageKey.currentContext.findRenderObject() as RenderImage;
+      expect(renderImage.image, isNull);
     });
   });
 
