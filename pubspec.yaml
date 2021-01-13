@@ -13,9 +13,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^0.1.3
+  cupertino_icons: ^1.0.2
   http: ^0.12.2 # https://pub.dev/packages/http
-  rxdart: ^0.24.1 # https://pub.dev/packages/rxdart https://rxmarbles.com/
+  rxdart: ^0.25.0 # https://pub.dev/packages/rxdart https://rxmarbles.com/
   equatable: ^1.2.5 # https://pub.dev/packages/equatable
   flutter_bloc: ^6.1.0 # https://pub.dev/packages/flutter_bloc https://bloclibrary.dev/#/
   bloc_test: ^7.1.0 # https://pub.dev/packages/bloc_test
@@ -28,7 +28,7 @@ dependencies:
 
   # ui related
   clean_settings: ^0.1.5 # https://pub.dev/packages/clean_settings
-  flutter_typeahead: ^1.9.1 # https://pub.dev/packages/flutter_typeahead
+  flutter_typeahead: ^2.0.0 # https://pub.dev/packages/flutter_typeahead
   shimmer: ^1.1.2 # https://pub.dev/packages/shimmer
   flutter_svg: ^0.19.1
 #  intro_slider: ^2.3.3 # https://pub.dev/packages/intro_slider
@@ -47,7 +47,7 @@ dev_dependencies:
   flutter_driver:
     sdk: flutter
   pedantic: ^1.10.0-nullsafety.2 # https://pub.dev/packages/pedantic
-  build_runner: ^1.10.11 # https://pub.dev/packages/build_runner
+  build_runner: ^1.10.12 # https://pub.dev/packages/build_runner
 
 flutter:
   uses-material-design: true
