@@ -22,13 +22,6 @@ import 'ui/pages/watchlist/watchlist_page.dart';
 void main() {
   Bloc.observer = SimpleBlocObserver();
 
-  // SystemChrome.setSystemUIOverlayStyle(
-  //   SystemUiOverlayStyle(
-  //     statusBarIconBrightness: Brightness.light,
-  //     statusBarColor: ColorUtils.primaryDefaultColorBlue,
-  //   ),
-  // );
-
   final amadeusBaseDataProvider = DebugConfig.quotaSaveMode
       ? AmadeusFakeDataProvider()
       : AmadeusRemoteDataProvider(ApiService());
