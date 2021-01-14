@@ -26,7 +26,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Destinations Watchlist'),
+        title: Text('Destination Watchlist'),
       ),
       body: Container(
         child: Center(

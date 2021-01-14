@@ -58,7 +58,7 @@ void main() {
       () async {
         await driver.tap(find.text('Watchlist'));
         await delay_650ms();
-        await driver.waitFor(find.text('Destinations Watchlist'));
+        await driver.waitFor(find.text('Destination Watchlist'));
 
         await driver.tap(find.text('Flights'));
         await delay_650ms();
@@ -79,7 +79,7 @@ void main() {
       () async {
         await driver.tap(find.text('Watchlist'));
         await delay_650ms();
-        await driver.waitFor(find.text('Destinations Watchlist'));
+        await driver.waitFor(find.text('Destination Watchlist'));
       },
     );
 
@@ -92,7 +92,7 @@ void main() {
 
         await driver.tap(find.byTooltip('Back'));
         await delay_650ms();
-        await driver.waitFor(find.text('Destinations Watchlist'));
+        await driver.waitFor(find.text('Destination Watchlist'));
 
         // Bottom Nav Bar items visible
         await driver.waitFor(find.text('Home'));
