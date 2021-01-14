@@ -63,7 +63,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          ndk: 21.3.6528147 # TODO: newest ver not available yet
+          ndk: 22.0.7026061
           target: ${{ matrix.target }}
           arch: x86_64
           profile: pixel_4_xl
@@ -91,7 +91,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          ndk: 21.3.6528147 # TODO: newest ver not available yet
+          ndk: 22.0.7026061
           target: ${{ matrix.target }}
           arch: x86_64
           profile: Nexus 6
