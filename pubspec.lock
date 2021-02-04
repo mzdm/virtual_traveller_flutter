@@ -137,10 +137,12 @@ packages:
   clean_settings:
     dependency: "direct main"
     description:
-      name: clean_settings
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.5"
+      path: "."
+      ref: HEAD
+      resolved-ref: fc82a43d2310e8dc8b5e1aec630c1a838962e03c
+      url: "git://github.com/mzdm/clean_settings.git"
+    source: git
+    version: "0.2.0"
   cli_util:
     dependency: transitive
     description:
