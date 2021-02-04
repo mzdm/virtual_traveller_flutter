@@ -190,7 +190,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           ),
           SizedBox(height: 20.0),
           ListTile(
-            leading: Icon(Icons.favorite),
+            leading: Icon(Icons.flight),
             title: Text('Flights'),
             selected: _tabController.index == 1 ? true : false,
             onTap: () {
@@ -200,7 +200,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           ),
           SizedBox(height: 5.0),
           ListTile(
-            leading: Icon(Icons.flight),
+            leading: Icon(Icons.favorite),
             title: Text('Watchlist'),
             selected: _tabController.index == 2 ? true : false,
             onTap: () {
