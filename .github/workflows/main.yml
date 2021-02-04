@@ -26,4 +26,4 @@ jobs:
       with:
         file: coverage/lcov.info
     - name: Build apk
-      run: flutter build appbundle
+      run: flutter build apk
