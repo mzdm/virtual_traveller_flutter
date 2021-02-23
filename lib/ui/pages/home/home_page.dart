@@ -438,19 +438,17 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildMostPopularDestinationsLoading() {
-    return kIsWeb
-        ? Center(child: CircularProgressIndicator())
-        : ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 4,
-            itemBuilder: (_, __) {
-              return Shimmer.fromColors(
-                baseColor: Colors.grey[300],
-                highlightColor: Colors.grey[100],
-                child: DestinationRoundedCard(cityCode: ''),
-              );
-            },
-          );
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: 4,
+      itemBuilder: (_, __) {
+        return Shimmer.fromColors(
+          baseColor: Colors.grey[300],
+          highlightColor: Colors.grey[100],
+          child: DestinationRoundedCard(cityCode: ''),
+        );
+      },
+    );
   }
 
   Widget buildMostPopularDestinationsSuccess(List<Destination> data) {

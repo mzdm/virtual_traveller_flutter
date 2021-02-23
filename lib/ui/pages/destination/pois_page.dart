@@ -58,19 +58,17 @@ class PoisPage extends StatelessWidget {
   }
 
   Widget buildPoiLoading() {
-    return kIsWeb
-        ? Center(child: CircularProgressIndicator())
-        : Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: 10,
-              itemBuilder: (_, index) {
-                return buildExpansionCard(poi: null, poiLocation: null);
-              },
-            ),
-          );
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300],
+      highlightColor: Colors.grey[100],
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: 10,
+        itemBuilder: (_, index) {
+          return buildExpansionCard(poi: null, poiLocation: null);
+        },
+      ),
+    );
   }
 
   Widget buildPoisSuccess(String cityName, List<POI> pois) {
