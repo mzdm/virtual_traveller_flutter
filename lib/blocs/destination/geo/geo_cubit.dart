@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:virtual_traveller_flutter/config/app/debug_config.dart';
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
@@ -12,12 +9,12 @@ part 'geo_state.dart';
 
 class GeoCubit extends Cubit<GeoState> {
   GeoCubit({
-    @required this.amadeusRepository,
+    required this.amadeusRepository,
   }) : super(GeoInitial());
 
   final AmadeusRepository amadeusRepository;
 
-  void fetchCityGeoData({@required String inputCityCode}) async {
+  void fetchCityGeoData({required String inputCityCode}) async {
     try {
       final airportList =
           await amadeusRepository.getAirportCitySearch(inputCityCode);
@@ -39,11 +36,7 @@ class GeoCubit extends Cubit<GeoState> {
     } catch (e) {
       print(e);
 
-      final errorMsg = e is Response
-          ? e.reasonPhrase
-          : e is SocketException
-              ? e.toString()
-              : e.toString();
+      final errorMsg = e is Response ? e.reasonPhrase ?? '' : e.toString();
       emit(GeoFailure(errorMsg));
     }
   }

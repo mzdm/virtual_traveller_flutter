@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/geo/geo_cubit.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/fake_data.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
@@ -13,8 +12,8 @@ class PoisCubit extends Cubit<PoisState> {
   // StreamSubscription _geoSubscription;
 
   PoisCubit({
-    @required this.geoCubit,
-    @required this.amadeusRepository,
+    required this.geoCubit,
+    required this.amadeusRepository,
   }) : super(PoisInitial()) {
     // _geoSubscription = geoCubit.listen((geoState) {
     //   if (geoState is GeoSuccess) {
@@ -33,8 +32,8 @@ class PoisCubit extends Cubit<PoisState> {
   final AmadeusRepository amadeusRepository;
 
   void fetchPois({
-    @required Location location,
-    List<CategoryPOI> categories,
+    required Location location,
+    List<CategoryPOI>? categories,
   }) async {
     emit(PoisLoading());
     try {
@@ -68,7 +67,7 @@ class PoisCubit extends Cubit<PoisState> {
   void emitFakeDataOnEmpty() async {
     final fakeData = await AmadeusRepository(
       amadeusBaseDataProvider: AmadeusFakeDataProvider(),
-    ).getPointsOfInterest(location: null);
+    ).getPointsOfInterest(location: Location.unknown());
     emit(PoisSuccess(fakeData));
   }
 
