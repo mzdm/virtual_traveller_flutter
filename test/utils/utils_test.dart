@@ -28,7 +28,7 @@ void main() {
         ),
       );
 
-      final Finder imageContainerFinder = find.byType(Container);
+      final imageContainerFinder = find.byType(Container);
       expect(imageContainerFinder, findsOneWidget);
 
       // checks if AssetImage assetName property contains that mAssetName

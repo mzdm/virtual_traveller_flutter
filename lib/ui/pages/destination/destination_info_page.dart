@@ -76,7 +76,7 @@ class DestinationInfoPage extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          buildSliverAppBar(getCityName(context) ?? ''),
+          buildSliverAppBar(getCityName(context)),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
