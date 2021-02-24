@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:virtual_traveller_flutter/config/app/debug_config.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/secrets.dart';
@@ -15,9 +16,9 @@ class ApiService {
   static const _authUrl =
       'https://test.api.amadeus.com/v1/security/oauth2/token';
 
-  String _accessToken;
+  String? _accessToken;
 
-  String get accessToken => _accessToken;
+  String get accessToken => _accessToken!;
 
   // https://developers.amadeus.com/self-service/apis-docs/guides/authorization-262
   Future<String> getAccessToken() async {
@@ -59,7 +60,7 @@ class ApiService {
       return await onChecked();
     } on http.Response catch (response) {
       if (response.statusCode == 401) {
-        print('token expired, requesting a new one');
+        debugPrint('token expired, requesting a new one');
         _accessToken = await getAccessToken();
         return await onChecked();
       }
@@ -93,7 +94,7 @@ class ApiService {
         },
       );
 
-      print(
+      debugPrint(
         'Request ${uri.toString()} with token: ${accessToken}\n'
         'Response: ${response.statusCode}: ${response.reasonPhrase}',
       );
@@ -113,7 +114,7 @@ class ApiService {
     }
   }
 
-  Uri getUri(String endpointPath, [Map<String, String> queryParams]) {
+  Uri getUri(String endpointPath, [Map<String, dynamic>? queryParams]) {
     return Uri(
       scheme: 'https',
       host: _baseUrl,
