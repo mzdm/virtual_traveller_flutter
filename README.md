@@ -184,15 +184,14 @@ The reasons why I decided to use the bloc library in my case were following:
   - [ ] French
   - [ ] German
 - [x] Supported Platforms
-  - [x] Android
-  - [x] iOS
+  - [x] Mobile (Android & iOS)
   - [x] Web
-  - [x] Desktop (Windows) (was not tested on Linux & macOS)
+  - [x] Desktop
 
 ### Other:
-- [ ] ~~Null safety~~ (not possible currently - not all packages are migrated yet)
+- [x] Null safety
 - [x] CI / Github Actions
-- [ ] Type of tests
+- [x] Type of tests
   - [x] Unit
   - [x] Widget
   - [x] Integration
