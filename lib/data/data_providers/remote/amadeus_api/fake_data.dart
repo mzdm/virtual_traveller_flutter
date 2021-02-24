@@ -36,11 +36,11 @@ class AmadeusFakeDataProvider implements AmadeusBaseDataProvider {
 
   @override
   Future<String> getRawFlightOffersSearch({
-    required String originCity,
-    required String destinationCity,
-    required String departureDate,
+    String? originCity,
+    String? destinationCity,
+    String? departureDate,
     String? returnDate,
-    required int adults,
+    int? adults,
     int? children,
     int? infants,
     String? travelClass,
@@ -88,7 +88,7 @@ class AmadeusFakeDataProvider implements AmadeusBaseDataProvider {
 
   @override
   Future<String> getRawHotelSearch({
-    required String cityCode,
+    String? cityCode,
     String? language,
   }) async {
     final rawData =
@@ -99,7 +99,7 @@ class AmadeusFakeDataProvider implements AmadeusBaseDataProvider {
 
   @override
   Future<String> getRawPointsOfInterest({
-    required Location location,
+    Location? location,
     List<String>? categories,
   }) async {
     final rawData =

@@ -8,10 +8,10 @@ part 'airport.g.dart';
 @freezed
 abstract class Airport with _$Airport {
   const factory Airport({
-    @required @JsonKey(name: 'name') String cityName,
-    @required @JsonKey(name: 'iataCode') String airportCode,
-    AirportAddress address,
-    Location geoCode,
+    @JsonKey(name: 'name') required String cityName,
+    @JsonKey(name: 'iataCode') required String airportCode,
+    required AirportAddress address,
+    Location? geoCode,
   }) = _Airport;
 
   factory Airport.fromJson(Map<String, dynamic> json) => _$AirportFromJson(json);
@@ -20,11 +20,11 @@ abstract class Airport with _$Airport {
 @freezed
 abstract class AirportAddress with _$AirportAddress {
   const factory AirportAddress({
-    String cityName,
-    @required String cityCode,
-    String countryName,
-    String countryCode,
-    String regionCode,
+    @Default('') String cityName,
+    required String cityCode,
+    @Default('') String countryName,
+    @Default('') String countryCode,
+    @Default('') String regionCode,
   }) = _AirportAddress;
 
   factory AirportAddress.fromJson(Map<String, dynamic> json) => _$AirportAddressFromJson(json);

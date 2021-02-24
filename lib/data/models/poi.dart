@@ -7,13 +7,29 @@ part 'poi.freezed.dart';
 part 'poi.g.dart';
 
 /// Points of Interests
-enum CategoryPOI { SIGHTS, NIGHTLIFE, RESTAURANT, SHOPPING, BEACH_PARK, HISTORICAL }
+enum CategoryPOI {
+  SIGHTS,
+  NIGHTLIFE,
+  RESTAURANT,
+  SHOPPING,
+  BEACH_PARK,
+  HISTORICAL
+}
 
-// TODO: Tests
-// TODO: Simplify to use just models
+@freezed
+abstract class POI with _$POI {
+  const factory POI({
+    required String name,
+    required CategoryPOI category,
+    Location? geoCode,
+  }) = _POI;
+
+  factory POI.fromJson(Map<String, dynamic> json) => _$POIFromJson(json);
+}
+
 class CategoryMatcherData {
   CategoryMatcherData({
-    @required CategoryPOI poiCategory,
+    required CategoryPOI poiCategory,
   })  : color = _dataMatcher(Color, poiCategory),
         icon = _dataMatcher(IconData, poiCategory);
 
@@ -21,13 +37,12 @@ class CategoryMatcherData {
   final IconData icon;
 
   static T _dataMatcher<T>(Object type, CategoryPOI poiCategory) {
-    IconData icon;
-    Color color;
+    late final IconData icon;
+    late final Color color;
 
-    // ignore: missing_enum_constant_in_switch
     switch (poiCategory) {
       case CategoryPOI.RESTAURANT:
-        color = Colors.brown[700];
+        color = Colors.brown[700]!;
         icon = Icons.restaurant;
         break;
       case CategoryPOI.NIGHTLIFE:
@@ -54,21 +69,7 @@ class CategoryMatcherData {
 
     if (type == IconData) {
       return icon as T;
-    } else if (type == Color) {
-      return color as T;
-    } else {
-      return null;
     }
+    return color as T;
   }
-}
-
-@freezed
-abstract class POI with _$POI {
-  const factory POI({
-    @required String name,
-    @required CategoryPOI category,
-    Location geoCode,
-  }) = _POI;
-
-  factory POI.fromJson(Map<String, dynamic> json) => _$POIFromJson(json);
 }

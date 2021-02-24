@@ -6,7 +6,6 @@ import 'package:virtual_traveller_flutter/data/models/location.dart';
 /// *Flights related*:
 /// - [getRawNearestAirport]
 /// - [getRawFlightOffersSearch]
-/// - [getRawFlightCheapestDateSearch]
 /// - [getRawAirportCitySearch]
 /// - [getRawAirlineCodeLookup]
 ///

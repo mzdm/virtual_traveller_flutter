@@ -4,8 +4,7 @@ part 'safety_rate.freezed.dart';
 
 part 'safety_rate.g.dart';
 
-// TODO map scores to text String
-/// **Get safety rating for given destination (city).**
+/// **Get safety rating for given destination (only CITY !).**
 ///
 /// Safety rating ranges from 0 to 100, where 0 means the best/very safe and
 /// 100 score means worst/very dangerous.
@@ -22,9 +21,9 @@ part 'safety_rate.g.dart';
 abstract class SafetyRate with _$SafetyRate {
   @Assert('subType == \'CITY\'', 'safety place is not city')
   const factory SafetyRate({
-    String name,
-    @required String subType,
-    @required SafetyScores safetyScores,
+    @Default('') String name,
+    required String subType,
+    required SafetyScores safetyScores,
   }) = _SafetyRate;
 
   factory SafetyRate.fromJson(Map<String, dynamic> json) => _$SafetyRateFromJson(json);
@@ -33,13 +32,13 @@ abstract class SafetyRate with _$SafetyRate {
 @freezed
 abstract class SafetyScores with _$SafetyScores {
   const factory SafetyScores({
-    @required int overall,
-    int lgbtq,
-    int medical,
-    int physicalHarm,
-    int politicalFreedom,
-    int theft,
-    int women,
+    required int overall,
+    @Default(0) int lgbtq,
+    @Default(0) int medical,
+    @Default(0) int physicalHarm,
+    @Default(0) int politicalFreedom,
+    @Default(0) int theft,
+    @Default(0) int women,
   }) = _SafetyScores;
 
   factory SafetyScores.fromJson(Map<String, dynamic> json) => _$SafetyScoresFromJson(json);
