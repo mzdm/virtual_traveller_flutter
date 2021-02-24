@@ -58,6 +58,8 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
   late final TabController _tabController;
 
+  bool quotaInfoShown = false;
+
   final pages = <Widget>[
     HomePage(),
     SearchFlightsPage(),
@@ -83,49 +85,63 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
       home: BlocBuilder<BottomNavBarCubit, int>(
         builder: (context, state) {
           return Scaffold(
-            body: MultiBlocProvider(
-              providers: [
-                BlocProvider<FlightDestinationSwitcherCubit>(
-                  create: (_) => FlightDestinationSwitcherCubit(),
-                ),
-                BlocProvider<MostPopularDestinationsCubit>(
-                  create: (_) => MostPopularDestinationsCubit(
-                    context.read<AmadeusRepository>(),
-                  )..fetchMostPopularDestinations('MAD'),
-                ),
-              ],
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  final page = state == 0
-                      ? HomePage(
-                          onSettingsTap: () {
-                            context
-                                .read<BottomNavBarCubit>()
-                                .changeNavBarItem(3);
-                            setState(() => _tabController.animateTo(3));
-                          },
-                        )
-                      : pages[state];
+            body: Builder(
+              builder: (context) {
+                if (DebugConfig.quotaSaveMode && !quotaInfoShown) {
+                  quotaInfoShown = true;
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                      'App is running in quota save mode. '
+                          'This means that the app uses fake data instead API calls. See more in README.',
+                    ),
+                  ));
+                }
 
-                  if (constraints.maxWidth <= 720) {
-                    return page;
-                  }
+                return MultiBlocProvider(
+                  providers: [
+                    BlocProvider<FlightDestinationSwitcherCubit>(
+                      create: (_) => FlightDestinationSwitcherCubit(),
+                    ),
+                    BlocProvider<MostPopularDestinationsCubit>(
+                      create: (_) => MostPopularDestinationsCubit(
+                        context.read<AmadeusRepository>(),
+                      )..fetchMostPopularDestinations('MAD'),
+                    ),
+                  ],
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      final page = state == 0
+                          ? HomePage(
+                              onSettingsTap: () {
+                                context
+                                    .read<BottomNavBarCubit>()
+                                    .changeNavBarItem(3);
+                                setState(() => _tabController.animateTo(3));
+                              },
+                            )
+                          : pages[state];
 
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: webMenu(state),
-                      ),
-                      Flexible(
-                        flex: 4,
-                        child: page,
-                      ),
-                    ],
-                  );
-                },
-              ),
+                      if (constraints.maxWidth <= 720) {
+                        return page;
+                      }
+
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Flexible(
+                            flex: 1,
+                            child: webMenu(state),
+                          ),
+                          Flexible(
+                            flex: 4,
+                            child: page,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                );
+              },
             ),
             bottomNavigationBar: context.isMobileSize
                 ? buildBottomNavigationBar(

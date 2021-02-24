@@ -61,7 +61,8 @@ Search for flights and deep dive into large offers of travelling destinations. D
 	- Run on the desktop (Windows) (make sure you are on the **dev** channel):</br>
 ```flutter run -d windows```</br></br>
 
-**NOTE:** If you want to use remote APIs instead of local fake data, you need to obtain API key(s).</br>
+**NOTE:** If you want to use remote APIs instead of local fake data, you need to obtain API key(s).
+The web preview version uses fake data because it is built from the repository and API keys would get exposed.</br>
 [Obtain the Amadeus Travel API key here](https://developers.amadeus.com/get-started/get-started-with-self-service-apis-335).
 
 Then:
