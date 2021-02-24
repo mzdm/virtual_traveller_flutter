@@ -22,7 +22,7 @@ class ApiService {
   // https://developers.amadeus.com/self-service/apis-docs/guides/authorization-262
   Future<String> getAccessToken() async {
     final response = await http.post(
-      _authUrl,
+      Uri.parse(_authUrl),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
@@ -85,15 +85,16 @@ class ApiService {
       });
       queryParams = valueSafeMap;
 
+      final uri = getUri(endpointPath, queryParams);
       final response = await http.get(
-        getUri(endpointPath, queryParams).toString(),
+        uri,
         headers: {
           'Authorization': 'Bearer ${accessToken}',
         },
       );
 
       print(
-        'Request ${getUri(endpointPath, queryParams).toString()} with token: ${accessToken}\n'
+        'Request ${uri.toString()} with token: ${accessToken}\n'
         'Response: ${response.statusCode}: ${response.reasonPhrase}',
       );
 
