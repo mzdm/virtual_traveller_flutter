@@ -3,16 +3,15 @@ import 'package:virtual_traveller_flutter/utils/utils.dart';
 
 class RoundedVerticalCard extends StatelessWidget {
   const RoundedVerticalCard({
-    Key key,
-    @required this.title,
-    @required this.assetName,
-    this.onTap,
-  })  : assert(title != null),
-        super(key: key);
+    Key? key,
+    required this.title,
+    required this.assetName,
+    required this.onTap,
+  })  : super(key: key);
 
   final String title;
   final String assetName;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +50,7 @@ class RoundedVerticalCard extends StatelessWidget {
                   title,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
-                  style: Theme.of(context).textTheme.headline5.copyWith(
+                  style: Theme.of(context).textTheme.headline5!.copyWith(
                         color: Colors.white,
                         fontSize: 18.0,
                       ),

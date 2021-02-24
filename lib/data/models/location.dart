@@ -13,5 +13,7 @@ abstract class Location with _$Location {
 
   factory Location.unknown() => Location(latitude: 0, longitude: 0);
 
+  factory Location.unknown() => const Location(latitude: 0, longitude: 0);
+
   factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
 }

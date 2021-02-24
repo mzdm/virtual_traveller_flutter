@@ -7,11 +7,11 @@ import 'package:virtual_traveller_flutter/utils/utils.dart';
 
 class ExpansionCard extends StatelessWidget {
   ExpansionCard({
-    Key key,
-    this.cityName,
-    @required this.poiName,
-    @required this.poiCategory,
-    this.poiLocation,
+    Key? key,
+    this.cityName = '',
+    required this.poiName,
+    required this.poiCategory,
+    this.poiLocation = Location.unknown(),
   })  : categoryMatcherData = CategoryMatcherData(poiCategory: poiCategory),
         super(key: key);
 

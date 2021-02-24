@@ -44,8 +44,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    _textEditingController = TextEditingController();
     super.initState();
+    _textEditingController = TextEditingController();
   }
 
   @override

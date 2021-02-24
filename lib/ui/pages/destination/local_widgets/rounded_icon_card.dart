@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class RoundedIconCard extends StatelessWidget {
   const RoundedIconCard({
-    Key key,
+    Key? key,
     this.child,
   }) : super(key: key);
 
-  final Widget child;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
