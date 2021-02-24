@@ -5,6 +5,7 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=2.12.0-0 <3.0.0"
+  flutter: ">=1.27.0-0" # this constraint is needed for integration tests, may be removed
 
 dependencies:
   flutter:
