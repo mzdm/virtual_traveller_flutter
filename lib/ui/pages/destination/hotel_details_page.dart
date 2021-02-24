@@ -10,7 +10,7 @@ import 'local_widgets/toolbar_clipper.dart';
 
 class HotelDetailsPage extends StatelessWidget {
   static Route route({
-    @required Hotel hotel,
+    required Hotel hotel,
   }) {
     return MaterialPageRoute(
       builder: (_) {
@@ -24,7 +24,7 @@ class HotelDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Hotel hotel = ModalRoute.of(context).settings.arguments;
+    final hotel = ModalRoute.of(context)!.settings.arguments as Hotel;
 
     return Scaffold(
       body: CustomScrollView(
@@ -33,8 +33,8 @@ class HotelDetailsPage extends StatelessWidget {
             context,
             hotelName: hotel.name.toPascalCase(),
             location: Location(
-              latitude: hotel?.latitude ?? 0,
-              longitude: hotel?.longitude ?? 0,
+              latitude: hotel.latitude,
+              longitude: hotel.longitude,
             ),
           ),
           SliverList(
@@ -50,8 +50,8 @@ class HotelDetailsPage extends StatelessWidget {
 
   ImageSliverAppBar buildSliverAppBar(
     BuildContext context, {
-    @required String hotelName,
-    @required Location location,
+    required String hotelName,
+    required Location location,
   }) {
     return ImageSliverAppBar(
       title: hotelName,
@@ -128,7 +128,7 @@ class HotelDetailsPage extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                             style:
-                                Theme.of(context).textTheme.headline5.copyWith(
+                                Theme.of(context).textTheme.headline5!.copyWith(
                                       color: Colors.grey[900],
                                       fontWeight: FontWeight.w500,
                                     ),

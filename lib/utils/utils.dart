@@ -18,7 +18,7 @@ class Utils {
   /// to the [Clipboard].
   static void copyToClipboard(
     BuildContext context, {
-    @required String textCopyData,
+    required String textCopyData,
   }) {
     Clipboard.setData(
       ClipboardData(text: textCopyData),
@@ -35,8 +35,8 @@ class Utils {
   /// Opens the given [url] in a native browser, on web in the new tab.
   static void launchUrl(
     BuildContext context, {
-    @required String url,
-    String queryParam,
+    required String url,
+    String? queryParam,
   }) async {
     if (queryParam != null) {
       // escape '&' character for the correct search query
@@ -61,9 +61,9 @@ class Utils {
   /// On the web/desktop it opens in a new tab in a browser.
   static void launchGeoUrl(
     BuildContext context, {
-    @required Location location,
+    required Location location,
   }) async {
-    final VoidCallback snackBarErrorMessage = () {
+    final snackBarErrorMessage = () {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -73,9 +73,8 @@ class Utils {
       );
     };
 
-    // if the location coord could not have been retrieved
-    // then it is set to null
-    if (location.latitude == 0 || location.longitude == 0) {
+    // if the location coord could not be retrieved, default is 0
+    if (location.latitude == 0 && location.longitude == 0) {
       snackBarErrorMessage();
       return;
     }

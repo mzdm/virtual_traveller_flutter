@@ -3,18 +3,17 @@ import 'package:flutter/widgets.dart';
 
 class DestinationRoundedCard extends StatelessWidget {
   const DestinationRoundedCard({
-    Key key,
-    @required this.cityCode,
+    Key? key,
+    required this.cityCode,
     this.assetNum,
     this.onTap,
-  })  : assert(cityCode != null),
-        super(key: key);
+  })  : super(key: key);
 
   final String cityCode;
-  final int assetNum;
-  final VoidCallback onTap;
+  final int? assetNum;
+  final VoidCallback? onTap;
 
-  String get assetName => assetNum == null
+  String? get assetName => assetNum == null
       ? null
       : 'assets/images/most_popular_destination$assetNum.jpg';
 
@@ -35,7 +34,7 @@ class DestinationRoundedCard extends StatelessWidget {
                 color: Colors.grey[200],
                 image: assetName != null
                     ? DecorationImage(
-                        image: AssetImage(assetName),
+                        image: AssetImage(assetName!),
                         fit: BoxFit.cover,
                       )
                     : null,
@@ -66,7 +65,7 @@ class DestinationRoundedCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context)
                             .textTheme
-                            .headline6
+                            .headline6!
                             .copyWith(color: Colors.white),
                       ),
                     ],

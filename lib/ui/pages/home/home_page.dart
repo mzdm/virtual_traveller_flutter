@@ -22,11 +22,11 @@ import 'local_widgets/wave_clipper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
-    Key key,
+    Key? key,
     this.onSettingsTap,
   }) : super(key: key);
 
-  final VoidCallback onSettingsTap;
+  final VoidCallback? onSettingsTap;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -35,9 +35,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  TextEditingController _textEditingController;
+  late TextEditingController _textEditingController;
 
-  String _keywordSearchTextFieldText;
+  String? _keywordSearchTextFieldText;
   String _suffixFullCityTextFieldText = '';
   bool _suggestionBoxVisible = false;
   bool _searchSubmitted = false;
@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
           child: GestureDetector(
             onTap: !_suggestionBoxVisible
                 ? () {}
-                : () => FocusManager.instance.primaryFocus.unfocus(),
+                : () => FocusManager.instance.primaryFocus!.unfocus(),
             child: Column(
               children: [
                 buildWaveContents(context),
@@ -216,7 +216,7 @@ class _HomePageState extends State<HomePage> {
                         padding: EdgeInsets.all(0.0),
                         onPressed: () {
                           _suggestionBoxVisible = false;
-                          FocusManager.instance.primaryFocus.unfocus();
+                          FocusManager.instance.primaryFocus!.unfocus();
 
                           final _searchedCity = _textEditingController.text;
                           if (_searchedCity.length != 3) {
@@ -283,6 +283,7 @@ class _HomePageState extends State<HomePage> {
                       .read<AmadeusRepository>()
                       .getAirportCitySearch(keyword);
                 }
+                return const <Airport>[];
               },
               debounceDuration: _textEditingController.text.length == 1
                   ? Duration(milliseconds: 0)
@@ -443,8 +444,8 @@ class _HomePageState extends State<HomePage> {
       itemCount: 4,
       itemBuilder: (_, __) {
         return Shimmer.fromColors(
-          baseColor: Colors.grey[300],
-          highlightColor: Colors.grey[100],
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
           child: DestinationRoundedCard(cityCode: ''),
         );
       },
@@ -513,7 +514,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildMostPopularDestinationsFailure(
     BuildContext context, {
-    @required String errorMessage,
+    required String errorMessage,
   }) {
     return Align(
       alignment: AlignmentDirectional.topStart,

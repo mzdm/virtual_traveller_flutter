@@ -223,7 +223,7 @@ class _SearchFlightsPageState extends State<SearchFlightsPage> {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.85,
       height: 50.0,
-      child: RaisedButton(
+      child: ElevatedButton(
         onPressed: () {},
         child: Text(
           'Search Flights',
@@ -233,14 +233,19 @@ class _SearchFlightsPageState extends State<SearchFlightsPage> {
             fontWeight: FontWeight.w500,
           ),
         ),
-        color: Theme.of(context).primaryColor,
-        elevation: 0.0,
-        highlightElevation: 0.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.lerp(
-            BorderRadius.circular(15.0),
-            BorderRadius.circular(20.0),
-            0.35,
+        style: ButtonStyle(
+          elevation: MaterialStateProperty.all<double>(0),
+          // highlightElevation: 0.0,
+          backgroundColor:
+              MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
+          shape: MaterialStateProperty.all<OutlinedBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.lerp(
+                BorderRadius.circular(15.0),
+                BorderRadius.circular(20.0),
+                0.35,
+              )!,
+            ),
           ),
         ),
       ),

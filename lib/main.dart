@@ -56,7 +56,7 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
-  TabController _tabController;
+  late final TabController _tabController;
 
   final pages = <Widget>[
     HomePage(),
@@ -141,7 +141,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
 
   BottomNavigationBar buildBottomNavigationBar(
     BuildContext context, {
-    @required int currentIndex,
+    required int currentIndex,
   }) {
     return BottomNavigationBar(
       onTap: (index) {

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:meta/meta.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/base_data.dart';
 import 'package:virtual_traveller_flutter/data/models/airline.dart';
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
@@ -64,7 +63,7 @@ class AmadeusRepository {
     }).toList()
       ..removeWhere((element) => element == null);
 
-    return airports as List<Airport>;
+    return List<Airport>.from(airports);
   }
 
   Future<List<FlightOffer>> getFlightOffersSearch({
@@ -109,7 +108,7 @@ class AmadeusRepository {
     }).toList()
       ..removeWhere((element) => element == null);
 
-    return flightOffers as List<FlightOffer>;
+    return List<FlightOffer>.from(flightOffers);
   }
 
   Future<List<Airport>> getAirportCitySearch(
@@ -141,7 +140,7 @@ class AmadeusRepository {
     }).toList()
       ..removeWhere((element) => element == null);
 
-    return airports as List<Airport>;
+    return List<Airport>.from(airports);
   }
 
   Future<Airline> getAirlineCodeLookup(
@@ -176,7 +175,7 @@ class AmadeusRepository {
     }).toList()
       ..removeWhere((element) => element == null);
 
-    return destinations as List<DestinationBase>;
+    return List<DestinationBase>.from(destinations);
   }
 
   Future<List<Destination>> getTravelRecommendation(
@@ -196,7 +195,7 @@ class AmadeusRepository {
     }).toList()
       ..removeWhere((element) => element == null);
 
-    return destinations as List<DestinationIATA>;
+    return List<DestinationIATA>.from(destinations);
   }
 
   Future<List<Hotel>> getHotelSearch({
@@ -225,7 +224,7 @@ class AmadeusRepository {
     }).toList()
       ..removeWhere((element) => element == null);
 
-    return hotels as List<Hotel>;
+    return List<Hotel>.from(hotels);
   }
 
   Future<List<POI>> getPointsOfInterest({
@@ -252,7 +251,7 @@ class AmadeusRepository {
     }).toList()
       ..removeWhere((element) => element == null);
 
-    return pois as List<POI>;
+    return List<POI>.from(pois);
   }
 
   Future<SafetyRate> getSafePlace(

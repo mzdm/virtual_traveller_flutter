@@ -4,44 +4,35 @@ import 'package:virtual_traveller_flutter/config/theme/base_colors.dart';
 enum _Type { text, dateTime, counter }
 
 class InputRow extends StatelessWidget {
-  InputRow({
-    Key key,
+  const InputRow({
+    Key? key,
     this.icon,
-    @required this.label,
-    @required this.inputLabels,
-    @required this.inputHintTexts,
-  })  : type = _Type.text,
-        assert(label != null),
-        assert(inputLabels != null),
-        assert(inputHintTexts != null),
+    required this.label,
+    required this.inputLabels,
+    required this.inputHintTexts,
+  })   : type = _Type.text,
         super(key: key);
 
-  InputRow.date({
-    Key key,
+  const InputRow.date({
+    Key? key,
     this.icon,
-    @required this.label,
-    @required this.inputLabels,
-    @required this.inputHintTexts,
-  })  : type = _Type.dateTime,
-        assert(label != null),
-        assert(inputLabels != null),
-        assert(inputHintTexts != null),
+    required this.label,
+    required this.inputLabels,
+    required this.inputHintTexts,
+  })   : type = _Type.dateTime,
         super(key: key);
 
-  InputRow.counter({
-    Key key,
+  const InputRow.counter({
+    Key? key,
     this.icon,
-    @required this.label,
-    @required this.inputLabels,
-    @required this.inputHintTexts,
-  })  : type = _Type.counter,
-        assert(label != null),
-        assert(inputLabels != null),
-        assert(inputHintTexts != null),
+    required this.label,
+    required this.inputLabels,
+    required this.inputHintTexts,
+  })   : type = _Type.counter,
         super(key: key);
 
   final _Type type;
-  final IconData icon;
+  final IconData? icon;
   final String label;
   final List<String> inputLabels;
   final List<String> inputHintTexts;
@@ -117,8 +108,8 @@ class InputRow extends StatelessWidget {
   Widget buildInputBox(
     BuildContext context, {
     bool isCounter = false,
-    @required String inputLabel,
-    @required String inputHintText,
+    required String inputLabel,
+    required String inputHintText,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,7 +123,7 @@ class InputRow extends StatelessWidget {
               : const EdgeInsets.all(5.0),
           decoration: BoxDecoration(
             border: Border.all(
-              color: Colors.grey[900].withOpacity(0.25),
+              color: Colors.grey[900]!.withOpacity(0.25),
             ),
           ),
           child: !isCounter
@@ -149,19 +140,27 @@ class InputRow extends StatelessWidget {
                       flex: 1,
                       child: SizedBox(
                         height: 26.0,
-                        child: RaisedButton(
-                          highlightElevation: 0.0,
-                          elevation: 0.0,
-                          padding: EdgeInsets.all(0.0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.lerp(
-                              BorderRadius.circular(5.0),
-                              BorderRadius.circular(10.0),
-                              0.2,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            elevation: MaterialStateProperty.all<double>(0),
+                            // highlightElevation: 0.0,
+                            padding:
+                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                    const EdgeInsets.all(0.0)),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                BaseColors.secondaryDefaultColorLightOrange),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.lerp(
+                                  BorderRadius.circular(5.0),
+                                  BorderRadius.circular(10.0),
+                                  0.2,
+                                )!,
+                              ),
                             ),
                           ),
                           onPressed: () {},
-                          color: BaseColors.secondaryDefaultColorLightOrange,
                           child: Icon(
                             Icons.remove,
                             color: Colors.white,
@@ -185,19 +184,27 @@ class InputRow extends StatelessWidget {
                       flex: 1,
                       child: SizedBox(
                         height: 26.0,
-                        child: RaisedButton(
-                          highlightElevation: 0.0,
-                          padding: EdgeInsets.all(0.0),
-                          elevation: 0.0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.lerp(
-                              BorderRadius.circular(5.0),
-                              BorderRadius.circular(10.0),
-                              0.15,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            elevation: MaterialStateProperty.all<double>(0),
+                            // highlightElevation: 0.0,
+                            padding:
+                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                    const EdgeInsets.all(0.0)),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                BaseColors.secondaryDefaultColorLightOrange),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.lerp(
+                                  BorderRadius.circular(5.0),
+                                  BorderRadius.circular(10.0),
+                                  0.15,
+                                )!,
+                              ),
                             ),
                           ),
                           onPressed: () {},
-                          color: BaseColors.secondaryDefaultColorLightOrange,
                           child: Icon(
                             Icons.add,
                             color: Colors.white,

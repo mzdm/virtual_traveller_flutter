@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 
 class WayTypeSelectionCard extends StatelessWidget {
   const WayTypeSelectionCard({
-    Key key,
-    @required this.label,
-    @required this.onTap,
-    @required this.isSelected,
-  })  : assert(label != null),
-        assert(isSelected != null),
-        super(key: key);
+    Key? key,
+    required this.label,
+    required this.onTap,
+    required this.isSelected,
+  }) : super(key: key);
 
   final String label;
   final bool isSelected;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
