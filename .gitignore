@@ -46,7 +46,8 @@ lib/data/data_providers/remote/secrets_hidden.dart
 
 # Other
 /coverage/
-*.freezed.dart
-*.g.dart
 /local.properties
 /.vscode/
+*.freezed.dart
+*.g.dart
+*.mocks.dart

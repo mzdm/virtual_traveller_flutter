@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/base_data.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/fake_data.dart';
@@ -12,17 +13,17 @@ import 'package:virtual_traveller_flutter/data/models/poi.dart';
 import 'package:virtual_traveller_flutter/data/models/safety_rate.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
 
-class MockAmadeusFakeDataProvider extends Mock
-    implements AmadeusFakeDataProvider {}
+import 'amadeus_repository_test.mocks.dart';
 
 // one item contains null category, which should be filtered out in SafetyRate fromJson
 const mockFakePoiData =
     '''{"data":[{"type":"location","subType":"POINT_OF_INTEREST","id":"15C8B8148C","self":{"href":"https://test.api.amadeus.com/v1/reference-data/locations/pois/15C8B8148C","methods":["GET"]},"geoCode":{"latitude":41.392677,"longitude":2.153942},"name":"Dry Martini","rank":100,"tags":["bar","restaurant","nightlife","club","sightseeing","attraction","activities"]},{"type":"location","subType":"POINT_OF_INTEREST","id":"BD29CF2CCD","self":{"href":"https://test.api.amadeus.com/v1/reference-data/locations/pois/BD29CF2CCD","methods":["GET"]},"geoCode":{"latitude":41.399193,"longitude":2.159853},"name":"Con Gracia","category":"RESTAURANT","rank":100,"tags":["restaurant","sightseeing","commercialplace","professionalservices","activities"]},{"type":"location","subType":"POINT_OF_INTEREST","id":"24DE6CE737","self":{"href":"https://test.api.amadeus.com/v1/reference-data/locations/pois/24DE6CE737","methods":["GET"]},"geoCode":{"latitude":41.390198,"longitude":2.156974},"name":"Osmosis","category":"RESTAURANT","rank":100,"tags":["restaurant","shopping","transport","professionalservices"]}],"meta":{"count":120,"links":{"self":"https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873","next":"https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&page[offset]=10&page[limit]=10","last":"https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&page[offset]=120&page[limit]=10","first":"https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873&page[offset]=0&page[limit]=10","up":"https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=41.397158&longitude=2.160873"}}}''';
 
+@GenerateMocks([AmadeusFakeDataProvider])
 void main() {
   group('Amadeus API methods', () {
-    AmadeusBaseDataProvider amadeusBaseDataProvider;
-    AmadeusRepository amadeusRepository;
+    late AmadeusBaseDataProvider amadeusBaseDataProvider;
+    late AmadeusRepository amadeusRepository;
 
     setUp(() {
       amadeusBaseDataProvider = AmadeusFakeDataProvider();
@@ -33,7 +34,7 @@ void main() {
 
     group('Airline Code Lookup', () {
       test('fromJson Airline model output', () async {
-        final airline = await amadeusRepository.getAirlineCodeLookup(null);
+        final airline = await amadeusRepository.getAirlineCodeLookup('');
 
         expect(
           airline,
@@ -48,7 +49,8 @@ void main() {
 
     group('Nearest Airport', () {
       test('fromJson Airport model List output', () async {
-        final airports = await amadeusRepository.getNearestAirport(null);
+        final airports =
+            await amadeusRepository.getNearestAirport(Location.unknown());
 
         expect(airports.length, 6);
         expect(
@@ -110,7 +112,7 @@ void main() {
 
     group('Airport & City Search', () {
       test('fromJson Airport model List output', () async {
-        final airports = await amadeusRepository.getAirportCitySearch(null);
+        final airports = await amadeusRepository.getAirportCitySearch('');
 
         // fake data have 2 similar values (city and airport code), if both same then it
         // will be filtered while doing fromJson because we only need unique city codes
@@ -140,7 +142,8 @@ void main() {
 
     group('Safety Rate', () {
       test('fromJson SafetyRate model List output', () async {
-        final safetyRate = await amadeusRepository.getSafePlace(null);
+        final safetyRate =
+            await amadeusRepository.getSafePlace(Location.unknown());
 
         expect(
           safetyRate,
@@ -163,7 +166,7 @@ void main() {
 
     group('Hotel Search', () {
       test('fromJson Hotel model List output', () async {
-        final hotels = await amadeusRepository.getHotelSearch(cityCode: null);
+        final hotels = await amadeusRepository.getHotelSearch(cityCode: '');
 
         expect(hotels.length, 2);
         expect(
@@ -187,7 +190,7 @@ void main() {
               ),
               contact: HotelContact(
                 phone: '1-305-436-1811',
-                email: null,
+                email: '',
               ),
               amenities: [
                 'HANDICAP_FAC',
@@ -247,7 +250,7 @@ void main() {
               ),
               contact: HotelContact(
                 phone: '33-1-47273330',
-                email: null,
+                email: '',
               ),
               amenities: [
                 'BAR',
@@ -286,10 +289,10 @@ void main() {
     group('Flight Offers Search', () {
       test('fromJson Flight Offer model List output', () async {
         final flightOffers = await amadeusRepository.getFlightOffersSearch(
-          originCity: null,
-          destinationCity: null,
-          departureDate: null,
-          adults: null,
+          originCity: '',
+          destinationCity: '',
+          departureDate: '',
+          adults: 0,
         );
 
         expect(flightOffers.length, 3);
@@ -398,8 +401,7 @@ void main() {
 
     group('Flight Most Travelled', () {
       test('fromJson Destination model List output', () async {
-        final destinations =
-            await amadeusRepository.getFlightMostTravelled(null);
+        final destinations = await amadeusRepository.getFlightMostTravelled('');
 
         expect(
           destinations,
@@ -422,7 +424,7 @@ void main() {
     group('Travel Recommendation', () {
       test('fromJson Destination model List output', () async {
         final destinations =
-            await amadeusRepository.getTravelRecommendation(null);
+            await amadeusRepository.getTravelRecommendation(const <String>[]);
 
         expect(destinations.length, 2);
 
@@ -438,8 +440,8 @@ void main() {
 
     group('Points of Interests', () {
       test('fromJson POI List output', () async {
-        final pois =
-            await amadeusRepository.getPointsOfInterest(location: null);
+        final pois = await amadeusRepository.getPointsOfInterest(
+            location: Location.unknown());
 
         print(pois);
         expect(pois.length, 10);
@@ -470,8 +472,8 @@ void main() {
       });
 
       group('fromJson POI List output (mock)', () {
-        MockAmadeusFakeDataProvider mockAmadeusFakeDataProvider;
-        AmadeusRepository amadeusRepository;
+        late MockAmadeusFakeDataProvider mockAmadeusFakeDataProvider;
+        late AmadeusRepository amadeusRepository;
 
         setUp(() {
           mockAmadeusFakeDataProvider = MockAmadeusFakeDataProvider();
@@ -482,14 +484,14 @@ void main() {
 
         test('omit null items on which was throwed an exception', () async {
           when(mockAmadeusFakeDataProvider.getRawPointsOfInterest(
-                  location: null))
+                  location: Location.unknown()))
               .thenAnswer((_) async => mockFakePoiData);
 
-          final pois =
-              await amadeusRepository.getPointsOfInterest(location: null);
+          final pois = await amadeusRepository.getPointsOfInterest(
+              location: Location.unknown());
 
           verify(mockAmadeusFakeDataProvider.getRawPointsOfInterest(
-                  location: null))
+                  location: Location.unknown()))
               .called(1);
 
           expect(pois.length, 2);

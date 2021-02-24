@@ -38,8 +38,8 @@ void main() {
       );
 
       // or via Global Key and Render Object:
-      final RenderDecoratedBox renderConstrainedBox =
-          containerKey.currentContext.findRenderObject() as RenderDecoratedBox;
+      final renderConstrainedBox =
+          containerKey.currentContext!.findRenderObject() as RenderDecoratedBox;
       final boxDecoration = (renderConstrainedBox.decoration as BoxDecoration);
       expect(
         boxDecoration.toString().contains(mAssetPath),
@@ -86,7 +86,7 @@ void main() {
       );
 
       final renderImage =
-          imageKey.currentContext.findRenderObject() as RenderImage;
+          imageKey.currentContext!.findRenderObject() as RenderImage;
       expect(renderImage.image, isNull);
     });
   });
@@ -111,7 +111,7 @@ void main() {
       );
 
       final renderImage =
-          imageKey.currentContext.findRenderObject() as RenderImage;
+          imageKey.currentContext!.findRenderObject() as RenderImage;
       expect(renderImage.image, isNull);
     });
   });
@@ -219,7 +219,7 @@ void main() {
 
   group('launchGeoUrl function', () {
     const validLocation = Location(latitude: 51.507351, longitude: -0.127758);
-    const invalidLocation = Location(latitude: 0, longitude: 14.5);
+    final invalidLocation = Location.unknown();
 
     const snackBarErrorMsg = 'Error: Can not open these coordinates.';
 

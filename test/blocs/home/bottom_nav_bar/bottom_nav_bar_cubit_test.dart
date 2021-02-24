@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:virtual_traveller_flutter/blocs/home/bottom_nav_bar/bottom_nav_bar_cubit.dart';
 
 void main() {
-  BottomNavBarCubit bottomNavBarCubit;
+  late BottomNavBarCubit bottomNavBarCubit;
 
   setUp(() {
     bottomNavBarCubit = BottomNavBarCubit();
