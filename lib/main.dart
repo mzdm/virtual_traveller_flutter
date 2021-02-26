@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:virtual_traveller_flutter/blocs/home/event/logo_counter_cubit.dart';
@@ -87,12 +88,12 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           return Scaffold(
             body: Builder(
               builder: (context) {
-                if (DebugConfig.quotaSaveMode && !quotaInfoShown) {
+                if (DebugConfig.quotaSaveMode && kIsWeb && !quotaInfoShown) {
                   quotaInfoShown = true;
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
                       'App is running in quota save mode. '
-                          'This means that the app uses fake data instead API calls. See more in README.',
+                      'This means that the app uses fake data instead API calls. See more in README.',
                     ),
                   ));
                 }
