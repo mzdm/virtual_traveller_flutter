@@ -8,9 +8,9 @@ jobs:
     strategy:
       matrix:
         device:
-          - "iPhone 8 (14.3)"
-          - "iPhone SE (2nd generation) (14.3)"
-          - "iPhone 11 Pro Max (14.3)"
+          - "iPhone 8 (14.4)"
+          - "iPhone SE (2nd generation) (14.4)"
+          - "iPhone 11 Pro Max (14.4)"
       # When set to true, GitHub cancels all in-progress jobs if any matrix job fails.
       fail-fast: false
     runs-on: macOS-latest
