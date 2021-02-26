@@ -272,30 +272,34 @@ class _HomePageState extends State<HomePage> {
                   ),
                 );
               },
-              // ignore: missing_return
               suggestionsCallback: (keyword) {
                 // TODO: When user clicks on any suggestion, Suggestion Box will dismiss,
                 // and when user clicks again into the TextField it will call with the same
                 // value inside the TextField. This causes too much same API calls, so this
                 // should be cached.
-                if (keyword != '' && !_searchSubmitted) {
-                  return context
-                      .read<AmadeusRepository>()
-                      .getAirportCitySearch(keyword);
-                }
-                return const <Airport>[];
+
+                // if (keyword != '' && !_searchSubmitted) {
+                //   return context
+                //       .read<AmadeusRepository>()
+                //       .getAirportCitySearch(keyword);
+                // }
+
+                return context
+                    .read<AmadeusRepository>()
+                    .getAirportCitySearch(keyword);
               },
               debounceDuration: _textEditingController.text.length == 1
                   ? Duration(milliseconds: 0)
                   : Duration(milliseconds: 750),
-              itemBuilder: (context, suggestion) {
+              itemBuilder: (_, suggestion) {
                 final airportAddress = (suggestion as Airport).address;
 
                 return ListTile(
                   dense: true,
                   title: Text(airportAddress.cityCode),
                   subtitle: Text(
-                      '${airportAddress.cityName}, ${airportAddress.countryName}'),
+                    '${airportAddress.cityName}, ${airportAddress.countryName}',
+                  ),
                 );
               },
               transitionBuilder: (context, suggestionsBox, controller) {
