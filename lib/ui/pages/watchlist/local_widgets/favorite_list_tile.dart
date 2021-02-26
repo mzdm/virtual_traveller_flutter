@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 
 class FavoriteListTile extends StatefulWidget {
   FavoriteListTile({
-    Key key,
-    @required this.cityCode,
-    @required this.cityName,
-    this.onPressed,
-  })  : assert(cityName != null),
-        super(key: key);
+    Key? key,
+    required this.cityCode,
+    required this.cityName,
+    required this.onPressed,
+  }) : super(key: key);
 
   final String cityCode;
   final String cityName;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   _FavoriteListTileState createState() => _FavoriteListTileState();

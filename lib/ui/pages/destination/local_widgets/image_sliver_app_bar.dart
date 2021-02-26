@@ -4,15 +4,14 @@ import 'package:virtual_traveller_flutter/utils/utils.dart';
 
 class ImageSliverAppBar extends StatelessWidget {
   const ImageSliverAppBar({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
     this.assetName,
     this.twoLineTitle = false,
-    this.actions,
-  })  : assert(title != null),
-        super(key: key);
+    this.actions = const <Widget>[],
+  })  : super(key: key);
 
-  final String assetName;
+  final String? assetName;
   final String title;
   final bool twoLineTitle;
   final List<Widget> actions;
@@ -33,7 +32,7 @@ class ImageSliverAppBar extends StatelessWidget {
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       image: AssetImage(
-                        Utils.getImageAsset(assetName),
+                        Utils.getImageAsset(assetName!),
                       ),
                     ),
                   ),

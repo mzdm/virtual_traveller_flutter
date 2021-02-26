@@ -23,9 +23,9 @@ class DestinationInfoPage extends StatelessWidget {
   static Route route(
     BuildContext context, {
     bool displayFlights = true,
-    @required String cityCode,
-    @required String cityName,
-    @required Location location,
+    required String cityCode,
+    required String cityName,
+    required Location location,
   }) {
     final amadeusRepo = context.read<AmadeusRepository>();
 
@@ -68,16 +68,15 @@ class DestinationInfoPage extends StatelessWidget {
     );
   }
 
-  String getCityName(BuildContext context) {
-    return ModalRoute.of(context).settings.arguments;
-  }
+  String getCityName(BuildContext context) =>
+      ModalRoute.of(context)!.settings.arguments as String;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          buildSliverAppBar(getCityName(context) ?? ''),
+          buildSliverAppBar(getCityName(context)),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
@@ -134,7 +133,7 @@ class DestinationInfoPage extends StatelessWidget {
                     child: Text(
                       'Info',
                       maxLines: 1,
-                      style: Theme.of(context).textTheme.headline4.copyWith(
+                      style: Theme.of(context).textTheme.headline4!.copyWith(
                             fontSize: 28.0,
                             color: Colors.black,
                           ),
@@ -174,10 +173,10 @@ class DestinationInfoPage extends StatelessWidget {
                     flex: 3,
                     fit: FlexFit.tight,
                     child: Text(
-                      'Region code: ${address?.regionCode}\n'
-                      'Country: ${address?.countryName}\n'
-                      'Country code: ${address?.countryCode}',
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      'Region code: ${address.regionCode}\n'
+                      'Country: ${address.countryName}\n'
+                      'Country code: ${address.countryCode}',
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             color: Color(0x8a000000),
                           ),
                     ),
@@ -191,7 +190,7 @@ class DestinationInfoPage extends StatelessWidget {
                     child: Text(
                       'Latitude: ${state.geoData.geoCode?.latitude}\n'
                       'Longitude: ${state.geoData.geoCode?.longitude}\n',
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             color: Color(0x8a000000),
                           ),
                     ),
@@ -241,7 +240,7 @@ class DestinationInfoPage extends StatelessWidget {
                               maxLines: 1,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline4
+                                  .headline4!
                                   .copyWith(
                                     color: Colors.black,
                                   ),
@@ -250,7 +249,7 @@ class DestinationInfoPage extends StatelessWidget {
                           Text(
                             'Avg. temperature last week',
                             style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                Theme.of(context).textTheme.bodyText1!.copyWith(
                                       color: Color(0x8a000000),
                                     ),
                           ),
@@ -291,7 +290,7 @@ class DestinationInfoPage extends StatelessWidget {
                                   maxLines: 1,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline4
+                                      .headline4!
                                       .copyWith(
                                         fontSize: 28.0,
                                         color: Colors.black,
@@ -306,7 +305,7 @@ class DestinationInfoPage extends StatelessWidget {
                                         maxLines: 2,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyText1
+                                            .bodyText1!
                                             .copyWith(
                                               color: state.result.color,
                                             ),
@@ -317,7 +316,7 @@ class DestinationInfoPage extends StatelessWidget {
                                       '-',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText1
+                                          .bodyText1!
                                           .copyWith(
                                             color: Color(0x8a000000),
                                           ),

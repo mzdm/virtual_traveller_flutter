@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:virtual_traveller_flutter/config/app/debug_config.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/api_service.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
@@ -58,17 +57,17 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
 
   @override
   Future<String> getRawFlightOffersSearch({
-    @required String originCity,
-    @required String destinationCity,
-    @required String departureDate,
-    String returnDate,
-    @required int adults,
-    int children,
-    int infants,
-    String travelClass,
-    bool nonStop,
-    String currencyCode,
-    int maxPrice,
+    required String originCity,
+    required String destinationCity,
+    required String departureDate,
+    String? returnDate,
+    required int adults,
+    int? children,
+    int? infants,
+    String? travelClass,
+    bool? nonStop,
+    String? currencyCode,
+    int? maxPrice,
   }) async {
     final endpointPath = 'v2/shopping/flight-offers';
     final queryParams = {
@@ -149,8 +148,8 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
 
   @override
   Future<String> getRawHotelSearch({
-    @required String cityCode,
-    String language,
+    required String cityCode,
+    String? language,
   }) async {
     final endpointPath = 'v2/shopping/hotel-offers';
     final queryParams = {
@@ -180,8 +179,8 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
 
   @override
   Future<String> getRawPointsOfInterest({
-    @required Location location,
-    List<String> categories,
+    required Location location,
+    List<String>? categories,
   }) async {
     final endpointPath = 'v1/reference-data/locations/pois';
     final queryParams = {

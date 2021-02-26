@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -10,7 +9,7 @@ import 'package:virtual_traveller_flutter/ui/pages/destination/local_widgets/exp
 class PoisPage extends StatelessWidget {
   static Route route(
     BuildContext context, {
-    @required String cityName,
+    required String cityName,
   }) {
     return MaterialPageRoute(
       settings: RouteSettings(arguments: cityName),
@@ -25,7 +24,7 @@ class PoisPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String cityName = ModalRoute.of(context).settings.arguments;
+    final cityName = ModalRoute.of(context)!.settings.arguments as String;
 
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +32,7 @@ class PoisPage extends StatelessWidget {
       ),
       body: Container(
         child: BlocBuilder<PoisCubit, PoisState>(
-          builder: (context, state) {
+          builder: (_, state) {
             if (state is PoisLoading) {
               return buildPoiLoading();
             }
@@ -59,13 +58,17 @@ class PoisPage extends StatelessWidget {
 
   Widget buildPoiLoading() {
     return Shimmer.fromColors(
-      baseColor: Colors.grey[300],
-      highlightColor: Colors.grey[100],
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
       child: ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: 10,
-        itemBuilder: (_, index) {
-          return buildExpansionCard(poi: null, poiLocation: null);
+        itemBuilder: (_, __) {
+          return buildExpansionCard(
+            cityName: '',
+            poi: POI(name: '', category: CategoryPOI.BEACH_PARK),
+            poiLocation: Location.unknown(),
+          );
         },
       ),
     );
@@ -92,16 +95,16 @@ class PoisPage extends StatelessWidget {
   }
 
   Padding buildExpansionCard({
-    String cityName,
-    @required POI poi,
-    @required Location poiLocation,
+    required String cityName,
+    required POI poi,
+    Location? poiLocation,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
       child: ExpansionCard(
         cityName: cityName,
-        poiName: poi?.name ?? '',
-        poiCategory: poi?.category,
+        poiName: poi.name,
+        poiCategory: poi.category,
         poiLocation: poiLocation == null
             ? null
             : Location(

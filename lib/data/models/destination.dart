@@ -12,8 +12,8 @@ abstract class Destination with _$Destination {
 
   @Assert('subtype == \'CITY\'', 'destination is not city')
   const factory Destination.iata({
-    @required @JsonKey(name: 'iataCode') String name,
-    @required String subtype,
+    @JsonKey(name: 'iataCode') required String name,
+    required String subtype,
   }) = DestinationIATA;
 
   factory Destination.fromJson(Map<String, dynamic> json) => _$DestinationFromJson(json);

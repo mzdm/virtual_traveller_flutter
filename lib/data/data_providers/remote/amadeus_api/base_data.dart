@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 
 // TODO: Add APIs: Multicity search; AI Photos
@@ -7,7 +6,6 @@ import 'package:virtual_traveller_flutter/data/models/location.dart';
 /// *Flights related*:
 /// - [getRawNearestAirport]
 /// - [getRawFlightOffersSearch]
-/// - [getRawFlightCheapestDateSearch]
 /// - [getRawAirportCitySearch]
 /// - [getRawAirlineCodeLookup]
 ///
@@ -47,17 +45,17 @@ abstract class AmadeusBaseDataProvider {
   ///
   /// *[Flight Offers Search API docs](https://developers.amadeus.com/self-service/category/air/api-doc/flight-offers-search/api-reference)*
   Future<String> getRawFlightOffersSearch({
-    @required String originCity,
-    @required String destinationCity,
-    @required String departureDate,
-    String returnDate,
-    @required int adults,
-    int children,
-    int infants,
-    String travelClass,
-    bool nonStop,
-    String currencyCode,
-    int maxPrice,
+    required String originCity,
+    required String destinationCity,
+    required String departureDate,
+    String? returnDate,
+    required int adults,
+    int? children,
+    int? infants,
+    String? travelClass,
+    bool? nonStop,
+    String? currencyCode,
+    int? maxPrice,
   });
 
   /// *"Which cities and airports begin with Lon..?"*
@@ -135,8 +133,8 @@ abstract class AmadeusBaseDataProvider {
   ///
   /// *[Hotel Search API docs](https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search/api-reference)*
   Future<String> getRawHotelSearch({
-    @required String cityCode,
-    String language,
+    required String cityCode,
+    String? language,
   });
 
   /// *"What are the best places to visit in Barcelona?"*
@@ -151,8 +149,8 @@ abstract class AmadeusBaseDataProvider {
   ///
   /// *[Points of Interest API docs](https://developers.amadeus.com/self-service/category/destination-content/api-doc/points-of-interest/api-reference)*
   Future<String> getRawPointsOfInterest({
-    @required Location location,
-    List<String> categories,
+    required Location location,
+    List<String>? categories,
   });
 
   /// *"How safe is this location?"*

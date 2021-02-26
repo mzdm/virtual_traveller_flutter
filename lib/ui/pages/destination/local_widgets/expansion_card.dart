@@ -7,10 +7,10 @@ import 'package:virtual_traveller_flutter/utils/utils.dart';
 
 class ExpansionCard extends StatelessWidget {
   ExpansionCard({
-    Key key,
-    this.cityName,
-    @required this.poiName,
-    @required this.poiCategory,
+    Key? key,
+    this.cityName = '',
+    required this.poiName,
+    required this.poiCategory,
     this.poiLocation,
   })  : categoryMatcherData = CategoryMatcherData(poiCategory: poiCategory),
         super(key: key);
@@ -18,7 +18,7 @@ class ExpansionCard extends StatelessWidget {
   final String cityName;
   final String poiName;
   final CategoryPOI poiCategory;
-  final Location poiLocation;
+  final Location? poiLocation;
 
   final CategoryMatcherData categoryMatcherData;
 
@@ -52,8 +52,8 @@ class ExpansionCard extends StatelessWidget {
 
   Widget _buildVisibleContent(
     BuildContext context, {
-    @required String name,
-    @required CategoryPOI category,
+    required String name,
+    required CategoryPOI category,
   }) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -66,7 +66,7 @@ class ExpansionCard extends StatelessWidget {
             padding: const EdgeInsets.all(6.0),
             child: RawChip(
               label: Text(
-                category?.replaceUnderscores() ?? '',
+                category.replaceUnderscores(),
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -86,8 +86,8 @@ class ExpansionCard extends StatelessWidget {
 
   List<Widget> _buildHiddenContent(
     BuildContext context, {
-    @required Location poiLocation,
-    @required String poiName,
+    required String poiName,
+    Location? poiLocation,
   }) {
     return <Widget>[
       Material(
@@ -137,7 +137,7 @@ class ExpansionCard extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
-            final cityStr = cityName == null ? '' : '+$cityName';
+            final cityStr = '+$cityName';
             Utils.launchUrl(
               context,
               url:
@@ -158,8 +158,8 @@ class ExpansionCard extends StatelessWidget {
   }
 
   Tooltip _buildListTileIcon({
-    @required String tooltip,
-    @required IconData icon,
+    required String tooltip,
+    required IconData icon,
   }) {
     return Tooltip(
       message: tooltip,

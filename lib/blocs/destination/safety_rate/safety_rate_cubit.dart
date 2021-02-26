@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/geo/geo_cubit.dart';
@@ -16,8 +13,8 @@ class SafetyRateCubit extends Cubit<SafetyRateState> {
   // StreamSubscription _geoSubscription;
 
   SafetyRateCubit({
-    @required this.geoCubit,
-    @required this.amadeusRepository,
+    required this.geoCubit,
+    required this.amadeusRepository,
   }) : super(SafetyRateInitial()) {
     // _geoSubscription = geoCubit.listen((geoState) {
     //   if (geoState is GeoSuccess) {
@@ -35,37 +32,33 @@ class SafetyRateCubit extends Cubit<SafetyRateState> {
   final GeoCubit geoCubit;
   final AmadeusRepository amadeusRepository;
 
-  void fetchSafetyRating({@required Location location}) async {
+  void fetchSafetyRating({required Location location}) async {
     try {
       final safetyRatesList = await amadeusRepository.getSafePlace(location);
-      if (safetyRatesList != null) {
-        final score = safetyRatesList.safetyScores?.overall;
-        if (score != null) {
-          final safetyTextResult = _getSafetyResult(score);
-          return emit(SafetyRateSuccess(safetyTextResult));
-        }
-      }
-      return emit(SafetyRateFailure('Could not fetch safety data'));
+      final score = safetyRatesList.safetyScores.overall;
+      final safetyTextResult = _getSafetyResult(score);
+
+      return emit(SafetyRateSuccess(safetyTextResult));
     } catch (e) {
       print(e);
 
-      final errorMsg = e is Response
-          ? e.reasonPhrase
-          : e is SocketException
-              ? e.toString()
-              : e.toString();
-      emit(SafetyRateFailure(errorMsg));
+      final errorMsg = e is Response ? e.reasonPhrase ?? '' : e.toString();
+      emit(SafetyRateFailure('Could not fetch safety data:\n$errorMsg'));
     }
   }
 
   /// See [SafetyRate] on how it is calculated.
   _SafetyResult _getSafetyResult(int score) {
+    if (score == -1) {
+      return _SafetyResult('unknown', Colors.grey);
+    }
+
     if (score <= 12) {
       return _SafetyResult('very safe', Colors.green);
     }
 
     if (score <= 28) {
-      return _SafetyResult('safe', Colors.teal[300]);
+      return _SafetyResult('safe', Colors.teal[300]!);
     }
 
     if (score <= 43) {
@@ -77,11 +70,11 @@ class SafetyRateCubit extends Cubit<SafetyRateState> {
     }
 
     if (score <= 73) {
-      return _SafetyResult('quite dangerous', Colors.red[200]);
+      return _SafetyResult('quite dangerous', Colors.red[200]!);
     }
 
     if (score <= 88) {
-      return _SafetyResult('dangerous', Colors.redAccent[100]);
+      return _SafetyResult('dangerous', Colors.redAccent[100]!);
     }
 
     return _SafetyResult('very dangerous', Colors.red);

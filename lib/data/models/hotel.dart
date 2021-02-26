@@ -7,14 +7,14 @@ part 'hotel.g.dart';
 @freezed
 abstract class Hotel with _$Hotel {
   const factory Hotel({
-    @required String name,
-    @required @JsonKey(name: 'rating') String stars,
-    double latitude,
-    double longitude,
-    HotelDistance hotelDistance,
-    HotelAddress address,
-    HotelContact contact,
-    List<String> amenities,
+    required String name,
+    @JsonKey(name: 'rating') required  String stars,
+    @Default(0) double latitude,
+    @Default(0) double longitude,
+    HotelDistance? hotelDistance,
+    HotelAddress? address,
+    HotelContact? contact,
+    @Default(<String>[]) List<String> amenities,
   }) = _Hotel;
 
   factory Hotel.fromJson(Map<String, dynamic> json) => _$HotelFromJson(json);
@@ -23,8 +23,8 @@ abstract class Hotel with _$Hotel {
 @freezed
 abstract class HotelDistance with _$HotelDistance {
   const factory HotelDistance({
-    double distance,
-    String distanceUnit,
+    @Default(0) double distance,
+    @Default('KM') String distanceUnit,
   }) = _HotelDistance;
 
   factory HotelDistance.fromJson(Map<String, dynamic> json) => _$HotelDistanceFromJson(json);
@@ -33,9 +33,9 @@ abstract class HotelDistance with _$HotelDistance {
 @freezed
 abstract class HotelAddress with _$HotelAddress {
   const factory HotelAddress({
-    String countryCode,
-    String cityName,
-    List<String> lines,
+    @Default('') String countryCode,
+    @Default('') String cityName,
+    @Default(<String>[]) List<String> lines,
   }) = _HotelAddress;
 
   factory HotelAddress.fromJson(Map<String, dynamic> json) => _$HotelAddressFromJson(json);
@@ -44,8 +44,8 @@ abstract class HotelAddress with _$HotelAddress {
 @freezed
 abstract class HotelContact with _$HotelContact {
   const factory HotelContact({
-    String phone,
-    String email,
+    @Default('') String phone,
+    @Default('') String email,
   }) = _HotelContact;
 
   factory HotelContact.fromJson(Map<String, dynamic> json) => _$HotelContactFromJson(json);

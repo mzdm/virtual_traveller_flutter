@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 
 class FlightDestinationSearchSwitcher extends StatelessWidget {
   const FlightDestinationSearchSwitcher({
-    Key key,
-    this.onPressed,
-    @required this.icon,
-    @required this.label,
+    Key? key,
+    required this.onPressed,
+    required this.icon,
+    required this.label,
     this.isPressed = false,
-  })  : assert(icon != null),
-        assert(label != null),
-        assert(isPressed != null),
-        super(key: key);
+  })  : super(key: key);
 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final IconData icon;
   final String label;
   final bool isPressed;

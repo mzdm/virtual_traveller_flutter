@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:meta/meta.dart';
 import 'package:virtual_traveller_flutter/data/data_providers/remote/amadeus_api/base_data.dart';
 import 'package:virtual_traveller_flutter/data/models/airline.dart';
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
@@ -29,9 +28,7 @@ import 'package:virtual_traveller_flutter/data/models/safety_rate.dart';
 /// - [getPointsOfInterest]
 /// - [getSafePlace]
 class AmadeusRepository {
-  AmadeusRepository({
-    @required this.amadeusBaseDataProvider,
-  }) : assert(amadeusBaseDataProvider != null);
+  const AmadeusRepository({required this.amadeusBaseDataProvider});
 
   final AmadeusBaseDataProvider amadeusBaseDataProvider;
 
@@ -66,21 +63,21 @@ class AmadeusRepository {
     }).toList()
       ..removeWhere((element) => element == null);
 
-    return airports;
+    return List<Airport>.from(airports);
   }
 
   Future<List<FlightOffer>> getFlightOffersSearch({
-    @required String originCity,
-    @required String destinationCity,
-    @required String departureDate,
-    String returnDate,
-    @required int adults,
+    required String originCity,
+    required String destinationCity,
+    required String departureDate,
+    String? returnDate,
+    required int adults,
     int children = 0,
     int infants = 0,
-    String travelClass,
-    bool nonStop,
-    String currencyCode = 'USD',
-    int maxPrice,
+    String? travelClass,
+    bool? nonStop,
+    String currencyCode = 'EUR',
+    int? maxPrice,
   }) async {
     final rawData = await amadeusBaseDataProvider.getRawFlightOffersSearch(
       originCity: originCity,
@@ -111,7 +108,7 @@ class AmadeusRepository {
     }).toList()
       ..removeWhere((element) => element == null);
 
-    return flightOffers;
+    return List<FlightOffer>.from(flightOffers);
   }
 
   Future<List<Airport>> getAirportCitySearch(
@@ -143,7 +140,7 @@ class AmadeusRepository {
     }).toList()
       ..removeWhere((element) => element == null);
 
-    return airports;
+    return List<Airport>.from(airports);
   }
 
   Future<Airline> getAirlineCodeLookup(
@@ -178,7 +175,7 @@ class AmadeusRepository {
     }).toList()
       ..removeWhere((element) => element == null);
 
-    return destinations;
+    return List<DestinationBase>.from(destinations);
   }
 
   Future<List<Destination>> getTravelRecommendation(
@@ -198,12 +195,12 @@ class AmadeusRepository {
     }).toList()
       ..removeWhere((element) => element == null);
 
-    return destinations;
+    return List<DestinationIATA>.from(destinations);
   }
 
   Future<List<Hotel>> getHotelSearch({
-    @required String cityCode,
-    String language,
+    required String cityCode,
+    String? language,
   }) async {
     print('DATA CALLED: getHotelSearch (src: amadeus_repository.dart)');
 
@@ -227,12 +224,12 @@ class AmadeusRepository {
     }).toList()
       ..removeWhere((element) => element == null);
 
-    return hotels;
+    return List<Hotel>.from(hotels);
   }
 
   Future<List<POI>> getPointsOfInterest({
-    @required Location location,
-    List<CategoryPOI> categoriesList,
+    required Location location,
+    List<CategoryPOI>? categoriesList,
   }) async {
     final categoriesStrList = categoriesList == null
         ? null
@@ -254,7 +251,7 @@ class AmadeusRepository {
     }).toList()
       ..removeWhere((element) => element == null);
 
-    return pois;
+    return List<POI>.from(pois);
   }
 
   Future<SafetyRate> getSafePlace(
@@ -263,8 +260,17 @@ class AmadeusRepository {
     final rawData = await amadeusBaseDataProvider.getRawSafePlace(location);
     final data = json.decode(rawData)['data'][0];
 
-    final safetyRate = SafetyRate.fromJson(data);
+    SafetyRate? safetyRate;
+    try {
+      safetyRate = SafetyRate.fromJson(data);
+    } catch (e) {
+      print(e);
+    }
 
-    return safetyRate;
+    return safetyRate ??
+        SafetyRate(
+          subType: 'CITY',
+          safetyScores: SafetyScores(overall: -1),
+        );
   }
 }

@@ -6,7 +6,7 @@ import '../test_helpers.dart';
 
 void main() {
   group('Navigating through Bottom Navigation Bar items', () {
-    FlutterDriver driver;
+    late FlutterDriver driver;
 
     // Connect to the Flutter driver before running any tests.
     setUpAll(() async {
@@ -15,9 +15,7 @@ void main() {
 
     // Close the connection to the driver after the tests have completed.
     tearDownAll(() async {
-      if (driver != null) {
-        await driver.close();
-      }
+      await driver.close();
     });
 
     // Define the Finders and use them to locate widgets from the test suite.

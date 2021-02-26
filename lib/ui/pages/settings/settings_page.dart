@@ -1,4 +1,4 @@
-import 'package:clean_settings/clean_settings.dart';
+import 'package:clean_settings_nnbd/clean_settings_nnbd.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:virtual_traveller_flutter/blocs/settings/settings_bloc.dart';

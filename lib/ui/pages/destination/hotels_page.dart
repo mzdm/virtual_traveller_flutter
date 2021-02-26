@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -57,8 +56,8 @@ class HotelsPage extends StatelessWidget {
       itemCount: 20,
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
-          baseColor: Colors.grey[350],
-          highlightColor: Colors.grey[100],
+          baseColor: Colors.grey[350]!,
+          highlightColor: Colors.grey[100]!,
           child: SizedBox(
             height: 130.0,
             child: Card(

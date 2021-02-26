@@ -27,7 +27,7 @@ class MostPopularDestinationsCubit extends Cubit<MostPopularDestinationsState> {
       }
     } catch (e) {
       final errorMsg = e is Response
-          ? e.reasonPhrase
+          ? e.reasonPhrase ?? ''
           : 'An error has occurred while fetching the data.';
       emit(MostPopularDestinationsFailure(errorMsg));
     }
