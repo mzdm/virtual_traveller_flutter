@@ -90,12 +90,14 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
               builder: (context) {
                 if (DebugConfig.quotaSaveMode && kIsWeb && !quotaInfoShown) {
                   quotaInfoShown = true;
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(
-                      'App is running in quota save mode. '
-                      'This means that the app uses fake data instead API calls. See more in README.',
-                    ),
-                  ));
+                  WidgetsBinding.instance!.addPostFrameCallback((_) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                        'App is running in quota save mode. '
+                        'This means that the app uses fake data instead API calls. See more in README.',
+                      ),
+                    ));
+                  });
                 }
 
                 return MultiBlocProvider(
