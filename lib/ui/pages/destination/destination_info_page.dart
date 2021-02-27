@@ -13,11 +13,12 @@ import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.d
 import 'package:virtual_traveller_flutter/ui/pages/destination/pois_page.dart';
 import 'package:virtual_traveller_flutter/utils/extensions.dart';
 import 'package:virtual_traveller_flutter/utils/utils.dart';
+import 'package:virtual_traveller_flutter/utils/responsive_extensions.dart';
 
 import 'hotels_page.dart';
 import 'local_widgets/image_sliver_app_bar.dart';
 import 'local_widgets/rounded_icon_card.dart';
-import 'local_widgets/rounded_vertical_card.dart';
+import 'local_widgets/explore_card.dart';
 
 class DestinationInfoPage extends StatelessWidget {
   static Route route(
@@ -357,7 +358,7 @@ class DestinationInfoPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Flexible(
-              child: RoundedVerticalCard(
+              child: ExploreCard(
                 title: 'Hotels',
                 assetName: 'destination_hotels.jpg',
                 onTap: () {
@@ -368,9 +369,15 @@ class DestinationInfoPage extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(width: 8.0),
             Flexible(
-              child: RoundedVerticalCard(
+              child: SizedBox(
+                width: context.isMobileSize
+                    ? 8.0
+                    : MediaQuery.of(context).size.width * 0.05,
+              ),
+            ),
+            Flexible(
+              child: ExploreCard(
                 title: 'Points of Interests',
                 assetName: 'destination_pois.jpg',
                 onTap: () {

@@ -13,9 +13,7 @@ class HotelDetailsPage extends StatelessWidget {
     required Hotel hotel,
   }) {
     return MaterialPageRoute(
-      builder: (_) {
-        return HotelDetailsPage();
-      },
+      builder: (_) => HotelDetailsPage(),
       settings: RouteSettings(
         arguments: hotel,
       ),
