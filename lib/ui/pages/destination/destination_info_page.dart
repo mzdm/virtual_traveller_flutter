@@ -370,6 +370,7 @@ class DestinationInfoPage extends StatelessWidget {
               ),
             ),
             Flexible(
+              flex: context.isMobileSize ? 0 : 1,
               child: SizedBox(
                 width: context.isMobileSize
                     ? 8.0

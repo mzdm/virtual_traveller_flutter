@@ -16,17 +16,13 @@ class ExploreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.isMobileSize
-        ? SizedBox(
-            width: 170.0,
-            height: 230.0,
-            child: buildCard(context),
-          )
-        : SizedBox(
-            width: MediaQuery.of(context).size.width * 0.9,
-            height: 230.0,
-            child: buildCard(context),
-          );
+    return SizedBox(
+      width: context.isMobileSize
+          ? 170.0
+          : MediaQuery.of(context).size.width * 0.9,
+      height: 230.0,
+      child: buildCard(context),
+    );
   }
 
   Card buildCard(BuildContext context) {
