@@ -51,6 +51,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
               : Padding(
                   padding: const EdgeInsets.only(top: 6.0),
                   child: ReorderableListView(
+                    buildDefaultDragHandles: false,
                     onReorder: (oldIndex, newIndex) =>
                         _reorder(oldIndex, newIndex),
                     children: [
@@ -65,25 +66,28 @@ class _WatchlistPageState extends State<WatchlistPage> {
                         //       });
                         //     }
                         //   },
-                        FavoriteListTile(
+                        ReorderableDragStartListener(
                           key: UniqueKey(),
-                          cityCode: watchListItems[i].cityCode,
-                          cityName: watchListItems[i].cityName,
-                          onPressed: () {
-                            print('clicked favorite');
-                            ScaffoldMessenger.of(context)
-                                .removeCurrentSnackBar();
-                            Navigator.push(
-                              context,
-                              DestinationInfoPage.route(
+                          index: i,
+                          child: FavoriteListTile(
+                            cityCode: watchListItems[i].cityCode,
+                            cityName: watchListItems[i].cityName,
+                            onPressed: () {
+                              print('clicked favorite');
+                              ScaffoldMessenger.of(context)
+                                  .removeCurrentSnackBar();
+                              Navigator.push(
                                 context,
-                                // TODO: reduce code duplication
-                                cityCode: watchListItems[i].cityCode,
-                                cityName: watchListItems[i].cityName,
-                                location: watchListItems[i].location,
-                              ),
-                            );
-                          },
+                                DestinationInfoPage.route(
+                                  context,
+                                  // TODO: reduce code duplication
+                                  cityCode: watchListItems[i].cityCode,
+                                  cityName: watchListItems[i].cityName,
+                                  location: watchListItems[i].location,
+                                ),
+                              );
+                            },
+                          ),
                         ),
                     ],
                   ),
