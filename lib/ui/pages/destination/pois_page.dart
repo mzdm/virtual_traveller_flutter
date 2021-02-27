@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/poi/pois_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/location.dart';
 import 'package:virtual_traveller_flutter/data/models/poi.dart';
 import 'package:virtual_traveller_flutter/ui/pages/destination/local_widgets/expansion_card.dart';
+import 'package:virtual_traveller_flutter/ui/pages/destination/local_widgets/poi_shimmer_loading.dart';
 
 class PoisPage extends StatelessWidget {
   static Route route(
@@ -34,7 +34,7 @@ class PoisPage extends StatelessWidget {
         child: BlocBuilder<PoisCubit, PoisState>(
           builder: (_, state) {
             if (state is PoisLoading) {
-              return buildPoiLoading();
+              return PoiShimmerLoading();
             }
 
             if (state is PoisSuccess) {
@@ -52,24 +52,6 @@ class PoisPage extends StatelessWidget {
             return Container();
           },
         ),
-      ),
-    );
-  }
-
-  Widget buildPoiLoading() {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        itemCount: 10,
-        itemBuilder: (_, __) {
-          return buildExpansionCard(
-            cityName: '',
-            poi: POI(name: '', category: CategoryPOI.BEACH_PARK),
-            poiLocation: Location.unknown(),
-          );
-        },
       ),
     );
   }
@@ -94,7 +76,7 @@ class PoisPage extends StatelessWidget {
     );
   }
 
-  Padding buildExpansionCard({
+  Widget buildExpansionCard({
     required String cityName,
     required POI poi,
     Location? poiLocation,

@@ -4,7 +4,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:virtual_traveller_flutter/blocs/home/event/logo_counter_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/home/flight_destination_switcher/flight_destination_switcher_cubit.dart';
 import 'package:virtual_traveller_flutter/blocs/home/most_popular_destinations/most_popular_destinations_cubit.dart';
@@ -13,6 +12,7 @@ import 'package:virtual_traveller_flutter/consts/local_keys.dart';
 import 'package:virtual_traveller_flutter/data/models/airport.dart';
 import 'package:virtual_traveller_flutter/data/models/destination.dart';
 import 'package:virtual_traveller_flutter/data/repositories/amadeus_repository.dart';
+import 'package:virtual_traveller_flutter/ui/pages/home/local_widgets/destination_loading_shimmer.dart';
 import 'package:virtual_traveller_flutter/utils/responsive_extensions.dart';
 import 'package:virtual_traveller_flutter/utils/utils.dart';
 
@@ -421,7 +421,7 @@ class _HomePageState extends State<HomePage> {
             MostPopularDestinationsState>(
           builder: (context, state) {
             if (state is MostPopularDestinationsLoading) {
-              return buildMostPopularDestinationsLoading();
+              return DestinationLoadingShimmer();
             }
 
             if (state is MostPopularDestinationsSuccess) {
@@ -440,20 +440,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     ];
-  }
-
-  Widget buildMostPopularDestinationsLoading() {
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: 4,
-      itemBuilder: (_, __) {
-        return Shimmer.fromColors(
-          baseColor: Colors.grey[300]!,
-          highlightColor: Colors.grey[100]!,
-          child: DestinationRoundedCard(cityCode: ''),
-        );
-      },
-    );
   }
 
   Widget buildMostPopularDestinationsSuccess(List<Destination> data) {

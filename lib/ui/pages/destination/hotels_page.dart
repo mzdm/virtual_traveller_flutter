@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:virtual_traveller_flutter/blocs/destination/hotels/hotels_cubit.dart';
 import 'package:virtual_traveller_flutter/data/models/hotel.dart';
 import 'package:virtual_traveller_flutter/ui/pages/destination/hotel_details_page.dart';
+import 'package:virtual_traveller_flutter/ui/pages/destination/local_widgets/hotel_loading_shimmer.dart';
 import 'package:virtual_traveller_flutter/utils/extensions.dart';
 
 class HotelsPage extends StatelessWidget {
@@ -28,7 +28,7 @@ class HotelsPage extends StatelessWidget {
         child: BlocBuilder<HotelsCubit, HotelsState>(
           builder: (context, state) {
             if (state is HotelsLoading) {
-              return buildHotelsLoading();
+              return HotelLoadingShimmer();
             }
 
             if (state is HotelsSuccess) {
@@ -47,38 +47,6 @@ class HotelsPage extends StatelessWidget {
           },
         ),
       ),
-    );
-  }
-
-  Widget buildHotelsLoading() {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      itemCount: 20,
-      itemBuilder: (context, index) {
-        return Shimmer.fromColors(
-          baseColor: Colors.grey[350]!,
-          highlightColor: Colors.grey[100]!,
-          child: SizedBox(
-            height: 130.0,
-            child: Card(
-              color: Colors.transparent,
-              elevation: 1.5,
-              child: ListTile(
-                title: Text(
-                  'Hotel name',
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-                trailing: Icon(
-                  Icons.star,
-                  size: 15.0,
-                ),
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 
@@ -192,7 +160,7 @@ class HotelsPage extends StatelessWidget {
                                         padding:
                                             const EdgeInsets.only(left: 10.0),
                                         child: Text(
-                                          '${hotel.hotelDistance?.distance?.toString() ?? '-'} ${hotel.hotelDistance?.distanceUnit ?? '-'}',
+                                          '${hotel.hotelDistance?.distance.toString() ?? '-'} ${hotel.hotelDistance?.distanceUnit ?? '-'}',
                                           style: TextStyle(
                                             color: Colors.grey[800],
                                             fontSize: 12.0,
