@@ -4,23 +4,23 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0-0 <3.0.0"
-  flutter: ">=1.27.0-0" # this constraint is needed for integration tests, may be removed
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.22.0"
 
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
   http: ^0.13.0 # https://pub.dev/packages/http
-  rxdart: ^0.26.0-nullsafety.1 # https://pub.dev/packages/rxdart https://rxmarbles.com/
+  rxdart: ^0.26.0 # https://pub.dev/packages/rxdart https://rxmarbles.com/
   equatable: ^2.0.0-nullsafety.3 # https://pub.dev/packages/equatable
   flutter_bloc: ^7.0.0-nullsafety.2 # https://pub.dev/packages/flutter_bloc https://bloclibrary.dev/#/
   bloc_test: ^8.0.0-nullsafety.0 # https://pub.dev/packages/bloc_test
-  mockito: ^5.0.0 # https://pub.dev/packages/mockito
-  freezed: ^0.13.0-nullsafety.2 # https://pub.dev/packages/freezed
+  mockito: ^5.0.0-nullsafety.7 # https://pub.dev/packages/mockito
+  freezed: ^0.14.0+1 # https://pub.dev/packages/freezed
   json_serializable: ^4.0.1 # https://pub.dev/packages/json_serializable
   shared_preferences: ^2.0.0 # https://pub.dev/packages/shared_preferences
-  url_launcher: ^6.0.0 # https://pub.dev/packages/url_launcher
+  url_launcher: ^6.0.2 # https://pub.dev/packages/url_launcher
   iso_duration_parser: ^0.2.0 # https://pub.dev/packages/iso_duration_parser
 #  geolocator: ^7.0.1 # https://pub.dev/packages/geolocator
 
@@ -43,9 +43,6 @@ dev_dependencies:
     sdk: flutter
   pedantic: ^1.10.0 # https://pub.dev/packages/pedantic
   build_runner: ^1.11.5 # https://pub.dev/packages/build_runner
-
-dependency_overrides:
-  analyzer: '1.0.0'
 
 flutter:
   uses-material-design: true

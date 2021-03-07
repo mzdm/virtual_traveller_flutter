@@ -1,3 +1,5 @@
+// @dart = 2.9
+
 import 'bottom_nav_bar/bottom_nav_bar_test.dart' as bottom_nav_bar_test;
 
 void main() {

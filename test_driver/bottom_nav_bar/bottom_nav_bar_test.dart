@@ -1,3 +1,5 @@
+// @dart = 2.9
+
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 import 'package:virtual_traveller_flutter/consts/local_keys.dart';
@@ -6,7 +8,7 @@ import '../test_helpers.dart';
 
 void main() {
   group('Navigating through Bottom Navigation Bar items', () {
-    late FlutterDriver driver;
+    FlutterDriver driver;
 
     // Connect to the Flutter driver before running any tests.
     setUpAll(() async {
