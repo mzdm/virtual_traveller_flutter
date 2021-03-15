@@ -43,7 +43,7 @@ class HotelsPage extends StatelessWidget {
               return buildHotelsFailure(state.message);
             }
 
-            return Container();
+            return const SizedBox();
           },
         ),
       ),

@@ -435,7 +435,7 @@ class _HomePageState extends State<HomePage> {
               );
             }
 
-            return Container();
+            return const SizedBox();
           },
         ),
       ),
@@ -495,7 +495,7 @@ class _HomePageState extends State<HomePage> {
               );
             }
 
-            return Container();
+            return const SizedBox();
           },
         );
       },

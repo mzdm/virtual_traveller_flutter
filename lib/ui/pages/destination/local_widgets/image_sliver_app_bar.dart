@@ -26,7 +26,7 @@ class ImageSliverAppBar extends StatelessWidget {
       flexibleSpace: Stack(
         children: [
           assetName == null
-              ? Container()
+              ? const SizedBox()
               : Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(

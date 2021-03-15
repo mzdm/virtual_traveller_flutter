@@ -444,7 +444,7 @@ class DestinationInfoPage extends StatelessWidget {
                 ),
               );
             }
-            return Container();
+            return const SizedBox();
           },
         ),
         SizedBox(height: 200.0),

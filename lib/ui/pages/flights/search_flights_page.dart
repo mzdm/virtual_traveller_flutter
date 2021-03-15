@@ -125,7 +125,7 @@ class _SearchFlightsPageState extends State<SearchFlightsPage> {
                         ),
                       );
                     }
-                    return Container();
+                    return const SizedBox();
                   },
                 ),
               ),

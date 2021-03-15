@@ -49,7 +49,7 @@ class PoisPage extends StatelessWidget {
               print('failure');
             }
 
-            return Container();
+            return const SizedBox();
           },
         ),
       ),
