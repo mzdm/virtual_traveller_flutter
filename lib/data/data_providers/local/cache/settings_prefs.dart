@@ -10,48 +10,48 @@ class SettingsPrefs {
     _sharedPrefs.setString(SettingsKeys.departure, value);
   }
 
-  Future<String> get departure async {
-    return await _sharedPrefs.getString(SettingsKeys.departure) ?? 'Boston,BOS';
+  String get departure {
+    return _sharedPrefs.getString(SettingsKeys.departure) ?? 'Boston,BOS';
   }
 
   void setLanguage(String value) {
     _sharedPrefs.setString(SettingsKeys.lang, value);
   }
 
-  Future<String> get language async {
-    return await _sharedPrefs.getString(SettingsKeys.lang) ?? 'en-US';
+  String get language {
+    return _sharedPrefs.getString(SettingsKeys.lang) ?? 'en-US';
   }
 
   void setCurrency(String value) {
     _sharedPrefs.setString(SettingsKeys.curr, value);
   }
 
-  Future<String> get currency async {
-    return await _sharedPrefs.getString(SettingsKeys.curr) ?? 'EUR';
+  String get currency {
+    return _sharedPrefs.getString(SettingsKeys.curr) ?? 'EUR';
   }
 
   void setTemperature(String value) {
     _sharedPrefs.setString(SettingsKeys.temp, value);
   }
 
-  Future<String> get temperature async {
-    return await _sharedPrefs.getString(SettingsKeys.temp) ?? 'Celsius';
+  String get temperature {
+    return _sharedPrefs.getString(SettingsKeys.temp) ?? 'Celsius';
   }
 
   void setLengthUnit(String value) {
     _sharedPrefs.setString(SettingsKeys.lengthUnit, value);
   }
 
-  Future<String> get lengthUnit async {
-    return await _sharedPrefs.getString(SettingsKeys.lengthUnit) ?? 'km';
+  String get lengthUnit {
+    return _sharedPrefs.getString(SettingsKeys.lengthUnit) ?? 'km';
   }
 
   void setTheme(String value) {
     _sharedPrefs.setString(SettingsKeys.theme, value);
   }
 
-  Future<String> get theme async {
-    return await _sharedPrefs.getString(SettingsKeys.theme) ?? 'darkBlue';
+  String get theme {
+    return _sharedPrefs.getString(SettingsKeys.theme) ?? 'darkBlue';
   }
 
   void removeValue(String key) {

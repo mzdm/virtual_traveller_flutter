@@ -23,6 +23,7 @@ class WayTypeSelectionCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.elliptical(10.0, 10.0)),
         ),
+        color: isSelected ? Theme.of(context).primaryColor : Colors.white,
         child: InkWell(
           onTap: onTap,
           child: Center(
@@ -36,7 +37,6 @@ class WayTypeSelectionCard extends StatelessWidget {
             ),
           ),
         ),
-        color: isSelected ? Theme.of(context).primaryColor : Colors.white,
       ),
     );
   }

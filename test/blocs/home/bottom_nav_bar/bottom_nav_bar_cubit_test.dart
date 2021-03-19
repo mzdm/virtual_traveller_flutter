@@ -74,7 +74,7 @@ void main() {
       blocTest<BottomNavBarCubit, int>(
         'emits nothing when we go to the same index',
         build: () => bottomNavBarCubit,
-        seed: 0,
+        seed: () => 0,
         act: (cubit) => cubit.changeNavBarItem(0),
         expect: () => [],
       );

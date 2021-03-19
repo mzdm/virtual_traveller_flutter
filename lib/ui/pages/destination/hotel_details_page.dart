@@ -23,7 +23,7 @@ class HotelDetailsPage extends StatelessWidget {
     );
   }
 
-  late Hotel _hotel;
+  late final Hotel _hotel;
 
   @override
   Widget build(BuildContext context) {

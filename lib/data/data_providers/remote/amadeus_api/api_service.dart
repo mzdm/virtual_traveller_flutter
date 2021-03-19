@@ -28,7 +28,7 @@ class ApiService {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body:
-          'grant_type=client_credentials&client_id=${_apiKey}&client_secret=${_secretKey}',
+          'grant_type=client_credentials&client_id=$_apiKey&client_secret=$_secretKey',
     );
 
     if (response.statusCode == 200) {
@@ -90,12 +90,12 @@ class ApiService {
       final response = await http.get(
         uri,
         headers: {
-          'Authorization': 'Bearer ${accessToken}',
+          'Authorization': 'Bearer $accessToken',
         },
       );
 
       debugPrint(
-        'Request ${uri.toString()} with token: ${accessToken}\n'
+        'Request ${uri.toString()} with token: $accessToken\n'
         'Response: ${response.statusCode}: ${response.reasonPhrase}',
       );
 

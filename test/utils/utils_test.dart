@@ -160,7 +160,6 @@ void main() {
 
   group('launchUrl function', () {
     const validUrl = 'https://www.google.com/maps';
-    const invalidUrl = '';
 
     const snackBarErrorMsg = 'Error: Can not open the website';
 

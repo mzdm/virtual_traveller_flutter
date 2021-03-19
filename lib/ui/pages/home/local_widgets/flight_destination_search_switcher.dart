@@ -18,6 +18,13 @@ class FlightDestinationSearchSwitcher extends StatelessWidget {
   Widget build(BuildContext context) {
     return RaisedButton(
       onPressed: onPressed,
+      color: isPressed ? Colors.black.withAlpha(50) : Colors.transparent,
+      elevation: 0.0,
+      highlightElevation: 0.0,
+      hoverElevation: 0.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(40.0),
+      ),
       child: Row(
         children: [
           Icon(
@@ -35,13 +42,6 @@ class FlightDestinationSearchSwitcher extends StatelessWidget {
             ),
           ),
         ],
-      ),
-      color: isPressed ? Colors.black.withAlpha(50) : Colors.transparent,
-      elevation: 0.0,
-      highlightElevation: 0.0,
-      hoverElevation: 0.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(40.0),
       ),
     );
   }

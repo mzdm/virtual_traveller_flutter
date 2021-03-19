@@ -35,7 +35,7 @@ class AmadeusRemoteDataProvider implements AmadeusBaseDataProvider {
       final monthStr = subtractMonths.month.toString();
       final formattedMonth =
           monthStr.length == 1 ? '0${subtractMonths.month}' : monthStr;
-      return '${subtractMonths.year}-${formattedMonth}';
+      return '${subtractMonths.year}-$formattedMonth';
     }
     // In the test environment not all dates are available.
     return '2018-03';

@@ -239,16 +239,16 @@ class _HomePageState extends State<HomePage> {
                             );
                           }
                         },
-                        child: Icon(
-                          Icons.search,
-                          size: 16.0,
-                          color: Colors.grey,
-                        ),
                         color: Colors.white,
                         elevation: 7.0,
                         highlightElevation: 0.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50.0),
+                        ),
+                        child: Icon(
+                          Icons.search,
+                          size: 16.0,
+                          color: Colors.grey,
                         ),
                       ),
                     ),

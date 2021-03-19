@@ -204,13 +204,13 @@ class HotelsPage extends StatelessWidget {
           ),
           SizedBox(height: 20.0),
           OutlinedButton(
-            child: Text('Go back', textAlign: TextAlign.center),
             style: ButtonStyle(
               side: MaterialStateProperty.resolveWith(
                 (states) => BorderSide(color: Theme.of(context).primaryColor),
               ),
             ),
             onPressed: () => Navigator.pop(context),
+            child: Text('Go back', textAlign: TextAlign.center),
           ),
         ],
       ),

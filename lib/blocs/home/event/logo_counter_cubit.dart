@@ -5,7 +5,7 @@ class LogoCounterCubit extends Cubit<List<String>> {
 
   void logoFound(String id) {
     if (state.length < 3 && !state.contains(id)) {
-      final updatedList = [...state]..add(id);
+      final updatedList = [...state, id];
       emit(updatedList);
     }
   }

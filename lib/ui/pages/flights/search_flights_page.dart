@@ -225,14 +225,6 @@ class _SearchFlightsPageState extends State<SearchFlightsPage> {
       height: 50.0,
       child: ElevatedButton(
         onPressed: () {},
-        child: Text(
-          'Search Flights',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18.0,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
         style: ButtonStyle(
           elevation: MaterialStateProperty.all<double>(0),
           // highlightElevation: 0.0,
@@ -246,6 +238,14 @@ class _SearchFlightsPageState extends State<SearchFlightsPage> {
                 0.35,
               )!,
             ),
+          ),
+        ),
+        child: Text(
+          'Search Flights',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18.0,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),
