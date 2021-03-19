@@ -18,6 +18,7 @@ dependencies:
   bloc_test: ^8.0.0 # https://pub.dev/packages/bloc_test
   mockito: ^5.0.0-nullsafety.7 # https://pub.dev/packages/mockito
   freezed: ^0.14.1 # https://pub.dev/packages/freezed
+  freezed_annotation: ^0.14.1 # https://pub.dev/packages/freezed_annotation
   json_serializable: ^4.0.2 # https://pub.dev/packages/json_serializable
   shared_preferences: ^2.0.5 # https://pub.dev/packages/shared_preferences
   url_launcher: ^6.0.2 # https://pub.dev/packages/url_launcher
