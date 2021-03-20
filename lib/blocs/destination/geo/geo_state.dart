@@ -6,7 +6,7 @@ abstract class GeoState extends Equatable {
 
 class GeoInitial extends GeoState {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class GeoSuccess extends GeoState {
@@ -15,7 +15,7 @@ class GeoSuccess extends GeoState {
   final Airport geoData;
 
   @override
-  List<Object> get props => [geoData];
+  List<Object?> get props => [geoData];
 }
 
 class GeoFailure extends GeoState {
@@ -24,5 +24,5 @@ class GeoFailure extends GeoState {
   final String message;
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

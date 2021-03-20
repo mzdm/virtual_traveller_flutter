@@ -6,12 +6,12 @@ abstract class PoisState extends Equatable {
 
 class PoisInitial extends PoisState {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class PoisLoading extends PoisState {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class PoisSuccess extends PoisState {
@@ -20,12 +20,12 @@ class PoisSuccess extends PoisState {
   final List<POI> pois;
 
   @override
-  List<Object> get props => [pois];
+  List<Object?> get props => [pois];
 }
 
 class PoisEmpty extends PoisState {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class PoisFailure extends PoisState {
@@ -34,5 +34,5 @@ class PoisFailure extends PoisState {
   final String message;
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

@@ -94,5 +94,5 @@ class _SafetyResult extends Equatable {
   final Color color;
 
   @override
-  List<Object> get props => [text, color];
+  List<Object?> get props => [text, color];
 }

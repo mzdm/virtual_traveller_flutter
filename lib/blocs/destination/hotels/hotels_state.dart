@@ -6,12 +6,12 @@ abstract class HotelsState extends Equatable {
 
 class HotelsInitial extends HotelsState {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class HotelsLoading extends HotelsState {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class HotelsSuccess extends HotelsState {
@@ -20,12 +20,12 @@ class HotelsSuccess extends HotelsState {
   final List<Hotel> hotels;
 
   @override
-  List<Object> get props => [hotels];
+  List<Object?> get props => [hotels];
 }
 
 class HotelsEmpty extends HotelsState {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class HotelsFailure extends HotelsState {
@@ -34,5 +34,5 @@ class HotelsFailure extends HotelsState {
   final String message;
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

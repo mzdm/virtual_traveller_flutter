@@ -6,12 +6,12 @@ abstract class MostPopularDestinationsState extends Equatable {
 
 class MostPopularDestinationsInitial extends MostPopularDestinationsState {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class MostPopularDestinationsLoading extends MostPopularDestinationsState {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class MostPopularDestinationsSuccess extends MostPopularDestinationsState {
@@ -20,7 +20,7 @@ class MostPopularDestinationsSuccess extends MostPopularDestinationsState {
   final List<Destination> data;
 
   @override
-  List<Object> get props => [data];
+  List<Object?> get props => [data];
 }
 
 class MostPopularDestinationsFailure extends MostPopularDestinationsState {
@@ -29,5 +29,5 @@ class MostPopularDestinationsFailure extends MostPopularDestinationsState {
   final String message;
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

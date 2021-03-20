@@ -6,7 +6,7 @@ abstract class SafetyRateState extends Equatable {
 
 class SafetyRateInitial extends SafetyRateState {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class SafetyRateSuccess extends SafetyRateState {
@@ -15,7 +15,7 @@ class SafetyRateSuccess extends SafetyRateState {
   final _SafetyResult result;
 
   @override
-  List<Object> get props => [result];
+  List<Object?> get props => [result];
 }
 
 class SafetyRateFailure extends SafetyRateState {
@@ -24,5 +24,5 @@ class SafetyRateFailure extends SafetyRateState {
   final String message;
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }
